@@ -10,3 +10,12 @@ services:
       - ./cogito-nginx/certs/server.crt:/etc/nginx/certs/server.crt
       - ./cogito-nginx/certs/server.key:/etc/nginx/certs/server.key
       - ./static:/var/www/static
+    depends_on:
+        - cogito-backend
+  cogito-backend:
+    build: './cogito-backend'
+    command: 'npm run dev'
+    ports:
+      - '3000:3000'
+    volumes:
+      - './cogito-backend/:/usr/app'

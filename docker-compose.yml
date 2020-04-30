@@ -12,6 +12,8 @@ services:
       - ./static:/var/www/static
     depends_on:
         - cogito-backend
+        - cogito-frontend
+
   cogito-backend:
     build: './cogito-backend'
     command: 'npm run dev'
@@ -19,3 +21,13 @@ services:
       - '3000:3000'
     volumes:
       - './cogito-backend/:/usr/app'
+      - '/usr/app/node_modules'
+
+  cogito-frontend:
+    build: './cogito-frontend'
+    command: 'npm start'
+    ports:
+      - '4200:4200'
+    volumes:
+      - './cogito-frontend/:/usr/app'
+      - '/usr/app/node_modules'

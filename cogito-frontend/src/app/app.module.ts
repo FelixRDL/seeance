@@ -8,6 +8,8 @@ import {SharedModule} from "./shared/shared.module";
 import {LoginModule} from "./login/login.module";
 import {HomeModule} from "./home/home.module";
 import {AuthService} from "./shared/auth.service";
+import {RegisterModule} from "./register/register.module";
+import {HasValidTokenGuard} from "./shared/guards/has-valid-token.guard";
 
 @NgModule({
   declarations: [
@@ -19,10 +21,12 @@ import {AuthService} from "./shared/auth.service";
     BrowserAnimationsModule,
     SharedModule,
     LoginModule,
+    RegisterModule,
     HomeModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    HasValidTokenGuard
   ],
   bootstrap: [AppComponent]
 })

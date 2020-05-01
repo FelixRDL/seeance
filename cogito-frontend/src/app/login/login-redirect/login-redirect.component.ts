@@ -21,6 +21,7 @@ export class LoginRedirectComponent implements OnInit {
           router.navigate(['/']);
         }, (err: any) => {
           console.error(err);
+          router.navigate(['/']);
         })
       } else {
         console.error("No code was provided in login redirect, returning to landing page.");

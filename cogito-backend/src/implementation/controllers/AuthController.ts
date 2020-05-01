@@ -14,8 +14,7 @@ export class AuthController {
 
     validateAccessToken(request: express.Request): Promise<boolean> {
         try {
-            const bearer: string = <string>request.headers.authorization;
-            const token: string = bearer.split(" ")[1];
+            const token: string = <string>request.headers.authorization;
             return VerifyToken(token, this.authManager);
         } catch(e) {
             return Promise.reject(new NoTokenAvailableError());

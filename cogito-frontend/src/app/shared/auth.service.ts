@@ -28,7 +28,7 @@ export class AuthService {
     }
   }
 
-  isTokenValid(token: string): Observable<boolean> {
+  isTokenValid(): Observable<boolean> {
     // @ts-ignore
     return this.http.get<string>('/api/auth/token/validate', {headers: AuthService.getBearerHeader(this.getToken()), responseType: 'boolean'});
   }
@@ -47,6 +47,7 @@ export class AuthService {
 
   static getBearerHeader(token: string): HttpHeaders {
     return new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': token
     });
   }

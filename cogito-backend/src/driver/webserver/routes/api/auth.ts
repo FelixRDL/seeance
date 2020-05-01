@@ -2,6 +2,7 @@
 import * as express from 'express';
 import {AuthController} from "../../../../implementation/controllers/AuthController";
 import {BadVerificationCodeError} from "../../../../implementation/security/GithubAuthManager";
+import {NoTokenProvidedError} from "../../../../logic/use-cases/auth/VerifyToken";
 
 const router = express.Router();
 const controller: AuthController = new AuthController();
@@ -27,7 +28,12 @@ router.get('/token/validate', async (req: express.Request, res: express.Response
             res.status(401).send("Invalid Token");
         }
     } catch (e) {
-        res.status(500).send("Internal Server Error");
+        if (e instanceof NoTokenProvidedError) {
+            res.status(400).send("No token was provided!");
+        } else {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
     }
 });
 export {router}

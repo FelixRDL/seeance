@@ -11,7 +11,7 @@ router.get('/token', async (req: express.Request, res: express.Response) => {
         res.send(token);
     } catch (e) {
         if (e instanceof BadVerificationCodeError) {
-            res.status(400).send("Bad Verification Code");
+            res.status(401).send("Bad Verification Code");
         } else {
             res.status(500).send("Internal Server Error");
         }
@@ -24,7 +24,7 @@ router.get('/token/validate', async (req: express.Request, res: express.Response
         if (isValid) {
             res.send("Valid Token");
         } else {
-            res.status(400).send("Invalid Token");
+            res.status(401).send("Invalid Token");
         }
     } catch (e) {
         res.status(500).send("Internal Server Error");

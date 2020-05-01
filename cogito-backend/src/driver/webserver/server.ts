@@ -17,6 +17,7 @@ process.env.CLIENT_SECRET = github_keys.CLIENT_SECRET;
 // Create a new express application instance
 const app: express.Application = express();
 app.options('*', cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json() );       // to support JSON-encoded bodies
 
 app.use('/', routes.router);

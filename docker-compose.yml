@@ -1,0 +1,33 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "443:443"
+    container_name: cogito-nginx
+    volumes:
+      - ./cogito-nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./cogito-nginx/certs/server.crt:/etc/nginx/certs/server.crt
+      - ./cogito-nginx/certs/server.key:/etc/nginx/certs/server.key
+      - ./static:/var/www/static
+    depends_on:
+        - cogito-backend
+        - cogito-frontend
+
+  cogito-backend:
+    build: './cogito-backend'
+    command: 'npm run dev'
+    ports:
+      - '3000:3000'
+    volumes:
+      - './cogito-backend/:/usr/app'
+      - '/usr/app/node_modules'
+
+  cogito-frontend:
+    build: './cogito-frontend'
+    command: 'npm start'
+    ports:
+      - '4200:4200'
+    volumes:
+      - './cogito-frontend/:/usr/app'
+      - '/usr/app/node_modules'

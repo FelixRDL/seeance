@@ -26,3 +26,5 @@ coverage
 # Benchmarking
 benchmarks/graphs
 build/*
+
+/secret/

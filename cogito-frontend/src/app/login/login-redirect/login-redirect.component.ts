@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../../shared/auth.service";
 
 @Component({
   selector: 'app-login-redirect',
@@ -10,11 +11,17 @@ export class LoginRedirectComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
-      if(params.code !== undefined) {
-        // TODO: get param "code" and create token from it!
+      if (params.code !== undefined) {
+        this.authService.getTokenFromVerificationCode(params.code).subscribe((isValid: boolean) => {
+          console.log("Success:" +isValid);
+          router.navigate(['/']);
+        }, (err: any) => {
+          console.error(err);
+        })
       } else {
         console.error("No code was provided in login redirect, returning to landing page.");
         router.navigate(['/']);

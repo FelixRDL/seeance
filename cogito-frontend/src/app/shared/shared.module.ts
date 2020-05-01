@@ -9,6 +9,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatListModule} from "@angular/material/list";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCommonModule} from "@angular/material/core";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -16,6 +17,7 @@ import {MatCommonModule} from "@angular/material/core";
   declarations: [HeaderComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,

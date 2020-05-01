@@ -41,7 +41,7 @@ export class GithubAuthManager implements AuthManager {
                 if(response.statusCode == 200) {
                     resolve(true);
                 } else if(response.statusCode == 401) {
-                    reject(new InvalidCredentialsError());
+                    resolve(false);
                 } else {
                     reject(new InternalServerError());
                 }

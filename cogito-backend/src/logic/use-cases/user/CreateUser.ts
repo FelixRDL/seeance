@@ -10,6 +10,7 @@ export async function CreateUser(user: User, userManager: UserRepository): Promi
             return userManager.createUser(user);
         }
     } catch(e) {
+        console.error(e);
         return Promise.reject(e);
     }
 }

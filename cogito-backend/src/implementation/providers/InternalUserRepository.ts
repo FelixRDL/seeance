@@ -6,16 +6,21 @@ import {Mapper} from "../../logic/core/Mapper";
 import {AuthController} from "../controllers/AuthController";
 import {InternalServerError} from "../../logic/core/errors/InternalServerError";
 import {InvalidCredentialsError} from "../../logic/repositories/AuthManager";
+import {Model, model} from 'mongoose';
+// @ts-ignore
+import {UserModel} from './../../driver/models/UserModel';
 
 export class InternalUserRepository implements UserRepository {
     private githubApiPath: string = "https://api.github.com/"
 
     createUser(user: User): Promise<User> {
-        return Promise.reject(new MethodNotImplementedError());
+        const model: any = new UserModel(user);
+        // @ts-ignore
+        return <User>model.save();
     }
 
     existsUserWithId(id: string): Promise<boolean> {
-        return Promise.reject(new MethodNotImplementedError());
+        return UserModel.exists({'id': id});
     }
 
     getUserWithId(id: string): Promise<User> {

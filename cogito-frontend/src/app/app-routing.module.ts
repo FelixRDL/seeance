@@ -6,6 +6,7 @@ import {RecentContentsComponent} from "./home/recent-contents/recent-contents.co
 import {RegisterComponent} from "./register/register/register.component";
 import {HasValidTokenGuard} from "./shared/guards/has-valid-token.guard";
 import {IsUserRegisteredGuard} from "./shared/guards/is-user-registered.guard";
+import {IsUserUnregisteredGuard} from "./shared/guards/is-user-unregistered.guard";
 
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
   // {path: '', component: RecentContentsComponent},
   {path: '', component: RecentContentsComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'start', component: StartComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'register', component: RegisterComponent, canActivate: [IsUserUnregisteredGuard]},
   {path: 'auth/callback', component: LoginRedirectComponent}
   ];
 

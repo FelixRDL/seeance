@@ -17,7 +17,7 @@ export class IsUserRegisteredGuard implements CanActivate {
       if(!data) {
         this.router.navigate(['register']);
       } else {
-        this.userService.setUser(data);
+        this.userService.setAuthenticatedUser(data);
           subj.next(true);
       }
       subj.complete();

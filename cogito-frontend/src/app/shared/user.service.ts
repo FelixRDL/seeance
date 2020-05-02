@@ -4,6 +4,7 @@ import {User} from "./core/User";
 import {AuthService} from "./auth.service";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,8 @@ export class UserService {
 
   constructor(
     private authService: AuthService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   registerUser(): Observable<User> {
@@ -27,8 +29,14 @@ export class UserService {
       .pipe(map(data => <User>data));
   }
 
-  setUser(user: User) {
+  setAuthenticatedUser(user: User) {
     this.authenticatedUser.next(user);
+  }
+
+  logout() {
+    this.authenticatedUser.next(undefined);
+    this.authService.clearToken();
+    this.router.navigate(['start']);
   }
 
 }

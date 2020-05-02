@@ -16,7 +16,7 @@ export class InternalUserRepository implements UserRepository {
     createUser(user: User): Promise<User> {
         const model: any = new UserModel(user);
         // @ts-ignore
-        return <User>model.save();
+        return model.save();
     }
 
     existsUserWithId(id: string): Promise<boolean> {
@@ -24,7 +24,7 @@ export class InternalUserRepository implements UserRepository {
     }
 
     getUserWithId(id: string): Promise<User> {
-        return Promise.reject(new MethodNotImplementedError());
+        return UserModel.findOne({'id': id});
     }
 
     async getGithubUserFromToken(token: string): Promise<User> {

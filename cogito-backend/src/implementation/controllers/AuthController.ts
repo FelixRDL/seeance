@@ -20,6 +20,14 @@ export class AuthController {
             return Promise.reject(new NoTokenAvailableError());
         }
     }
+
+    static getBearerAuthHeader(uri: string, token: string): any {
+        return {
+            url: uri,
+            headers: { 'User-Agent': 'Client' },
+            auth: { 'bearer': token }
+        };
+    }
 }
 
 export class NoTokenAvailableError extends Error {

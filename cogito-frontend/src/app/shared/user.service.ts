@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {User} from "./core/User";
 import {AuthService} from "./auth.service";
 import {HttpClient} from "@angular/common/http";
@@ -7,6 +7,8 @@ import {map} from "rxjs/operators";
 
 @Injectable()
 export class UserService {
+
+  authenticatedUser: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
 
   constructor(
     private authService: AuthService,
@@ -23,6 +25,10 @@ export class UserService {
     return this.httpClient.get('/api/user/',
       {headers: AuthService.getBearerHeader(this.authService.getToken())})
       .pipe(map(data => <User>data));
+  }
+
+  setUser(user: User) {
+    this.authenticatedUser.next(user);
   }
 
 }

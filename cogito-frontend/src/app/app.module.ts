@@ -12,6 +12,7 @@ import {RegisterModule} from "./register/register.module";
 import {HasValidTokenGuard} from "./shared/guards/has-valid-token.guard";
 import {UserService} from "./shared/user.service";
 import {IsUserRegisteredGuard} from "./shared/guards/is-user-registered.guard";
+import {IsUserUnregisteredGuard} from "./shared/guards/is-user-unregistered.guard";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {IsUserRegisteredGuard} from "./shared/guards/is-user-registered.guard";
     AuthService,
     UserService,
     HasValidTokenGuard,
-    IsUserRegisteredGuard
+    IsUserRegisteredGuard,
+    IsUserUnregisteredGuard
   ],
   bootstrap: [AppComponent]
 })

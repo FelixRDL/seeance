@@ -1,1 +1,20 @@
-<p>register works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Register for App</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>Cogitate is a platform allowing you for to analyse project repositories. Before you can use the platform, you
+      need to acknowlege some basic information about the usage of BGit and the data, that we store about you.</p>
+
+    <ul>
+      <li>We are using ... for ...</li>
+      <li>... and this for that... </li>
+      <li>... and also some other stuff.</li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="cancel()">Decline</button>
+    <button mat-flat-button color="primary" (click)="register()">Accept</button>
+  </mat-card-actions>
+</mat-card>

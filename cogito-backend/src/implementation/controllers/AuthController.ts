@@ -1,10 +1,10 @@
 import * as express from 'express';
 import {GithubAuthManager} from "../security/GithubAuthManager";
 import {GetAccessTokenFromCode} from "../../logic/use-cases/auth/GetAccessTokenFromCode";
-import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
 import {VerifyToken} from "../../logic/use-cases/auth/VerifyToken";
 
 export class AuthController {
+
     private authManager: GithubAuthManager = new GithubAuthManager();
 
     getAccessToken(request: express.Request): Promise<string> {
@@ -12,12 +12,26 @@ export class AuthController {
         return GetAccessTokenFromCode(token, this.authManager);
     }
 
-    validateAccessToken(request: express.Request): Promise<boolean> {
+    async validateAccessToken(request: express.Request): Promise<boolean> {
         try {
             const token: string = <string>request.headers.authorization;
             return VerifyToken(token, this.authManager);
         } catch(e) {
             return Promise.reject(new NoTokenAvailableError());
+        }
+    }
+
+    async validAccessTokenMw(req: express.Request, res: express.Response, next: any) {
+        try {
+            const result: boolean = await this.validateAccessToken(req);
+            if(!result) {
+                res.status(401).send("Invalid Access Token");
+            } else {
+                next();
+            }
+        } catch(e) {
+            console.error(e);
+            res.status(500).send(e.message);
         }
     }
 

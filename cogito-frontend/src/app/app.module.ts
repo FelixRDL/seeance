@@ -10,6 +10,8 @@ import {HomeModule} from "./home/home.module";
 import {AuthService} from "./shared/auth.service";
 import {RegisterModule} from "./register/register.module";
 import {HasValidTokenGuard} from "./shared/guards/has-valid-token.guard";
+import {UserService} from "./shared/user.service";
+import {IsUserRegisteredGuard} from "./shared/guards/is-user-registered.guard";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {HasValidTokenGuard} from "./shared/guards/has-valid-token.guard";
   ],
   providers: [
     AuthService,
-    HasValidTokenGuard
+    UserService,
+    HasValidTokenGuard,
+    IsUserRegisteredGuard
   ],
   bootstrap: [AppComponent]
 })

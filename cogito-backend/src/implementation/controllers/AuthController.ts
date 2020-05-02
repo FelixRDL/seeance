@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as express from 'express';
 import {GithubAuthManager} from "../security/GithubAuthManager";
 import {GetAccessTokenFromCode} from "../../logic/use-cases/auth/GetAccessTokenFromCode";

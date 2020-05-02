@@ -41,7 +41,7 @@ export class AuthService {
     localStorage.removeItem(this.ls_key);
   }
 
-  private getToken(): string {
+  getToken(): string {
     return localStorage.getItem(this.ls_key);
   }
 

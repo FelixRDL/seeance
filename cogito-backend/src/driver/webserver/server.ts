@@ -1,4 +1,8 @@
 // lib/app.ts
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://database:27017/').then(function() {
+    console.log("Connected DB")
+});
 
 // @ts-ignore
 import  express =  require("express");

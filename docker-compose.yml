@@ -22,6 +22,8 @@ services:
     volumes:
       - './cogito-backend/:/usr/app'
       - '/usr/app/node_modules'
+    depends_on:
+      - database
 
   cogito-frontend:
     build: './cogito-frontend'
@@ -31,3 +33,8 @@ services:
     volumes:
       - './cogito-frontend/:/usr/app'
       - '/usr/app/node_modules'
+
+  database:
+    image: mongo
+    ports:
+      - "27017:27017"

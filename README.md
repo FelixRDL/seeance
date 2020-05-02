@@ -1,1 +1,1 @@
-# cogito - an extensible repository analysis platform for software engineering education
+# cogitation - an extensible repository analysis platform for software engineering education

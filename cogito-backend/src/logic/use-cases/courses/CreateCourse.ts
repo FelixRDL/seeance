@@ -3,8 +3,9 @@ import {UserRepository} from "../../repositories/UserRepository";
 import {Course} from "../../entities/Course";
 import {CourseRepository} from "../../repositories/CourseRepository";
 
-export async function CreateCourse(course: Course, repository: CourseRepository): Promise<Course> {
+export async function CreateCourse(course: Course, user: User, repository: CourseRepository): Promise<Course> {
     try {
+        course.owner = user;
         const isExisting: boolean = await repository.existsCourse(course);
         if(isExisting) {
             return Promise.reject(new CourseAlreadyExistingError());

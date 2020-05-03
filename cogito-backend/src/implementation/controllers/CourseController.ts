@@ -3,6 +3,9 @@ import {CourseRepository} from "../../logic/repositories/CourseRepository";
 import {InternalCourseRepository} from "../providers/InternalCourseRepository";
 import {Course} from "../../logic/entities/Course";
 import {CourseAlreadyExistingError, CreateCourse} from "../../logic/use-cases/courses/CreateCourse";
+import {UserRepository} from "../../logic/repositories/UserRepository";
+import {User} from "../../logic/entities/User";
+import {InternalUserRepository} from "../providers/InternalUserRepository";
 var mongoose = require('mongoose');
 
 export class CourseController {
@@ -10,7 +13,7 @@ export class CourseController {
 
     async createCourse(req: express.Request, res: express.Response) {
         try {
-            const result: Course = await CreateCourse(req.body, this.repository);
+            const result: Course = await CreateCourse(req.body, res.locals.authenticatedUser, this.repository);
             res.json(result);
         } catch(e) {
             if(e instanceof CourseAlreadyExistingError) {

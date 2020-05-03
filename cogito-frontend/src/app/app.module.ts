@@ -13,6 +13,16 @@ import {HasValidTokenGuard} from "./shared/guards/has-valid-token.guard";
 import {UserService} from "./shared/user.service";
 import {IsUserRegisteredGuard} from "./shared/guards/is-user-registered.guard";
 import {IsUserUnregisteredGuard} from "./shared/guards/is-user-unregistered.guard";
+import {MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatListModule} from "@angular/material/list";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatCommonModule} from "@angular/material/core";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MaterialModule} from "./material/material.module";
 
 @NgModule({
   declarations: [
@@ -25,7 +35,8 @@ import {IsUserUnregisteredGuard} from "./shared/guards/is-user-unregistered.guar
     SharedModule,
     LoginModule,
     RegisterModule,
-    HomeModule
+    HomeModule,
+    MaterialModule
   ],
   providers: [
     AuthService,

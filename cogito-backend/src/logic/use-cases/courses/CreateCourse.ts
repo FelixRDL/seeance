@@ -7,7 +7,7 @@ export async function CreateCourse(course: Course, repository: CourseRepository)
     try {
         const isExisting: boolean = await repository.existsCourse(course);
         if(isExisting) {
-            return Promise.reject(new CourseAlreadyExisting());
+            return Promise.reject(new CourseAlreadyExistingError());
         } else {
             return repository.createCourse(course);
         }
@@ -17,9 +17,9 @@ export async function CreateCourse(course: Course, repository: CourseRepository)
     }
 }
 
-export class CourseAlreadyExisting extends Error {
+export class CourseAlreadyExistingError extends Error {
     constructor() {
         super();
-        this.message = "User with id is already existing!";
+        this.message = "Course with user and title already existing!";
     }
 }

@@ -4,11 +4,17 @@ var mongoose = require('mongoose')
 
 
 const CourseSchema = new mongoose.Schema({
-    title: String,
-    owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'};
-    createdDate: Date
+    title: {
+        type: String,
+        required: true
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserModel',
+        required: true
+    }
 }, {timestamps: true});
-const CourseModel = mongoose.model("UserModel", CourseSchema);
+const CourseModel = mongoose.model("CourseModel", CourseSchema);
 
 // Default export
 export {CourseModel}

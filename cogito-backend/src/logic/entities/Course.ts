@@ -4,5 +4,6 @@ export interface Course {
     _id: string;
     title: string;
     owner: User;
-    createdDate: Date
+    createdAt: Date;
+    updatedAt: Date;
 }

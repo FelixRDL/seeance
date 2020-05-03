@@ -23,6 +23,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCommonModule} from "@angular/material/core";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MaterialModule} from "./material/material.module";
+import {CourseService} from "./shared/course.service";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MaterialModule} from "./material/material.module";
   providers: [
     AuthService,
     UserService,
+    CourseService,
     HasValidTokenGuard,
     IsUserRegisteredGuard,
     IsUserUnregisteredGuard

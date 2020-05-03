@@ -7,7 +7,7 @@ import {Observable, Subject} from "rxjs";
 })
 export class AuthService {
 
-  private ls_key: string = 'ghtoken';
+  private static ls_key: string = 'ghtoken';
 
   constructor(
     private http: HttpClient
@@ -34,18 +34,18 @@ export class AuthService {
   }
 
   setToken(token: string): void {
-    localStorage.setItem(this.ls_key, (token));
+    localStorage.setItem(AuthService.ls_key, (token));
   }
 
   clearToken(): void {
-    localStorage.removeItem(this.ls_key);
+    localStorage.removeItem(AuthService.ls_key);
   }
 
   getToken(): string {
-    return localStorage.getItem(this.ls_key);
+    return localStorage.getItem(AuthService.ls_key);
   }
 
-  static getBearerHeader(token: string): HttpHeaders {
+  static getBearerHeader(token: string = localStorage.getItem(AuthService.ls_key)): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': token

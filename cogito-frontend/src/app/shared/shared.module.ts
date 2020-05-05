@@ -10,25 +10,23 @@ import {MatListModule} from "@angular/material/list";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCommonModule} from "@angular/material/core";
 import {HttpClientModule} from "@angular/common/http";
+import { NavbarComponent } from './navbar/navbar.component';
+import {MaterialModule} from "../material/material.module";
+import {RouterModule} from "@angular/router";
 
 
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, NavbarComponent],
   imports: [
     CommonModule,
     HttpClientModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatListModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatCommonModule
+    MaterialModule,
+    RouterModule
   ],
-  exports: [
-    HeaderComponent
-  ]
+    exports: [
+        HeaderComponent,
+        NavbarComponent
+    ]
 })
 export class SharedModule { }

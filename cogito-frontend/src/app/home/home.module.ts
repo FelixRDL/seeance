@@ -10,6 +10,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCommonModule} from "@angular/material/core";
+import {MaterialModule} from "../material/material.module";
 
 
 
@@ -17,14 +18,7 @@ import {MatCommonModule} from "@angular/material/core";
   declarations: [StartComponent, RecentContentsComponent],
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatListModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatCommonModule
+    MaterialModule
   ],
   exports: [
     StartComponent,

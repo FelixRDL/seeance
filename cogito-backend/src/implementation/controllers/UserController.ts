@@ -61,4 +61,16 @@ export class UserController {
             res.status(500).send("Internal Server Error");
         }
     }
+
+    async userRegisteredMw(req: express.Request, res: express.Response, next: any) {
+        const token: string = <string>req.headers.authorization;
+        const user: User = await this.provider.getGithubUserFromToken(token);
+        const result: boolean = await ExistsUserWithId(user.id, this.provider);
+        if(result) {
+            res.locals.authenticatedUser = await GetUserById(user.id, this.provider);
+            next();
+        } else {
+            res.status(401).send("User not registered");
+        }
+    }
 }

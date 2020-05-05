@@ -4,3 +4,10 @@
   height: calc(100% - 64px);
 }
 
+mat-sidenav-container {
+  display: flex;
+  flex-flow: column;
+  /*Subtract height of header*/
+  height: calc(100% - 64px);
+}
+

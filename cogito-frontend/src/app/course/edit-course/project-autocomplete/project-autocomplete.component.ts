@@ -16,8 +16,9 @@ import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 export class ProjectAutocompleteComponent implements OnInit {
   @Output() projectSelected: EventEmitter<Project> = new EventEmitter<Project>();
 
-  private projects: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
-  private projectNameAutocomplete = new FormControl();
+  projects: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
+  projectNameAutocomplete = new FormControl();
+
   constructor(
     private projectService: ProjectService
   ) { }

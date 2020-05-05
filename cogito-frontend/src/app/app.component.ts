@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {UserService} from "./shared/user.service";
 import {User} from "./shared/core/User";
+import {CourseService} from "./shared/course.service";
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,15 @@ export class AppComponent {
 
   authenticatedUser: User;
 
-  constructor(userService: UserService) {
+  constructor(
+    userService: UserService,
+    courseService: CourseService
+  ) {
 
     userService.authenticatedUser.subscribe((user: User) => {
       this.authenticatedUser = user;
-    })
+      courseService.updateCourses();
+    });
   }
 
   title = 'cogito-frontend';

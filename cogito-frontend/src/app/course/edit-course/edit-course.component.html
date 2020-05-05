@@ -1,10 +1,17 @@
 <mat-card>
   <mat-card-content>
-    <h2 class="mat-h2">Hier könnte Ihre Werbung stehen</h2>
+    <h2 class="mat-h2">{{(activeCourse|async)?.title}}</h2>
     <mat-tab-group>
-      <mat-tab label="Meta"></mat-tab>
+      <mat-tab label="General">
+        <br>
+        <h4 class="mat-h4">Here, you can change the general settings of your course, or delete it.</h4>
+        <app-course-editor [action]="'Save'" [model]="(activeCourse|async)"
+                           (onSubmit)="onSaveCourse($event)"></app-course-editor>
+      </mat-tab>
       <mat-tab label="Repositories">
-        <h3 class="mat-h3">Associated Repositories</h3>
+        <br>
+        <h4 class="mat-h4">Search and select a github repository to be added through the search bar below.</h4>
+        <br>
         <app-project-list [projects]="projects"></app-project-list>
         <app-project-autocomplete style="width:100%"
                                   (projectSelected)="onProjectSelected($event)"></app-project-autocomplete>

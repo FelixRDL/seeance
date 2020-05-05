@@ -12,9 +12,9 @@ export class CourseService {
   courses: Subject<Course[]> = new Subject<Course[]>();
 
   constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService
-  ) { }
+    private httpClient: HttpClient
+  ) {
+  }
 
   createCourse(course: Course): Observable<Course> {
       return this.httpClient.post('/api/course/',
@@ -33,5 +33,11 @@ export class CourseService {
     return this.httpClient.get('/api/course/',
       {headers: AuthService.getBearerHeader()})
       .pipe(map(data => <Course[]>data));
+  }
+
+  getCourseById(id: string): Observable<Course> {
+    return this.httpClient.get('/api/course/'+id,
+      {headers: AuthService.getBearerHeader()})
+      .pipe(map(data => <Course>data));
   }
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Course} from "../../shared/core/Course";
 import {ProjectService} from "../../shared/project.service";
@@ -10,8 +10,9 @@ import {Project} from "../../shared/core/Project";
   templateUrl: './course-editor.component.html',
   styleUrls: ['./course-editor.component.scss']
 })
-export class CourseEditorComponent implements OnInit {
+export class CourseEditorComponent implements OnInit, OnChanges {
   @Input() action: string;
+  @Input() model: Course;
   @Output() onSubmit: EventEmitter<Course> = new EventEmitter<Course>();
 
   courseForm = this.fb.group({
@@ -25,6 +26,13 @@ export class CourseEditorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.model) {
+      // populate form from incoming value
+      this.courseForm.patchValue(changes.model.currentValue);
+    }
   }
 
   save(): void {

@@ -4,6 +4,12 @@ import {InternalCourseRepository} from "../providers/InternalCourseRepository";
 import {Course} from "../../logic/entities/Course";
 import {CourseAlreadyExistingError, CreateCourse} from "../../logic/use-cases/courses/CreateCourse";
 import {GetCoursesForUser} from "../../logic/use-cases/courses/GetCoursesForUser";
+import {
+    CourseNotExistingError,
+    GetCourseById,
+    UserNotAuthorizedAccessingCourseError
+} from "../../logic/use-cases/courses/GetCourseById";
+
 var mongoose = require('mongoose');
 
 export class CourseController {
@@ -13,10 +19,10 @@ export class CourseController {
         try {
             const result: Course = await CreateCourse(req.body, res.locals.authenticatedUser, this.repository);
             res.json(result);
-        } catch(e) {
-            if(e instanceof CourseAlreadyExistingError) {
+        } catch (e) {
+            if (e instanceof CourseAlreadyExistingError) {
                 res.status(409).send("Course is already existing!");
-            } else if (e instanceof  mongoose.Error.ValidationError) {
+            } else if (e instanceof mongoose.Error.ValidationError) {
                 res.status(400).send("Invalid course object.")
             }
             console.error(e);
@@ -28,9 +34,26 @@ export class CourseController {
         try {
             const result: Course[] = await GetCoursesForUser(res.locals.authenticatedUser, this.repository);
             res.json(result);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
+        }
+    }
+
+    async getCourseById(req: express.Request, res: express.Response) {
+        try {
+            const result: Course = await GetCourseById(req.params.id, res.locals.authenticatedUser, this.repository);
+            res.json(result);
+        } catch (e) {
+            if (e instanceof UserNotAuthorizedAccessingCourseError) {
+                res.status(401).send("Trying to access unauthorized resource");
+            } else if (e instanceof CourseNotExistingError) {
+                res.status(404).send("The course you are trying to access is not existing");
+            } else {
+                console.error(e);
+                res.status(500).send("Internal Server Error");
+            }
+
         }
     }
 }

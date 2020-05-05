@@ -18,4 +18,8 @@ export class InternalCourseRepository implements CourseRepository {
         return CourseModel.find({owner: user});
     }
 
+    getCourseById(courseId: string): Promise<Course> {
+        return CourseModel.findById(courseId).populate('owner');
+    }
+
 }

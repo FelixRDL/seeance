@@ -1,9 +1,10 @@
 <mat-card>
   <mat-card-content>
+    <h2 class="mat-h2">Hier könnte Ihre Werbung stehen</h2>
     <mat-tab-group>
       <mat-tab label="Meta"></mat-tab>
       <mat-tab label="Repositories">
-        <mat-label>Repositories</mat-label>
+        <h3 class="mat-h3">Associated Repositories</h3>
         <app-project-list [projects]="projects"></app-project-list>
         <app-project-autocomplete style="width:100%"
                                   (projectSelected)="onProjectSelected($event)"></app-project-autocomplete>

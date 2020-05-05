@@ -11,6 +11,10 @@ import {CourseService} from "../shared/course.service";
 import {UserService} from "../shared/user.service";
 import { CreateCourseComponent } from './create-course/create-course.component';
 import {RouterModule} from "@angular/router";
+import {ProjectService} from "../shared/project.service";
+import { ProjectAutocompleteComponent } from './edit-course/project-autocomplete/project-autocomplete.component';
+import { ProjectListComponent } from './edit-course/project-list/project-list.component';
+import { EditCourseComponent } from './edit-course/edit-course.component';
 
 
 
@@ -18,7 +22,10 @@ import {RouterModule} from "@angular/router";
   declarations: [
     CourseComponent,
     CourseEditorComponent,
-    CreateCourseComponent
+    CreateCourseComponent,
+    ProjectAutocompleteComponent,
+    ProjectListComponent,
+    EditCourseComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +36,8 @@ import {RouterModule} from "@angular/router";
   ],
   providers: [
     CourseService,
-    UserService
+    UserService,
+    ProjectService
   ],
   exports: [
     CourseComponent

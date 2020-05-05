@@ -1,5 +1,5 @@
-<mat-selection-list #shoes>
+<mat-selection-list>
   <mat-list-item *ngFor="let course of courses">
-    <a href="#">{{course.title}}</a>
+    <a  [routerLink]="['/courses', course._id]">{{course.title}}</a>
   </mat-list-item>
 </mat-selection-list>

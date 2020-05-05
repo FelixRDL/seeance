@@ -7,6 +7,5 @@
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
-
   <button (click)="save()" [disabled]="!courseForm.valid" mat-flat-button color="primary">{{action}}</button>
 </form>

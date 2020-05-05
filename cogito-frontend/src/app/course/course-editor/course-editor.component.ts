@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Course} from "../../shared/core/Course";
+import {ProjectService} from "../../shared/project.service";
+import {Observable} from "rxjs";
+import {Project} from "../../shared/core/Project";
 
 @Component({
   selector: 'app-course-editor',
@@ -13,10 +16,13 @@ export class CourseEditorComponent implements OnInit {
 
   courseForm = this.fb.group({
     title: ['', Validators.required],
-    description: ['']
+    description: [''],
+    projects: [''],
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
   }

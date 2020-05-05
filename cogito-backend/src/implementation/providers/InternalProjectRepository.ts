@@ -14,7 +14,7 @@ export class InternalProjectRepository implements ProjectRepository {
                 if(error) {
                     reject(error);
                 } else {
-                    let items = JSON.parse(body).items;
+                    let items = JSON.parse(body).items || [];
                     if(items.length > InternalProjectRepository.MAX_AUTOCOMPLETE_LENGTH) {
                         items = items.slice(0, InternalProjectRepository.MAX_AUTOCOMPLETE_LENGTH);
                     }

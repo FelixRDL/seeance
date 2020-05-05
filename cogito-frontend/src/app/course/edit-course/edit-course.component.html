@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Meta"></mat-tab>
+      <mat-tab label="Repositories">
+        <mat-label>Repositories</mat-label>
+        <app-project-list [projects]="projects"></app-project-list>
+        <app-project-autocomplete style="width:100%"
+                                  (projectSelected)="onProjectSelected($event)"></app-project-autocomplete>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

@@ -19,7 +19,7 @@ export class UserController {
                 res.status(409).send("User with id already existing!");
             } else {
                 console.error(e);
-                res.status(500).send("Internal Server Eror");
+                res.status(500).send("Internal Server Error");
             }
         }
     }

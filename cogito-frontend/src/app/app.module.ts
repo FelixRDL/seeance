@@ -24,6 +24,7 @@ import {MatCommonModule} from "@angular/material/core";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MaterialModule} from "./material/material.module";
 import {CourseService} from "./shared/course.service";
+import {CourseModule} from "./course/course.module";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {CourseService} from "./shared/course.service";
     LoginModule,
     RegisterModule,
     HomeModule,
-    MaterialModule
+    MaterialModule,
+    CourseModule
   ],
   providers: [
     AuthService,

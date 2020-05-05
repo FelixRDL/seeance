@@ -16,12 +16,12 @@ export class RecentContentsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.courseService.createCourse(<Course>{
+    /*this.courseService.createCourse(<Course>{
       'title': 'hello world!',
       'description': 'anice lil course'
     }).subscribe((course: Course) => {
         console.log(course);
-    }, error => this.snackBar.open(error.message));
+    }, error => this.snackBar.open(error.message));*/
   }
 
 }

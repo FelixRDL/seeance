@@ -11,6 +11,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCommonModule} from "@angular/material/core";
 import {HttpClientModule} from "@angular/common/http";
 import { NavbarComponent } from './navbar/navbar.component';
+import {MaterialModule} from "../material/material.module";
+import {RouterModule} from "@angular/router";
 
 
 
@@ -19,17 +21,12 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatListModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatCommonModule
+    MaterialModule,
+    RouterModule
   ],
-  exports: [
-    HeaderComponent
-  ]
+    exports: [
+        HeaderComponent,
+        NavbarComponent
+    ]
 })
 export class SharedModule { }

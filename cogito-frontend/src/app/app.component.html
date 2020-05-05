@@ -1,10 +1,10 @@
 <app-header></app-header>
 <mat-sidenav-container stlye="display:flex;flex-direction:row;height:100%;">
 
-  <mat-sidenav mode="side" opened style="width:256px" *ngIf="authenticatedUser">
-    <p>Test</p>
+  <mat-sidenav mode="side" opened style="width:256px;padding:16px;" *ngIf="authenticatedUser">
+    <app-navbar></app-navbar>
   </mat-sidenav>
-  <mat-sidenav-content style="height:100%;">
+  <mat-sidenav-content style="height:100%">
     <div class="content">
       <router-outlet></router-outlet>
     </div>

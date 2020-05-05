@@ -7,12 +7,14 @@ import {RegisterComponent} from "./register/register/register.component";
 import {HasValidTokenGuard} from "./shared/guards/has-valid-token.guard";
 import {IsUserRegisteredGuard} from "./shared/guards/is-user-registered.guard";
 import {IsUserUnregisteredGuard} from "./shared/guards/is-user-unregistered.guard";
+import {CreateCourseComponent} from "./course/create-course/create-course.component";
 
 
 const routes: Routes = [
   /*TODO: add guard routes for authorized user!*/
   // {path: '', component: RecentContentsComponent},
   {path: '', component: RecentContentsComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
+  {path: 'courses', component: CreateCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'start', component: StartComponent},
   {path: 'register', component: RegisterComponent, canActivate: [IsUserUnregisteredGuard]},
   {path: 'auth/callback', component: LoginRedirectComponent}

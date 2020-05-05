@@ -13,11 +13,12 @@ import {HttpClientModule} from "@angular/common/http";
 import { NavbarComponent } from './navbar/navbar.component';
 import {MaterialModule} from "../material/material.module";
 import {RouterModule} from "@angular/router";
+import { NavCourseListComponent } from './navbar/nav-course-list/nav-course-list.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, NavbarComponent],
+  declarations: [HeaderComponent, NavbarComponent, NavCourseListComponent],
   imports: [
     CommonModule,
     HttpClientModule,

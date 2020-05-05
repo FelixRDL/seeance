@@ -8,4 +8,8 @@ router.post('/', async (req: express.Request, res: express.Response) => {
     controller.createCourse(req, res);
 });
 
+router.get('/', async (req: express.Request, res: express.Response) => {
+    controller.listCourses(req, res);
+});
+
 export {router};

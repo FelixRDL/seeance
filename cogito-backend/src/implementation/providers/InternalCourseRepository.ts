@@ -1,7 +1,7 @@
 import {CourseRepository} from "../../logic/repositories/CourseRepository";
-import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
 import {Course} from "../../logic/entities/Course";
 import {CourseModel} from "../../driver/models/CourseModel";
+import {User} from "../../logic/entities/User";
 
 export class InternalCourseRepository implements CourseRepository {
 
@@ -15,7 +15,7 @@ export class InternalCourseRepository implements CourseRepository {
     }
 
     getCoursesForUser(user: User): Promise<Course[]> {
-        return Promise.reject(new MethodNotImplementedError());
+        return CourseModel.find({owner: user});
     }
 
 }

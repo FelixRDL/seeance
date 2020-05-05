@@ -3,9 +3,7 @@ import {CourseRepository} from "../../logic/repositories/CourseRepository";
 import {InternalCourseRepository} from "../providers/InternalCourseRepository";
 import {Course} from "../../logic/entities/Course";
 import {CourseAlreadyExistingError, CreateCourse} from "../../logic/use-cases/courses/CreateCourse";
-import {UserRepository} from "../../logic/repositories/UserRepository";
-import {User} from "../../logic/entities/User";
-import {InternalUserRepository} from "../providers/InternalUserRepository";
+import {GetCoursesForUser} from "../../logic/use-cases/courses/GetCoursesForUser";
 var mongoose = require('mongoose');
 
 export class CourseController {
@@ -21,6 +19,16 @@ export class CourseController {
             } else if (e instanceof  mongoose.Error.ValidationError) {
                 res.status(400).send("Invalid course object.")
             }
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
+    async listCourses(req: express.Request, res: express.Response) {
+        try {
+            const result: Course[] = await GetCoursesForUser(res.locals.authenticatedUser, this.repository);
+            res.json(result);
+        } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
         }

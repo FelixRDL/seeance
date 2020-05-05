@@ -1,1 +1,8 @@
-<a mat-flat-button color="primary" style="float:right;"  [routerLink]="['/courses']" routerLinkActive="active">Create Course</a>
+<div class="column">
+  <!-- float right taken from https://stackoverflow.com/questions/36182635/making-a-flex-item-float-right/36182782 -->
+  <a mat-flat-button color="primary" [routerLink]="['/courses']" routerLinkActive="active">Create
+    Course</a>
+  <app-nav-course-list [courses]="courses|async"></app-nav-course-list>
+</div>
+
+

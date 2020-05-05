@@ -16,6 +16,7 @@ export class RecentContentsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.courseService.updateCourses();
     /*this.courseService.createCourse(<Course>{
       'title': 'hello world!',
       'description': 'anice lil course'

@@ -94,7 +94,7 @@ export class CourseController {
     private async populateProjects(token: string, course: Course): Promise<Course> {
         return new Promise(async (resolve, reject) => {
             const projects: Project[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(token, p)));
-            var courseCopy: Course =  JSON.parse(JSON.stringify(course)) as Course;
+            let courseCopy: Course =  JSON.parse(JSON.stringify(course)) as Course;
             courseCopy.projects = projects;
             resolve(courseCopy);
         })

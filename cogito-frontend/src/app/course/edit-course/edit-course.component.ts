@@ -35,8 +35,11 @@ export class EditCourseComponent implements OnInit {
   }
 
   onProjectSelected(project: Project) {
-    // TODO: handle project already existing
-    this.projects.push(project);
+    this.courses.addProjectToCourse(this.activeCourse.getValue()._id, project).subscribe((course: Course) => {
+      this.activeCourse.next(course);
+    }, (err) => {
+      this.snackbar.open(err.status, "OK");
+    });
   }
 
   onSaveCourse(course: Course) {

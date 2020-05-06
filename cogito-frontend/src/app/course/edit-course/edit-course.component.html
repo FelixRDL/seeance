@@ -12,7 +12,7 @@
         <br>
         <h4 class="mat-h4">Search and select a github repository to be added through the search bar below.</h4>
         <br>
-        <app-project-list [projects]="projects"></app-project-list>
+        <app-project-list [projects]="(activeCourse|async)?.projects"></app-project-list>
         <app-project-autocomplete style="width:100%"
                                   (projectSelected)="onProjectSelected($event)"></app-project-autocomplete>
       </mat-tab>

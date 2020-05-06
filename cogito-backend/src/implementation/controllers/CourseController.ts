@@ -9,11 +9,16 @@ import {
     GetCourseById,
     UserNotAuthorizedAccessingCourseError
 } from "../../logic/use-cases/courses/GetCourseById";
+import {AddProjectToCourseById} from "../../logic/use-cases/courses/AddProjectToCourseById";
+import {Project} from "../../logic/entities/Project";
+import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
+import {InternalProjectRepository} from "../providers/InternalProjectRepository";
 
 var mongoose = require('mongoose');
 
 export class CourseController {
     private repository: CourseRepository = new InternalCourseRepository();
+    private projectRepository: ProjectRepository = new InternalProjectRepository();
 
     async createCourse(req: express.Request, res: express.Response) {
         try {
@@ -32,7 +37,10 @@ export class CourseController {
 
     async listCourses(req: express.Request, res: express.Response) {
         try {
-            const result: Course[] = await GetCoursesForUser(res.locals.authenticatedUser, this.repository);
+            const token: string = <string>req.headers.authorization;
+            let result: Course[] = await GetCoursesForUser(res.locals.authenticatedUser, this.repository);
+            // result = await result.map(async (course: Course) => await this.populateProjects(token, course));
+            result = await Promise.all(result.map((course: Course) => this.populateProjects(token, course)));
             res.json(result);
         } catch (e) {
             console.error(e);
@@ -42,7 +50,9 @@ export class CourseController {
 
     async getCourseById(req: express.Request, res: express.Response) {
         try {
-            const result: Course = await GetCourseById(req.params.id, res.locals.authenticatedUser, this.repository);
+            const token: string = <string>req.headers.authorization;
+            let result: Course = await GetCourseById(req.params.id, res.locals.authenticatedUser, this.repository);
+            result = await this.populateProjects(token, result);
             res.json(result);
         } catch (e) {
             if (e instanceof UserNotAuthorizedAccessingCourseError) {
@@ -55,5 +65,29 @@ export class CourseController {
             }
 
         }
+    }
+
+    async addProjectToCourseById(req: express.Request, res: express.Response) {
+        try {
+            const token: string = <string>req.headers.authorization;
+            let result: Course = await AddProjectToCourseById(req.params.id, req.body as Project, this.repository);
+            result = await this.populateProjects(token, result);
+            res.json(result);
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
+    /**
+     * TODO: This may be solved more elegantly
+     */
+    private async populateProjects(token: string, course: Course): Promise<Course> {
+        return new Promise(async (resolve, reject) => {
+            const projects: Project[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(token, p)));
+            var courseCopy: Course =  JSON.parse(JSON.stringify(course)) as Course;
+            courseCopy.projects = projects;
+            resolve(courseCopy);
+        })
     }
 }

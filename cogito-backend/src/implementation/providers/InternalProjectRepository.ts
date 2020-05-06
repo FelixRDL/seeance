@@ -24,4 +24,18 @@ export class InternalProjectRepository implements ProjectRepository {
             });
         })
     }
+
+    getProjectById(token: string, id: string): Promise<Project> {
+        const uri: string = this.githubApiPath +"repositories/" + id;
+        return new Promise(async(resolve, reject) => {
+            request.get(AuthController.getBearerAuthHeader(uri, token), (err: any, response: any, body: any) => {
+                 if(err) {
+                     reject(err)
+                 } else {
+                     const result: Project = JSON.parse(body);
+                     resolve(result);
+                 }
+            });
+        });
+    }
 }

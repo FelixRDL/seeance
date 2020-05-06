@@ -2,6 +2,7 @@ import {CourseRepository} from "../../logic/repositories/CourseRepository";
 import {Course} from "../../logic/entities/Course";
 import {CourseModel} from "../../driver/models/CourseModel";
 import {User} from "../../logic/entities/User";
+import {Project} from "../../logic/entities/Project";
 
 export class InternalCourseRepository implements CourseRepository {
 
@@ -20,6 +21,25 @@ export class InternalCourseRepository implements CourseRepository {
 
     getCourseById(courseId: string): Promise<Course> {
         return CourseModel.findById(courseId).populate('owner');
+    }
+
+    addProjectToCourse(course: Course, project: Project): Promise<Course> {
+        return CourseModel.updateOne(
+            {_id: course._id},
+            {$push: {'projects': project.id}});
+    }
+
+    containsCourseProject(course: Course, project: Project): Promise<boolean> {
+        return CourseModel.exists({
+            $and: [{
+                _id: course._id
+            }, {
+                projects: {
+                    "$in" : [project.id]
+                }
+            }
+            ]
+        });
     }
 
 }

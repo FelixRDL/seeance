@@ -12,6 +12,10 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
     controller.getCourseById(req, res);
 });
 
+router.post('/:id/projects', async (req: express.Request, res: express.Response) => {
+    controller.addProjectToCourseById(req, res);
+});
+
 router.get('/', async (req: express.Request, res: express.Response) => {
     controller.listCourses(req, res);
 });

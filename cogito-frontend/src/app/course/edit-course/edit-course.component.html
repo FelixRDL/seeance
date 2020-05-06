@@ -5,13 +5,15 @@
       <mat-tab label="General">
         <br>
         <h4 class="mat-h4">Here, you can change the general settings of your course, or delete it.</h4>
+        <mat-divider></mat-divider>
+        <br>
         <app-course-editor [action]="'Save'" [model]="(activeCourse|async)"
                            (onSubmit)="onSaveCourse($event)"></app-course-editor>
       </mat-tab>
       <mat-tab label="Repositories">
         <br>
         <h4 class="mat-h4">Search and select a github repository to be added through the search bar below.</h4>
-        <br>
+        <mat-divider></mat-divider>
         <app-project-list [projects]="(activeCourse|async)?.projects"></app-project-list>
         <app-project-autocomplete style="width:100%"
                                   (projectSelected)="onProjectSelected($event)"></app-project-autocomplete>

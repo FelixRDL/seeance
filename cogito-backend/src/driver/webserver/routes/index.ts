@@ -17,7 +17,6 @@ router.use('/api/auth', auth.router);
 router.use('/api/user',
     (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),
     user.router);
-
 router.use('/api/course',
     (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),
     (req: express.Request, res: express.Response, next: any) => userController.userRegisteredMw(req, res, next),

@@ -42,4 +42,11 @@ export class InternalCourseRepository implements CourseRepository {
         });
     }
 
+    constructor() {
+        // TODO: remove this debudding construct, if not needed anymore
+        /*CourseModel.deleteMany({}).then(() => {
+            console.log("NOICE");
+        })*/
+    }
+
 }

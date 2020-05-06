@@ -1,5 +1,15 @@
-<mat-selection-list>
-  <mat-list-item *ngFor="let course of courses">
-    <a  [routerLink]="['/courses', course._id]">{{course.title}}</a>
-  </mat-list-item>
-</mat-selection-list>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let course of courses">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <a [routerLink]="['/courses', course._id]" (click)="$event.stopPropagation();">{{course.title}}</a>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-selection-list>
+      <mat-list-item *ngFor="let project of course.projects">
+        <!-- using truncate approach from https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2 -->
+        <a href="#">{{ (project.name.length>14)? (project.name | slice:0:14)+'..':(project.name)}}</a>
+      </mat-list-item>
+    </mat-selection-list>
+  </mat-expansion-panel>
+</mat-accordion>

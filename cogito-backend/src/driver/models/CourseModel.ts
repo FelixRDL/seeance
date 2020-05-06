@@ -9,18 +9,17 @@ const CourseSchema = new mongoose.Schema({
         required: true
     },
     description: {
-      type: String,
-      required: false
+        type: String,
+        required: false
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserModel',
         required: true
     },
-    projects: {
-        type: [String],
-        default: []
-    }
+    projects: [{
+        "type": String
+    }]
 }, {timestamps: true});
 const CourseModel = mongoose.model("CourseModel", CourseSchema);
 

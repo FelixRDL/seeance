@@ -9,7 +9,10 @@ import {
     GetCourseById,
     UserNotAuthorizedAccessingCourseError
 } from "../../logic/use-cases/courses/GetCourseById";
-import {AddProjectToCourseById} from "../../logic/use-cases/courses/AddProjectToCourseById";
+import {
+    AddProjectToCourseById,
+    ProjectAlreadyExistingInCourseError
+} from "../../logic/use-cases/courses/AddProjectToCourseById";
 import {Project} from "../../logic/entities/Project";
 import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
 import {InternalProjectRepository} from "../providers/InternalProjectRepository";
@@ -74,8 +77,14 @@ export class CourseController {
             result = await this.populateProjects(token, result);
             res.json(result);
         } catch(e) {
-            console.error(e);
-            res.status(500).send("Internal Server Error");
+            if(e instanceof ProjectAlreadyExistingInCourseError) {
+                res.status(400).send("The project you are trying to add already exists on the course");
+            } else if(e instanceof CourseNotExistingError) {
+                res.status(404).send("The course you are trying to access does not exist right now");
+            } else {
+                console.error(e);
+                res.status(500).send("Internal Server Error");
+            }
         }
     }
 

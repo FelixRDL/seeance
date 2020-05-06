@@ -37,3 +37,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   max-height: 32px;
   max-width: 32px;
 }
+
+.column {
+  display: flex;
+  flex-flow: column;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+}
+
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+   Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+body {
+  background-color: #eee;
+}

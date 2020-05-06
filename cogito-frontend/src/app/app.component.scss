@@ -1,23 +1,21 @@
 .content {
   background-color: #eee;
   padding:16px;
-  height: calc(100% - 64px);
+  height:calc(100% - 64px);
 }
 
 mat-sidenav-container {
   display: flex;
   flex-flow: column;
-  /*Subtract height of header*/
+  height:100%;
+}
+
+#app-body {
+  max-width: 1440px;
+  margin-left: calc((100vw - 1440px)/2);
   height: calc(100% - 64px);
 }
 
-column {
-  display: flex;
-  flex-flow: column;
-}
-
-row {
-  width: 100%;
-  display: flex;
-  flex-flow: row;
+.mat-drawer {
+  border-left: solid 1px rgba(0, 0, 0, 0.12);
 }

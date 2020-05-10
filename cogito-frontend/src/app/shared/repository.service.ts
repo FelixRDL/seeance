@@ -14,6 +14,6 @@ export class RepositoryService {
   ) { }
 
   getAutocomplete(q: string): Observable<Repository[]>{
-    return this.httpClient.get("/api/projects?q=" + q, {headers: AuthService.getBearerHeader()}).pipe(map(data => <Repository[]>data));
+    return this.httpClient.get("/api/repositories?q=" + q, {headers: AuthService.getBearerHeader()}).pipe(map(data => <Repository[]>data));
   }
 }

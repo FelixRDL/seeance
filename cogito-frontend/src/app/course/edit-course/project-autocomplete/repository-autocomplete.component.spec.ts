@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RepositoryAutocompleteComponent } from './repository-autocomplete-service.component';
+import { RepositoryAutocompleteComponent } from './repository-autocomplete.component';
 
 describe('ProjectAutocompleteComponent', () => {
   let component: RepositoryAutocompleteComponent;

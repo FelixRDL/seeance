@@ -15,8 +15,8 @@
         <h4 class="mat-h4">Search and select a github repository to be added through the search bar below.</h4>
         <mat-divider></mat-divider>
         <app-project-list [projects]="(activeCourse|async)?.projects"></app-project-list>
-        <app-project-autocomplete style="width:100%"
-                                  (projectSelected)="onProjectSelected($event)"></app-project-autocomplete>
+        <app-repo-autocomplete style="width:100%"
+                               (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

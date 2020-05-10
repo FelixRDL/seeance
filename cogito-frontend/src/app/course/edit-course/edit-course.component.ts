@@ -5,6 +5,7 @@ import {Course} from "../../shared/core/Course";
 import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Repository} from "../../shared/core/Repository";
 
 @Component({
   selector: 'app-edit-course',
@@ -34,8 +35,12 @@ export class EditCourseComponent implements OnInit {
     });
   }
 
-  onProjectSelected(project: Project) {
-    this.courses.addProjectToCourse(this.activeCourse.getValue()._id, project).subscribe((course: Course) => {
+  onRepositorySelected(repo: Repository) {
+    const newProject: Project = {
+      _id: undefined,
+      repository: repo
+    };
+    this.courses.addProjectToCourse(this.activeCourse.getValue()._id, newProject).subscribe((course: Course) => {
       this.activeCourse.next(course);
       this.courses.updateCourses();
     }, (err) => {

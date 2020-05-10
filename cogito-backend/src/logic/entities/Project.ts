@@ -1,12 +1,8 @@
 import {User} from "./User";
+import {Repository} from "./Repository";
 
 export interface Project {
     _id: string;
-    id: string;
-    name: string;
-    full_name: string;
-    owner: User;
-    description: string;
-    html_url: string;
-    url: string;
+    repository: Repository;
+    addedBy: User;
 }

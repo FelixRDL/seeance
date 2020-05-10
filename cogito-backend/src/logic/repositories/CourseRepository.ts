@@ -11,4 +11,5 @@ export interface CourseRepository {
     getCourseById(courseId: string): Promise<Course>;
     addProjectToCourse(course: Course, project: Project): Promise<Course>;
     containsCourseProject(course: Course, project: Project): Promise<boolean>;
+    removeProjectWithIdFromCourse(course: Course, projectId: string): Promise<Course>;
 }

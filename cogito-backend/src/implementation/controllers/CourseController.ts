@@ -94,10 +94,11 @@ export class CourseController {
     private async populateProjects(token: string, course: Course): Promise<Course> {
         return new Promise(async (resolve, reject) => {
             console.log(course.projects);
-            const projects: Project[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(token, p)));
+            // TODO: this is quite hacky, may remove later
+            const projects: Project[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(token, ""+p)));
             let courseCopy: Course =  JSON.parse(JSON.stringify(course)) as Course;
             courseCopy.projects = projects;
             resolve(courseCopy);
-        })
+        });
     }
 }

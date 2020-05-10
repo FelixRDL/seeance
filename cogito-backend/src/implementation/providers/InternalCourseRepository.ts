@@ -42,6 +42,16 @@ export class InternalCourseRepository implements CourseRepository {
         });
     }
 
+
+
+    removeProjectWithIdFromCourse(course: Course, projectId: string): Promise<Course> {
+        return CourseModel.update(
+            { _id: course._id},
+            { $pull: { projects: projectId } }
+        )
+        return Promise.resolve(undefined);
+    }
+
     constructor() {
         // TODO: remove this debudding construct, if not needed anymore
         /*CourseModel.deleteMany({}).then(() => {

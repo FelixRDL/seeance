@@ -1,13 +1,13 @@
-import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
-import {Project} from "../../logic/entities/Project";
+import {RepoRepository} from "../../logic/repositories/RepoRepository";
+import {Repository} from "../../logic/entities/Repository";
 import * as request from "request";
 import {AuthController} from "../controllers/AuthController";
 
-export class InternalProjectRepository implements ProjectRepository {
+export class InternalRepositoryProvider implements RepoRepository {
     private githubApiPath: string = "https://api.github.com/";
     private static readonly MAX_AUTOCOMPLETE_LENGTH: number = 10;
 
-    async getProjectsByName(token: string, instr: string): Promise<Project[]> {
+    getRepositoryAutocomplete(token: string, instr: string): Promise<Repository[]> {
         const uri: string = this.githubApiPath + "search/repositories?q="+instr;
         return new Promise(async (resolve, reject) => {
             const response = request.get(AuthController.getBearerAuthHeader(uri, token), function (error: any, response: any, body: any) {
@@ -15,26 +15,26 @@ export class InternalProjectRepository implements ProjectRepository {
                     reject(error);
                 } else {
                     let items = JSON.parse(body).items || [];
-                    if(items.length > InternalProjectRepository.MAX_AUTOCOMPLETE_LENGTH) {
-                        items = items.slice(0, InternalProjectRepository.MAX_AUTOCOMPLETE_LENGTH);
+                    if(items.length > InternalRepositoryProvider.MAX_AUTOCOMPLETE_LENGTH) {
+                        items = items.slice(0, InternalRepositoryProvider.MAX_AUTOCOMPLETE_LENGTH);
                     }
-                    items = items.map((item: any) => Object.assign({} as Project , item));
+                    items = items.map((item: any) => Object.assign({} as Repository , item));
                     resolve(items);
                 }
             });
         });
     }
 
-    getProjectById(token: string, id: string): Promise<Project> {
+    getRepositoryById(token: string, id: string): Promise<Repository> {
         const uri: string = this.githubApiPath +"repositories/" + id;
         return new Promise(async(resolve, reject) => {
             request.get(AuthController.getBearerAuthHeader(uri, token), (err: any, response: any, body: any) => {
-                 if(err) {
-                     reject(err)
-                 } else {
-                     const result: Project = JSON.parse(body);
-                     resolve(result);
-                 }
+                if(err) {
+                    reject(err)
+                } else {
+                    const result: Repository = JSON.parse(body);
+                    resolve(result);
+                }
             });
         });
     }

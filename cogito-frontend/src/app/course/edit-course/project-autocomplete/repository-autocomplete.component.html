@@ -2,7 +2,7 @@
   <input matInput
          placeholder="Enter repository name to search"
          [matAutocomplete]="auto"
-         [formControl]="projectNameAutocomplete"
+         [formControl]="repoNameAutocomplete"
   >
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let project of projects|async" [value]="project.name" (onSelectionChange)="selectProject(project)">

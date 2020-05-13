@@ -11,7 +11,7 @@ export class RepositoryController {
     async getRepositoriesAutocomplete(req: express.Request, res: express.Response) {
         const token: string = <string>req.headers.authorization;
         try {
-            const repos: Repository[] = await GetRepositoryAutocomplete(token, <string>req.query['q'], this.repository);
+            const repos: Repository[] = await GetRepositoryAutocomplete(<string>req.query['q'], new InternalRepositoryProvider(token));
             res.send(repos);
         } catch(e) {
             console.error(e);
@@ -23,7 +23,7 @@ export class RepositoryController {
         const token: string = <string>req.headers.authorization;
         const id: string = req.params.id;
         try {
-            const repo: Repository = await GetRepositoryById(token, id, this.repository);
+            const repo: Repository = await GetRepositoryById(id, new InternalRepositoryProvider(token));
             res.send(repo);
         } catch(e) {
             console.error(e);

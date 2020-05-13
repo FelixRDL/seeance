@@ -1,8 +1,20 @@
 import {User} from "./User";
 import {Repository} from "./Repository";
 
-export interface Project {
-    _id: string;
+/**
+ * A Project is an internal presentation of a github repository, enriched by internal information, such as processing
+ * units and authorization.
+ */
+export interface Project extends ProtoProject {
     repository: Repository;
-    addedBy: User;
+    user: User;
+}
+
+/**
+ * An unpopulated version of the project
+ */
+export interface ProtoProject {
+    _id: string;
+    repositoryId: string;
+    userId: string;
 }

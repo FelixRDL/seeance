@@ -6,11 +6,16 @@ import {AuthController} from "../controllers/AuthController";
 export class InternalRepositoryProvider implements RepoRepository {
     private githubApiPath: string = "https://api.github.com/";
     private static readonly MAX_AUTOCOMPLETE_LENGTH: number = 10;
+    private token: string;
 
-    getRepositoryAutocomplete(token: string, instr: string): Promise<Repository[]> {
+    constructor(token: string = "") {
+        this.token = token;
+    }
+
+    getRepositoryAutocomplete(instr: string): Promise<Repository[]> {
         const uri: string = this.githubApiPath + "search/repositories?q="+instr;
         return new Promise(async (resolve, reject) => {
-            const response = request.get(AuthController.getBearerAuthHeader(uri, token), function (error: any, response: any, body: any) {
+            const response = request.get(AuthController.getBearerAuthHeader(uri, this.token), function (error: any, response: any, body: any) {
                 if(error) {
                     reject(error);
                 } else {
@@ -25,10 +30,10 @@ export class InternalRepositoryProvider implements RepoRepository {
         });
     }
 
-    getRepositoryById(token: string, id: string): Promise<Repository> {
+    getRepositoryById(id: string): Promise<Repository> {
         const uri: string = this.githubApiPath +"repositories/" + id;
         return new Promise(async(resolve, reject) => {
-            request.get(AuthController.getBearerAuthHeader(uri, token), (err: any, response: any, body: any) => {
+            request.get(AuthController.getBearerAuthHeader(uri, this.token), (err: any, response: any, body: any) => {
                 if(err) {
                     reject(err)
                 } else {

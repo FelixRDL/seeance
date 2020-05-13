@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Repository} from "../../shared/core/Repository";
+import {ProjectService} from "../../shared/project.service";
 
 @Component({
   selector: 'app-edit-course',
@@ -13,24 +14,34 @@ import {Repository} from "../../shared/core/Repository";
   styleUrls: ['./edit-course.component.scss']
 })
 export class EditCourseComponent implements OnInit {
-  projects: Project[] = [];
+  projects: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
 
   constructor(
-    private courses: CourseService,
+    private courseRepository: CourseService,
+    private projectRepo: ProjectService,
     private route: ActivatedRoute,
     private snackbar: MatSnackBar
   ) { }
 
+  fetchData(courseId: string): void {
+    this.courseRepository.getCourseById(courseId).subscribe((course: Course) => {
+      this.activeCourse.next(course);
+      console.log(course);
+    }, (errors) => {
+      console.error(errors);
+    });
+
+    this.projectRepo.getProjectsForCourse(courseId).subscribe((projects:[]) => {
+      console.log(projects);
+      this.projects.next(projects);
+    });
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if(params.id) {
-        this.courses.getCourseById(params.id).subscribe((course: Course) => {
-          this.activeCourse.next(course);
-          console.log(course);
-        }, (errors) => {
-          console.error(errors);
-        });
+        this.fetchData(params.id);
       }
     });
   }
@@ -40,9 +51,12 @@ export class EditCourseComponent implements OnInit {
       _id: undefined,
       repository: repo
     };
-    this.courses.addProjectToCourse(this.activeCourse.getValue()._id, newProject).subscribe((course: Course) => {
-      this.activeCourse.next(course);
-      this.courses.updateCourses();
+    this.projectRepo.createProject(this.activeCourse.getValue()._id, newProject).subscribe((project:Project) => {
+      const projects: Project[] = this.projects.getValue();
+      projects.push(project);
+      this.projects.next(projects);
+      // TODO: adapt this stuff
+      this.courseRepository.updateCourses();
     }, (err) => {
       this.snackbar.open(err.error, "OK");
     });

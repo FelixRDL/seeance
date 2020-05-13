@@ -41,8 +41,4 @@ export class CourseService {
       {headers: AuthService.getBearerHeader()})
       .pipe(map(data => <Course>data));
   }
-
-  addProjectToCourse(courseId: string, project: Project): Observable<Course> {
-    return this.httpClient.post('/api/course/' + courseId + '/projects/', project, {headers: AuthService.getBearerHeader()}).pipe(map(data => <Course>data));
-  }
 }

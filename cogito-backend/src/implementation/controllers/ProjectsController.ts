@@ -1,9 +1,4 @@
 import * as express from 'express';
-import {CourseRepository} from "../../logic/repositories/CourseRepository";
-import {InternalCourseRepository} from "../providers/InternalCourseRepository";
-import {Course} from "../../logic/entities/Course";
-import {CourseAlreadyExistingError, CreateCourse} from "../../logic/use-cases/courses/CreateCourse";
-import {GetCoursesForUser} from "../../logic/use-cases/courses/GetCoursesForUser";
 import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
 import {InternalProjectRepository} from "../providers/InternalProjectRepository";
 import {GetProjectsAutocomplete} from "../../logic/use-cases/projects/GetProjetsAutocomplete";
@@ -13,22 +8,13 @@ import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvide
 import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/projects/CreateProject";
 import {ProjectAlreadyExistingInCourseError} from "../../logic/use-cases/courses/AddProjectToCourseById";
 import {CourseNotExistingError} from "../../logic/use-cases/courses/GetCourseById";
+import {GetProjectsForCourse, GetProjectsForCourseRequest} from "../../logic/use-cases/projects/GetProjectsForCourse";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
 
-    async getProjectsAutocomplete(req: express.Request, res: express.Response) {
-        const token: string = <string>req.headers.authorization;
-        try {
-            const projects: Project[] = await GetProjectsAutocomplete(token, <string>req.query['q'], this.repository);
-            res.send(projects);
-        } catch(e) {
-            console.error(e);
-            res.status(500).send("Internal Server Error");
-        }
-    }
-
     async createProject(req: express.Request, res: express.Response) {
+        console.log("YASQUEEN")
         try {
             const token: string = <string>req.headers.authorization;
             const repoProvider: RepoRepository =  new InternalRepositoryProvider(token);
@@ -48,6 +34,20 @@ export class ProjectsController {
                 console.error(e);
                 res.status(500).send("Internal Server Error");
             }
+        }
+    }
+
+    async getProjectsForCourse(req: express.Request, res: express.Response)  {
+        try {
+            const token: string = <string>req.headers.authorization;
+            const repoProvider: RepoRepository =  new InternalRepositoryProvider(token);
+            const projects: Project[] = await GetProjectsForCourse(this.repository, repoProvider, <GetProjectsForCourseRequest> {
+                courseId: res.locals.courseId
+            });
+            res.json(projects);
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
         }
     }
 }

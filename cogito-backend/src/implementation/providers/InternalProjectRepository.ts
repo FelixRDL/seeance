@@ -37,4 +37,8 @@ export class InternalProjectRepository implements ProjectRepository {
             courseId: project.courseId
         });
     }
+
+    getProjectsForCourse(courseId: string): Promise<ProtoProject[]> {
+        return ProjectModel.find({courseId: courseId});
+    }
 }

@@ -6,4 +6,5 @@ export interface ProjectRepository {
     getProjectsByName(token: string, instr: string): Promise<Project[]>;
     getProjectById(id: string): Promise<ProtoProject>;
     createProject(project: Project): Promise<ProtoProject>;
+    getProjectsForCourse(courseId: string): Promise<ProtoProject[]>;
 }

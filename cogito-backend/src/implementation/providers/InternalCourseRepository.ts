@@ -3,6 +3,7 @@ import {Course} from "../../logic/entities/Course";
 import {CourseModel} from "../../driver/models/CourseModel";
 import {User} from "../../logic/entities/User";
 import {Project} from "../../logic/entities/Project";
+import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
 
 export class InternalCourseRepository implements CourseRepository {
 
@@ -26,7 +27,7 @@ export class InternalCourseRepository implements CourseRepository {
     addProjectToCourse(course: Course, project: Project): Promise<Course> {
         return CourseModel.updateOne(
             {_id: course._id},
-            {$push: {'projects': project.id}});
+            {$push: {'projects': project._id}});
     }
 
     containsCourseProject(course: Course, project: Project): Promise<boolean> {
@@ -35,7 +36,7 @@ export class InternalCourseRepository implements CourseRepository {
                 _id: course._id
             }, {
                 projects: {
-                    "$in" : [project.id]
+                    "$in" : [project._id]
                 }
             }
             ]
@@ -49,14 +50,14 @@ export class InternalCourseRepository implements CourseRepository {
             { _id: course._id},
             { $pull: { projects: projectId } }
         )
-        return Promise.resolve(undefined);
+        return Promise.reject(new MethodNotImplementedError());
     }
 
     constructor() {
         // TODO: remove this debudding construct, if not needed anymore
-        /*CourseModel.deleteMany({}).then(() => {
+        CourseModel.deleteMany({}).then(() => {
             console.log("NOICE");
-        })*/
+        })
     }
 
 }

@@ -5,8 +5,8 @@ import {ProjectsController} from "../../../../implementation/controllers/Project
 
 const router = express.Router();
 const controller: ProjectsController = new ProjectsController();
-router.get('/', async (req: express.Request, res: express.Response) => {
-    await controller.getProjectsAutocomplete(req, res);
+router.post('/', async (req: express.Request, res: express.Response) => {
+    await controller.createProject(req, res);
 });
 
 export {router};

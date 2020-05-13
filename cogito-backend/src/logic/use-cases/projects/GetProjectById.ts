@@ -1,8 +1,12 @@
 import {ProjectRepository} from "../../repositories/ProjectRepository";
-import {Project} from "../../entities/Project";
+import {Project, ProtoProject} from "../../entities/Project";
 import {RepoRepository} from "../../repositories/RepoRepository";
-import {MethodNotImplementedError} from "../../core/errors/MethodNotImplementedError";
+import {
+    ProtoProjectToProjectMapper
+} from "../../repositories/mappers/ProtoProjectToProjectMapper";
 
-export async function GetProjectById(token: string, id: string, repository: ProjectRepository, repoRepository: RepoRepository): Promise<Project> {
-    return Promise.reject(new MethodNotImplementedError());
+export async function GetProjectById(id: string, projectRepository: ProjectRepository, repoRepository: RepoRepository): Promise<Project> {
+    const project: ProtoProject = await projectRepository.getProjectById(id);
+    const mapper: ProtoProjectToProjectMapper = new ProtoProjectToProjectMapper(repoRepository);
+    return mapper.map(project);
 }

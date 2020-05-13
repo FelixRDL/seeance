@@ -10,12 +10,14 @@ import {
     UserNotAuthorizedAccessingCourseError
 } from "../../logic/use-cases/courses/GetCourseById";
 import {
-    AddProjectToCourseById,
     ProjectAlreadyExistingInCourseError
 } from "../../logic/use-cases/courses/AddProjectToCourseById";
-import {Project} from "../../logic/entities/Project";
+import {Project, ProtoProject} from "../../logic/entities/Project";
 import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
 import {InternalProjectRepository} from "../providers/InternalProjectRepository";
+import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/projects/CreateProject";
+import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvider";
+import {RepoRepository} from "../../logic/repositories/RepoRepository";
 
 var mongoose = require('mongoose');
 
@@ -70,24 +72,6 @@ export class CourseController {
         }
     }
 
-    async addProjectToCourseById(req: express.Request, res: express.Response) {
-        try {
-            const token: string = <string>req.headers.authorization;
-            let result: Course = await AddProjectToCourseById(req.params.id, req.body as Project, this.repository);
-            result = await this.populateProjects(token, result);
-            res.json(result);
-        } catch(e) {
-            if(e instanceof ProjectAlreadyExistingInCourseError) {
-                res.status(400).send("The project you are trying to add already exists on the course");
-            } else if(e instanceof CourseNotExistingError) {
-                res.status(404).send("The course you are trying to access does not exist right now");
-            } else {
-                console.error(e);
-                res.status(500).send("Internal Server Error");
-            }
-        }
-    }
-
     /**
      * TODO: This may be solved more elegantly
      */
@@ -95,9 +79,9 @@ export class CourseController {
         return new Promise(async (resolve, reject) => {
             console.log(course.projects);
             // TODO: this is quite hacky, may remove later
-            const projects: Project[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(token, ""+p)));
+            const projects: ProtoProject[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(""+p)));
             let courseCopy: Course =  JSON.parse(JSON.stringify(course)) as Course;
-            courseCopy.projects = projects;
+            // courseCopy.projects = projects;
             resolve(courseCopy);
         });
     }

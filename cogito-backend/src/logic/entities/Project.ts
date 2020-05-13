@@ -7,7 +7,6 @@ import {Repository} from "./Repository";
  */
 export interface Project extends ProtoProject {
     repository: Repository;
-    user: User;
 }
 
 /**
@@ -15,6 +14,6 @@ export interface Project extends ProtoProject {
  */
 export interface ProtoProject {
     _id: string;
+    courseId: string;
     repositoryId: string;
-    userId: string;
 }

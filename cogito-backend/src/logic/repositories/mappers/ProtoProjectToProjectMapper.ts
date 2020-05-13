@@ -1,7 +1,19 @@
-import {ProtoProject} from "../../entities/Project";
+import {Project, ProtoProject} from "../../entities/Project";
 import {RepoRepository} from "../RepoRepository";
-import {MethodNotImplementedError} from "../../core/errors/MethodNotImplementedError";
+import {Repository} from "../../entities/Repository";
+import {Util} from "../../core/Util";
 
-export function mapProtoProjectToProject(proto: ProtoProject, repositoryProvider: RepoRepository): Promise<ProtoProject> {
-    return Promise.reject(new MethodNotImplementedError());// repositoryProvider.getRepositoryById()
+export class ProtoProjectToProjectMapper {
+    private repository: RepoRepository;
+
+    constructor(repoRepository: RepoRepository) {
+        this.repository = repoRepository;
+    }
+
+    async map(proto: ProtoProject): Promise<Project> {
+        const repo: Repository = await this.repository.getRepositoryById(proto.repositoryId);
+        let result: Project = <Project>Util.clone(proto);
+        result.repository = repo;
+        return Promise.resolve(result);
+    }
 }

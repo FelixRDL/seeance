@@ -1,12 +1,14 @@
 import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
-import {Project} from "../../logic/entities/Project";
+import {Project, ProtoProject} from "../../logic/entities/Project";
 import * as request from "request";
 import {AuthController} from "../controllers/AuthController";
+import {ProjectModel} from "../../driver/models/ProjectModel";
 
 export class InternalProjectRepository implements ProjectRepository {
     private githubApiPath: string = "https://api.github.com/";
     private static readonly MAX_AUTOCOMPLETE_LENGTH: number = 10;
 
+    // TODO legacy
     async getProjectsByName(token: string, instr: string): Promise<Project[]> {
         const uri: string = this.githubApiPath + "search/repositories?q="+instr;
         return new Promise(async (resolve, reject) => {
@@ -25,17 +27,14 @@ export class InternalProjectRepository implements ProjectRepository {
         });
     }
 
-    getProjectById(token: string, id: string): Promise<Project> {
-        const uri: string = this.githubApiPath +"repositories/" + id;
-        return new Promise(async(resolve, reject) => {
-            request.get(AuthController.getBearerAuthHeader(uri, token), (err: any, response: any, body: any) => {
-                 if(err) {
-                     reject(err)
-                 } else {
-                     const result: Project = JSON.parse(body);
-                     resolve(result);
-                 }
-            });
+    getProjectById(id: string): Promise<ProtoProject> {
+        return ProjectModel.findById(id);
+    }
+
+    createProject(project: Project): Promise<ProtoProject> {
+        return ProjectModel.create(<ProtoProject>{
+            repositoryId: project.repository.id,
+            courseId: project.courseId
         });
     }
 }

@@ -14,7 +14,7 @@
         <br>
         <h4 class="mat-h4">Search and select a github repository to be added through the search bar below.</h4>
         <mat-divider></mat-divider>
-        <app-project-list [projects]="(projects|async)"></app-project-list>
+        <app-project-list [projects]="(projects|async)" (onDeleteProject)="onDeleteProject($event)"></app-project-list>
         <app-repo-autocomplete style="width:100%"
                                (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
       </mat-tab>

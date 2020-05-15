@@ -10,17 +10,17 @@ export class InternalProjectRepository implements ProjectRepository {
 
     // TODO legacy
     async getProjectsByName(token: string, instr: string): Promise<Project[]> {
-        const uri: string = this.githubApiPath + "search/repositories?q="+instr;
+        const uri: string = this.githubApiPath + "search/repositories?q=" + instr;
         return new Promise(async (resolve, reject) => {
             const response = request.get(AuthController.getBearerAuthHeader(uri, token), function (error: any, response: any, body: any) {
-                if(error) {
+                if (error) {
                     reject(error);
                 } else {
                     let items = JSON.parse(body).items || [];
-                    if(items.length > InternalProjectRepository.MAX_AUTOCOMPLETE_LENGTH) {
+                    if (items.length > InternalProjectRepository.MAX_AUTOCOMPLETE_LENGTH) {
                         items = items.slice(0, InternalProjectRepository.MAX_AUTOCOMPLETE_LENGTH);
                     }
-                    items = items.map((item: any) => Object.assign({} as Project , item));
+                    items = items.map((item: any) => Object.assign({} as Project, item));
                     resolve(items);
                 }
             });
@@ -40,5 +40,19 @@ export class InternalProjectRepository implements ProjectRepository {
 
     getProjectsForCourse(courseId: string): Promise<ProtoProject[]> {
         return ProjectModel.find({courseId: courseId});
+    }
+
+    removeProjectByIdFromCourse(projectId: string, courseId: string): Promise<boolean> {
+        return ProjectModel.deleteOne({
+            $and: [
+                {
+                    _id: projectId
+                }, {
+                    courseId: courseId
+                }
+            ]
+        }).then((result: any) => {
+            return Promise.resolve(result.deletedCount == 1);
+        });
     }
 }

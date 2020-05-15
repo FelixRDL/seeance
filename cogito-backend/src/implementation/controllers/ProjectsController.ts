@@ -9,12 +9,15 @@ import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/project
 import {ProjectAlreadyExistingInCourseError} from "../../logic/use-cases/courses/AddProjectToCourseById";
 import {CourseNotExistingError} from "../../logic/use-cases/courses/GetCourseById";
 import {GetProjectsForCourse, GetProjectsForCourseRequest} from "../../logic/use-cases/projects/GetProjectsForCourse";
+import {
+    RemoveProjectByIdFromCourse,
+    RemoveProjectByIdFromCourseRequest
+} from "../../logic/use-cases/projects/RemoveProjectByIdFromCourse";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
 
     async createProject(req: express.Request, res: express.Response) {
-        console.log("YASQUEEN")
         try {
             const token: string = <string>req.headers.authorization;
             const repoProvider: RepoRepository =  new InternalRepositoryProvider(token);
@@ -48,6 +51,28 @@ export class ProjectsController {
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
+        }
+    }
+
+    async removeProjectFromCourse(req: express.Request, res: express.Response) {
+        try {
+            const success: boolean = await RemoveProjectByIdFromCourse(
+                this.repository,
+                {
+                    projectId: req.params.id,
+                    courseId: res.locals.courseId
+                } as RemoveProjectByIdFromCourseRequest
+            );
+            if(!success) {
+                res.status(404).send("The project to be deleted does not exist");
+            } else {
+                res.status(200).json({
+                   id: req.params.id
+                });
+            }
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal server error");
         }
     }
 }

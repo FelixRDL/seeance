@@ -6,7 +6,8 @@ import {Mapper} from "../../logic/core/Mapper";
 import {AuthController} from "../controllers/AuthController";
 import {InternalServerError} from "../../logic/core/errors/InternalServerError";
 import {InvalidCredentialsError} from "../../logic/repositories/AuthManager";
-import {Model, model} from 'mongoose';
+const cachedRequest = require('cached-request')(request), cacheDirectory = "/tmp/cache";
+cachedRequest.setCacheDirectory(cacheDirectory);
 // @ts-ignore
 import {UserModel} from './../../driver/models/UserModel';
 
@@ -30,7 +31,9 @@ export class InternalUserRepository implements UserRepository {
     async getGithubUserFromToken(token: string): Promise<User> {
         return new Promise<User>((resolve, reject) => {
             const uri: string = this.githubApiPath + 'user';
-            request.get(AuthController.getBearerAuthHeader(uri, token), function (error: any, response: any, body: any) {
+            let options = AuthController.getBearerAuthHeader(uri, token);
+            options.ttl = 10000;
+            cachedRequest.get(options, function (error: any, response: any, body: any) {
                 if (response.statusCode == 200) {
                     resolve(new GithubUserToAppUserMapper().map(JSON.parse(body)));
                 } else if (response.statusCode == 401) {

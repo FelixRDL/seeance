@@ -1,6 +1,8 @@
 // lib/app.ts
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://database:27017/').then(function() {
+mongoose.connect('mongodb://database:27017/', {
+    useNewUrlParser: true
+}).then(function() {
     console.log("Connected DB")
 });
 

@@ -15,11 +15,12 @@ import {MaterialModule} from "../material/material.module";
 import {RouterModule} from "@angular/router";
 import { NavCourseListComponent } from './navbar/nav-course-list/nav-course-list.component';
 import { ConfirmModalComponent } from './modals/confirm.modal/confirm.modal.component';
+import { NavCourseListEntryComponent } from './navbar/nav-course-list/nav-course-list-entry/nav-course-list-entry.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, NavbarComponent, NavCourseListComponent, ConfirmModalComponent],
+  declarations: [HeaderComponent, NavbarComponent, NavCourseListComponent, ConfirmModalComponent, NavCourseListEntryComponent],
   imports: [
     CommonModule,
     HttpClientModule,

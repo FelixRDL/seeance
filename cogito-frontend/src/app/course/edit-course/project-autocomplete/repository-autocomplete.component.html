@@ -1,0 +1,13 @@
+<mat-form-field>
+  <input matInput
+         placeholder="Enter repository name to search"
+         [matAutocomplete]="auto"
+         [formControl]="repoNameAutocomplete"
+  >
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let repo of repositories|async" [value]="repo.name" (onSelectionChange)="selectRepository(repo)">
+      <span>{{repo.name}}</span> |
+      <small>{{repo.owner.login}}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

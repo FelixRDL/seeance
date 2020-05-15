@@ -1,3 +1,6 @@
+/**
+ * Represents a registered user of the application.
+ */
 export interface User {
     _id: string;
     id: string;

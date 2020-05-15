@@ -5,6 +5,8 @@ import {Course} from "../../shared/core/Course";
 import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Repository} from "../../shared/core/Repository";
+import {ProjectService} from "../../shared/project.service";
 
 @Component({
   selector: 'app-edit-course',
@@ -12,32 +14,49 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./edit-course.component.scss']
 })
 export class EditCourseComponent implements OnInit {
-  projects: Project[] = [];
+  projects: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
 
   constructor(
-    private courses: CourseService,
+    private courseRepository: CourseService,
+    private projectRepo: ProjectService,
     private route: ActivatedRoute,
     private snackbar: MatSnackBar
   ) { }
 
+  fetchData(courseId: string): void {
+    this.courseRepository.getCourseById(courseId).subscribe((course: Course) => {
+      this.activeCourse.next(course);
+      console.log(course);
+    }, (errors) => {
+      console.error(errors);
+    });
+
+    this.projectRepo.getProjectsForCourse(courseId).subscribe((projects:[]) => {
+      console.log(projects);
+      this.projects.next(projects);
+    });
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if(params.id) {
-        this.courses.getCourseById(params.id).subscribe((course: Course) => {
-          this.activeCourse.next(course);
-          console.log(course);
-        }, (errors) => {
-          console.error(errors);
-        });
+        this.fetchData(params.id);
       }
     });
   }
 
-  onProjectSelected(project: Project) {
-    this.courses.addProjectToCourse(this.activeCourse.getValue()._id, project).subscribe((course: Course) => {
-      this.activeCourse.next(course);
-      this.courses.updateCourses();
+  onRepositorySelected(repo: Repository) {
+    const newProject: Project = {
+      _id: undefined,
+      repository: repo
+    };
+    this.projectRepo.createProject(this.activeCourse.getValue()._id, newProject).subscribe((project:Project) => {
+      const projects: Project[] = this.projects.getValue();
+      projects.push(project);
+      this.projects.next(projects);
+      // TODO: adapt this stuff
+      this.courseRepository.updateCourses();
     }, (err) => {
       this.snackbar.open(err.error, "OK");
     });
@@ -48,4 +67,9 @@ export class EditCourseComponent implements OnInit {
     throw new Error("Method not implemented");
   }
 
+  onDeleteProject(project: Project) {
+    this.projectRepo.deleteProjectById(this.activeCourse.getValue()._id, project._id).subscribe((id: string )=> {
+      this.projects.next(this.projects.getValue().filter((item: Project) => item._id !== id));
+    })
+  }
 }

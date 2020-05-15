@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {CourseService} from "../course.service";
 import {Course} from "../core/Course";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
+import {Project} from "../core/Project";
+import {ProjectService} from "../project.service";
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +15,8 @@ export class NavbarComponent implements OnInit {
   courses: Subject<Course[]>;
 
   constructor(
-    private courseService: CourseService
+    private courseService: CourseService,
+    private projectService: ProjectService
   ) {
     this.courses = courseService.courses;
   }

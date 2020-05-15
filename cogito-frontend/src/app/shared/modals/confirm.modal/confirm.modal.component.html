@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{data['title']}}</h2>
+<mat-dialog-content class="mat-typography">
+  yolo bitches
+  {{data['message']}}
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{data['decline']}}</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary">{{data['accept']}}</button>
+</mat-dialog-actions>

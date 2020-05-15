@@ -9,7 +9,7 @@ import {UserService} from "../shared/user.service";
 import { CreateCourseComponent } from './create-course/create-course.component';
 import {RouterModule} from "@angular/router";
 import {ProjectService} from "../shared/project.service";
-import { ProjectAutocompleteComponent } from './edit-course/project-autocomplete/project-autocomplete.component';
+import { RepositoryAutocompleteComponent } from './edit-course/project-autocomplete/repository-autocomplete.component';
 import { ProjectListComponent } from './edit-course/project-list/project-list.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 
@@ -19,7 +19,7 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
   declarations: [
     CourseEditorComponent,
     CreateCourseComponent,
-    ProjectAutocompleteComponent,
+    RepositoryAutocompleteComponent,
     ProjectListComponent,
     EditCourseComponent
   ],

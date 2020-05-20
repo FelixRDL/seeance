@@ -1,7 +1,8 @@
 import {RepoRepository} from "../../logic/repositories/RepoRepository";
 import {Repository} from "../../logic/entities/Repository";
 import * as request from "request";
-const cachedRequest = require('cached-request')(request), cacheDirectory = "/tmp/cache";
+const cachedRequest = require('cached-request')(require('request'));
+const cacheDirectory: string = "/tmp/cache";
 cachedRequest.setCacheDirectory(cacheDirectory);
 
 import {AuthController} from "../controllers/AuthController";

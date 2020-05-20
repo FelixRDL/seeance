@@ -7,7 +7,7 @@ import {AuthController} from "../controllers/AuthController";
 import {InternalServerError} from "../../logic/core/errors/InternalServerError";
 import {InvalidCredentialsError} from "../../logic/repositories/AuthManager";
 const cached_request = require('cached-request');
-const cachedRequest = cached_request(request);
+const cachedRequest = cached_request(require('request'));
 const cacheDirectory = "/tmp/cache";
 cachedRequest.setCacheDirectory(cacheDirectory);
 // @ts-ignore

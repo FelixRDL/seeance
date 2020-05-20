@@ -17,7 +17,7 @@ export interface ProtoCourse {
     title: string;
     description: string;
     owner: User;
-    projectIds: string[];
+    authorizeeIds: string[];
     createdAt: Date;
     updatedAt: Date;
 }

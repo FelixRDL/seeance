@@ -2,6 +2,10 @@ var mongoose = require('mongoose')
 
 
 const UserSchema = new mongoose.Schema({
+    githubId: {
+        type: String,
+        required: true
+    },
     id: Number,
     login: String,
     description: String,

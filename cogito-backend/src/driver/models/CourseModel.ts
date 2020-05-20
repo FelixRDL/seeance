@@ -17,7 +17,7 @@ const CourseSchema = new mongoose.Schema({
         ref: 'UserModel',
         required: true
     },
-    projects: [{
+    authorizeeIds: [{
         "type": String
     }]
 }, {timestamps: true});

@@ -6,7 +6,9 @@ import {Mapper} from "../../logic/core/Mapper";
 import {AuthController} from "../controllers/AuthController";
 import {InternalServerError} from "../../logic/core/errors/InternalServerError";
 import {InvalidCredentialsError} from "../../logic/repositories/AuthManager";
-const cachedRequest = require('cached-request')(request), cacheDirectory = "/tmp/cache";
+const cached_request = require('cached-request');
+const cachedRequest = cached_request(request);
+const cacheDirectory = "/tmp/cache";
 cachedRequest.setCacheDirectory(cacheDirectory);
 // @ts-ignore
 import {UserModel} from './../../driver/models/UserModel';

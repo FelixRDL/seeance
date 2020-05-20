@@ -5,14 +5,15 @@ import {CreateUser, UserWithIdAlreadyExistingError} from "../../logic/use-cases/
 import {User} from "../../logic/entities/User";
 import {ExistsUserWithId} from "../../logic/use-cases/user/ExistsUserWithId";
 import {GetUserById} from "../../logic/use-cases/user/GetUserById";
+import {UserRepository} from "../../logic/repositories/UserRepository";
 
 export class UserController {
-    private provider: InternalUserRepository = new InternalUserRepository();
     async createUserFromToken(req: express.Request, res: express.Response) {
         try {
             const token: string = <string>req.headers.authorization;
-            var user = await this.provider.getGithubUserFromToken(token);
-            user = await CreateUser(user, this.provider);
+            const provider: InternalUserRepository = new InternalUserRepository(token);
+            var user = await provider.getGithubUserFromToken(token);
+            user = await CreateUser(user, provider);
             res.json(user);
         } catch(e) {
             if(e instanceof UserWithIdAlreadyExistingError) {
@@ -27,8 +28,9 @@ export class UserController {
     async existsUserWithToken(req: express.Request, res: express.Response) {
         try {
             const token: string = <string>req.headers.authorization;
-            const user: User = await this.provider.getGithubUserFromToken(token);
-            const result: boolean = await ExistsUserWithId(user.id, this.provider);
+            const provider: InternalUserRepository = new InternalUserRepository(token);
+            const user: User = await provider.getGithubUserFromToken(token);
+            const result: boolean = await ExistsUserWithId(user.id, provider);
             if(result) {
                 res.status(200).send();
             } else {
@@ -43,8 +45,9 @@ export class UserController {
     async getAuthorizedUser(req: express.Request, res: express.Response) {
         try {
             const token: string  = <string>req.headers.authorization;
-            const user: User = await this.provider.getGithubUserFromToken(token);
-            const result: User = await GetUserById(user.id, this.provider);
+            const provider: InternalUserRepository = new InternalUserRepository(token);
+            const user: User = await provider.getGithubUserFromToken(token);
+            const result: User = await GetUserById(user.id, provider);
             res.json(result);
         } catch(e) {
             console.error(e);
@@ -54,7 +57,9 @@ export class UserController {
 
     async getUserById(req: express.Request, res: express.Response) {
         try {
-            const result: User = await GetUserById(req.params.id, this.provider);
+            const token: string  = <string>req.headers.authorization;
+            const provider: InternalUserRepository = new InternalUserRepository(token);
+            const result: User = await GetUserById(req.params.id, provider);
             res.json(result);
         } catch(e) {
             console.error(e);
@@ -64,10 +69,12 @@ export class UserController {
 
     async userRegisteredMw(req: express.Request, res: express.Response, next: any) {
         const token: string = <string>req.headers.authorization;
-        const user: User = await this.provider.getGithubUserFromToken(token);
-        const result: boolean = await ExistsUserWithId(user.id, this.provider);
+        const provider: InternalUserRepository = new InternalUserRepository(token);
+        const user: User = await provider.getGithubUserFromToken(token);
+        const result: boolean = await ExistsUserWithId(user.id, provider);
+        console.log(result);
         if(result) {
-            res.locals.authenticatedUser = await GetUserById(user.id, this.provider);
+            res.locals.authenticatedUser = await GetUserById(user.id, provider);
             next();
         } else {
             res.status(401).send("User not registered");

@@ -44,7 +44,7 @@ export class InternalUserRepository implements UserRepository {
 
     private async getGithubUserById(id: string, token: string): Promise<User> {
         return new Promise<User>(async (resolve, reject) => {
-            const uri: string = this.githubApiPath + 'user';
+            const uri: string = this.githubApiPath + 'user/' +id;
             let options = AuthController.getBearerAuthHeader(uri, token);
             options.ttl = 100000;
             cachedRequest.get(options, (er: any, res: any, body: any) => {

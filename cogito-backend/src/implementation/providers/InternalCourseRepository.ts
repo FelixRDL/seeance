@@ -56,6 +56,12 @@ export class InternalCourseRepository implements CourseRepository {
         return Promise.reject(new MethodNotImplementedError());
     }
 
+    addUserToCourseAuthorizees(course: Course, user: User): Promise<Course> {
+        return CourseModel.updateOne(
+            {_id: course._id},
+            {$push: {'authorizeeIds': user.id}});
+    }
+
     constructor() {
     }
 

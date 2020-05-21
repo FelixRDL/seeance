@@ -10,6 +10,11 @@ import {
     GetAuthorizedUsersForCourseWithIdRequest
 } from "../../logic/use-cases/user/GetAuthorizedUsersForCourse";
 import {GetUserAutocomplete, GetUserAutocompleteRequest} from "../../logic/use-cases/user/GetUserAutocomplete";
+import {
+    AddAuthorizeeToCourseById,
+    AddAuthorizeeToCourseByIdRequest
+} from "../../logic/use-cases/courses/AddAuthorizeeToCourseById";
+import {Course} from "../../logic/entities/Course";
 
 export class UserController {
     async createUserFromToken(req: express.Request, res: express.Response) {
@@ -19,8 +24,8 @@ export class UserController {
             var user = await provider.getGithubUserFromToken(token);
             user = await CreateUser(user, provider);
             res.json(user);
-        } catch(e) {
-            if(e instanceof UserWithIdAlreadyExistingError) {
+        } catch (e) {
+            if (e instanceof UserWithIdAlreadyExistingError) {
                 res.status(409).send("User with id already existing!");
             } else {
                 console.error(e);
@@ -35,12 +40,12 @@ export class UserController {
             const provider: InternalUserRepository = new InternalUserRepository(token);
             const user: User = await provider.getGithubUserFromToken(token);
             const result: boolean = await ExistsUserWithId(user.id, provider);
-            if(result) {
+            if (result) {
                 res.status(200).send();
             } else {
                 res.status(404).send("User not existing yet");
             }
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
         }
@@ -48,12 +53,12 @@ export class UserController {
 
     async getAuthorizedUser(req: express.Request, res: express.Response) {
         try {
-            const token: string  = <string>req.headers.authorization;
+            const token: string = <string>req.headers.authorization;
             const provider: InternalUserRepository = new InternalUserRepository(token);
             const user: User = await provider.getGithubUserFromToken(token);
             const result: User = await GetUserById(user.id, provider);
             res.json(result);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Unauthorized User");
         }
@@ -61,11 +66,11 @@ export class UserController {
 
     async getUserById(req: express.Request, res: express.Response) {
         try {
-            const token: string  = <string>req.headers.authorization;
+            const token: string = <string>req.headers.authorization;
             const provider: InternalUserRepository = new InternalUserRepository(token);
             const result: User = await GetUserById(req.params.id, provider);
             res.json(result);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
         }
@@ -75,13 +80,27 @@ export class UserController {
         const token: string = <string>req.headers.authorization;
         const cProvider: InternalCourseRepository = new InternalCourseRepository();
         const uProvider: InternalUserRepository = new InternalUserRepository(token);
-        console.log("Yay");
         try {
-            const users: User[] =  await GetAuthorizedUsersForCourseWithId(<GetAuthorizedUsersForCourseWithIdRequest>{
+            const users: User[] = await GetAuthorizedUsersForCourseWithId(<GetAuthorizedUsersForCourseWithIdRequest>{
                 courseId: res.locals.courseId
             }, uProvider, cProvider);
-            console.log(users);
             res.json(users);
+        } catch (e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
+    async addAuthorizeeToCourse(req: express.Request, res: express.Response) {
+        const cProvider: InternalCourseRepository = new InternalCourseRepository();
+        try {
+            const course: Course = await AddAuthorizeeToCourseById(<AddAuthorizeeToCourseByIdRequest>{
+                    user: req.body,
+                    courseId: res.locals.courseId
+                },
+                cProvider
+            );
+            res.json(course)
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
@@ -92,15 +111,14 @@ export class UserController {
         const token: string = <string>req.headers.authorization;
         const uProvider: InternalUserRepository = new InternalUserRepository(token);
         try {
-            const users: User[] = await GetUserAutocomplete(<GetUserAutocompleteRequest> {
+            const users: User[] = await GetUserAutocomplete(<GetUserAutocompleteRequest>{
                 q: req.query.q
-            },uProvider);
+            }, uProvider);
             res.json(users);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
         }
-
     }
 
     /**
@@ -114,7 +132,7 @@ export class UserController {
         const user: User = await provider.getGithubUserFromToken(token);
         const result: boolean = await ExistsUserWithId(user.id, provider);
         console.log(result);
-        if(result == true) {
+        if (result == true) {
             res.locals.authenticatedUser = await GetUserById(user.id, provider);
             next();
         } else {

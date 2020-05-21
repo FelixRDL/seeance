@@ -8,16 +8,21 @@ import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplem
 export class InternalCourseRepository implements CourseRepository {
 
     createCourse(newCourse: Course): Promise<Course> {
-        const course = new CourseModel(newCourse);
+        const course = new CourseModel({
+            title: newCourse.title,
+            description: newCourse.description,
+            ownerId: newCourse.ownerId,
+            authorizeeIds: []
+        });
         return <Promise<Course>>course.save();
     }
 
     existsCourse(course: Course): Promise<boolean> {
-        return CourseModel.exists({title: course.title, owner: course.owner});
+        return CourseModel.exists({title: course.title, ownerId: course.ownerId});
     }
 
     getCoursesForUser(user: User): Promise<Course[]> {
-        return CourseModel.find({owner: user});
+        return CourseModel.find({ownerId: user.id});
     }
 
     getCourseById(courseId: string): Promise<Course> {

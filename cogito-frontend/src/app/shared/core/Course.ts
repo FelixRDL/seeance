@@ -5,7 +5,7 @@ export interface Course {
     _id: string;
     title: string;
     description: string;
-    owner: User;
+    ownerId: string;
     projects: Project[];
     createdAt: Date;
     updatedAt: Date;

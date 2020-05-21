@@ -66,21 +66,6 @@ export class CourseController {
                 console.error(e);
                 res.status(500).send("Internal Server Error");
             }
-
         }
-    }
-
-    /**
-     * TODO: This may be solved more elegantly
-     */
-    private async populateProjects(token: string, course: Course): Promise<Course> {
-        return new Promise(async (resolve, reject) => {
-            console.log(course.projects);
-            // TODO: this is quite hacky, may remove later
-            const projects: ProtoProject[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(""+p)));
-            let courseCopy: Course =  JSON.parse(JSON.stringify(course)) as Course;
-            // courseCopy.projects = projects;
-            resolve(courseCopy);
-        });
     }
 }

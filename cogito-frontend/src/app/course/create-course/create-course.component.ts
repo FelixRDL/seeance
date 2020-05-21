@@ -30,7 +30,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   onSubmit(course: Course) {
-    course.owner = this.user;
+    course.ownerId = this.user.id;
     this.courses.createCourse(course).subscribe((course: Course) => {
       this.router.navigate(['/courses', course._id]);
     }, (error) => {

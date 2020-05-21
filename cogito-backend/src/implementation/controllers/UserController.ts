@@ -73,7 +73,7 @@ export class UserController {
         const user: User = await provider.getGithubUserFromToken(token);
         const result: boolean = await ExistsUserWithId(user.id, provider);
         console.log(result);
-        if(result) {
+        if(result == true) {
             res.locals.authenticatedUser = await GetUserById(user.id, provider);
             next();
         } else {

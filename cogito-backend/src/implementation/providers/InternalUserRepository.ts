@@ -4,12 +4,14 @@ import {Mapper} from "../../logic/core/Mapper";
 import {AuthController} from "../controllers/AuthController";
 import {InternalServerError} from "../../logic/core/errors/InternalServerError";
 import {InvalidCredentialsError} from "../../logic/repositories/AuthManager";
+
 const cached_request = require('cached-request');
 const cachedRequest = cached_request(require('request'));
 const cacheDirectory = "/tmp/cache";
 cachedRequest.setCacheDirectory(cacheDirectory);
 // @ts-ignore
 import {UserModel} from './../../driver/models/UserModel';
+import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
 
 export class InternalUserRepository implements UserRepository {
     private githubApiPath: string = "https://api.github.com/"
@@ -33,7 +35,7 @@ export class InternalUserRepository implements UserRepository {
 
     async getUserWithId(id: string): Promise<User> {
         return UserModel.findOne({'githubId': id}).then((protoUser: any) => {
-            if(!protoUser)
+            if (!protoUser)
                 return Promise.resolve(undefined);
             else
                 return this.getGithubUserById(protoUser.githubId, this.token);
@@ -45,10 +47,10 @@ export class InternalUserRepository implements UserRepository {
             const uri: string = this.githubApiPath + 'user';
             let options = AuthController.getBearerAuthHeader(uri, token);
             options.ttl = 100000;
-             cachedRequest.get(options, (er: any, res: any, body: any) => {
-                 const user: User = new GithubUserToAppUserMapper().map(JSON.parse(body));
-                 resolve(user);
-             });
+            cachedRequest.get(options, (er: any, res: any, body: any) => {
+                const user: User = new GithubUserToAppUserMapper().map(JSON.parse(body));
+                resolve(user);
+            });
         });
     }
 
@@ -68,6 +70,25 @@ export class InternalUserRepository implements UserRepository {
             });
         })
     }
+
+    async getUserAutocomplete(q: string): Promise<User[]> {
+        return new Promise<User[]>(async (resolve, reject) => {
+            const uri: string = this.githubApiPath + 'search/users?q=' + q;
+            let options = AuthController.getBearerAuthHeader(uri, this.token);
+            options.ttl = 10000;
+            const userIds: string[] = (await UserModel.find({})).map((result: any) => result.githubId);
+            cachedRequest.get(options, (err: any, res: any, body: any) => {
+                if(err) {
+                    reject(err);
+                } else {
+                    let foundUsers = JSON.parse(body).items;
+                    foundUsers = foundUsers.map((item: any) => new GithubUserToAppUserMapper().map(item));
+                    foundUsers = foundUsers.filter((item: User) => userIds.includes(item.id.toString()));
+                    resolve(foundUsers);
+                }
+            });
+        });
+    }
 }
 
 class GithubUserToAppUserMapper implements Mapper<any, User> {
@@ -80,7 +101,7 @@ class GithubUserToAppUserMapper implements Mapper<any, User> {
             user.profileLink = input['url'];
             user.description = input['bio'];
             return user;
-        } catch (e){
+        } catch (e) {
             console.error(e);
             throw new Error("Mapping error");
         }

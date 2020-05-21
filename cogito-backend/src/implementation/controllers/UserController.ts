@@ -9,6 +9,7 @@ import {
     GetAuthorizedUsersForCourseWithId,
     GetAuthorizedUsersForCourseWithIdRequest
 } from "../../logic/use-cases/user/GetAuthorizedUsersForCourse";
+import {GetUserAutocomplete, GetUserAutocompleteRequest} from "../../logic/use-cases/user/GetUserAutocomplete";
 
 export class UserController {
     async createUserFromToken(req: express.Request, res: express.Response) {
@@ -85,6 +86,21 @@ export class UserController {
             console.error(e);
             res.status(500).send("Internal Server Error");
         }
+    }
+
+    async getUserAutocomplete(req: express.Request, res: express.Response) {
+        const token: string = <string>req.headers.authorization;
+        const uProvider: InternalUserRepository = new InternalUserRepository(token);
+        try {
+            const users: User[] = await GetUserAutocomplete(<GetUserAutocompleteRequest> {
+                q: req.query.q
+            },uProvider);
+            res.json(users);
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+
     }
 
     /**

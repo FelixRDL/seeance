@@ -10,6 +10,10 @@ router.get('/', async(req: express.Request, res:express.Response) => {
     controller.getAuthorizedUser(req, res);
 });
 
+router.get('/search', async(req: express.Request, res:express.Response) => {
+    controller.getUserAutocomplete(req, res);
+});
+
 router.get('/authorizees', async(req: express.Request, res: express.Response) => {
     console.log("ABC")
     controller.listUsersForCourse(req, res);

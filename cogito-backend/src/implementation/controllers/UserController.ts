@@ -1,11 +1,14 @@
 import {InternalUserRepository} from "../providers/InternalUserRepository";
 import * as express from 'express';
-import * as request from 'request';
 import {CreateUser, UserWithIdAlreadyExistingError} from "../../logic/use-cases/user/CreateUser";
 import {User} from "../../logic/entities/User";
 import {ExistsUserWithId} from "../../logic/use-cases/user/ExistsUserWithId";
 import {GetUserById} from "../../logic/use-cases/user/GetUserById";
-import {UserRepository} from "../../logic/repositories/UserRepository";
+import {InternalCourseRepository} from "../providers/InternalCourseRepository";
+import {
+    GetAuthorizedUsersForCourseWithId,
+    GetAuthorizedUsersForCourseWithIdRequest
+} from "../../logic/use-cases/user/GetAuthorizedUsersForCourse";
 
 export class UserController {
     async createUserFromToken(req: express.Request, res: express.Response) {
@@ -66,6 +69,28 @@ export class UserController {
             res.status(500).send("Internal Server Error");
         }
     }
+
+    async listUsersForCourse(req: express.Request, res: express.Response) {
+        const token: string = <string>req.headers.authorization;
+        const cProvider: InternalCourseRepository = new InternalCourseRepository();
+        const uProvider: InternalUserRepository = new InternalUserRepository(token);
+        console.log("Yay");
+        try {
+            const users: User[] =  await GetAuthorizedUsersForCourseWithId(<GetAuthorizedUsersForCourseWithIdRequest>{
+                courseId: res.locals.courseId
+            }, uProvider, cProvider);
+            console.log(users);
+            res.json(users);
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
+    /**
+     * Middlewares
+     */
+
 
     async userRegisteredMw(req: express.Request, res: express.Response, next: any) {
         const token: string = <string>req.headers.authorization;

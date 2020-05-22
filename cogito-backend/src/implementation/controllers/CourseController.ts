@@ -18,6 +18,10 @@ import {InternalProjectRepository} from "../providers/InternalProjectRepository"
 import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/projects/CreateProject";
 import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvider";
 import {RepoRepository} from "../../logic/repositories/RepoRepository";
+import {
+    IsUserAuthorizedToAccessCourse,
+    IsUserAuthorizedToAccessCourseRequest
+} from "../../logic/use-cases/courses/IsUserAuthorizedToAccessCourse";
 
 var mongoose = require('mongoose');
 
@@ -66,6 +70,17 @@ export class CourseController {
                 console.error(e);
                 res.status(500).send("Internal Server Error");
             }
+        }
+    }
+
+    async checkAuthorization(req: express.Request, res: express.Response, next: any) {
+        if(!await IsUserAuthorizedToAccessCourse(<IsUserAuthorizedToAccessCourseRequest>{
+            id: req.params.id,
+            user: res.locals.authenticatedUser
+        }, this.repository)) {
+            res.status(401).send("Access forbidden");
+        } else {
+            next();
         }
     }
 }

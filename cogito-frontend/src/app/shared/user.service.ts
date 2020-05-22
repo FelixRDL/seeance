@@ -47,6 +47,9 @@ export class UserService {
   addAuthorizeeToCourse(courseId: string, user: User): Observable<any> {
     return this.httpClient.post('/api/course/' + courseId + '/users/authorizees', user, {headers: AuthService.getBearerHeader(this.authService.getToken())});
   }
+  removeAuthorizeeFromCourse(courseId: string, user: User): Observable<any> {
+    return this.httpClient.delete('/api/course/' + courseId + '/users/authorizees/' + user.id, {headers: AuthService.getBearerHeader(this.authService.getToken())});
+  }
 
   logout() {
     this.authenticatedUser.next(undefined);

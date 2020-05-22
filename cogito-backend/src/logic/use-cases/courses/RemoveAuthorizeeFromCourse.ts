@@ -8,8 +8,8 @@ export async function RemoveAuthorizeeFromCourse (
     : Promise<void> {
     try {
         const course: Course = await courseRepository.getCourseById(req.courseId);
-        if(req.userId == course.ownerId || course.authorizeeIds.includes(req.userId)) {
-            return Promise.reject(new UserAlreadyAuthorizedForCourseError())
+        if(req.userId == course.ownerId || !course.authorizeeIds.includes(req.userId)) {
+            return Promise.reject(new UserNotAuthorizedForCourseError())
         } else {
             return courseRepository.removeUserFromCourseAuthorizees(req.userId, req.courseId);
         }
@@ -21,4 +21,11 @@ export async function RemoveAuthorizeeFromCourse (
 export interface RemoveAuthorizeeFromCourseRequest {
     userId: string,
     courseId: string
+}
+
+export class UserNotAuthorizedForCourseError extends Error {
+    constructor() {
+        super();
+        this.message = "The user you want to remove from the course is not authorized for it.";
+    }
 }

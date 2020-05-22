@@ -12,6 +12,7 @@ import {ProjectService} from "../shared/project.service";
 import { RepositoryAutocompleteComponent } from './edit-course/project-autocomplete/repository-autocomplete.component';
 import { ProjectListComponent } from './edit-course/project-list/project-list.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
+import { UserAutocompleteComponent } from './edit-course/user-autocomplete/user-autocomplete.component';
 
 
 
@@ -21,7 +22,8 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
     CreateCourseComponent,
     RepositoryAutocompleteComponent,
     ProjectListComponent,
-    EditCourseComponent
+    EditCourseComponent,
+    UserAutocompleteComponent
   ],
   imports: [
     CommonModule,

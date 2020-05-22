@@ -18,6 +18,13 @@
         <app-repo-autocomplete style="width:100%"
                                (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
       </mat-tab>
+      <mat-tab label="Collaborators">
+        <br>
+        <h4 class="mat-h4">Authorize other users to access this course.</h4>
+        <mat-divider></mat-divider>
+        <br>
+        <app-user-autocomplete style="width:100%"></app-user-autocomplete>
+      </mat-tab>
     </mat-tab-group>
   </mat-card-content>
 </mat-card>

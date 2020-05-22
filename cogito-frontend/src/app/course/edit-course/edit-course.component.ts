@@ -98,7 +98,7 @@ export class EditCourseComponent implements OnInit {
       if(result) {
         this.courseRepository.deleteCourseById(course._id).subscribe((result) => {
         this.courseRepository.updateCourses();
-        this.snackbar.open("Successfully removed course!");
+        this.snackbar.open("Successfully removed course!", 'OK');
         this.router.navigate(['']);
       }, (err: any) => {
         this.snackbar.open(err.message, 'OK');

@@ -12,7 +12,9 @@ export interface CourseRepository {
     getCoursesForUser(user: User): Promise<Course[]>;
 
     getCourseById(courseId: string): Promise<Course>;
-
+  
+    updateCourseById(courseId: string, course: Course): Promise<Course>;
+  
     removeCourseById(courseId: string): Promise<void>;
 
     addProjectToCourse(course: Course, project: Project): Promise<Course>;

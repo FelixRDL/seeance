@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Course} from "./core/Course";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {User} from "./core/User";
@@ -18,10 +18,10 @@ export class CourseService {
   }
 
   createCourse(course: Course): Observable<Course> {
-      return this.httpClient.post('/api/course/',
-        course,
-        {headers: AuthService.getBearerHeader()})
-        .pipe(map(data => <Course>data));
+    return this.httpClient.post('/api/course/',
+      course,
+      {headers: AuthService.getBearerHeader()})
+      .pipe(map(data => <Course>data));
   }
 
   updateCourses(): void {
@@ -37,13 +37,19 @@ export class CourseService {
   }
 
   getCourseById(id: string): Observable<Course> {
-    return this.httpClient.get('/api/course/'+id,
+    return this.httpClient.get('/api/course/' + id,
       {headers: AuthService.getBearerHeader()})
       .pipe(map(data => <Course>data));
   }
 
   deleteCourseById(id: string): Observable<any> {
-    return this.httpClient.delete('/api/course/'+id,
+    return this.httpClient.delete('/api/course/' + id,
+      {headers: AuthService.getBearerHeader()});
+  }
+
+  updateCourse(course: Course): Observable<any> {
+    return this.httpClient.put('/api/course/' + course._id,
+      course,
       {headers: AuthService.getBearerHeader()});
   }
 }

@@ -9,6 +9,12 @@ import cors = require('cors');
 import * as routes from './routes';
 import * as github_keys from './../../../secret/github_api';
 
+mongoose.connect('mongodb://database:27017/', {
+    useNewUrlParser: true
+}).then(function() {
+    console.log("Connected DB")
+});
+
 // @ts-ignore
 process.env.CLIENT_ID = github_keys.CLIENT_ID;
 // @ts-ignore

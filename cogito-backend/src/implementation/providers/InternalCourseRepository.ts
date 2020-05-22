@@ -3,7 +3,6 @@ import {Course} from "../../logic/entities/Course";
 import {CourseModel} from "../../driver/models/CourseModel";
 import {User} from "../../logic/entities/User";
 import {Project} from "../../logic/entities/Project";
-import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
 
 export class InternalCourseRepository implements CourseRepository {
 
@@ -69,10 +68,9 @@ export class InternalCourseRepository implements CourseRepository {
 
     removeProjectWithIdFromCourse(course: Course, projectId: string): Promise<Course> {
         return CourseModel.update(
-            {_id: course._id},
-            {$pull: {projects: projectId}}
-        )
-        return Promise.reject(new MethodNotImplementedError());
+            { _id: course._id},
+            { $pull: { projects: projectId } }
+        );
     }
 
     addUserToCourseAuthorizees(course: Course, user: User): Promise<Course> {
@@ -80,7 +78,7 @@ export class InternalCourseRepository implements CourseRepository {
             {_id: course._id},
             {$push: {'authorizeeIds': user.id}});
     }
-
+  
     removeUserFromCourseAuthorizees(userId: string, courseId: string): Promise<any> {
         return CourseModel.updateOne(
             {_id: courseId},

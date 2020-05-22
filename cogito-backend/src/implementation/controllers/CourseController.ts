@@ -18,6 +18,7 @@ import {
 import {DeleteCourseById, DeleteCourseByIdRequest} from "../../logic/use-cases/courses/DeleteCourseById";
 import {ExistsUserWithId} from "../../logic/use-cases/user/ExistsUserWithId";
 import {ExistsCourseById} from "../../logic/use-cases/courses/ExistsCourseById";
+import {UpdateCourseById} from "../../logic/use-cases/courses/UpdateCourseById";
 
 var mongoose = require('mongoose');
 
@@ -77,6 +78,19 @@ export class CourseController {
             }, this.repository,
                 this.projectRepository);
             res.send();
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
+    async updateCourseById(req: express.Request, res: express.Response) {
+        try {
+            let result: Course = await UpdateCourseById({
+                courseId: req.params.id,
+                course: req.body
+            }, this.repository);
+            res.json(result);
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error");

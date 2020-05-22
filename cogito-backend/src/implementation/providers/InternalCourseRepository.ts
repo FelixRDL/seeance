@@ -21,6 +21,11 @@ export class InternalCourseRepository implements CourseRepository {
         return CourseModel.exists({title: course.title, ownerId: course.ownerId});
     }
 
+
+    existsCourseById(id: string): Promise<boolean> {
+        return CourseModel.exists({_id: id});
+    }
+
     getCoursesForUser(user: User): Promise<Course[]> {
         return CourseModel.find({
             $or: [
@@ -37,6 +42,11 @@ export class InternalCourseRepository implements CourseRepository {
     getCourseById(courseId: string): Promise<Course> {
         return CourseModel.findById(courseId).populate('owner');
     }
+
+    removeCourseById(courseId: string): Promise<void> {
+        return CourseModel.findOne({_id: courseId}).remove().exec();
+    }
+
 
     addProjectToCourse(course: Course, project: Project): Promise<Course> {
         return CourseModel.updateOne(
@@ -73,5 +83,4 @@ export class InternalCourseRepository implements CourseRepository {
 
     constructor() {
     }
-
 }

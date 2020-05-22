@@ -82,7 +82,9 @@ export class EditCourseComponent implements OnInit {
 
   onSaveCourse(course: Course) {
     this.courseRepository.updateCourse(course).subscribe((course: Course) => {
+      console.log(course);
       this.courseRepository.updateCourses();
+      this.activeCourse.next(course);
     });
   }
 

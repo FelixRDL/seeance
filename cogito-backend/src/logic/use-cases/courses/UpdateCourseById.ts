@@ -7,7 +7,8 @@ export async function UpdateCourseById(req: UpdateCourseByIdRequest, repository:
         if(!await repository.existsCourseById(req.courseId)) {
             return Promise.reject(new CourseNotExistingError());
         } else {
-            return repository.updateCourseById(req.courseId, req.course);
+            await repository.updateCourseById(req.courseId, req.course);
+            return repository.getCourseById(req.courseId);
         }
     } catch(e) {
         console.error(e);

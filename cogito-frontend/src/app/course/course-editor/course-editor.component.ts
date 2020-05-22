@@ -38,7 +38,9 @@ export class CourseEditorComponent implements OnInit, OnChanges {
 
   save(): void {
     let course: Course = this.courseForm.value;
-    course._id = this.model._id;
+    if(this.model !== undefined) {
+      course._id = this.model._id;
+    }
     this.onSubmit.emit(course);
   }
 

@@ -37,7 +37,9 @@ export class CourseEditorComponent implements OnInit, OnChanges {
   }
 
   save(): void {
-    this.onSubmit.emit(<Course>this.courseForm.value);
+    let course: Course = this.courseForm.value;
+    course._id = this.model._id;
+    this.onSubmit.emit(course);
   }
 
   delete(): void {

@@ -22,7 +22,16 @@ export class InternalCourseRepository implements CourseRepository {
     }
 
     getCoursesForUser(user: User): Promise<Course[]> {
-        return CourseModel.find({ownerId: user.id});
+        return CourseModel.find({
+            $or: [
+                {ownerId: user.id},
+                {
+                    authorizeeIds: {
+                        $in: user.id
+                    }
+                }
+            ]
+        });
     }
 
     getCourseById(courseId: string): Promise<Course> {

@@ -28,20 +28,24 @@ export class GithubAuthManager implements AuthManager {
     verifyToken(token: string): Promise<boolean> {
 
         const promise: Promise<boolean> = new Promise<boolean>((resolve, reject) => {
-            const uri: string = this.githubApiPath + "applications/" + process.env.CLIENT_ID + "/tokens/" + token;
-            const authUrI: string =  process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET + "@" + uri;
+            const uri: string = "api.github.com/applications/" + process.env.CLIENT_ID + "/tokens/" + token;
+            const authedUri = "https://" + process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET + "@"+ uri;
             const options = {
-                url: uri,
+                uri: authedUri,
+                method: 'GET',
                 headers: {
-                    'User-Agent': 'Client'
+                    'User-Agent': 'Client',
                 }
             };
             request.get(options, function (error: any, response: any, body: any){
-                if(response.statusCode == 200) {
+                if(error) {
+                    console.log(error);
+                } else if(response.statusCode == 200) {
                     resolve(true);
                 } else if(response.statusCode == 401) {
                     resolve(false);
                 } else {
+                    console.log(error);
                     reject(new InternalServerError());
                 }
             });

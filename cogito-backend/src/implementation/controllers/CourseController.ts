@@ -18,6 +18,10 @@ import {InternalProjectRepository} from "../providers/InternalProjectRepository"
 import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/projects/CreateProject";
 import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvider";
 import {RepoRepository} from "../../logic/repositories/RepoRepository";
+import {
+    IsUserAuthorizedToAccessCourse,
+    IsUserAuthorizedToAccessCourseRequest
+} from "../../logic/use-cases/courses/IsUserAuthorizedToAccessCourse";
 
 var mongoose = require('mongoose');
 
@@ -45,7 +49,6 @@ export class CourseController {
             const token: string = <string>req.headers.authorization;
             let result: Course[] = await GetCoursesForUser(res.locals.authenticatedUser, this.repository);
             // result = await result.map(async (course: Course) => await this.populateProjects(token, course));
-            result = await Promise.all(result.map((course: Course) => this.populateProjects(token, course)));
             res.json(result);
         } catch (e) {
             console.error(e);
@@ -57,7 +60,6 @@ export class CourseController {
         try {
             const token: string = <string>req.headers.authorization;
             let result: Course = await GetCourseById(req.params.id, res.locals.authenticatedUser, this.repository);
-            result = await this.populateProjects(token, result);
             res.json(result);
         } catch (e) {
             if (e instanceof UserNotAuthorizedAccessingCourseError) {
@@ -68,21 +70,17 @@ export class CourseController {
                 console.error(e);
                 res.status(500).send("Internal Server Error");
             }
-
         }
     }
 
-    /**
-     * TODO: This may be solved more elegantly
-     */
-    private async populateProjects(token: string, course: Course): Promise<Course> {
-        return new Promise(async (resolve, reject) => {
-            console.log(course.projects);
-            // TODO: this is quite hacky, may remove later
-            const projects: ProtoProject[] = await Promise.all(course.projects.map(p => this.projectRepository.getProjectById(""+p)));
-            let courseCopy: Course =  JSON.parse(JSON.stringify(course)) as Course;
-            // courseCopy.projects = projects;
-            resolve(courseCopy);
-        });
+    async checkAuthorization(req: express.Request, res: express.Response, next: any) {
+        if(!await IsUserAuthorizedToAccessCourse(<IsUserAuthorizedToAccessCourseRequest>{
+            id: req.params.id,
+            user: res.locals.authenticatedUser
+        }, this.repository)) {
+            res.status(401).send("Access forbidden");
+        } else {
+            next();
+        }
     }
 }

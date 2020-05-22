@@ -12,12 +12,11 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserModel',
+    ownerId: {
+        type: String,
         required: true
     },
-    projects: [{
+    authorizeeIds: [{
         "type": String
     }]
 }, {timestamps: true});

@@ -1,0 +1,15 @@
+<mat-form-field>
+  <input matInput
+         placeholder="Enter user name to search"
+         [matAutocomplete]="auto"
+         [formControl]="userNameAutocomplete"
+  >
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let user of users|async" [value]="user" (onSelectionChange)="selectUser(user)">
+      <span>{{user.login}}</span>
+      <span>
+      <img [src]="user.avatarImageUrl" class="round-profile-picture-small">
+      </span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

@@ -8,7 +8,7 @@ export async function GetCourseById(courseId: string, user: User, repository: Co
         const course: Course = await repository.getCourseById(courseId);
         if(!course) {
             return Promise.reject(new CourseNotExistingError());
-        } else if(course.owner.id !== user.id) {
+        } else if((course.ownerId != user.id) && (!course.authorizeeIds.includes(user.id))) {
             // TODO: add further validation when other users can be authorized
             return Promise.reject(new UserNotAuthorizedAccessingCourseError())
         } else {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Repository} from "../../../shared/core/Repository";
 import {BehaviorSubject} from "rxjs";
 import {FormControl} from "@angular/forms";
@@ -13,9 +13,8 @@ import {User} from "../../../shared/core/User";
   styleUrls: ['./user-autocomplete.component.scss']
 })
 export class UserAutocompleteComponent implements OnInit {
-  @Output() userSelected: EventEmitter<Repository> = new EventEmitter<Repository>();
-
-  users: BehaviorSubject<User[]> = new BehaviorSubject<Repository[]>([]);
+  @Output() userSelected: EventEmitter<User> = new EventEmitter<User>();
+  users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   userNameAutocomplete = new FormControl();
 
   constructor(

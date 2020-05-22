@@ -13,6 +13,7 @@ import { RepositoryAutocompleteComponent } from './edit-course/project-autocompl
 import { ProjectListComponent } from './edit-course/project-list/project-list.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 import { UserAutocompleteComponent } from './edit-course/user-autocomplete/user-autocomplete.component';
+import { UserListComponent } from './edit-course/user-list/user-list.component';
 
 
 
@@ -23,7 +24,8 @@ import { UserAutocompleteComponent } from './edit-course/user-autocomplete/user-
     RepositoryAutocompleteComponent,
     ProjectListComponent,
     EditCourseComponent,
-    UserAutocompleteComponent
+    UserAutocompleteComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,

@@ -34,9 +34,15 @@ export class UserService {
     this.authenticatedUser.next(user);
   }
 
-  getAutocomplete(q: string) {
+  getAutocomplete(q: string): Observable<User[]> {
     return this.httpClient.get('/api/user/search?q=' + q, {headers: AuthService.getBearerHeader(this.authService.getToken())})
-      .pipe(map(data => <User>data));
+      .pipe(map(data => <User[]>data));
+  }
+
+  getAuthorizeesForCourse(courseId: string): Observable<User[]> {
+    return this.httpClient.get('/api/course/' + courseId + '/users/authorizees', {headers: AuthService.getBearerHeader(this.authService.getToken())})
+      .pipe(map(data => <User[]>data));
+
   }
 
   logout() {

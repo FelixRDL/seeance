@@ -7,6 +7,8 @@ import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Repository} from "../../shared/core/Repository";
 import {ProjectService} from "../../shared/project.service";
+import {User} from "../../shared/core/User";
+import {UserService} from "../../shared/user.service";
 
 @Component({
   selector: 'app-edit-course',
@@ -15,11 +17,13 @@ import {ProjectService} from "../../shared/project.service";
 })
 export class EditCourseComponent implements OnInit {
   projects: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
+  authorizees: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
 
   constructor(
     private courseRepository: CourseService,
     private projectRepo: ProjectService,
+    private userRepo: UserService,
     private route: ActivatedRoute,
     private snackbar: MatSnackBar
   ) { }
@@ -35,6 +39,10 @@ export class EditCourseComponent implements OnInit {
     this.projectRepo.getProjectsForCourse(courseId).subscribe((projects:[]) => {
       console.log(projects);
       this.projects.next(projects);
+    });
+
+    this.userRepo.getAuthorizeesForCourse(courseId).subscribe((users: []) => {
+      this.authorizees.next(users);
     });
   }
 
@@ -71,5 +79,13 @@ export class EditCourseComponent implements OnInit {
     this.projectRepo.deleteProjectById(this.activeCourse.getValue()._id, project._id).subscribe((id: string )=> {
       this.projects.next(this.projects.getValue().filter((item: Project) => item._id !== id));
     })
+  }
+
+  //
+  //
+  //
+
+  onAddUser(user: User) {
+    console.log(user);
   }
 }

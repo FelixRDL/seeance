@@ -8,6 +8,7 @@ const router = express.Router();
 const controller: CourseController = new CourseController();
 
 router.use('/:id/projects',
+    controller.checkExistingMw,
     controller.checkAuthorizationMw,
     (req, res, next) => {
         res.locals.courseId = req.params.id;
@@ -15,6 +16,7 @@ router.use('/:id/projects',
     }, project.router);
 
 router.use('/:id/users',
+    controller.checkExistingMw,
     controller.checkAuthorizationMw,
     (req, res, next) => {
         res.locals.courseId = req.params.id;
@@ -26,12 +28,14 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 });
 
 router.get('/:id',
+    controller.checkExistingMw,
     controller.checkAuthorizationMw,
     async (req: express.Request, res: express.Response) => {
         controller.getCourseById(req, res);
     });
 
 router.delete('/:id',
+    controller.checkExistingMw,
     controller.checkAuthorizationMw,
     async (req: express.Request, res: express.Response) => {
         controller.removeCourseById(req, res);

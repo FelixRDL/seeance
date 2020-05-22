@@ -16,6 +16,8 @@ import {
     IsUserAuthorizedToAccessCourseRequest
 } from "../../logic/use-cases/courses/IsUserAuthorizedToAccessCourse";
 import {DeleteCourseById, DeleteCourseByIdRequest} from "../../logic/use-cases/courses/DeleteCourseById";
+import {ExistsUserWithId} from "../../logic/use-cases/user/ExistsUserWithId";
+import {ExistsCourseById} from "../../logic/use-cases/courses/ExistsCourseById";
 
 var mongoose = require('mongoose');
 
@@ -87,6 +89,16 @@ export class CourseController {
             user: res.locals.authenticatedUser
         }, new InternalCourseRepository())) {
             res.status(401).send("Access forbidden");
+        } else {
+            next();
+        }
+    }
+
+    async checkExistingMw(req: express.Request, res: express.Response, next: any) {
+        if(!await ExistsCourseById({
+            courseId: req.params.id
+        }, new InternalCourseRepository())) {
+            res.status(404).send("Course not existing");
         } else {
             next();
         }

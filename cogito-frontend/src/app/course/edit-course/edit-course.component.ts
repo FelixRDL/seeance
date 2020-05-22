@@ -81,8 +81,11 @@ export class EditCourseComponent implements OnInit {
   }
 
   onSaveCourse(course: Course) {
-    this.snackbar.open("Method not yet implemented!");
-    throw new Error("Method not implemented");
+    this.courseRepository.updateCourse(course).subscribe((course: Course) => {
+      console.log(course);
+      this.courseRepository.updateCourses();
+      this.activeCourse.next(course);
+    });
   }
 
   onDeleteCourse(course: Course) {

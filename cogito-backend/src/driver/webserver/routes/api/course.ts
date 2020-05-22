@@ -34,6 +34,13 @@ router.get('/:id',
         controller.getCourseById(req, res);
     });
 
+router.put('/:id',
+    controller.checkExistingMw,
+    controller.checkAuthorizationMw,
+    async (req: express.Request, res: express.Response) => {
+        controller.updateCourseById(req, res);
+    });
+
 router.delete('/:id',
     controller.checkExistingMw,
     controller.checkAuthorizationMw,

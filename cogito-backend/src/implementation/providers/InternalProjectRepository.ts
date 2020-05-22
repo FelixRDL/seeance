@@ -55,4 +55,8 @@ export class InternalProjectRepository implements ProjectRepository {
             return Promise.resolve(result.deletedCount == 1);
         });
     }
+
+    removeAllProjectsForCourse(courseId: string): Promise<void> {
+        return ProjectModel.find({courseId: courseId}).remove().exec();
+    }
 }

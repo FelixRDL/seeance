@@ -8,32 +8,42 @@ const router = express.Router();
 const controller: CourseController = new CourseController();
 
 router.use('/:id/projects',
-    controller.checkAuthorization,
+    controller.checkExistingMw,
+    controller.checkAuthorizationMw,
     (req, res, next) => {
-    res.locals.courseId = req.params.id;
-    next();
-}, project.router);
+        res.locals.courseId = req.params.id;
+        next();
+    }, project.router);
 
 router.use('/:id/users',
-    controller.checkAuthorization,
+    controller.checkExistingMw,
+    controller.checkAuthorizationMw,
     (req, res, next) => {
-    res.locals.courseId = req.params.id;
-    next();
-}, user.router);
+        res.locals.courseId = req.params.id;
+        next();
+    }, user.router);
 
 router.post('/', async (req: express.Request, res: express.Response) => {
     controller.createCourse(req, res);
 });
 
 router.get('/:id',
-    controller.checkAuthorization,
+    controller.checkExistingMw,
+    controller.checkAuthorizationMw,
     async (req: express.Request, res: express.Response) => {
-    controller.getCourseById(req, res);
-});
+        controller.getCourseById(req, res);
+    });
+
+router.delete('/:id',
+    controller.checkExistingMw,
+    controller.checkAuthorizationMw,
+    async (req: express.Request, res: express.Response) => {
+        controller.removeCourseById(req, res);
+    });
 
 router.get('/',
     async (req: express.Request, res: express.Response) => {
-    controller.listCourses(req, res);
-});
+        controller.listCourses(req, res);
+    });
 
 export {router};

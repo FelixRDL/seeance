@@ -41,4 +41,9 @@ export class CourseService {
       {headers: AuthService.getBearerHeader()})
       .pipe(map(data => <Course>data));
   }
+
+  deleteCourseById(id: string): Observable<any> {
+    return this.httpClient.delete('/api/course/'+id,
+      {headers: AuthService.getBearerHeader()});
+  }
 }

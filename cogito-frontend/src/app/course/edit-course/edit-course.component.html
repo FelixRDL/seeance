@@ -8,7 +8,7 @@
         <mat-divider></mat-divider>
         <br>
         <app-course-editor [action]="'Save'" [model]="(activeCourse|async)"
-                           (onSubmit)="onSaveCourse($event)"></app-course-editor>
+                           (onSubmit)="onSaveCourse($event)" (onDelete)="onDeleteCourse($event)"></app-course-editor>
       </mat-tab>
       <mat-tab label="Repositories">
         <br>

@@ -14,6 +14,7 @@ export class CourseEditorComponent implements OnInit, OnChanges {
   @Input() action: string;
   @Input() model: Course;
   @Output() onSubmit: EventEmitter<Course> = new EventEmitter<Course>();
+  @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
 
   courseForm = this.fb.group({
     title: ['', Validators.required],
@@ -37,6 +38,11 @@ export class CourseEditorComponent implements OnInit, OnChanges {
 
   save(): void {
     this.onSubmit.emit(<Course>this.courseForm.value);
+  }
+
+  delete(): void {
+    console.log(this.model);
+    this.onDelete.emit(this.model);
   }
 
 }

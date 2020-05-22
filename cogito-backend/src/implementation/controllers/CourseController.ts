@@ -9,19 +9,15 @@ import {
     GetCourseById,
     UserNotAuthorizedAccessingCourseError
 } from "../../logic/use-cases/courses/GetCourseById";
-import {
-    ProjectAlreadyExistingInCourseError
-} from "../../logic/use-cases/courses/AddProjectToCourseById";
-import {Project, ProtoProject} from "../../logic/entities/Project";
 import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
 import {InternalProjectRepository} from "../providers/InternalProjectRepository";
-import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/projects/CreateProject";
-import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvider";
-import {RepoRepository} from "../../logic/repositories/RepoRepository";
 import {
     IsUserAuthorizedToAccessCourse,
     IsUserAuthorizedToAccessCourseRequest
 } from "../../logic/use-cases/courses/IsUserAuthorizedToAccessCourse";
+import {DeleteCourseById, DeleteCourseByIdRequest} from "../../logic/use-cases/courses/DeleteCourseById";
+import {ExistsUserWithId} from "../../logic/use-cases/user/ExistsUserWithId";
+import {ExistsCourseById} from "../../logic/use-cases/courses/ExistsCourseById";
 
 var mongoose = require('mongoose');
 
@@ -73,12 +69,36 @@ export class CourseController {
         }
     }
 
-    async checkAuthorization(req: express.Request, res: express.Response, next: any) {
+    async removeCourseById(req: express.Request, res: express.Response) {
+        console.log("ABC");
+        try {
+            await DeleteCourseById(<DeleteCourseByIdRequest>{
+                courseId: req.params.id
+            }, this.repository,
+                this.projectRepository);
+            res.send();
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
+    async checkAuthorizationMw(req: express.Request, res: express.Response, next: any) {
         if(!await IsUserAuthorizedToAccessCourse(<IsUserAuthorizedToAccessCourseRequest>{
             id: req.params.id,
             user: res.locals.authenticatedUser
-        }, this.repository)) {
+        }, new InternalCourseRepository())) {
             res.status(401).send("Access forbidden");
+        } else {
+            next();
+        }
+    }
+
+    async checkExistingMw(req: express.Request, res: express.Response, next: any) {
+        if(!await ExistsCourseById({
+            courseId: req.params.id
+        }, new InternalCourseRepository())) {
+            res.status(404).send("Course not existing");
         } else {
             next();
         }

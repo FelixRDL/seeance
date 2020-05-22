@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Project} from "../../shared/core/Project";
 import {CourseService} from "../../shared/course.service";
 import {Course} from "../../shared/core/Course";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Repository} from "../../shared/core/Repository";
@@ -25,6 +25,7 @@ export class EditCourseComponent implements OnInit {
     private projectRepo: ProjectService,
     private userRepo: UserService,
     private route: ActivatedRoute,
+    private router: Router,
     private snackbar: MatSnackBar
   ) {
   }
@@ -34,7 +35,12 @@ export class EditCourseComponent implements OnInit {
       this.activeCourse.next(course);
       console.log(course);
     }, (errors) => {
-      console.error(errors);
+      if(errors.status == 401) {
+        this.snackbar.open( "You are not authorized to access this course. Please ask its owner to grant you access.", "OK");
+        this.router.navigate(['']);
+      } else {
+        console.error(errors);
+      }
     });
 
     this.projectRepo.getProjectsForCourse(courseId).subscribe((projects: []) => {

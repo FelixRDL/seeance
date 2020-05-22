@@ -40,6 +40,4 @@ export class UserAutocompleteComponent implements OnInit {
     this.userSelected.emit(user);
     this.userNameAutocomplete.reset();
   }
-
-
 }

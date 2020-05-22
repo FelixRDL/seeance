@@ -15,6 +15,8 @@ export async function AddAuthorizeeToCourseById(
     const course: Course = await courseRepository.getCourseById(req.courseId);
     if (course.authorizeeIds.includes(req.user.id)) {
         return Promise.reject(new UserAlreadyAuthorizedForCourseError())
+    } else if (course.ownerId == req.user.id) {
+        return Promise.reject(new OwnerAlreadyAuthorizedForCourseError())
     } else {
         return courseRepository.addUserToCourseAuthorizees(course, req.user);
     }
@@ -29,5 +31,11 @@ export class UserAlreadyAuthorizedForCourseError extends Error {
     constructor() {
         super();
         this.message = "The course already contains this user as an authorizee";
+    }
+}
+export class OwnerAlreadyAuthorizedForCourseError extends Error {
+    constructor() {
+        super();
+        this.message = "Course owner already is authorized for the course.";
     }
 }

@@ -12,7 +12,7 @@ import {
 import {GetUserAutocomplete, GetUserAutocompleteRequest} from "../../logic/use-cases/user/GetUserAutocomplete";
 import {
     AddAuthorizeeToCourseById,
-    AddAuthorizeeToCourseByIdRequest
+    AddAuthorizeeToCourseByIdRequest, OwnerAlreadyAuthorizedForCourseError, UserAlreadyAuthorizedForCourseError
 } from "../../logic/use-cases/courses/AddAuthorizeeToCourseById";
 import {Course} from "../../logic/entities/Course";
 
@@ -102,8 +102,14 @@ export class UserController {
             );
             res.json(course)
         } catch(e) {
-            console.error(e);
-            res.status(500).send("Internal Server Error");
+            if(e instanceof UserAlreadyAuthorizedForCourseError) {
+                res.status(409).send("User is already authorized for course!");
+            } else if(e instanceof OwnerAlreadyAuthorizedForCourseError) {
+              res.status(400).send("Owner cannot be authorized for course.")
+            } else {
+                console.error(e);
+                res.status(500).send("Internal Server Error");
+            }
         }
     }
 

@@ -60,7 +60,7 @@ export class InternalCourseRepository implements CourseRepository {
                 _id: course._id
             }, {
                 projects: {
-                    "$in" : [project._id]
+                    "$in": [project._id]
                 }
             }
             ]
@@ -69,8 +69,8 @@ export class InternalCourseRepository implements CourseRepository {
 
     removeProjectWithIdFromCourse(course: Course, projectId: string): Promise<Course> {
         return CourseModel.update(
-            { _id: course._id},
-            { $pull: { projects: projectId } }
+            {_id: course._id},
+            {$pull: {projects: projectId}}
         )
         return Promise.reject(new MethodNotImplementedError());
     }
@@ -81,6 +81,9 @@ export class InternalCourseRepository implements CourseRepository {
             {$push: {'authorizeeIds': user.id}});
     }
 
-    constructor() {
+    removeUserFromCourseAuthorizees(userId: string, courseId: string): Promise<any> {
+        return CourseModel.updateOne(
+            {_id: courseId},
+            {$pull: {'authorizeeIds': userId}});
     }
 }

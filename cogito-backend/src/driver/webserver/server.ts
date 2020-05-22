@@ -1,11 +1,5 @@
 // lib/app.ts
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://database:27017/', {
-    useNewUrlParser: true
-}).then(function() {
-    console.log("Connected DB")
-});
-
 // @ts-ignore
 import  express =  require("express");
 // @ts-ignore
@@ -19,6 +13,20 @@ import * as github_keys from './../../../secret/github_api';
 process.env.CLIENT_ID = github_keys.CLIENT_ID;
 // @ts-ignore
 process.env.CLIENT_SECRET = github_keys.CLIENT_SECRET;
+
+
+// Connect DB (retry code taken from https://github.com/docker/hub-feedback/issues/1255)
+function connectWithRetry () {
+    mongoose.connect('mongodb://database:27017/', {
+        useNewUrlParser: true
+    }).then(function() {
+        console.log("Connected DB")
+    });
+}
+mongoose.connection.on('error', (err: any) => {
+    setTimeout(connectWithRetry, 5000);
+});
+connectWithRetry();
 
 // Create a new express application instance
 const app: express.Application = express();

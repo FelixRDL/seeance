@@ -82,6 +82,17 @@ export class EditCourseComponent implements OnInit {
     throw new Error("Method not implemented");
   }
 
+  onDeleteCourse(course: Course) {
+    console.log("DEL!")
+    this.courseRepository.deleteCourseById(course._id).subscribe((result) => {
+      console.log("deld!");
+      this.courseRepository.updateCourses();
+      this.router.navigate(['']);
+    }, (err: any) => {
+      this.snackbar.open(err.message, 'OK');
+    })
+  }
+
   onDeleteProject(project: Project) {
     this.projectRepo.deleteProjectById(this.activeCourse.getValue()._id, project._id).subscribe((id: string) => {
       this.projects.next(this.projects.getValue().filter((item: Project) => item._id !== id));

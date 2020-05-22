@@ -7,5 +7,9 @@
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
-  <button (click)="save()" [disabled]="!courseForm.valid" mat-flat-button color="primary">{{action}}</button>
+
+  <div class="row">
+    <button (click)="delete()" [disabled]="!courseForm.valid" mat-flat-button color="error"  *ngIf="model._id !== undefined">Delete</button>
+    <button (click)="save()" [disabled]="!courseForm.valid" mat-flat-button color="primary">{{action}}</button>
+  </div>
 </form>

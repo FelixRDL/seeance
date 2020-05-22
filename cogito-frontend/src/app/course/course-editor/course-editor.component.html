@@ -9,7 +9,7 @@
   </mat-form-field>
 
   <div class="row">
-    <button (click)="delete()" [disabled]="!courseForm.valid" mat-flat-button color="error"  *ngIf="model._id !== undefined">Delete</button>
+    <button (click)="delete()" [disabled]="!courseForm.valid" mat-flat-button color="error"  *ngIf="model?._id">Delete</button>
     <button (click)="save()" [disabled]="!courseForm.valid" mat-flat-button color="primary">{{action}}</button>
   </div>
 </form>

@@ -9,6 +9,8 @@ import {Repository} from "../../shared/core/Repository";
 import {ProjectService} from "../../shared/project.service";
 import {User} from "../../shared/core/User";
 import {UserService} from "../../shared/user.service";
+import {ConfirmModalComponent} from "../../shared/modals/confirm.modal/confirm.modal.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-edit-course',
@@ -26,7 +28,8 @@ export class EditCourseComponent implements OnInit {
     private userRepo: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog
   ) {
   }
 
@@ -83,14 +86,25 @@ export class EditCourseComponent implements OnInit {
   }
 
   onDeleteCourse(course: Course) {
-    console.log("DEL!")
-    this.courseRepository.deleteCourseById(course._id).subscribe((result) => {
-      console.log("deld!");
-      this.courseRepository.updateCourses();
-      this.router.navigate(['']);
-    }, (err: any) => {
-      this.snackbar.open(err.message, 'OK');
-    })
+    let dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: {
+        decline: 'cancel',
+        accept: 'delete',
+        title: 'Confirm Course Deletion',
+        message: 'Do you really want to delete the course ' + course.title + '? You cannot undo this.'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.courseRepository.deleteCourseById(course._id).subscribe((result) => {
+        this.courseRepository.updateCourses();
+        this.snackbar.open("Successfully removed course!");
+        this.router.navigate(['']);
+      }, (err: any) => {
+        this.snackbar.open(err.message, 'OK');
+      })
+      }
+    });
   }
 
   onDeleteProject(project: Project) {

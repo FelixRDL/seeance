@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from "../../shared/core/Project";
 import {CourseService} from "../../shared/course.service";
 import {Course} from "../../shared/core/Course";
@@ -26,7 +26,8 @@ export class EditCourseComponent implements OnInit {
     private userRepo: UserService,
     private route: ActivatedRoute,
     private snackbar: MatSnackBar
-  ) { }
+  ) {
+  }
 
   fetchData(courseId: string): void {
     this.courseRepository.getCourseById(courseId).subscribe((course: Course) => {
@@ -36,7 +37,7 @@ export class EditCourseComponent implements OnInit {
       console.error(errors);
     });
 
-    this.projectRepo.getProjectsForCourse(courseId).subscribe((projects:[]) => {
+    this.projectRepo.getProjectsForCourse(courseId).subscribe((projects: []) => {
       console.log(projects);
       this.projects.next(projects);
     });
@@ -48,7 +49,7 @@ export class EditCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      if(params.id) {
+      if (params.id) {
         this.fetchData(params.id);
       }
     });
@@ -59,7 +60,7 @@ export class EditCourseComponent implements OnInit {
       _id: undefined,
       repository: repo
     };
-    this.projectRepo.createProject(this.activeCourse.getValue()._id, newProject).subscribe((project:Project) => {
+    this.projectRepo.createProject(this.activeCourse.getValue()._id, newProject).subscribe((project: Project) => {
       const projects: Project[] = this.projects.getValue();
       projects.push(project);
       this.projects.next(projects);
@@ -76,7 +77,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   onDeleteProject(project: Project) {
-    this.projectRepo.deleteProjectById(this.activeCourse.getValue()._id, project._id).subscribe((id: string )=> {
+    this.projectRepo.deleteProjectById(this.activeCourse.getValue()._id, project._id).subscribe((id: string) => {
       this.projects.next(this.projects.getValue().filter((item: Project) => item._id !== id));
     })
   }
@@ -86,6 +87,10 @@ export class EditCourseComponent implements OnInit {
   //
 
   onAddUser(user: User) {
-    console.log(user);
+    this.userRepo.addAuthorizeeToCourse(this.activeCourse.getValue()._id, user).subscribe((data) => {
+      this.userRepo.getAuthorizeesForCourse(this.activeCourse.getValue()._id).subscribe((users: []) => {
+        this.authorizees.next(users);
+      });
+    })
   }
 }

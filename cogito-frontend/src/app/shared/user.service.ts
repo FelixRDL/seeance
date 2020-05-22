@@ -42,7 +42,10 @@ export class UserService {
   getAuthorizeesForCourse(courseId: string): Observable<User[]> {
     return this.httpClient.get('/api/course/' + courseId + '/users/authorizees', {headers: AuthService.getBearerHeader(this.authService.getToken())})
       .pipe(map(data => <User[]>data));
+  }
 
+  addAuthorizeeToCourse(courseId: string, user: User): Observable<any> {
+    return this.httpClient.post('/api/course/' + courseId + '/users/authorizees', user, {headers: AuthService.getBearerHeader(this.authService.getToken())});
   }
 
   logout() {

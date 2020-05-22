@@ -23,7 +23,7 @@
         <h4 class="mat-h4">Authorize other users to access this course.</h4>
         <mat-divider></mat-divider>
         <br>
-        <app-user-list [users]="(authorizees|async)"></app-user-list>
+        <app-user-list [users]="(authorizees|async)" (delete)="onDeleteUser($event)"></app-user-list>
         <app-user-autocomplete
           style="width:100%"
           (userSelected)="onAddUser($event)"

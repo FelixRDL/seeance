@@ -127,4 +127,12 @@ export class EditCourseComponent implements OnInit {
       });
     })
   }
+
+  onDeleteUser(user: User) {
+    this.userRepo.removeAuthorizeeFromCourse(this.activeCourse.getValue()._id, user).subscribe((data) => {
+      this.userRepo.getAuthorizeesForCourse(this.activeCourse.getValue()._id).subscribe((users: []) => {
+        this.authorizees.next(users);
+      });
+    });
+  }
 }

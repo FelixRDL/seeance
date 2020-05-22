@@ -15,6 +15,10 @@ import {
     AddAuthorizeeToCourseByIdRequest, OwnerAlreadyAuthorizedForCourseError, UserAlreadyAuthorizedForCourseError
 } from "../../logic/use-cases/courses/AddAuthorizeeToCourseById";
 import {Course} from "../../logic/entities/Course";
+import {
+    RemoveAuthorizeeFromCourse,
+    RemoveAuthorizeeFromCourseRequest
+} from "../../logic/use-cases/courses/RemoveAuthorizeeFromCourse";
 
 export class UserController {
     async createUserFromToken(req: express.Request, res: express.Response) {
@@ -110,6 +114,21 @@ export class UserController {
                 console.error(e);
                 res.status(500).send("Internal Server Error");
             }
+        }
+    }
+    async removeAuthorizeeFromCourse(req: express.Request, res: express.Response) {
+        const cProvider: InternalCourseRepository = new InternalCourseRepository();
+        try {
+            await RemoveAuthorizeeFromCourse(<RemoveAuthorizeeFromCourseRequest>{
+                    userId: req.params.id,
+                    courseId: res.locals.courseId
+                },
+                cProvider
+            );
+            res.send();
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
         }
     }
 

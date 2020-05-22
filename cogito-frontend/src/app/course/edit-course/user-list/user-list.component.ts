@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../../../shared/core/User";
 
 @Component({
@@ -8,10 +8,15 @@ import {User} from "../../../shared/core/User";
 })
 export class UserListComponent implements OnInit {
   @Input() users: User[] = [];
+  @Output() delete: EventEmitter<User> = new EventEmitter<User>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDelete(user: User) {
+    this.delete.emit(user);
   }
 
 }

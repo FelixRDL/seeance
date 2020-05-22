@@ -18,6 +18,10 @@ router.post('/authorizees', async(req: express.Request, res: express.Response) =
     controller.addAuthorizeeToCourse(req, res);
 });
 
+router.delete('/authorizees/:id', async(req: express.Request, res: express.Response) => {
+    controller.removeAuthorizeeFromCourse(req, res);
+});
+
 router.post('/register', async (req: express.Request, res: express.Response) => {
     controller.createUserFromToken(req, res);
 });

@@ -1,6 +1,10 @@
 <mat-card>
   <mat-card-content>
-    <h2 class="mat-h2">TEXT</h2>
+    <span class="mat-h2">
+      <a [routerLink]="['/courses', (activeCourse|async)?._id]">
+        {{(activeCourse|async)?.title}}</a>/
+      <a [attr.href]="(activeProject|async)?.repository.html_url">{{(activeProject|async)?.repository.name}}</a>
+      </span>
     <mat-tab-group>
       <mat-tab label="General">
         <br>

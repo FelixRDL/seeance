@@ -1,7 +1,6 @@
 import * as express from 'express';
 import {ProjectRepository} from "../../logic/repositories/ProjectRepository";
 import {InternalProjectRepository} from "../providers/InternalProjectRepository";
-import {GetProjectsAutocomplete} from "../../logic/use-cases/projects/GetProjetsAutocomplete";
 import {Project} from "../../logic/entities/Project";
 import {RepoRepository} from "../../logic/repositories/RepoRepository";
 import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvider";

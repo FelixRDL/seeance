@@ -51,7 +51,9 @@ export class UserController {
                 provider,
                 new InternalCourseRepository(),
                 new InternalProjectRepository());
-            res.send("Successfully deleted user.")
+            res.json({
+                'message': 'user successfully deleted from platform'
+            });
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error");

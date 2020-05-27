@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ConfirmModalComponent} from "../../shared/modals/confirm.modal/confirm.modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import {UserService} from "../../shared/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-settings',
@@ -10,7 +12,9 @@ import {MatDialog} from "@angular/material/dialog";
 export class SettingsComponent implements OnInit {
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +31,10 @@ export class SettingsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        alert("BANG");
+        this.userService.deleteUser().subscribe(() => {
+          this.userService.logout();
+          this.router.navigate(['']);
+        });
       }
     });
   }

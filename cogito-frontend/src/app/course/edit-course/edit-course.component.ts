@@ -17,7 +17,7 @@ import {MatDialog} from "@angular/material/dialog";
   templateUrl: './edit-course.component.html',
   styleUrls: ['./edit-course.component.scss']
 })
-export class EditCourseComponent implements OnInit {
+export class EditCourseComponent {
   projects: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
   authorizees: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
@@ -31,6 +31,11 @@ export class EditCourseComponent implements OnInit {
     private snackbar: MatSnackBar,
     private dialog: MatDialog
   ) {
+    this.route.params.subscribe((params) => {
+    if (params.id) {
+      this.fetchData(params.id);
+    }
+  });
   }
 
   fetchData(courseId: string): void {
@@ -56,13 +61,6 @@ export class EditCourseComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      if (params.id) {
-        this.fetchData(params.id);
-      }
-    });
-  }
 
   onRepositorySelected(repo: Repository) {
     const newProject: Project = {

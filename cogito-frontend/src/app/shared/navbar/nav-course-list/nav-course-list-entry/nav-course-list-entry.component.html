@@ -8,7 +8,7 @@
     <mat-list-item *ngFor="let project of (projects|async)">
       <!-- using truncate approach from https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2 -->
       <a
-        href="#">{{ (project.repository.name.length > 14) ? (project.repository.name | slice:0:14) + '..' : (project.repository.name)}}</a>
+        [routerLink]="['courses', course._id, 'projects', project._id]">{{ (project.repository.name.length > 14) ? (project.repository.name | slice:0:14) + '..' : (project.repository.name)}}</a>
     </mat-list-item>
   </mat-selection-list>
 </mat-expansion-panel>

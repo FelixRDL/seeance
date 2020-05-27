@@ -17,6 +17,7 @@ import {MaterialModule} from "./material/material.module";
 import {CourseService} from "./shared/course.service";
 import {CourseModule} from "./course/course.module";
 import {RepositoryService} from "./shared/repository.service";
+import {ProjectModule} from "./project/project.module";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {RepositoryService} from "./shared/repository.service";
     RegisterModule,
     HomeModule,
     MaterialModule,
-    CourseModule
+    CourseModule,
+    ProjectModule
   ],
   providers: [
     AuthService,

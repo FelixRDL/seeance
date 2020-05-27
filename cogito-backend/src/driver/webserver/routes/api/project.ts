@@ -9,6 +9,10 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     await controller.getProjectsForCourse(req, res);
 });
 
+router.get('/:id', async (req: express.Request, res: express.Response) => {
+    await controller.getProjectById(req, res);
+});
+
 router.post('/', async (req: express.Request, res: express.Response) => {
     await controller.createProject(req, res);
 });

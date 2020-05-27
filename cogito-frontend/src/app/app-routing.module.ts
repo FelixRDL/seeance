@@ -9,6 +9,7 @@ import {IsUserRegisteredGuard} from "./shared/guards/is-user-registered.guard";
 import {IsUserUnregisteredGuard} from "./shared/guards/is-user-unregistered.guard";
 import {CreateCourseComponent} from "./course/create-course/create-course.component";
 import {EditCourseComponent} from "./course/edit-course/edit-course.component";
+import {ProjectComponent} from "./project/project/project.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: '', component: RecentContentsComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses', component: CreateCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses/:id', component: EditCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
+  {path: 'courses/:courseId/projects/:projectId', component: ProjectComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'start', component: StartComponent},
   {path: 'register', component: RegisterComponent, canActivate: [IsUserUnregisteredGuard]},
   {path: 'auth/callback', component: LoginRedirectComponent}

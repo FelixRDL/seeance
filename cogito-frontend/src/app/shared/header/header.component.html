@@ -13,6 +13,7 @@
   </button>
   <mat-menu #appMenu="matMenu">
     <!--<button mat-menu-item routerLink="/user">Profile <mat-icon>person</mat-icon></button>-->
+    <button mat-menu-item [routerLink] = "['settings']" >Settings <mat-icon>settings</mat-icon></button>
     <button mat-menu-item (click) ="logout()" >Logout <mat-icon>close</mat-icon></button>
   </mat-menu>
 </mat-toolbar>

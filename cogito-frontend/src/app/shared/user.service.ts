@@ -24,6 +24,10 @@ export class UserService {
       .pipe(map((data) => <User>data));
   }
 
+  deleteUser(): Observable<any> {
+    return this.httpClient.delete('/api/user/', {headers: AuthService.getBearerHeader(this.authService.getToken())});
+  }
+
   getAuthenticatedUser(): Observable<User> {
     return this.httpClient.get('/api/user/',
       {headers: AuthService.getBearerHeader(this.authService.getToken())})

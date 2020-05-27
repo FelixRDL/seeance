@@ -89,6 +89,10 @@ export class InternalUserRepository implements UserRepository {
             });
         });
     }
+
+    async deleteByUserId(userId: string): Promise<void> {
+        return UserModel.findOne({githubId: userId}).remove().exec();
+    }
 }
 
 class GithubUserToAppUserMapper implements Mapper<any, User> {

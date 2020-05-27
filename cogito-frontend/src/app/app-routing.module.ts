@@ -10,12 +10,14 @@ import {IsUserUnregisteredGuard} from "./shared/guards/is-user-unregistered.guar
 import {CreateCourseComponent} from "./course/create-course/create-course.component";
 import {EditCourseComponent} from "./course/edit-course/edit-course.component";
 import {ProjectComponent} from "./project/project/project.component";
+import {SettingsComponent} from "./settings/settings/settings.component";
 
 
 const routes: Routes = [
   /*TODO: add guard routes for authorized user!*/
   // {path: '', component: RecentContentsComponent},
   {path: '', component: RecentContentsComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
+  {path: 'settings', component: SettingsComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses', component: CreateCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses/:id', component: EditCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses/:courseId/projects/:projectId', component: ProjectComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},

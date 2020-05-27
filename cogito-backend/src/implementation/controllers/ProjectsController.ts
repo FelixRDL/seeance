@@ -13,6 +13,7 @@ import {
     RemoveProjectByIdFromCourse,
     RemoveProjectByIdFromCourseRequest
 } from "../../logic/use-cases/projects/RemoveProjectByIdFromCourse";
+import {GetProjectById, GetProjectByIdRequest} from "../../logic/use-cases/projects/GetProjectById";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -20,7 +21,7 @@ export class ProjectsController {
     async createProject(req: express.Request, res: express.Response) {
         try {
             const token: string = <string>req.headers.authorization;
-            const repoProvider: RepoRepository =  new InternalRepositoryProvider(token);
+            const repoProvider: RepoRepository = new InternalRepositoryProvider(token);
             const project: Project = await CreateProject(
                 this.repository,
                 repoProvider, <CreateProjectRequest>{
@@ -28,10 +29,10 @@ export class ProjectsController {
                     courseId: res.locals.courseId
                 });
             res.json(project);
-        } catch(e) {
-            if(e instanceof ProjectAlreadyExistingInCourseError) {
+        } catch (e) {
+            if (e instanceof ProjectAlreadyExistingInCourseError) {
                 res.status(400).send("The project you are trying to add already exists on the course");
-            } else if(e instanceof CourseNotExistingError) {
+            } else if (e instanceof CourseNotExistingError) {
                 res.status(404).send("The course you are trying to access does not exist right now");
             } else {
                 console.error(e);
@@ -40,15 +41,29 @@ export class ProjectsController {
         }
     }
 
-    async getProjectsForCourse(req: express.Request, res: express.Response)  {
+    async getProjectsForCourse(req: express.Request, res: express.Response) {
         try {
             const token: string = <string>req.headers.authorization;
-            const repoProvider: RepoRepository =  new InternalRepositoryProvider(token);
-            const projects: Project[] = await GetProjectsForCourse(this.repository, repoProvider, <GetProjectsForCourseRequest> {
+            const repoProvider: RepoRepository = new InternalRepositoryProvider(token);
+            const projects: Project[] = await GetProjectsForCourse(this.repository, repoProvider, <GetProjectsForCourseRequest>{
                 courseId: res.locals.courseId
             });
             res.json(projects);
-        } catch(e) {
+        } catch (e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
+    async getProjectById(req: express.Request, res: express.Response) {
+        try {
+            const token: string = <string>req.headers.authorization;
+            const repoProvider: RepoRepository = new InternalRepositoryProvider(token);
+            const project: Project = await GetProjectById(<GetProjectByIdRequest>{
+                id: req.params.id
+            }, this.repository, repoProvider);
+            res.json(project);
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error");
         }
@@ -63,14 +78,14 @@ export class ProjectsController {
                     courseId: res.locals.courseId
                 } as RemoveProjectByIdFromCourseRequest
             );
-            if(!success) {
+            if (!success) {
                 res.status(404).send("The project to be deleted does not exist");
             } else {
                 res.status(200).json({
-                   id: req.params.id
+                    id: req.params.id
                 });
             }
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal server error");
         }

@@ -91,7 +91,7 @@ export class InternalUserRepository implements UserRepository {
     }
 
     async deleteByUserId(userId: string): Promise<void> {
-        return UserModel.findOne({_id: userId}).remove().exec();
+        return UserModel.findOne({githubId: userId}).remove().exec();
     }
 }
 

@@ -38,5 +38,9 @@ router.get('/', async(req: express.Request, res:express.Response) => {
     controller.getAuthorizedUser(req, res);
 });
 
+router.delete('/', controller.userRegisteredMw, async(req: express.Request, res:express.Response) => {
+    controller.deleteAuthenticatedUser(req, res);
+});
+
 
 export {router};

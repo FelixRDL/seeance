@@ -11,6 +11,8 @@ export interface CourseRepository {
 
     getCoursesForUser(user: User): Promise<Course[]>;
 
+    getAuthorizedCoursesForUser(user: User): Promise<Course[]>;
+
     getCourseById(courseId: string): Promise<Course>;
   
     updateCourseById(courseId: string, course: Course): Promise<Course>;

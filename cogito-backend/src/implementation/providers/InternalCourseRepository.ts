@@ -25,7 +25,7 @@ export class InternalCourseRepository implements CourseRepository {
         return CourseModel.exists({_id: id});
     }
 
-    getCoursesForUser(user: User): Promise<Course[]> {
+    getAuthorizedCoursesForUser(user: User) {
         return CourseModel.find({
             $or: [
                 {ownerId: user.id},
@@ -36,6 +36,13 @@ export class InternalCourseRepository implements CourseRepository {
                 }
             ]
         });
+    }
+
+    getCoursesForUser(user: User): Promise<Course[]> {
+        console.log(user);
+        return CourseModel.find(
+            {ownerId: user.id},
+        );
     }
 
     getCourseById(courseId: string): Promise<Course> {

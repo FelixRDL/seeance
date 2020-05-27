@@ -19,6 +19,9 @@ import {
     RemoveAuthorizeeFromCourse,
     RemoveAuthorizeeFromCourseRequest
 } from "../../logic/use-cases/courses/RemoveAuthorizeeFromCourse";
+import {UserRepository} from "../../logic/repositories/UserRepository";
+import {DeleteUserById, DeleteUserByIdRequest} from "../../logic/use-cases/user/DeleteUserById";
+import {InternalProjectRepository} from "../providers/InternalProjectRepository";
 
 export class UserController {
     async createUserFromToken(req: express.Request, res: express.Response) {
@@ -35,6 +38,23 @@ export class UserController {
                 console.error(e);
                 res.status(500).send("Internal Server Error");
             }
+        }
+    }
+
+    async deleteAuthenticatedUser(req: express.Request, res: express.Response) {
+        try {
+            const token: string = <string>req.headers.authorization;
+            const provider : UserRepository = new InternalUserRepository(token);
+            await DeleteUserById(<DeleteUserByIdRequest> {
+                authenticatedUser: res.locals.authenticatedUser
+            },
+                provider,
+                new InternalCourseRepository(),
+                new InternalProjectRepository());
+            res.send("Successfully deleted user.")
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
         }
     }
 

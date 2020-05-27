@@ -5,4 +5,5 @@ export interface UserRepository {
     existsUserWithId(id: string): Promise<boolean>;
     getUserWithId(id: string): Promise<User>;
     getUserAutocomplete(q:string): Promise<User[]>;
+    deleteByUserId(userId: string): Promise<void>;
 }

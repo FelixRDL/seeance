@@ -1,6 +1,6 @@
 import {RepoRepository} from "../../logic/repositories/RepoRepository";
 import {Repository} from "../../logic/entities/Repository";
-import * as request from "request";
+const request = require('request');
 const cachedRequest = require('cached-request')(require('request'));
 const cacheDirectory: string = "/tmp/cache";
 cachedRequest.setCacheDirectory(cacheDirectory);
@@ -40,8 +40,7 @@ export class InternalRepositoryProvider implements RepoRepository {
         const uri: string = this.githubApiPath +"repositories/" + id;
         return new Promise(async(resolve, reject) => {
             let options: any = AuthController.getBearerAuthHeader(uri, this.token);
-            options.ttl = 5000000;
-            cachedRequest.get(options, (err: any, response: any, body: any) => {
+            request.get(options, (err: any, response: any, body: any) => {
                 if(err) {
                     reject(err)
                 } else {

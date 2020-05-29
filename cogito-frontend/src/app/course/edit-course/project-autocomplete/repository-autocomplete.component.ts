@@ -41,6 +41,7 @@ export class RepositoryAutocompleteComponent implements OnInit {
   selectRepository(repo: Repository) {
     this.repositorySelected.emit(repo);
     this.repoNameAutocomplete.reset();
+    this.repositories.next([]);
   }
 
 }

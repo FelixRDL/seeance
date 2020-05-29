@@ -11,9 +11,15 @@ export class ProtoProjectToProjectMapper {
     }
 
     async map(proto: ProtoProject): Promise<Project> {
-        const repo: Repository = await this.repository.getRepositoryById(proto.repositoryId);
-        let result: Project = <Project>Util.clone(proto);
-        result.repository = repo;
-        return Promise.resolve(result);
+        try {
+            const repo: Repository = await this.repository.getRepositoryById(proto.repositoryId);
+            let result: Project = <Project>Util.clone(proto);
+            result.repository = repo;
+            return Promise.resolve(result);
+        } catch(e) {
+            return Promise.reject(<Project> {
+                _id: "-1"
+            });
+        }
     }
 }

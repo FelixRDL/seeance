@@ -5,6 +5,7 @@ import {AuthController} from "../controllers/AuthController";
 import {InternalServerError} from "../../logic/core/errors/InternalServerError";
 import {InvalidCredentialsError} from "../../logic/repositories/AuthManager";
 
+const request = require('request');
 const cached_request = require('cached-request');
 const cachedRequest = cached_request(require('request'));
 const cacheDirectory = "/tmp/cache";
@@ -46,7 +47,6 @@ export class InternalUserRepository implements UserRepository {
         return new Promise<User>(async (resolve, reject) => {
             const uri: string = this.githubApiPath + 'user/' +id;
             let options = AuthController.getBearerAuthHeader(uri, token);
-            options.ttl = 100000;
             cachedRequest.get(options, (er: any, res: any, body: any) => {
                 const user: User = new GithubUserToAppUserMapper().map(JSON.parse(body));
                 resolve(user);
@@ -58,8 +58,7 @@ export class InternalUserRepository implements UserRepository {
         return new Promise<User>((resolve, reject) => {
             const uri: string = this.githubApiPath + 'user';
             let options = AuthController.getBearerAuthHeader(uri, token);
-            options.ttl = 10000;
-            cachedRequest.get(options, function (error: any, response: any, body: any) {
+            request.get(options, function (error: any, response: any, body: any) {
                 if (response.statusCode == 200) {
                     resolve(new GithubUserToAppUserMapper().map(JSON.parse(body)));
                 } else if (response.statusCode == 401) {

@@ -25,6 +25,7 @@ export class ProjectComponent {
       this.projectService.getProjectById(params.courseId, params.projectId).subscribe((project: Project) => {
         this.activeProject.next(project);
         console.log(project);
+        console.log(project);
       });
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
         this.activeCourse.next(course);

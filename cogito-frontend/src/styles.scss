@@ -67,4 +67,14 @@ body {
   background-color: #eee;
 }
 
-a {text-decoration: none;}
+a {
+  text-decoration: none;
+}
+
+a:disabled {
+    color: #777;
+}
+
+mat-divider {
+  position: relative !important;
+}

@@ -71,7 +71,6 @@ export class CourseController {
     }
 
     async removeCourseById(req: express.Request, res: express.Response) {
-        console.log("ABC");
         try {
             await DeleteCourseById(<DeleteCourseByIdRequest>{
                 courseId: req.params.id

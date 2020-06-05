@@ -19,13 +19,15 @@ export interface CourseRepository {
   
     removeCourseById(courseId: string): Promise<void>;
 
-    addProjectToCourse(course: Course, project: Project): Promise<Course>;
-
-    containsCourseProject(course: Course, project: Project): Promise<boolean>;
-
     removeProjectWithIdFromCourse(course: Course, projectId: string): Promise<Course>;
 
     addUserToCourseAuthorizees(course: Course, user: User): Promise<Course>;
 
     removeUserFromCourseAuthorizees(userId: string, courseId: string): Promise<any>;
+
+    addProjectToCourse(courseId: string, projectId: string): Promise<Course>;
+
+    removeProjectFromCourse(courseId: string, projectId: string): Promise<Course>;
+
+    containsCourseProject(course: Course, project: Project): Promise<boolean>;
 }

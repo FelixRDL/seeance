@@ -3,7 +3,7 @@ import {Project} from "../../shared/core/Project";
 import {CourseService} from "../../shared/course.service";
 import {Course} from "../../shared/core/Course";
 import {ActivatedRoute, Router} from "@angular/router";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, forkJoin} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Repository} from "../../shared/core/Repository";
 import {ProjectService} from "../../shared/project.service";
@@ -24,6 +24,7 @@ export class EditCourseComponent {
 
   constructor(
     private courseRepository: CourseService,
+    private projectRepository: ProjectService,
     private projectRepo: ProjectService,
     private userRepo: UserService,
     private route: ActivatedRoute,
@@ -41,7 +42,11 @@ export class EditCourseComponent {
   fetchData(courseId: string): void {
     this.courseRepository.getCourseById(courseId).subscribe((course: Course) => {
       this.activeCourse.next(course);
-      console.log(course);
+      forkJoin(course.projectIds.map(pid => {
+        return this.projectRepository.getProjectById(course._id, pid);
+      })).subscribe((projects: Project[]) => {
+        this.projects.next(projects)
+      });
     }, (errors) => {
       if(errors.status == 401) {
         this.snackbar.open( "You are not authorized to access this course. Please ask its owner to grant you access.", "OK");
@@ -49,11 +54,6 @@ export class EditCourseComponent {
       } else {
         console.error(errors);
       }
-    });
-
-    this.projectRepo.getProjectsForCourse(courseId).subscribe((projects: []) => {
-      console.log(projects);
-      this.projects.next(projects);
     });
 
     this.userRepo.getAuthorizeesForCourse(courseId).subscribe((users: []) => {

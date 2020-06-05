@@ -28,7 +28,7 @@ export class InternalProjectRepository implements ProjectRepository {
     }
 
     getProjectById(id: string): Promise<ProtoProject> {
-        return ProjectModel.findById(id);
+        return ProjectModel.findOne({_id: id});
     }
 
     createProject(project: Project): Promise<ProtoProject> {
@@ -42,7 +42,7 @@ export class InternalProjectRepository implements ProjectRepository {
         return ProjectModel.find({courseId: courseId});
     }
 
-    removeProjectByIdFromCourse(projectId: string, courseId: string): Promise<boolean> {
+    deleteProjectById(projectId: string, courseId: string): Promise<boolean> {
         return ProjectModel.deleteOne({
             $and: [
                 {

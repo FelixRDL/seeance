@@ -83,6 +83,7 @@ export class UserController {
             const provider: InternalUserRepository = new InternalUserRepository(token);
             const user: User = await provider.getGithubUserFromToken(token);
             const result: User = await GetUserById(user.id, provider);
+            res.set('Cache-Control', 'public, max-age=180000');
             res.json(result);
         } catch (e) {
             console.error(e);
@@ -138,6 +139,7 @@ export class UserController {
             }
         }
     }
+
     async removeAuthorizeeFromCourse(req: express.Request, res: express.Response) {
         const cProvider: InternalCourseRepository = new InternalCourseRepository();
         try {
@@ -178,7 +180,6 @@ export class UserController {
         const provider: InternalUserRepository = new InternalUserRepository(token);
         const user: User = await provider.getGithubUserFromToken(token);
         const result: boolean = await ExistsUserWithId(user.id, provider);
-        console.log(result);
         if (result == true) {
             res.locals.authenticatedUser = await GetUserById(user.id, provider);
             next();

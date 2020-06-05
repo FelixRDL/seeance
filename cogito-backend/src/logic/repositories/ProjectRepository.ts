@@ -7,6 +7,6 @@ export interface ProjectRepository {
     getProjectById(id: string): Promise<ProtoProject>;
     createProject(project: Project): Promise<ProtoProject>;
     getProjectsForCourse(courseId: string): Promise<ProtoProject[]>;
-    removeProjectByIdFromCourse(projectId: string, courseId: string): Promise<boolean>;
+    deleteProjectById(projectId: string, courseId: string): Promise<boolean>;
     removeAllProjectsForCourse(courseId: string): Promise<void>;
 }

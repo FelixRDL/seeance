@@ -7,6 +7,7 @@ export interface Course {
     description: string;
     ownerId: string;
     projects: Project[];
+    projectIds: string[];
     createdAt: Date;
     updatedAt: Date;
 }

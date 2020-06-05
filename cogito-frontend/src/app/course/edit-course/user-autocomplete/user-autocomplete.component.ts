@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Repository} from "../../../shared/core/Repository";
 import {BehaviorSubject} from "rxjs";
 import {FormControl} from "@angular/forms";
-import {RepositoryService} from "../../../shared/repository.service";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 import {UserService} from "../../../shared/user.service";
 import {User} from "../../../shared/core/User";
@@ -39,5 +37,6 @@ export class UserAutocompleteComponent implements OnInit {
   selectUser(user: User) {
     this.userSelected.emit(user);
     this.userNameAutocomplete.reset();
+    this.users.next([]);
   }
 }

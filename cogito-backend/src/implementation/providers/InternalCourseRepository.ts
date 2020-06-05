@@ -54,24 +54,8 @@ export class InternalCourseRepository implements CourseRepository {
     }
 
 
-    addProjectToCourse(course: Course, project: Project): Promise<Course> {
-        return CourseModel.updateOne(
-            {_id: course._id},
-            {$push: {'projects': project._id}});
-    }
 
-    containsCourseProject(course: Course, project: Project): Promise<boolean> {
-        return CourseModel.exists({
-            $and: [{
-                _id: course._id
-            }, {
-                projects: {
-                    "$in": [project._id]
-                }
-            }
-            ]
-        });
-    }
+
 
     removeProjectWithIdFromCourse(course: Course, projectId: string): Promise<Course> {
         return CourseModel.update(
@@ -100,5 +84,30 @@ export class InternalCourseRepository implements CourseRepository {
                 description: course.description
             }
         );
+    }
+
+    addProjectToCourse(courseId: string, projectId: string): Promise<Course> {
+        return CourseModel.updateOne(
+            {_id: courseId},
+            {$push: {'projectIds': projectId}});
+    }
+
+    removeProjectFromCourse(courseId: string, projectId: string): Promise<Course> {
+        return CourseModel.updateOne(
+            {_id: courseId},
+            {$pull: {'projectIds': projectId}});
+    }
+
+    containsCourseProject(course: Course, project: Project): Promise<boolean> {
+        return CourseModel.exists({
+            $and: [{
+                _id: course._id
+            }, {
+                projects: {
+                    "$in": [project._id]
+                }
+            }
+            ]
+        });
     }
 }

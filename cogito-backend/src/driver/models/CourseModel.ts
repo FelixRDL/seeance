@@ -16,6 +16,9 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    projectIds: [{
+      "type": String
+    }],
     authorizeeIds: [{
         "type": String
     }]

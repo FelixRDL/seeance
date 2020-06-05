@@ -7,24 +7,13 @@ import {MethodNotImplementedError} from "../../core/errors/MethodNotImplementedE
 import {ProtoProjectToProjectMapper} from "../../repositories/mappers/ProtoProjectToProjectMapper";
 import {ProjectRepository} from "../../repositories/ProjectRepository";
 
-export async function AddProjectToCourseById(
-    courseId: string,
-    project: Project,
-    courseRepository: CourseRepository,
-    projectRepository: ProjectRepository,
-    repositoryProvider: RepoRepository): Promise<Course> {
-    try {
-        const course: Course = await courseRepository.getCourseById(courseId);
-        return Promise.resolve(course);
-    } catch(e) {
-        console.error(e);
-        return Promise.reject(new InternalServerError());
-    }
+export async function AddProjectToCourseById (
+    req: AddProjectToCourseByIdRequest,
+    courseRepository: CourseRepository): Promise<Course> {
+    return courseRepository.addProjectToCourse(req.courseId, req.project._id)
 }
 
-export class ProjectAlreadyExistingInCourseError extends Error {
-    constructor() {
-        super();
-        this.message = "This project is already added to the course!";
-    }
+export interface AddProjectToCourseByIdRequest {
+    courseId: string,
+    project: Project
 }

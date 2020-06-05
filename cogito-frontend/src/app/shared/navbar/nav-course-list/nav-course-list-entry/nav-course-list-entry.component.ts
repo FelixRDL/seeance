@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Course} from "../../../core/Course";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, forkJoin, Observable} from "rxjs";
 import {Project} from "../../../core/Project";
 import {ProjectService} from "../../../project.service";
+import {promptProjectAnalytics} from "@angular/cli/models/analytics";
 
 @Component({
   selector: 'app-nav-course-list-entry',
@@ -25,8 +26,10 @@ export class NavCourseListEntryComponent implements OnInit {
   }
 
   fetchProjects() {
-    this.projectService.getProjectsForCourse(this.course._id).subscribe(((projects: Project[]) => {
-      this.projects.next(projects);
-    }));
+    forkJoin(this.course.projectIds.map(pid => {
+      return this.projectService.getProjectById(this.course._id, pid);
+    })).subscribe((projects: Project[]) => {
+      this.projects.next(projects)
+    });
   }
 }

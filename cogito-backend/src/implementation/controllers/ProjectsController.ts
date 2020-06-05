@@ -6,8 +6,7 @@ import {RepoRepository} from "../../logic/repositories/RepoRepository";
 import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvider";
 import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/projects/CreateProject";
 import {
-    AddProjectToCourseById,
-    ProjectAlreadyExistingInCourseError
+    AddProjectToCourseById
 } from "../../logic/use-cases/courses/AddProjectToCourseById";
 import {CourseNotExistingError} from "../../logic/use-cases/courses/GetCourseById";
 import {GetProjectsForCourse, GetProjectsForCourseRequest} from "../../logic/use-cases/projects/GetProjectsForCourse";
@@ -38,9 +37,9 @@ export class ProjectsController {
             }, new InternalCourseRepository());
             res.json(project);
         } catch (e) {
-            if (e instanceof ProjectAlreadyExistingInCourseError) {
+            /*if (e instanceof ProjectAlreadyExistingInCourseError) {
                 res.status(400).send("The project you are trying to add already exists on the course");
-            } else if (e instanceof CourseNotExistingError) {
+            } else*/ if (e instanceof CourseNotExistingError) {
                 res.status(404).send("The course you are trying to access does not exist right now");
             } else {
                 console.error(e);
@@ -70,7 +69,7 @@ export class ProjectsController {
             const project: Project = await GetProjectById(<GetProjectByIdRequest>{
                 id: req.params.id
             }, this.repository, repoProvider);
-            res.json(project);
+            res.set('Cache-Control', 'public, max-age=72020').json(project);
         } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error");

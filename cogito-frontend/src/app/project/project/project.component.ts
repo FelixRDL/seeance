@@ -22,13 +22,12 @@ export class ProjectComponent {
     private route: ActivatedRoute
   ) {
     this.route.params.subscribe((params) => {
-      this.projectService.getProjectById(params.courseId, params.projectId).subscribe((project: Project) => {
-        this.activeProject.next(project);
-        console.log(project);
-        console.log(project);
-      });
+
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
         this.activeCourse.next(course);
+        this.projectService.getProjectById(course._id, params.projectId).subscribe((project: Project) => {
+          this.activeProject.next(project);
+        });
       })
 
     });

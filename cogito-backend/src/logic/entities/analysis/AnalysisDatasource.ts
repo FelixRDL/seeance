@@ -6,7 +6,7 @@ import {MethodNotImplementedError} from "../../core/errors/MethodNotImplementedE
  */
 export abstract class AnalysisDatasource<RequestType, OutputType> {
 
-    key: string;
+    key: string = "blank";
 
     async getData(req: RequestType): Promise<OutputType> {
         return Promise.reject(new MethodNotImplementedError())

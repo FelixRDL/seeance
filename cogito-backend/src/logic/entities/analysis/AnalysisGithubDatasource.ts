@@ -1,6 +1,5 @@
 import {AnalysisDatasource} from "./AnalysisDatasource";
 import {MethodNotImplementedError} from "../../core/errors/MethodNotImplementedError";
-import {AnalysisGitDatasourceRequest} from "./AnalysisGitDatasource";
 
 export interface AnalysisGithubDatasourceRequest {
     token: string;

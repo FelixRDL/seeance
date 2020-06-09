@@ -20,8 +20,9 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - './cogito-backend/:/usr/app'
-      - '/usr/app/node_modules'
+      - ./cogito-backend/:/usr/app
+      - /usr/app/node_modules
+      - /usr/app/tmp
     depends_on:
       - database
 
@@ -31,8 +32,8 @@ services:
     ports:
       - '4200:4200'
     volumes:
-      - './cogito-frontend/:/usr/app'
-      - '/usr/app/node_modules'
+      - ./cogito-frontend/:/usr/app
+      - /usr/app/node_modules
 
   database:
     image: mongo

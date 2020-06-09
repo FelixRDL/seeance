@@ -1,7 +1,10 @@
 import {AnalysisDatasource} from "./AnalysisDatasource";
 
-export interface AnalysisGitDatasource {
+export interface AnalysisGitDatasourceRequest{
     path: string;
 }
-
-export interface AnalysisGithubDatasource <OutType> extends AnalysisDatasource<AnalysisGitDatasource, OutType>{}
+/**
+ * This entity uses an abstract class to enable implementation check, as described in:
+ * (https://medium.com/@radekqwerty/typescript-how-to-check-that-argument-implements-interface-in-javascript-version-559e1bd2d83b)
+ */
+export abstract class AnalysisGitDatasource <OutType> extends AnalysisDatasource<AnalysisGitDatasourceRequest, OutType>{}

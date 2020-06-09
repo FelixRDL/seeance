@@ -6,4 +6,8 @@ export interface AnalysisGithubDatasourceRequest {
     repo: string;
 }
 
-export interface AnalysisGithubDatasource <OutType> extends AnalysisDatasource<AnalysisGithubDatasourceRequest, OutType>{}
+/**
+ * This entity uses an abstract class to enable implementation check, as described in:
+ * (https://medium.com/@radekqwerty/typescript-how-to-check-that-argument-implements-interface-in-javascript-version-559e1bd2d83b)
+ */
+export abstract class AnalysisGithubDatasource <OutType> extends AnalysisDatasource<AnalysisGithubDatasourceRequest, OutType>{}

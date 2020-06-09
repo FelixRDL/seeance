@@ -5,6 +5,9 @@ import {MethodNotImplementedError} from "../../core/errors/MethodNotImplementedE
  * (https://medium.com/@radekqwerty/typescript-how-to-check-that-argument-implements-interface-in-javascript-version-559e1bd2d83b)
  */
 export abstract class AnalysisDatasource<RequestType, OutputType> {
+
+    key: string;
+
     async getData(req: RequestType): Promise<OutputType> {
         return Promise.reject(new MethodNotImplementedError())
     }

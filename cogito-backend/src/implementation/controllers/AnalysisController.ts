@@ -33,7 +33,7 @@ export class AnalysisController {
                                 return "";
                             },
                             manifest: {
-                                dataSources: ["commits"],
+                                dataSources: ["commits", "users"],
                                 title: "",
                                 configTemplate: {},
                                 description: ""

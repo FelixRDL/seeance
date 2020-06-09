@@ -19,9 +19,6 @@ export async function GetAnalysis (
     // First, get all necessary datasources
     let datasources: AnalysisDatasource<any, any>[] = await Promise.all(
         req.analysis.template.manifest.dataSources.map(async name => datasourceRepo.getByName(name)));
-    // TODO: das funktioniert noch nicht
-
-    console.log(req.analysis.template.manifest.dataSources, datasources);
 
     // Clone repo
     if(await cloneRepo.exists(req.repoOwnerName, req.repoName)) {
@@ -31,7 +28,7 @@ export async function GetAnalysis (
             repoPath = await cloneRepo.update(req.repoOwnerName, req.repoName);
         } catch(e) {
             console.error(e);
-            repoPath = './../../tmp' + req.repoOwnerName + "/" + req.repoName;
+            repoPath = './../../tmp/' + req.repoOwnerName + "/" + req.repoName;
         }
     } else {
             console.log("Clone sum shizz", req.repoOwnerName, req.repoName);
@@ -39,27 +36,23 @@ export async function GetAnalysis (
     }
 
     // Fetch All Data
+    // TODO: store in dict with other types
     let rawDataDict: any = await Promise.all(
         datasources.map(async (source: AnalysisDatasource<any, any>) => {
-            console.log("TYPE", source.constructor);
-            console.log("TYPE", source.constructor.prototype);
-            console.log(AnalysisDatasource.prototype)
-            if(source.constructor instanceof AnalysisGitDatasource.prototype.constructor) {
-                (<AnalysisGitDatasource<any>>source).getData(<AnalysisGitDatasourceRequest> {
+            if(source.constructor.prototype instanceof AnalysisGitDatasource) {
+                return (<AnalysisGitDatasource<any>>source).getData(<AnalysisGitDatasourceRequest> {
                     path: repoPath
-                })
+                });
             } else if(source.constructor.prototype instanceof AnalysisGithubDatasource) {
-                (<AnalysisGithubDatasource<any>>source).getData(<AnalysisGithubDatasourceRequest> {
+                return (<AnalysisGithubDatasource<any>>source).getData(<AnalysisGithubDatasourceRequest> {
                     owner: req.repoOwnerName,
                     repo: req.repoName
-                })
+                });
             } else {
                 return Promise.reject("Unknown Datasource type!")
             }
         })
     );
-
-    console.log(rawDataDict);
 
     // TODO: caching?
 

@@ -15,15 +15,16 @@ export async function GetAnalysis (
     cloneRepo: GitCloneRepository
 ): Promise<string> {
     let repoPath: string;
+    
     // First, get all necessary datasources
     let datasources: AnalysisDatasource<any, any>[] = await Promise.all(
         req.analysis.template.manifest.dataSources.map(name => datasourceRepo.getByName(name)));
 
     // Clone repo
     if(! await cloneRepo.exists(req.repoOwnerName, req.repoName)) {
-        repoPath = await cloneRepo.update(req.repoOwnerName, req.repoName, req.token);
+        repoPath = await cloneRepo.update(req.repoOwnerName, req.repoName);
     } else {
-        repoPath = await cloneRepo.clone(req.repoOwnerName, req.repoName, req.token);
+        repoPath = await cloneRepo.clone(req.repoOwnerName, req.repoName);
     }
 
     // Fetch All Data
@@ -36,8 +37,7 @@ export async function GetAnalysis (
             } else if(source instanceof AnalysisGithubDatasource) {
                 return (<AnalysisGithubDatasource<any>>source).getData(<AnalysisGithubDatasourceRequest> {
                     owner: req.repoOwnerName,
-                    repo: req.repoName,
-                    token: req.token
+                    repo: req.repoName
                 })
             }
         })
@@ -57,5 +57,4 @@ export interface GetAnalysisRequest {
     analysis: Analysis,
     repoName: string;
     repoOwnerName: string;
-    token: string;
 }

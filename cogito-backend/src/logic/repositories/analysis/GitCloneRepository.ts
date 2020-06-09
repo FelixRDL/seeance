@@ -15,7 +15,7 @@ export interface GitCloneRepository {
      * @param name
      * @param token
      */
-    update(owner: string, name: string, token?: string): Promise<string>;
+    update(owner: string, name: string): Promise<string>;
 
     /**
      * Clone the repository to a current folder (returns path to clone).
@@ -23,5 +23,5 @@ export interface GitCloneRepository {
      * @param name
      * @param token
      */
-    clone(owner: string, name: string, token?: string): Promise<string>;
+    clone(owner: string, name: string): Promise<string>;
 }

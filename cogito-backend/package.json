@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/rest": "^17.11.0",
+    "@octokit/types": "^4.1.9",
     "@types/chai": "^4.2.11",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.4",

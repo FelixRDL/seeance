@@ -22,16 +22,14 @@ export async function GetAnalysis (
 
     // Clone repo
     if(await cloneRepo.exists(req.repoOwnerName, req.repoName)) {
-        // TODO: implement update
+        // TODO: implement update through git pull
         try {
-            console.log("Update sum shizz", req.repoOwnerName, req.repoName);
             repoPath = await cloneRepo.update(req.repoOwnerName, req.repoName);
         } catch(e) {
             console.error(e);
             repoPath = './../../tmp/' + req.repoOwnerName + "/" + req.repoName;
         }
     } else {
-            console.log("Clone sum shizz", req.repoOwnerName, req.repoName);
             repoPath = await cloneRepo.clone(req.repoOwnerName, req.repoName);
     }
 
@@ -41,12 +39,13 @@ export async function GetAnalysis (
         datasources.map(async (source: AnalysisDatasource<any, any>) => {
             if(source.constructor.prototype instanceof AnalysisGitDatasource) {
                 return (<AnalysisGitDatasource<any>>source).getData(<AnalysisGitDatasourceRequest> {
-                    path: repoPath
+                    path: repoPath,
                 });
             } else if(source.constructor.prototype instanceof AnalysisGithubDatasource) {
                 return (<AnalysisGithubDatasource<any>>source).getData(<AnalysisGithubDatasourceRequest> {
                     owner: req.repoOwnerName,
-                    repo: req.repoName
+                    repo: req.repoName,
+                    token: req.token
                 });
             } else {
                 return Promise.reject("Unknown Datasource type!")
@@ -56,14 +55,15 @@ export async function GetAnalysis (
 
     // TODO: caching?
 
-    // TODO: analysis
+    const result: string = req.analysis.template.process(rawDataDict, req.analysis.config);
 
 
-    return Promise.reject(new MethodNotImplementedError());
+    return Promise.resolve(result);
 }
 
 export interface GetAnalysisRequest {
     analysis: Analysis,
     repoName: string;
     repoOwnerName: string;
+    token: string;
 }

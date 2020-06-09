@@ -21,19 +21,18 @@ export class AnalysisController {
                 token
             ));
 
-            await GetAnalysis(
+            let result: string = await GetAnalysis(
                 {
                     repoName: project.repository.name,
                     repoOwnerName: project.repository.owner.login,
                     analysis: {
                         template: {
                             process(input: any, config: any): string {
-                                console.log("FY")
                                 console.log(input);
-                                return "";
+                                return input;
                             },
                             manifest: {
-                                dataSources: ["commits", "users"],
+                                dataSources: ["commits", "users", "issues", "milestones"],
                                 title: "",
                                 configTemplate: {},
                                 description: ""
@@ -41,10 +40,14 @@ export class AnalysisController {
                         },
                         config: undefined,
                         assignedToProjectId: ""
-                    }
+                    },
+                    token: token
                 },
                 datasourceRepository,
                 cloneRepo);
+            res.json({
+                result: result
+            });
         } catch (e) {
             console.error(e);
         }

@@ -12,13 +12,16 @@ import {
 export async function GetAnalysis (
     req: GetAnalysisRequest,
     datasourceRepo: DatasourceRepository,
-    cloneRepo: GitCloneRepository
+    cloneRepo: GitCloneRepository,
+    onProgress?: any
 ): Promise<string> {
     let repoPath: string;
 
     // First, get all necessary datasources
     let datasources: AnalysisDatasource<any, any>[] = await Promise.all(
         req.analysis.template.manifest.dataSources.map(async name => datasourceRepo.getByName(name)));
+
+    onProgress("Cloning Repository\n");
 
     // Clone repo
     if(await cloneRepo.exists(req.repoOwnerName, req.repoName)) {
@@ -32,6 +35,8 @@ export async function GetAnalysis (
     } else {
             repoPath = await cloneRepo.clone(req.repoOwnerName, req.repoName);
     }
+
+    onProgress("Fetching " + datasources.length + " Datasources\n");
 
     // Fetch All Data
     // TODO: store in dict with other types
@@ -52,6 +57,8 @@ export async function GetAnalysis (
             }
         })
     );
+
+    onProgress("Execute Plugin\n");
 
     // TODO: caching?
 

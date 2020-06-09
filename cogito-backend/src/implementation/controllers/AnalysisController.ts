@@ -44,7 +44,9 @@ export class AnalysisController {
                     token: token
                 },
                 datasourceRepository,
-                cloneRepo);
+                cloneRepo, (message: string) => {
+                    console.log(message);
+                });
             res.json({
                 result: result
             });

@@ -29,6 +29,7 @@
     "nodegit": "^0.26.5",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
+    "simple-git": "^2.6.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "ts-sync-request": "^1.4.1",
     "typescript": "^3.8.3"

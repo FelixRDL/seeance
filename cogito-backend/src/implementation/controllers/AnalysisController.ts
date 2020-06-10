@@ -28,11 +28,10 @@ export class AnalysisController {
                     analysis: {
                         template: {
                             process(input: any, config: any): string {
-                                console.log(input);
                                 return input;
                             },
                             manifest: {
-                                dataSources: ["commits", "users", "issues", "milestones"],
+                                dataSources: ["commits", "users", "issues", "milestones", "diffs"],
                                 title: "",
                                 configTemplate: {},
                                 description: ""

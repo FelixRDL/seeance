@@ -6,3 +6,4 @@ export * from "./CommitsDatasource";
 export * from "./UsersDatasource";
 export * from "./IssuesDatasource";
 export * from "./MilestonesDatasource";
+export * from "./DiffsDatasource";

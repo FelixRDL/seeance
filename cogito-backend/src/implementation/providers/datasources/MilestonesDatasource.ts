@@ -13,7 +13,7 @@ export class MilestonesDatasource extends AnalysisGithubDatasource<MilestonesRaw
     async getData(req: AnalysisGithubDatasourceRequest): Promise<MilestonesRawData> {
         const result: MilestonesRawData = new MilestonesRawData();
         const octokit: Octokit = new Octokit({auth: req.token, request: {timeout: 10000}});
-        const milestones = await octokit.paginate(octokit.issues.listMilestonesForRepo as any, {
+        const milestones = await octokit.paginate(octokit.issues.listMilestones as any, {
             owner: req.owner,
             repo: req.repo
         });

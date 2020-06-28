@@ -28,3 +28,4 @@ benchmarks/graphs
 build/*
 
 /secret/
+/tmp/

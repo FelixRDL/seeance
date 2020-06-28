@@ -1,4 +1,4 @@
-import {AnalysisTemplate} from "../../entities/analysis/AnalysisTemplate";
+import {AnalysisTemplate} from "../../entities/components/AnalysisTemplate";
 
 export interface AnalysisRepository {
     getAnalyses(nameContains?: string): Promise<AnalysisTemplate[]>;

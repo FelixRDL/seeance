@@ -10,4 +10,9 @@ router.use('/analyses/',
         controller.getAnalyses(req, res)
     });
 
+router.use('/preprocessors/',
+    (req, res) => {
+        controller.getPreprocessors(req, res)
+    });
+
 export {router}

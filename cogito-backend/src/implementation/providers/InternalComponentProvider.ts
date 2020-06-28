@@ -3,10 +3,12 @@ import {PreprocessorRepository} from "../../logic/repositories/analysis/Preproce
 import {PreprocessorTemplate} from "../../logic/entities/components/PreprocessorTemplate";
 import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepository";
 import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate";
+import {DatasourceRepository} from "../../logic/repositories/analysis/DatasourceRepository";
+import {DatasourceTemplate} from "../../logic/entities/components/DatasourceTemplate";
 
 const ComponentRepository = require('seeance-analysis-core').ComponentProvider
 
-export class InternalComponentProvider implements AnalysisRepository, PreprocessorRepository{
+export class InternalComponentProvider implements AnalysisRepository, PreprocessorRepository, DatasourceRepository {
 
     repository: any;
 
@@ -48,6 +50,20 @@ export class InternalComponentProvider implements AnalysisRepository, Preprocess
                 depends_on: item.package.seeance.depends_on,
                 produces: item.package.seeance.produces,
                 configSchema: item.package.seeance.config_schema,
+                module: item.module
+            } as PreprocessorTemplate
+        }))
+    }
+
+    getDatasourceByName(name: string): Promise<DatasourceTemplate> {
+        return Promise.reject(new MethodNotImplementedError());
+    }
+
+    getDatasources(nameContains?: string): Promise<DatasourceTemplate[]> {
+        return Promise.resolve(this.repository.listDatasources().map((item: any) => {
+            return {
+                name: item.package.name,
+                description: item.package.description,
                 module: item.module
             } as PreprocessorTemplate
         }))

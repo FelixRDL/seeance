@@ -15,4 +15,9 @@ router.use('/preprocessors/',
         controller.getPreprocessors(req, res)
     });
 
+router.use('/datasources/',
+    (req, res) => {
+        controller.getDatasources(req, res)
+    });
+
 export {router}

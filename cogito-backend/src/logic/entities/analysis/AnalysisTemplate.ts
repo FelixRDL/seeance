@@ -1,6 +1,13 @@
-import {AnalysisManifest} from "./AnalysisManifest";
-
+/**
+ * Blueprint for
+ */
 export interface AnalysisTemplate {
-    manifest: AnalysisManifest;
-    process(input: any, config: any): string;
+    name: string,
+    description: string,
+    depends_on: string,
+    /**
+     * JSON-schema object
+     */
+    configSchema: any,
+    module: any
 }

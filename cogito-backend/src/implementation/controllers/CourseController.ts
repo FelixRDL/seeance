@@ -16,7 +16,6 @@ import {
     IsUserAuthorizedToAccessCourseRequest
 } from "../../logic/use-cases/courses/IsUserAuthorizedToAccessCourse";
 import {DeleteCourseById, DeleteCourseByIdRequest} from "../../logic/use-cases/courses/DeleteCourseById";
-import {ExistsUserWithId} from "../../logic/use-cases/user/ExistsUserWithId";
 import {ExistsCourseById} from "../../logic/use-cases/courses/ExistsCourseById";
 import {UpdateCourseById} from "../../logic/use-cases/courses/UpdateCourseById";
 

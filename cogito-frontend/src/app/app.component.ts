@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {UserService} from "./shared/user.service";
 import {User} from "./shared/core/User";
 import {CourseService} from "./shared/course.service";
+import {PluginsService} from "./shared/plugins.service";
 
 @Component({
   selector: 'app-root',

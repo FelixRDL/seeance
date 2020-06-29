@@ -19,6 +19,7 @@ import {CourseModule} from "./course/course.module";
 import {RepositoryService} from "./shared/repository.service";
 import {ProjectModule} from "./project/project.module";
 import {SettingsModule} from "./settings/settings.module";
+import {PluginsService} from "./shared/plugins.service";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {SettingsModule} from "./settings/settings.module";
     UserService,
     CourseService,
     RepositoryService,
+    PluginsService,
     HasValidTokenGuard,
     IsUserRegisteredGuard,
     IsUserUnregisteredGuard

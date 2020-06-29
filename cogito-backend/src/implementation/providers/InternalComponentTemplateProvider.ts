@@ -1,14 +1,15 @@
 import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
-import {PreprocessorRepository} from "../../logic/repositories/analysis/PreprocessorRepository";
+import {PreprocessorTemplateRepository} from "../../logic/repositories/analysis/PreprocessorTemplateRepository";
 import {PreprocessorTemplate} from "../../logic/entities/components/PreprocessorTemplate";
-import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepository";
+import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/AnalysisTemplateRepository";
 import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate";
-import {DatasourceRepository} from "../../logic/repositories/analysis/DatasourceRepository";
+import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/DatasourceTemplateRepository";
 import {DatasourceTemplate} from "../../logic/entities/components/DatasourceTemplate";
+import {PluginNotFoundError} from "../../logic/use-cases/analyses/CreateAnalysis";
 
 const ComponentRepository = require('seeance-analysis-core').ComponentProvider
 
-export class InternalComponentProvider implements AnalysisRepository, PreprocessorRepository, DatasourceRepository {
+class InternalComponentTemplateProvider implements AnalysisTemplateRepository, PreprocessorTemplateRepository, DatasourceTemplateRepository {
 
     repository: any;
 
@@ -21,7 +22,7 @@ export class InternalComponentProvider implements AnalysisRepository, Preprocess
         })
     }
 
-    getAnalyses(nameContains?: string): Promise<AnalysisTemplate[]> {
+    getAnalysisTemplates(nameContains?: string): Promise<AnalysisTemplate[]> {
         return Promise.resolve(this.repository.listAnalyses().map((item: any) => {
             // TODO: this lambda could be extracted for reuse in "by name" method
             return {
@@ -34,8 +35,9 @@ export class InternalComponentProvider implements AnalysisRepository, Preprocess
         }))
     }
 
-    getAnalysisByName(name: string): Promise<AnalysisTemplate> {
-        return Promise.reject(new MethodNotImplementedError());
+    getAnalysisTemplateByName(name: string): Promise<AnalysisTemplate> {
+        const template: AnalysisTemplate = this.repository.getAnalysisByName(name)
+        return template !== undefined ? Promise.resolve(template) : Promise.reject(new PluginNotFoundError(name))
     }
 
     getPreprocessorByName(name: string): Promise<PreprocessorTemplate> {
@@ -68,5 +70,13 @@ export class InternalComponentProvider implements AnalysisRepository, Preprocess
             } as PreprocessorTemplate
         }))
     }
+}
 
+export abstract class InternalComponentTemplateProviderAccess {
+
+    public static instance: InternalComponentTemplateProvider = new InternalComponentTemplateProvider();
+
+    public static getInstance(): InternalComponentTemplateProvider {
+        return InternalComponentTemplateProviderAccess.instance
+    }
 }

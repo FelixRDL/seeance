@@ -1,6 +1,5 @@
-import {AnalysisTemplate} from "../../entities/components/AnalysisTemplate";
+import {Analysis} from "../../entities/components/Analysis";
 
 export interface AnalysisRepository {
-    getAnalyses(nameContains?: string): Promise<AnalysisTemplate[]>;
-    getAnalysisByName(name: string): Promise<AnalysisTemplate>;
+    createAnalysis(analysisName: string, projectId: string, courseId: string): Promise<Analysis>;
 }

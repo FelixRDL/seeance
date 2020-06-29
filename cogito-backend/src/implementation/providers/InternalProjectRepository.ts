@@ -3,6 +3,8 @@ import {Project, ProtoProject} from "../../logic/entities/Project";
 import * as request from "request";
 import {AuthController} from "../controllers/AuthController";
 import {ProjectModel} from "../../driver/models/ProjectModel";
+import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
+import {CourseModel} from "../../driver/models/CourseModel";
 
 export class InternalProjectRepository implements ProjectRepository {
     private githubApiPath: string = "https://api.github.com/";
@@ -58,5 +60,19 @@ export class InternalProjectRepository implements ProjectRepository {
 
     removeAllProjectsForCourse(courseId: string): Promise<void> {
         return ProjectModel.find({courseId: courseId}).remove().exec();
+    }
+
+    addAnalysisToProject(projectId: string, courseId: string, analysisId: string): Promise<string[]> {
+        return ProjectModel.updateOne(
+            {
+                _id: projectId,
+                courseId: courseId
+            },
+            {
+                $push: {'analysisIds': analysisId}
+            }).then(async () => {
+            let project = await ProjectModel.findOne({_id: projectId});
+            return Promise.resolve(project.analysisIds);
+        });
     }
 }

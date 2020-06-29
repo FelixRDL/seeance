@@ -10,5 +10,5 @@ export interface ProjectRepository {
     deleteProjectById(projectId: string, courseId: string): Promise<boolean>;
     removeAllProjectsForCourse(courseId: string): Promise<void>;
 
-    addAnalysisToProject(projectId: string, courseId: string, analysisId: string): Promise<void>;
+    addAnalysisToProject(projectId: string, courseId: string, analysisId: string): Promise<string[]>;
 }

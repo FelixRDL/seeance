@@ -19,6 +19,8 @@ import {InternalCourseRepository} from "../providers/InternalCourseRepository";
 import {RemoveProjectFromCourse} from "../../logic/use-cases/courses/RemoveProjectFromCourse";
 import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepository";
 import {InternalAnalysisProvider} from "../providers/InternalAnalysisProvider";
+import {CreateAnalysis} from "../../logic/use-cases/analyses/CreateAnalysis";
+import {AddAnalysisToProject} from "../../logic/use-cases/projects/AddAnalysisToProject";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -108,11 +110,20 @@ export class ProjectsController {
     async addAnalysisToCourse(req: express.Request, res: express.Response) {
         try {
             // TODO: check, whether analysis exists by name
-            console.log(req.body)
-
-
+            const analysis = await CreateAnalysis({
+                courseId: res.locals.courseId,
+                projectId: req.params.id,
+                name: req.body.template,
+                template: req.body.template
+            }, this.analysisRepository)
+            const newAnalyses: string[] = await AddAnalysisToProject({
+                analysisId: analysis._id,
+                courseId: res.locals.courseId,
+                projectId: req.params.id
+            }, this.repository)
+            res.json(newAnalyses)
         } catch (e) {
-
+            res.status(500).send("Internal Server Error")
         }
     }
 }

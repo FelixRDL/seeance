@@ -62,12 +62,17 @@ export class InternalProjectRepository implements ProjectRepository {
         return ProjectModel.find({courseId: courseId}).remove().exec();
     }
 
-    addAnalysisToProject(projectId: string, courseId: string, analysisId: string): Promise<void> {
+    addAnalysisToProject(projectId: string, courseId: string, analysisId: string): Promise<string[]> {
         return ProjectModel.updateOne(
             {
                 _id: projectId,
                 courseId: courseId
             },
-            {$push: {'analysisIds': analysisId}});
+            {
+                $push: {'analysisIds': analysisId}
+            }).then(async () => {
+            let project = await ProjectModel.findOne({_id: projectId});
+            return Promise.resolve(project.analysisIds);
+        });
     }
 }

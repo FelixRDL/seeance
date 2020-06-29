@@ -3,7 +3,7 @@ import {ProjectRepository} from "../../repositories/ProjectRepository";
 export function AddAnalysisToProject(
     req: AddAnalysisToProjectRequest,
     repo: ProjectRepository
-) {
+): Promise<string[]> {
     return repo.addAnalysisToProject(
         req.projectId,
         req.courseId,

@@ -1,7 +1,8 @@
 <h2 mat-dialog-title>Add new Analysis</h2>
 <mat-dialog-content class="mat-typography">
   Select one of the analyses below:
-  <app-analysis-dropdown></app-analysis-dropdown>
+  <br>
+  <app-analysis-dropdown (onSelectTemplate)="setTemplate($event)"></app-analysis-dropdown>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="reject()">Cancel</button>

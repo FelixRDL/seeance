@@ -1,5 +1,5 @@
 <mat-form-field>
-  <select matNativeControl required>
-     <option *ngFor="let a of (templates|async)" [value]="a">{{a.name}}</option>
-  </select>
+  <mat-select matNativeControl required>
+     <mat-option *ngFor="let a of (templates|async)" [value]="a"  (onSelectionChange)="selectAnalysis(a)">{{a.name}}</mat-option>
+  </mat-select>
 </mat-form-field>

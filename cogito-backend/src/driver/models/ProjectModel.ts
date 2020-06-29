@@ -9,7 +9,11 @@ const ProjectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CourseModel',
         required: true
-    }
+    },
+    analysisIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'AnalysisModel'
+    }]
 }, {timestamps: true});
 const ProjectModel = mongoose.model("ProjectModel", ProjectSchema);
 

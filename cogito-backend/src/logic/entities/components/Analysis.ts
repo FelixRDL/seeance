@@ -7,4 +7,5 @@ export interface Analysis {
     template: AnalysisTemplate;
     config: any;
     assignedToProjectId: string;
+    assignedToCourseId: string;
 }

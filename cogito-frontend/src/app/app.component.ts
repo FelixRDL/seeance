@@ -3,6 +3,7 @@ import {UserService} from "./shared/user.service";
 import {User} from "./shared/core/User";
 import {CourseService} from "./shared/course.service";
 import {PluginsService} from "./shared/plugins.service";
+import {ProjectService} from "./shared/project.service";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
 
   constructor(
     userService: UserService,
-    courseService: CourseService
+    courseService: CourseService,
+    projectService: ProjectService
   ) {
 
     userService.authenticatedUser.subscribe((user: User) => {

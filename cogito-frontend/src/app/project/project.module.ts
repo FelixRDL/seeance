@@ -7,15 +7,20 @@ import {ProjectService} from "../shared/project.service";
 import {SharedModule} from "../shared/shared.module";
 import {MaterialModule} from "../material/material.module";
 import {RouterModule} from "@angular/router";
-
-
+import { AddAnalysisModalComponent } from './plugins/add-analysis-modal/add-analysis-modal.component';
+import { AnalysisDropdownComponent } from './plugins/analysis-dropdown/analysis-dropdown.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [
-    ProjectComponent
-  ],
+    declarations: [
+        ProjectComponent,
+        AddAnalysisModalComponent,
+        AnalysisDropdownComponent,
+        AnalysisDropdownComponent
+    ],
   imports: [
     MaterialModule,
+    MatDialogModule,
     CommonModule,
     SharedModule,
     RouterModule

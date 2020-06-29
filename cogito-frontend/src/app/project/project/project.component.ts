@@ -5,6 +5,8 @@ import {Project} from "../../shared/core/Project";
 import {ActivatedRoute} from "@angular/router";
 import {Course} from "../../shared/core/Course";
 import {CourseService} from "../../shared/course.service";
+import {MatDialog} from "@angular/material/dialog";
+import {AddAnalysisModalComponent} from "../plugins/add-analysis-modal/add-analysis-modal.component";
 
 @Component({
   selector: 'app-project',
@@ -19,7 +21,8 @@ export class ProjectComponent {
   constructor(
     private projectService: ProjectService,
     private courseService: CourseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.route.params.subscribe((params) => {
 
@@ -30,6 +33,16 @@ export class ProjectComponent {
         });
       })
 
+    });
+  }
+
+  addAnalysis(): void {
+    let dialogRef = this.dialog.open(AddAnalysisModalComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(result);
+        console.log("Result", result)
+      }
     });
   }
 }

@@ -14,6 +14,15 @@ export class ProjectService {
     private httpClient: HttpClient
   ) { }
 
+  addAnalysis(courseId: string, projectId: string, templateName: string) {
+    return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/analyses`,
+      {
+        template: templateName
+      },
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project[]>data)
+      )
+  }
+
   getProjectsForCourse(courseId: string): Observable<Project[]> {
     return this.httpClient.get('/api/course/'+courseId+"/projects",
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project[]>data));

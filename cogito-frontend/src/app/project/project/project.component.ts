@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectService} from "../../shared/project.service";
-import {Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Project} from "../../shared/core/Project";
 import {ActivatedRoute} from "@angular/router";
 import {Course} from "../../shared/core/Course";
 import {CourseService} from "../../shared/course.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddAnalysisModalComponent} from "../plugins/add-analysis-modal/add-analysis-modal.component";
+import {AnalysisTemplate} from "../../shared/core/AnalysisTemplate";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-project',
@@ -15,14 +17,15 @@ import {AddAnalysisModalComponent} from "../plugins/add-analysis-modal/add-analy
 })
 export class ProjectComponent {
 
-  activeProject: Subject<Project> = new Subject<Project>();
-  activeCourse: Subject<Course> = new Subject<Course>();
+  activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
+  activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
 
   constructor(
     private projectService: ProjectService,
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar,
   ) {
     this.route.params.subscribe((params) => {
 
@@ -38,10 +41,15 @@ export class ProjectComponent {
 
   addAnalysis(): void {
     let dialogRef = this.dialog.open(AddAnalysisModalComponent, {});
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: AnalysisTemplate) => {
       if(result) {
-        console.log(result);
-        console.log("Result", result)
+        this.projectService.addAnalysis(
+          this.activeCourse.getValue()._id,
+          this.activeProject.getValue()._id,
+          result.name
+        ).subscribe((response) => {
+          this.snackbar.open( "Analysis added successfully!", "OK");
+        })
       }
     });
   }

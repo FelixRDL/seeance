@@ -1,17 +1,13 @@
 import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
-import {PreprocessorRepository} from "../../logic/repositories/analysis/PreprocessorRepository";
+import {PreprocessorTemplateRepository} from "../../logic/repositories/analysis/PreprocessorTemplateRepository";
 import {PreprocessorTemplate} from "../../logic/entities/components/PreprocessorTemplate";
-import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepository";
+import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/AnalysisTemplateRepository";
 import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate";
-import {DatasourceRepository} from "../../logic/repositories/analysis/DatasourceRepository";
+import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/DatasourceTemplateRepository";
 import {DatasourceTemplate} from "../../logic/entities/components/DatasourceTemplate";
-import {Analysis} from "../../logic/entities/components/Analysis";
-
-import {AnalysisModel} from "../../driver/models/AnalysisModel";
-
 const ComponentRepository = require('seeance-analysis-core').ComponentProvider
 
-export class InternalComponentProvider implements AnalysisRepository, PreprocessorRepository, DatasourceRepository {
+class InternalComponentTemplateProvider implements AnalysisTemplateRepository, PreprocessorTemplateRepository, DatasourceTemplateRepository {
 
     repository: any;
 
@@ -71,14 +67,13 @@ export class InternalComponentProvider implements AnalysisRepository, Preprocess
             } as PreprocessorTemplate
         }))
     }
+}
 
-    createAnalysis(analysisName: string, projectId: string, courseId: string): Promise<Analysis> {
-        return AnalysisModel.create({
-            name: analysisName,
-            analysis: analysisName,
-            assignedProject: projectId,
-            assignedCourse: courseId,
-            config: {}
-        });
+export abstract class InternalComponentTemplateProviderAccess {
+
+    public static instance: InternalComponentTemplateProvider = new InternalComponentTemplateProvider();
+
+    public static getInstance(): InternalComponentTemplateProvider{
+        return InternalComponentTemplateProviderAccess.instance
     }
 }

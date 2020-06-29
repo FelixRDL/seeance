@@ -17,9 +17,12 @@ import {
 import {GetProjectById, GetProjectByIdRequest} from "../../logic/use-cases/projects/GetProjectById";
 import {InternalCourseRepository} from "../providers/InternalCourseRepository";
 import {RemoveProjectFromCourse} from "../../logic/use-cases/courses/RemoveProjectFromCourse";
+import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepository";
+import {InternalAnalysisProvider} from "../providers/InternalAnalysisProvider";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
+    private analysisRepository: AnalysisRepository = new InternalAnalysisProvider();
 
     async createProject(req: express.Request, res: express.Response) {
         try {
@@ -99,6 +102,17 @@ export class ProjectsController {
         } catch (e) {
             console.error(e);
             res.status(500).send("Internal server error");
+        }
+    }
+
+    async addAnalysisToCourse(req: express.Request, res: express.Response) {
+        try {
+            // TODO: check, whether analysis exists by name
+            console.log(req.body)
+
+
+        } catch (e) {
+
         }
     }
 }

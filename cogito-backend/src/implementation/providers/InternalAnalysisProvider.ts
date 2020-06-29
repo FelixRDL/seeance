@@ -12,4 +12,11 @@ export class InternalAnalysisProvider implements AnalysisRepository {
             config: {}
         });
     }
+
+    getAnalysesForProject(courseId: string, projectId: string): Promise<Analysis[]> {
+        return AnalysisModel.find({
+            assignedProject: projectId,
+            assignedCourse: courseId
+        });
+    }
 }

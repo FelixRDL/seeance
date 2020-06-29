@@ -23,6 +23,8 @@ import {CreateAnalysis} from "../../logic/use-cases/analyses/CreateAnalysis";
 import {AddAnalysisToProject} from "../../logic/use-cases/projects/AddAnalysisToProject";
 import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/AnalysisTemplateRepository";
 import {InternalComponentTemplateProviderAccess} from "../providers/InternalComponentTemplateProvider";
+import {Analysis} from "../../logic/entities/components/Analysis";
+import {GetRegisteredAnalysesForProject} from "../../logic/use-cases/projects/GetRegisteredAnalysesForProject";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -129,6 +131,19 @@ export class ProjectsController {
             res.json(newAnalyses)
         } catch (e) {
             console.error(e)
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async getAnalysesForCourse(req: express.Request, res:express.Response) {
+        try {
+            let analysesForCourse: Analysis[] = await GetRegisteredAnalysesForProject({
+                courseId: res.locals.courseId,
+                projectId: req.params.id
+            }, this.analysisRepository)
+            res.json(analysesForCourse)
+        } catch(e) {
+            console.error(e);
             res.status(500).send("Internal Server Error")
         }
     }

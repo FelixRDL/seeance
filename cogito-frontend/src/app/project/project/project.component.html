@@ -18,6 +18,7 @@
         <h4 class="mat-h4">Set up the analysis pipeline for this project here.</h4>
         <mat-divider></mat-divider>
         <br>
+        <app-analysis-list [analyses]="(analyses|async)"></app-analysis-list>
         <button mat-button color="primary" (click)="addAnalysis()">Add Analysis</button>
       </mat-tab>
     </mat-tab-group>

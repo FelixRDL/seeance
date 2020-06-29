@@ -29,4 +29,8 @@ router.post('/:id/analyses', async (req: express.Request, res: express.Response)
     await controller.addAnalysisToCourse(req, res);
 });
 
+router.get('/:id/analyses', async (req: express.Request, res: express.Response) => {
+    await controller.getAnalysesForCourse(req, res);
+});
+
 export {router};

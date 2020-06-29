@@ -10,13 +10,15 @@ import {RouterModule} from "@angular/router";
 import { AddAnalysisModalComponent } from './plugins/add-analysis-modal/add-analysis-modal.component';
 import { AnalysisDropdownComponent } from './plugins/analysis-dropdown/analysis-dropdown.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { AnalysisListComponent } from './plugins/analysis-list/analysis-list.component';
 
 @NgModule({
     declarations: [
         ProjectComponent,
         AddAnalysisModalComponent,
         AnalysisDropdownComponent,
-        AnalysisDropdownComponent
+        AnalysisDropdownComponent,
+        AnalysisListComponent
     ],
   imports: [
     MaterialModule,

@@ -5,6 +5,7 @@ import {Observable, pipe} from "rxjs";
 import {Project} from "./core/Project";
 import {map} from "rxjs/operators";
 import {Course} from "./core/Course";
+import {Analysis} from "./core/Analysis";
 
 @Injectable()
 export class ProjectService {
@@ -19,8 +20,14 @@ export class ProjectService {
       {
         template: templateName
       },
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project[]>data)
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
       )
+  }
+
+  getAnalyses(courseId: string, projectId: string) {
+    return this.httpClient.get(`/api/course/${courseId}/projects/${projectId}/analyses`,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <Analysis[]>data)
+    )
   }
 
   getProjectsForCourse(courseId: string): Observable<Project[]> {

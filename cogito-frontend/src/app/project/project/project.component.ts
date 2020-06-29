@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import {ProjectService} from "../../shared/project.service";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {Project} from "../../shared/core/Project";
 import {ActivatedRoute} from "@angular/router";
 import {Course} from "../../shared/core/Course";
@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddAnalysisModalComponent} from "../plugins/add-analysis-modal/add-analysis-modal.component";
 import {AnalysisTemplate} from "../../shared/core/AnalysisTemplate";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Analysis} from "../../shared/core/Analysis";
 
 @Component({
   selector: 'app-project',
@@ -19,6 +20,7 @@ export class ProjectComponent {
 
   activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
+  analyses: BehaviorSubject<Analysis[]> = new BehaviorSubject<Analysis[]>([]);
 
   constructor(
     private projectService: ProjectService,
@@ -33,10 +35,19 @@ export class ProjectComponent {
         this.activeCourse.next(course);
         this.projectService.getProjectById(course._id, params.projectId).subscribe((project: Project) => {
           this.activeProject.next(project);
+          this.updateAnalyses()
         });
       })
-
     });
+  }
+
+  updateAnalyses(): void {
+    this.projectService.getAnalyses(
+      this.activeCourse.getValue()._id,
+      this.activeProject.getValue()._id
+    ).subscribe((analyses: Analysis[]) => {
+      this.analyses.next(analyses)
+    })
   }
 
   addAnalysis(): void {
@@ -49,6 +60,7 @@ export class ProjectComponent {
           result.name
         ).subscribe((response) => {
           this.snackbar.open( "Analysis added successfully!", "OK");
+          this.updateAnalyses()
         })
       }
     });

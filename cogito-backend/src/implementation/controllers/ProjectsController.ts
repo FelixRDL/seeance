@@ -21,10 +21,13 @@ import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepo
 import {InternalAnalysisProvider} from "../providers/InternalAnalysisProvider";
 import {CreateAnalysis} from "../../logic/use-cases/analyses/CreateAnalysis";
 import {AddAnalysisToProject} from "../../logic/use-cases/projects/AddAnalysisToProject";
+import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/AnalysisTemplateRepository";
+import {InternalComponentTemplateProviderAccess} from "../providers/InternalComponentTemplateProvider";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
     private analysisRepository: AnalysisRepository = new InternalAnalysisProvider();
+    private analysisTemplateRepository: AnalysisTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
 
     async createProject(req: express.Request, res: express.Response) {
         try {
@@ -44,7 +47,8 @@ export class ProjectsController {
         } catch (e) {
             /*if (e instanceof ProjectAlreadyExistingInCourseError) {
                 res.status(400).send("The project you are trying to add already exists on the course");
-            } else*/ if (e instanceof CourseNotExistingError) {
+            } else*/
+            if (e instanceof CourseNotExistingError) {
                 res.status(404).send("The course you are trying to access does not exist right now");
             } else {
                 console.error(e);
@@ -111,11 +115,12 @@ export class ProjectsController {
         try {
             // TODO: check, whether analysis exists by name
             const analysis = await CreateAnalysis({
-                courseId: res.locals.courseId,
-                projectId: req.params.id,
-                name: req.body.template,
-                template: req.body.template
-            }, this.analysisRepository)
+                    courseId: res.locals.courseId,
+                    projectId: req.params.id,
+                    name: req.body.template,
+                    template: req.body.template
+                }, this.analysisRepository,
+                this.analysisTemplateRepository)
             const newAnalyses: string[] = await AddAnalysisToProject({
                 analysisId: analysis._id,
                 courseId: res.locals.courseId,
@@ -123,6 +128,7 @@ export class ProjectsController {
             }, this.repository)
             res.json(newAnalyses)
         } catch (e) {
+            console.error(e)
             res.status(500).send("Internal Server Error")
         }
     }

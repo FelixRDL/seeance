@@ -5,6 +5,8 @@ import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/Anal
 import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate";
 import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/DatasourceTemplateRepository";
 import {DatasourceTemplate} from "../../logic/entities/components/DatasourceTemplate";
+import {PluginNotFoundError} from "../../logic/use-cases/analyses/CreateAnalysis";
+
 const ComponentRepository = require('seeance-analysis-core').ComponentProvider
 
 class InternalComponentTemplateProvider implements AnalysisTemplateRepository, PreprocessorTemplateRepository, DatasourceTemplateRepository {
@@ -34,7 +36,8 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
     }
 
     getAnalysisTemplateByName(name: string): Promise<AnalysisTemplate> {
-        return Promise.reject(new MethodNotImplementedError());
+        const template: AnalysisTemplate = this.repository.getAnalysisByName(name)
+        return template !== undefined ? Promise.resolve(template) : Promise.reject(new PluginNotFoundError(name))
     }
 
     getPreprocessorByName(name: string): Promise<PreprocessorTemplate> {
@@ -73,7 +76,7 @@ export abstract class InternalComponentTemplateProviderAccess {
 
     public static instance: InternalComponentTemplateProvider = new InternalComponentTemplateProvider();
 
-    public static getInstance(): InternalComponentTemplateProvider{
+    public static getInstance(): InternalComponentTemplateProvider {
         return InternalComponentTemplateProviderAccess.instance
     }
 }

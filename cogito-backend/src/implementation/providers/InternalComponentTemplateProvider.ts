@@ -6,7 +6,6 @@ import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate
 import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/DatasourceTemplateRepository";
 import {DatasourceTemplate} from "../../logic/entities/components/DatasourceTemplate";
 import {PluginNotFoundError} from "../../logic/use-cases/analyses/CreateAnalysis";
-
 const ComponentRepository = require('seeance-analysis-core').ComponentProvider
 
 class InternalComponentTemplateProvider implements AnalysisTemplateRepository, PreprocessorTemplateRepository, DatasourceTemplateRepository {
@@ -58,7 +57,8 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
     }
 
     getDatasourceByName(name: string): Promise<DatasourceTemplate> {
-        return Promise.reject(new MethodNotImplementedError());
+        const template: AnalysisTemplate = this.repository.getDatasourceByName(name)
+        return template !== undefined ? Promise.resolve(template) : Promise.reject(new PluginNotFoundError(name))
     }
 
     getDatasources(nameContains?: string): Promise<DatasourceTemplate[]> {

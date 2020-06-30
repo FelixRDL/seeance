@@ -5,7 +5,7 @@ import {AnalysisTemplate} from "./AnalysisTemplate";
  */
 export interface Analysis {
     _id: string;
-    template: AnalysisTemplate;
+    analysis: string;
     config: any;
     assignedToProjectId: string;
     assignedToCourseId: string;

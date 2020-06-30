@@ -7,5 +7,6 @@ export interface PreprocessorTemplate {
      * JSON-schema object
      */
     configSchema: any,
-    module: any
+    module: any,
+    package: any
 }

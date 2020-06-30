@@ -33,4 +33,8 @@ router.get('/:id/analyses', async (req: express.Request, res: express.Response) 
     await controller.getAnalysesForCourse(req, res);
 });
 
+router.get('/:id/analyses/:analysisId/view', async (req: express.Request, res: express.Response) => {
+    await controller.getAnalysisViewForCourse(req, res);
+});
+
 export {router};

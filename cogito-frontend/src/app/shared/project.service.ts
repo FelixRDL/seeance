@@ -30,6 +30,16 @@ export class ProjectService {
     )
   }
 
+  getAnalysisView(courseId: string, projectId: string, analysisId: string) {
+    return this.httpClient
+      .get(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}/view`,
+      {
+        headers: AuthService.getBearerHeader(),
+        responseType: 'text'})
+      .pipe(map(data => <string>data)
+    )
+  }
+
   getProjectsForCourse(courseId: string): Observable<Project[]> {
     return this.httpClient.get('/api/course/'+courseId+"/projects",
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project[]>data));

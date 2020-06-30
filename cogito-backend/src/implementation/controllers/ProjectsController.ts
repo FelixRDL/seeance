@@ -25,11 +25,20 @@ import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/Anal
 import {InternalComponentTemplateProviderAccess} from "../providers/InternalComponentTemplateProvider";
 import {Analysis} from "../../logic/entities/components/Analysis";
 import {GetRegisteredAnalysesForProject} from "../../logic/use-cases/projects/GetRegisteredAnalysesForProject";
+import {GetAnalysisView} from "../../logic/use-cases/analyses/GetAnalysisView";
+import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/DatasourceTemplateRepository";
+import {PreprocessorTemplateRepository} from "../../logic/repositories/analysis/PreprocessorTemplateRepository";
+import {AnalysisViewGenerator} from "../../logic/repositories/analysis/AnalysisViewGenerator";
+import {InternalAnalysisViewGenerator} from "../providers/InternalAnalysisViewGenerator";
+import {GetAnalysisById} from "../../logic/use-cases/analyses/GetAnalysisById";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
     private analysisRepository: AnalysisRepository = new InternalAnalysisProvider();
     private analysisTemplateRepository: AnalysisTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
+    private datasourceTemplateRepository: DatasourceTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
+    private preprocessorTemplateRepository: PreprocessorTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
+    private analysisViewGenerator: AnalysisViewGenerator = new InternalAnalysisViewGenerator();
 
     async createProject(req: express.Request, res: express.Response) {
         try {
@@ -142,6 +151,37 @@ export class ProjectsController {
                 projectId: req.params.id
             }, this.analysisRepository)
             res.json(analysesForCourse)
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async getAnalysisViewForCourse(req: express.Request, res:express.Response) {
+        try {
+            const token: string = <string>req.headers.authorization;
+            const project = await GetProjectById({
+                id: req.params.id
+            }, this.repository,  new InternalRepositoryProvider(token));
+            const analysis = await GetAnalysisById(
+                req.params.analysisId,
+                this.analysisRepository
+            )
+            console.log(analysis)
+            let result = await GetAnalysisView({
+                repoOwner: project.repository.owner.login,
+                repoName: project.repository.name,
+                preprocessors: [],
+                analysis: analysis,
+                token: token
+            },
+                this.analysisViewGenerator,
+                this.datasourceTemplateRepository,
+                this.preprocessorTemplateRepository,
+                this.analysisTemplateRepository
+                )
+            res.set('Content-Type', 'text/html')
+            res.send(result)
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error")

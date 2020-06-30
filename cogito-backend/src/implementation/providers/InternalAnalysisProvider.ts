@@ -19,4 +19,10 @@ export class InternalAnalysisProvider implements AnalysisRepository {
             assignedCourse: courseId
         });
     }
+
+    getAnalysisById(id: string): Promise<Analysis> {
+        return AnalysisModel.findOne({
+            _id: id
+        });
+    }
 }

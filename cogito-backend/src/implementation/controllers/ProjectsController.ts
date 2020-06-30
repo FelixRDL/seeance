@@ -157,6 +157,17 @@ export class ProjectsController {
         }
     }
 
+    async getAnalysisById(req: express.Request, res:express.Response) {
+        try {
+            let analysesForCourse: Analysis = await GetAnalysisById(
+                req.params.analysisId, this.analysisRepository)
+            res.json(analysesForCourse)
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
     async getAnalysisViewForCourse(req: express.Request, res:express.Response) {
         try {
             const token: string = <string>req.headers.authorization;

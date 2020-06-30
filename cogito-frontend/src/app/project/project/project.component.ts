@@ -21,6 +21,7 @@ export class ProjectComponent {
   activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
   analyses: BehaviorSubject<Analysis[]> = new BehaviorSubject<Analysis[]>([]);
+  analysisViews: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   constructor(
     private projectService: ProjectService,
@@ -47,6 +48,19 @@ export class ProjectComponent {
       this.activeProject.getValue()._id
     ).subscribe((analyses: Analysis[]) => {
       this.analyses.next(analyses)
+      analyses.forEach((analysis: Analysis) => {
+        this.projectService.getAnalysisView(
+          this.activeCourse.getValue()._id,
+          this.activeProject.getValue()._id,
+          analysis._id
+        ).subscribe((html: string) => {
+          const list: string[] = this.analysisViews.getValue()
+          list.push(html)
+          this.analysisViews.next(
+            list
+          )
+        })
+      })
     })
   }
 

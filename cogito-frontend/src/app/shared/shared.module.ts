@@ -16,20 +16,22 @@ import {RouterModule} from "@angular/router";
 import { NavCourseListComponent } from './navbar/nav-course-list/nav-course-list.component';
 import { ConfirmModalComponent } from './modals/confirm.modal/confirm.modal.component';
 import { NavCourseListEntryComponent } from './navbar/nav-course-list/nav-course-list-entry/nav-course-list-entry.component';
+import {AllowRawPipe} from "./allow-raw.pipe";
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, NavbarComponent, NavCourseListComponent, ConfirmModalComponent, NavCourseListEntryComponent],
+  declarations: [HeaderComponent, NavbarComponent, NavCourseListComponent, ConfirmModalComponent, NavCourseListEntryComponent, AllowRawPipe],
   imports: [
     CommonModule,
     HttpClientModule,
     MaterialModule,
     RouterModule
   ],
-    exports: [
-        HeaderComponent,
-        NavbarComponent
-    ]
+  exports: [
+    HeaderComponent,
+    NavbarComponent,
+    AllowRawPipe
+  ]
 })
 export class SharedModule { }

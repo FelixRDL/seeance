@@ -9,5 +9,6 @@ export interface AnalysisTemplate {
      * JSON-schema object
      */
     configSchema: any,
-    module: any
+    module: any,
+    package: Object
 }

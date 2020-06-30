@@ -1,9 +1,7 @@
-import {AnalysisTemplate} from "./AnalysisTemplate";
-
 /**
- * Instance of Analysis assigned to a project
+ * Instance of Preprocessor assigned to a project
  */
-export interface Analysis {
+export interface Preprocessor {
     _id: string;
     template: string;
     config: any;

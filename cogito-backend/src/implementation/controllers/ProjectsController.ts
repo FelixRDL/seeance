@@ -31,6 +31,7 @@ import {PreprocessorTemplateRepository} from "../../logic/repositories/analysis/
 import {AnalysisViewGenerator} from "../../logic/repositories/analysis/AnalysisViewGenerator";
 import {InternalAnalysisViewGenerator} from "../providers/InternalAnalysisViewGenerator";
 import {GetAnalysisById} from "../../logic/use-cases/analyses/GetAnalysisById";
+import {SetAnalysisConfig} from "../../logic/use-cases/analyses/SetAnalysisConfig";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -193,6 +194,21 @@ export class ProjectsController {
                 )
             res.set('Content-Type', 'text/html')
             res.send(result)
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async setConfigurationForAnalysis(req: express.Request, res:express.Response) {
+        try {
+            // TODO: check, whether config fits schema?
+            let result = await SetAnalysisConfig({
+                config: req.body,
+                analysisId: req.params.analysisId
+            }, this.analysisRepository)
+            let newAnalysis: Analysis = await  GetAnalysisById(req.params.analysisId, this.analysisRepository)
+            res.json(newAnalysis.config)
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error")

@@ -41,4 +41,8 @@ router.get('/:id/analyses/:analysisId/view', async (req: express.Request, res: e
     await controller.getAnalysisViewForCourse(req, res);
 });
 
+router.post('/:id/analyses/:analysisId/configure', async (req: express.Request, res: express.Response) => {
+    await controller.setConfigurationForAnalysis(req, res);
+});
+
 export {router};

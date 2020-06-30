@@ -53,10 +53,6 @@ export class InternalCourseRepository implements CourseRepository {
         return CourseModel.findOne({_id: courseId}).remove().exec();
     }
 
-
-
-
-
     removeProjectWithIdFromCourse(course: Course, projectId: string): Promise<Course> {
         return CourseModel.update(
             {_id: course._id},

@@ -5,7 +5,12 @@ import {ComponentController} from "../../../../implementation/controllers/Compon
 const router = express.Router();
 const controller: ComponentController = new ComponentController();
 
-router.use('/analyses/',
+router.get('/analyses/:q',
+    (req, res) => {
+        controller.getAnalysisByName(req, res)
+    });
+
+router.get('/analyses/',
     (req, res) => {
         controller.getAnalyses(req, res)
     });

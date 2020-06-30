@@ -13,7 +13,7 @@ export async function GetAnalysisView (
     preprocessorRepo: PreprocessorTemplateRepository,
     analysisRepository: AnalysisTemplateRepository
 ) {
-    const analysisTemplate: AnalysisTemplate = await analysisRepository.getAnalysisTemplateByName(req.analysis.template)
+    const analysisTemplate: AnalysisTemplate = await analysisRepository.getAnalysisTemplateByName(req.analysis.analysis)
     let analysisConfig = {
         module: analysisTemplate.module,
         package: analysisTemplate.package,
@@ -39,14 +39,16 @@ export async function GetAnalysisView (
             req.repoName,
             datasources,
             preprocessorConfigs,
-            analysisConfig)
+            analysisConfig,
+            req.token
+        )
     )
 }
 
 export interface GetAnalysisViewRequest {
     repoOwner: string,
     repoName: string,
-    datasources: any[],
     preprocessors: Preprocessor[],
-    analysis: Analysis
+    analysis: Analysis,
+    token?: string
 }

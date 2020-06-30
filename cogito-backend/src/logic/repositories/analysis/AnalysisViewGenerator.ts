@@ -4,6 +4,7 @@ export interface AnalysisViewGenerator {
         repoUrl: string,
         datasources: any[],
         preprocessors: any[],
-        analysis: any
+        analysis: any,
+        token?: string
     ): Promise<string>;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AuthService} from "./auth.service";
 import {HttpClient} from "@angular/common/http";
 import {Observable, pipe} from "rxjs";
@@ -13,7 +13,8 @@ export class ProjectService {
   constructor(
     private auth: AuthService,
     private httpClient: HttpClient
-  ) { }
+  ) {
+  }
 
   addAnalysis(courseId: string, projectId: string, templateName: string) {
     return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/analyses`,
@@ -21,7 +22,7 @@ export class ProjectService {
         template: templateName
       },
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
-      )
+    )
   }
 
   getAnalyses(courseId: string, projectId: string) {
@@ -33,20 +34,43 @@ export class ProjectService {
   getAnalysisView(courseId: string, projectId: string, analysisId: string) {
     return this.httpClient
       .get(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}/view`,
-      {
-        headers: AuthService.getBearerHeader(),
-        responseType: 'text'})
+        {
+          headers: AuthService.getBearerHeader(),
+          responseType: 'text'
+        })
       .pipe(map(data => <string>data)
-    )
+      )
+  }
+
+  getAnalysisById(courseId: string, projectId: string, analysisId: string) {
+    return this.httpClient
+      .get(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}`,
+        {
+          headers: AuthService.getBearerHeader()
+        }
+      )
+      .pipe(map(data => <Analysis>data)
+      )
+  }
+
+  setAnalysisConfig(courseId: string, projectId: string, analysisId: string, config: any) {
+    return this.httpClient
+      .post(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}/configure`,
+        config,
+        {
+          headers: AuthService.getBearerHeader()
+        })
+      .pipe(map(data => <any>data)
+      )
   }
 
   getProjectsForCourse(courseId: string): Observable<Project[]> {
-    return this.httpClient.get('/api/course/'+courseId+"/projects",
+    return this.httpClient.get('/api/course/' + courseId + "/projects",
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project[]>data));
   }
 
   getProjectById(courseId: string, projectId: string): Observable<Project> {
-    return this.httpClient.get('/api/course/'+courseId+"/projects/" + projectId,
+    return this.httpClient.get('/api/course/' + courseId + "/projects/" + projectId,
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project>data));
   }
 

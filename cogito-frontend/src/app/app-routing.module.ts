@@ -11,6 +11,7 @@ import {CreateCourseComponent} from "./course/create-course/create-course.compon
 import {EditCourseComponent} from "./course/edit-course/edit-course.component";
 import {ProjectComponent} from "./project/project/project.component";
 import {SettingsComponent} from "./settings/settings/settings.component";
+import {AnalysisConfigComponent} from "./plugin-config/analysis-config/analysis-config.component";
 
 
 const routes: Routes = [
@@ -20,7 +21,10 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses', component: CreateCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses/:id', component: EditCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
-  {path: 'courses/:courseId/projects/:projectId', component: ProjectComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
+  {path: 'courses/:courseId/projects/:projectId', component: ProjectComponent, canActivate: [HasValidTokenGuard,
+      IsUserRegisteredGuard]},
+  {path: 'courses/:courseId/projects/:projectId/analyses/:analysisId/configure',
+    component: AnalysisConfigComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'start', component: StartComponent},
   {path: 'register', component: RegisterComponent, canActivate: [IsUserUnregisteredGuard]},
   {path: 'auth/callback', component: LoginRedirectComponent}

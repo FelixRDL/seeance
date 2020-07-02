@@ -20,6 +20,7 @@ import {RepositoryService} from "./shared/repository.service";
 import {ProjectModule} from "./project/project.module";
 import {SettingsModule} from "./settings/settings.module";
 import {PluginsService} from "./shared/plugins.service";
+import {PluginConfigModule} from "./plugin-config/plugin-config.module";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {PluginsService} from "./shared/plugins.service";
     MaterialModule,
     CourseModule,
     ProjectModule,
-    SettingsModule
+    SettingsModule,
+    PluginConfigModule
   ],
   providers: [
     AuthService,
@@ -48,6 +50,8 @@ import {PluginsService} from "./shared/plugins.service";
     IsUserRegisteredGuard,
     IsUserUnregisteredGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

@@ -21,7 +21,12 @@
     "@angular/platform-browser": "~9.0.5",
     "@angular/platform-browser-dynamic": "~9.0.5",
     "@angular/router": "~9.0.5",
+    "@jsonforms/angular": "^2.4.0",
+    "@jsonforms/angular-material": "^2.4.0",
+    "@jsonforms/core": "^2.4.0",
+    "@jsonforms/material-renderers": "^2.4.0",
     "cached-request": "^2.0.1",
+    "redux": "^4.0.5",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -46,5 +51,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"
+  },
+  "browser": {
+    "http": false,
+    "https": false
   }
 }

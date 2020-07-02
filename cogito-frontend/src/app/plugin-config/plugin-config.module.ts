@@ -10,6 +10,7 @@ import {CourseService} from "../shared/course.service";
 import {UserService} from "../shared/user.service";
 import {ProjectService} from "../shared/project.service";
 import {PluginsService} from "../shared/plugins.service";
+import {JsonFormsAngularService, JsonFormsModule} from "@jsonforms/angular";
 
 @NgModule({
   declarations: [
@@ -22,12 +23,16 @@ import {PluginsService} from "../shared/plugins.service";
     CommonModule,
     SharedModule,
     RouterModule,
+
+    JsonFormsModule
   ],
   providers: [
     CourseService,
     UserService,
     ProjectService,
-    PluginsService
+    PluginsService,
+
+    JsonFormsAngularService
   ]
 })
 

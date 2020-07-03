@@ -26,9 +26,12 @@
     "@jsonforms/core": "^2.4.0",
     "@jsonforms/material-renderers": "^2.4.0",
     "cached-request": "^2.0.1",
+    "jexl": "^2.2.2",
+    "ngx-schema-form": "^2.4.7",
     "redux": "^4.0.5",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "z-schema": "^4.2.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

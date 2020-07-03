@@ -11,21 +11,23 @@ import {UserService} from "../shared/user.service";
 import {ProjectService} from "../shared/project.service";
 import {PluginsService} from "../shared/plugins.service";
 import {JsonFormsAngularService, JsonFormsModule} from "@jsonforms/angular";
+import {SchemaFormModule} from "ngx-schema-form";
 
 @NgModule({
   declarations: [
     ConfigComponent,
     AnalysisConfigComponent
   ],
-  imports: [
-    MaterialModule,
-    MatDialogModule,
-    CommonModule,
-    SharedModule,
-    RouterModule,
+    imports: [
+        MaterialModule,
+        MatDialogModule,
+        CommonModule,
+        SharedModule,
+        RouterModule,
 
-    JsonFormsModule
-  ],
+        JsonFormsModule,
+        SchemaFormModule
+    ],
   providers: [
     CourseService,
     UserService,

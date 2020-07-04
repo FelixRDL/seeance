@@ -1,2 +1,12 @@
-<p>analysis-config works!</p>
-<app-config [schema]="(activeAnalysisTemplate|async)"></app-config>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Configure Analysis</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-config [schema]="(activeAnalysisTemplate|async)"
+                [initModel]="(activeAnalysis|async).config"
+                (onCancel)="cancel()"
+                (onSave)="save($event)"
+    ></app-config>
+  </mat-card-content>
+</mat-card>

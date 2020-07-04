@@ -5,5 +5,6 @@ export interface Analysis {
   assignedProject: string,
   assignedCourse: string,
   createdAt: string,
-  updatedAt: string
+  updatedAt: string,
+  config: any
 }

@@ -29,19 +29,35 @@ export class AnalysisConfigComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      console.log(params);
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
         this.activeCourse.next(course);
-        this.projectService.getProjectById(course._id, params.projectId).subscribe((project: Project) => {
-          this.activeProject.next(project);
-          this.projectService.getAnalysisById(course._id, params.projectId, params.analysisId).subscribe((analysis: Analysis) => {
-            this.activeAnalysis.next(analysis);
-            this.pluginService.getAnalysisTemplateByName(analysis.analysis).subscribe((template: AnalysisTemplate) => {
-              this.activeAnalysisTemplate.next(template);
-            })
-          })
-        });
+      })
+      this.projectService.getProjectById(params.courseId, params.projectId).subscribe((project: Project) => {
+        this.activeProject.next(project);
+      });
+      this.projectService.getAnalysisById(params.courseId, params.projectId, params.analysisId).subscribe((analysis: Analysis) => {
+        this.activeAnalysis.next(analysis);
+        this.pluginService.getAnalysisTemplateByName(analysis.analysis).subscribe((template: AnalysisTemplate) => {
+          this.activeAnalysisTemplate.next(template);
+        })
       })
     });
+  }
+
+  save(config: any) {
+    this.projectService.setAnalysisConfig(
+      this.activeCourse.getValue()._id,
+      this.activeProject.getValue()._id,
+      this.activeAnalysis.getValue()._id,
+      config
+    ).subscribe((result) => {
+      const analysis: Analysis = this.activeAnalysis.getValue()
+      analysis.config = result
+      this.activeAnalysis.next(analysis)
+    })
+  }
+
+  cancel() {
+
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Utils} from "../../shared/core/utils";
 
@@ -10,10 +10,18 @@ import {Utils} from "../../shared/core/utils";
 export class ConfigComponent implements OnInit, OnChanges {
 
   @Input() schema: string;
+  @Input() initModel: any;
+  @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
+
+  model: BehaviorSubject<any> = new BehaviorSubject<any>({})
+  formModel: any = {}
+
   public displaySchema: BehaviorSubject<any> = new BehaviorSubject<any>({
     "type": "object",
     "properties": {}
   });
+
 
 
   constructor() { }
@@ -30,17 +38,29 @@ export class ConfigComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.schema) {
-      console.log(changes.schema.currentValue)
+    if(changes.hasOwnProperty('schema') && changes.schema.currentValue) {
+      console.log(changes.schema)
       let currentSchema: any = {
         "type": "object",
         "properties": this.transformSchemaForDisplay(changes.schema.currentValue.manifest.config_schema)
       }
       this.displaySchema.next(currentSchema);
     }
+    if(changes.hasOwnProperty('initModel') && changes.initModel.currentValue) {
+      console.log(changes.initModel.currentValue)
+      this.formModel = changes.initModel.currentValue
+    }
   }
 
-  submit(data) {
-    console.log("SUBMIT", data)
+  onFormChanges(change: any) {
+    this.model.next(change.value)
+  }
+
+  save() {
+    this.onSave.emit(this.model.getValue())
+  }
+
+  cancel() {
+    this.onCancel.emit()
   }
 }

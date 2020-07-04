@@ -8,6 +8,7 @@ import {CourseService} from "../../shared/course.service";
 import {ProjectService} from "../../shared/project.service";
 import {AnalysisTemplate} from "../../shared/core/AnalysisTemplate";
 import {PluginsService} from "../../shared/plugins.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-analysis-config',
@@ -24,7 +25,9 @@ export class AnalysisConfigComponent implements OnInit {
     private route: ActivatedRoute,
     private courseService: CourseService,
     private projectService: ProjectService,
-    private pluginService: PluginsService
+    private pluginService: PluginsService,
+
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +57,7 @@ export class AnalysisConfigComponent implements OnInit {
       const analysis: Analysis = this.activeAnalysis.getValue()
       analysis.config = result
       this.activeAnalysis.next(analysis)
+      this.snackbar.open("Configuration saved successfully!", "OK")
     })
   }
 

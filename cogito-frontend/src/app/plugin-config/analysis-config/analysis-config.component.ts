@@ -23,6 +23,7 @@ export class AnalysisConfigComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private courseService: CourseService,
     private projectService: ProjectService,
     private pluginService: PluginsService,
@@ -62,6 +63,6 @@ export class AnalysisConfigComponent implements OnInit {
   }
 
   cancel() {
-
+    this.router.navigate(['courses', this.activeCourse.getValue()._id, 'projects', this.activeProject.getValue()._id])
   }
 }

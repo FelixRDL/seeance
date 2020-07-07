@@ -5,7 +5,6 @@ import {DatasourceTemplateRepository} from "../../repositories/analysis/Datasour
 import {PreprocessorTemplateRepository} from "../../repositories/analysis/PreprocessorTemplateRepository";
 import {AnalysisTemplateRepository} from "../../repositories/analysis/AnalysisTemplateRepository";
 import {Preprocessor} from "../../entities/components/Preprocessor";
-import {PreprocessorRepository} from "../../repositories/analysis/PreprocessorRepository";
 
 export async function GetAnalysisView (
     req: GetAnalysisViewRequest,
@@ -21,8 +20,6 @@ export async function GetAnalysisView (
         config: req.analysis.config,
     }
     const preprocessorConfigs = await Promise.all(req.preprocessors.map(async (preprocessor: Preprocessor) => {
-        console.log(preprocessor)
-        console.log(preprocessor.template)
         const ppTemplate = await preprocessorTemplateRepo.getPreprocessorByName(preprocessor.template)
         return Promise.resolve({
             module: ppTemplate.module,
@@ -37,7 +34,6 @@ export async function GetAnalysisView (
         return acc.concat(currentValue)
     }, [])
     let deps = analysisDeps.concat(flattenedPrepDeps)
-    console.log(deps)
     const datasources = await Promise.all(deps.map((ds: string) => datasourceRepo.getDatasourceByName(ds)))
     return Promise.resolve(
         await gen.getAnalysisView(

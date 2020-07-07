@@ -3,7 +3,7 @@ import {PreprocessorTemplate} from "../../entities/components/PreprocessorTempla
 import {PreprocessorRepository} from "../../repositories/analysis/PreprocessorRepository";
 import {Preprocessor} from "../../entities/components/Preprocessor";
 
-export async function CreateAnalysis(req: CreatePreprocessorRequest, repo: PreprocessorRepository, templateRepo: PreprocessorTemplateRepository): Promise<Preprocessor> {
+export async function CreatePreprocessor(req: CreatePreprocessorRequest, repo: PreprocessorRepository, templateRepo: PreprocessorTemplateRepository): Promise<Preprocessor> {
     try {
         const template: PreprocessorTemplate = await templateRepo.getPreprocessorByName(req.template)
         return repo.createPreprocessor(req.template, req.projectId, req.courseId)

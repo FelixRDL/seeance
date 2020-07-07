@@ -25,6 +25,19 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
     await controller.getProjectById(req, res);
 });
 
+//
+// PREPROC. MANAGEMENT
+//
+
+router.post('/:id/preprocessors', async (req: express.Request, res: express.Response) => {
+    await controller.addPreprocessorToCourse(req, res);
+});
+
+
+//
+// ANALYSIS MANAGEMENT
+//
+
 router.post('/:id/analyses', async (req: express.Request, res: express.Response) => {
     await controller.addAnalysisToCourse(req, res);
 });
@@ -37,12 +50,16 @@ router.get('/:id/analyses/:analysisId', async (req: express.Request, res: expres
     await controller.getAnalysisById(req, res);
 });
 
-router.get('/:id/analyses/:analysisId/view', async (req: express.Request, res: express.Response) => {
-    await controller.getAnalysisViewForCourse(req, res);
-});
-
 router.post('/:id/analyses/:analysisId/configure', async (req: express.Request, res: express.Response) => {
     await controller.setConfigurationForAnalysis(req, res);
+});
+
+//
+// ANALYSIS EXEC
+//
+
+router.get('/:id/analyses/:analysisId/view', async (req: express.Request, res: express.Response) => {
+    await controller.getAnalysisViewForCourse(req, res);
 });
 
 export {router};

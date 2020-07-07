@@ -32,6 +32,10 @@ import {AnalysisViewGenerator} from "../../logic/repositories/analysis/AnalysisV
 import {InternalAnalysisViewGenerator} from "../providers/InternalAnalysisViewGenerator";
 import {GetAnalysisById} from "../../logic/use-cases/analyses/GetAnalysisById";
 import {SetAnalysisConfig} from "../../logic/use-cases/analyses/SetAnalysisConfig";
+import {CreatePreprocessor} from "../../logic/use-cases/preprocessors/CreatePreprocessor";
+import {PreprocessorRepository} from "../../logic/repositories/analysis/PreprocessorRepository";
+import {InternalPreprocessorRepository} from "../providers/InternalPreprocessorRepository";
+import {AddPreprocessorToProject} from "../../logic/use-cases/projects/AddPreprocessorToProject";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -39,6 +43,7 @@ export class ProjectsController {
     private analysisTemplateRepository: AnalysisTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
     private datasourceTemplateRepository: DatasourceTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
     private preprocessorTemplateRepository: PreprocessorTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
+    private preprocessorRepository: PreprocessorRepository = new InternalPreprocessorRepository();
     private analysisViewGenerator: AnalysisViewGenerator = new InternalAnalysisViewGenerator();
 
     async createProject(req: express.Request, res: express.Response) {
@@ -122,6 +127,36 @@ export class ProjectsController {
             res.status(500).send("Internal server error");
         }
     }
+
+    //
+    // PREPROCESSORS
+    //
+
+    async addPreprocessorToCourse(req: express.Request, res: express.Response) {
+        try {
+            // TODO: check, whether analysis exists by name
+            const preprocessor = await CreatePreprocessor({
+                    courseId: res.locals.courseId,
+                    projectId: req.params.id,
+                    name: req.body.template,
+                    template: req.body.template
+                }, this.preprocessorRepository,
+                this.preprocessorTemplateRepository)
+            const newPreprocessors: string[] = await AddPreprocessorToProject({
+                preprocessorId: preprocessor._id,
+                courseId: res.locals.courseId,
+                projectId: req.params.id
+            }, this.repository)
+            res.json(newPreprocessors)
+        } catch (e) {
+            console.error(e)
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    //
+    // ANALYSES
+    //
 
     async addAnalysisToCourse(req: express.Request, res: express.Response) {
         try {

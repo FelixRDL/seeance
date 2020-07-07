@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Configure Analysis</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-config [schema]="(activePreprocessorTemplate|async)"
+                [initModel]="(activePreprocessor|async).config"
+                (onCancel)="cancel()"
+                (onSave)="save($event)"
+    ></app-config>
+  </mat-card-content>
+</mat-card>

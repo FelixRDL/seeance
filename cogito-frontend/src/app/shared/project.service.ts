@@ -58,6 +58,35 @@ export class ProjectService {
       )
   }
 
+  //
+  // PREPROCESSORS
+  //
+  getPreprocessorById(courseId: string, projectId: string, preprocessor: string): Observable<Preprocessor> {
+    return this.httpClient
+      .get(`/api/course/${courseId}/projects/${projectId}/preprocessors/${preprocessor}`,
+        {
+          headers: AuthService.getBearerHeader()
+        }
+      )
+      .pipe(map(data => <Preprocessor>data)
+      )
+  }
+
+  setPreprocessorConfig(courseId: string, projectId: string, preprocessorId: string, config: any) {
+    return this.httpClient
+      .post(`/api/course/${courseId}/projects/${projectId}/preprocessors/${preprocessorId}/configure`,
+        config,
+        {
+          headers: AuthService.getBearerHeader()
+        })
+      .pipe(map(data => <any>data)
+      )
+  }
+
+  //
+  // ANALYSES
+  //
+
   getAnalysisById(courseId: string, projectId: string, analysisId: string) {
     return this.httpClient
       .get(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}`,

@@ -29,6 +29,11 @@ export class PluginsService {
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <PreprocessorTemplate[]>data)
       )
   }
+  getPreprocessorByName(name: string): Observable<PreprocessorTemplate> {
+    return this.httpClient.get(`/api/components/preprocessors/${name}`,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <PreprocessorTemplate>data)
+      )
+  }
 
   getPreprocessorTemplateByName(name: string): Observable<PreprocessorTemplate> {
     return this.httpClient.get(`/api/components/preprocessors/${name}`,

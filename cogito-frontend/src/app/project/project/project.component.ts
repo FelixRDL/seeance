@@ -43,6 +43,8 @@ export class ProjectComponent {
   }
 
   updateAnalyses(): void {
+    this.analyses.next([])
+    this.analysisViews.next([])
     this.projectService.getAnalyses(
       this.activeCourse.getValue()._id,
       this.activeProject.getValue()._id

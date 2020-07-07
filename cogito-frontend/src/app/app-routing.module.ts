@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'courses/:id', component: EditCourseComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses/:courseId/projects/:projectId', component: ProjectComponent, canActivate: [HasValidTokenGuard,
       IsUserRegisteredGuard]},
-  {path: 'courses/:courseId/projects/:projectId/analyses/:analysisId/configure',
+  {path: 'courses/:courseId/projects/:projectId/analyses/:preprocessorId/configure',
     component: AnalysisConfigComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'start', component: StartComponent},
   {path: 'register', component: RegisterComponent, canActivate: [IsUserUnregisteredGuard]},

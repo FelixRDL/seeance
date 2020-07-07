@@ -11,4 +11,5 @@ export interface ProjectRepository {
     removeAllProjectsForCourse(courseId: string): Promise<void>;
 
     addAnalysisToProject(projectId: string, courseId: string, analysisId: string): Promise<string[]>;
+    addPreprocessorToProject(projectId: string, courseId: string, preprocessorId: string): Promise<string[]>;
 }

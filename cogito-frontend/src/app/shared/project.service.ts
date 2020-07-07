@@ -25,6 +25,15 @@ export class ProjectService {
     )
   }
 
+  addPreprocessor(courseId: string, projectId: string, templateName: string) {
+    return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/preprocessors`,
+      {
+        template: templateName
+      },
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
+    )
+  }
+
   getAnalyses(courseId: string, projectId: string) {
     return this.httpClient.get(`/api/course/${courseId}/projects/${projectId}/analyses`,
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <Analysis[]>data)

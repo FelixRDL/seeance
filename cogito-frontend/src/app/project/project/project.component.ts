@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import {ProjectService} from "../../shared/project.service";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Project} from "../../shared/core/Project";
 import {ActivatedRoute} from "@angular/router";
 import {Course} from "../../shared/core/Course";
@@ -21,7 +21,7 @@ export class ProjectComponent {
   activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
   analyses: BehaviorSubject<Analysis[]> = new BehaviorSubject<Analysis[]>([]);
-  analysisViews: BehaviorSubject<AnalysisView[]> = new BehaviorSubject<AnalysisView[]>([]);
+  tiles: BehaviorSubject<AnalysisTile[]> = new BehaviorSubject<AnalysisTile[]>([]);
 
   constructor(
     private projectService: ProjectService,
@@ -43,23 +43,32 @@ export class ProjectComponent {
   }
 
   updateAnalyses(): void {
+    this.analyses.next([])
+    this.tiles.next([])
     this.projectService.getAnalyses(
       this.activeCourse.getValue()._id,
       this.activeProject.getValue()._id
     ).subscribe((analyses: Analysis[]) => {
       this.analyses.next(analyses)
+      this.tiles.next(analyses.map((analysis) => {
+        return {
+          analysis: analysis,
+          html: ''
+        } as AnalysisTile
+      }))
       analyses.forEach((analysis: Analysis) => {
         this.projectService.getAnalysisView(
           this.activeCourse.getValue()._id,
           this.activeProject.getValue()._id,
           analysis._id
         ).subscribe((html: string) => {
-          const list: any[] = this.analysisViews.getValue()
-          list.push({
-            html: html,
-            analysis: analysis
-          })
-          this.analysisViews.next(
+          let list: any[] = this.tiles.getValue()
+          const index: number = list.findIndex((item) => item.analysis._id == analysis._id)
+          list[index] = {
+            analysis: list[index].analysis,
+            html: html
+          }
+          this.tiles.next(
             list
           )
         })
@@ -85,7 +94,7 @@ export class ProjectComponent {
 }
 
 
-interface AnalysisView {
+interface AnalysisTile {
   html: string,
   analysis: Analysis
 }

@@ -13,6 +13,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { AnalysisListComponent } from './plugins/analysis-list/analysis-list.component';
 import { AddPreprocessorModalComponent } from './plugins/add-preprocessor-modal/add-preprocessor-modal.component';
 import { PreprocessorDropdownComponent } from './plugins/preprocessor-dropdown/preprocessor-dropdown.component';
+import { PreprocessorListComponent } from './plugins/preprocessor-list/preprocessor-list.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { PreprocessorDropdownComponent } from './plugins/preprocessor-dropdown/p
         AnalysisDropdownComponent,
         AnalysisListComponent,
         AddPreprocessorModalComponent,
-        PreprocessorDropdownComponent
+        PreprocessorDropdownComponent,
+        PreprocessorListComponent
     ],
   imports: [
     MaterialModule,

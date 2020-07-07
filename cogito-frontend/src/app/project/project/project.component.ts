@@ -12,6 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Analysis} from "../../shared/core/Analysis";
 import {AddPreprocessorModalComponent} from "../plugins/add-preprocessor-modal/add-preprocessor-modal.component";
 import {PreprocessorTemplate} from "../../shared/core/PreprocessorTemplate";
+import {Preprocessor} from "../../shared/core/Preprocessor";
 
 @Component({
   selector: 'app-project',
@@ -23,6 +24,7 @@ export class ProjectComponent {
   activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
   analyses: BehaviorSubject<Analysis[]> = new BehaviorSubject<Analysis[]>([]);
+  preprocessors: BehaviorSubject<Preprocessor[]> = new BehaviorSubject<Preprocessor[]>([]);
   tiles: BehaviorSubject<AnalysisTile[]> = new BehaviorSubject<AnalysisTile[]>([]);
 
   constructor(
@@ -45,8 +47,17 @@ export class ProjectComponent {
   }
 
   updateAnalyses(): void {
+    this.preprocessors.next([])
     this.analyses.next([])
     this.tiles.next([])
+
+    this.projectService.getPreprocessors(
+      this.activeCourse.getValue()._id,
+      this.activeProject.getValue()._id
+    ).subscribe((preprocessors: Preprocessor[]) => {
+      this.preprocessors.next(preprocessors)
+    })
+
     this.projectService.getAnalyses(
       this.activeCourse.getValue()._id,
       this.activeProject.getValue()._id

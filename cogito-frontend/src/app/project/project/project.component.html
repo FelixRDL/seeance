@@ -43,6 +43,7 @@
 
         <mat-divider></mat-divider>
         <br>
+        <app-preprocessor-list [preprocessors]="(preprocessors|async)"></app-preprocessor-list>
         <button mat-button color="primary" (click)="addPreprocessor()">Add Preprocessor</button>
 
       </mat-tab>

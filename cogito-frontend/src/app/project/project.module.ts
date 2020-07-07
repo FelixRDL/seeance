@@ -11,6 +11,8 @@ import { AddAnalysisModalComponent } from './plugins/add-analysis-modal/add-anal
 import { AnalysisDropdownComponent } from './plugins/analysis-dropdown/analysis-dropdown.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AnalysisListComponent } from './plugins/analysis-list/analysis-list.component';
+import { AddPreprocessorModalComponent } from './plugins/add-preprocessor-modal/add-preprocessor-modal.component';
+import { PreprocessorDropdownComponent } from './plugins/preprocessor-dropdown/preprocessor-dropdown.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +20,9 @@ import { AnalysisListComponent } from './plugins/analysis-list/analysis-list.com
         AddAnalysisModalComponent,
         AnalysisDropdownComponent,
         AnalysisDropdownComponent,
-        AnalysisListComponent
+        AnalysisListComponent,
+        AddPreprocessorModalComponent,
+        PreprocessorDropdownComponent
     ],
   imports: [
     MaterialModule,

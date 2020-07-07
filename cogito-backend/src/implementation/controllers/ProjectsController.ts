@@ -36,6 +36,8 @@ import {CreatePreprocessor} from "../../logic/use-cases/preprocessors/CreatePrep
 import {PreprocessorRepository} from "../../logic/repositories/analysis/PreprocessorRepository";
 import {InternalPreprocessorRepository} from "../providers/InternalPreprocessorRepository";
 import {AddPreprocessorToProject} from "../../logic/use-cases/projects/AddPreprocessorToProject";
+import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
+import {GetRegisteredPreprocessorsForProject} from "../../logic/use-cases/projects/GetRegisteredPreprocessorsForProject";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -149,6 +151,19 @@ export class ProjectsController {
             }, this.repository)
             res.json(newPreprocessors)
         } catch (e) {
+            console.error(e)
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async getPreprocessorsForCourse(req: express.Request, res: express.Response) {
+        try {
+            const preprocessors = await GetRegisteredPreprocessorsForProject({
+                courseId: res.locals.courseId,
+                projectId: req.params.id
+            }, this.preprocessorRepository)
+            res.json(preprocessors)
+        } catch(e) {
             console.error(e)
             res.status(500).send("Internal Server Error")
         }

@@ -12,4 +12,11 @@ export class InternalPreprocessorRepository implements PreprocessorRepository {
             config: {}
         });
     }
+
+    getPreprocessorsForProject(projectId: string, courseId: string): Promise<Preprocessor[]> {
+        return PreprocessorModel.find({
+            assignedProject: projectId,
+            assignedCourse: courseId
+        });
+    }
 }

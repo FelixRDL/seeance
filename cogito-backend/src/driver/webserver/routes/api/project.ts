@@ -33,6 +33,10 @@ router.post('/:id/preprocessors', async (req: express.Request, res: express.Resp
     await controller.addPreprocessorToCourse(req, res);
 });
 
+router.get('/:id/preprocessors', async (req: express.Request, res: express.Response) => {
+    await controller.getPreprocessorsForCourse(req, res);
+});
+
 
 //
 // ANALYSIS MANAGEMENT

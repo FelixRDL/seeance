@@ -12,7 +12,16 @@
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="3" rowHeight="1:1">
           <mat-grid-tile *ngFor="let v of (analysisViews|async)">
-            <iframe [srcdoc]="v|allowRaw" style="width: 100%; height: 100%;"></iframe>
+            <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
+            '/courses', v.analysis.assignedCourse,
+            'projects', v.analysis.assignedProject,
+            'analyses', v.analysis._id,
+            'configure']">
+              <mat-icon>settings</mat-icon>
+            </a>
+            <br>
+            <br>
+            <iframe [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
           </mat-grid-tile>
         </mat-grid-list>
 

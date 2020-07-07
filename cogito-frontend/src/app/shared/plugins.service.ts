@@ -17,4 +17,9 @@ export class PluginsService {
     return this.httpClient.get('/api/components/analyses',
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <AnalysisTemplate[]>data));
   }
+
+  getAnalysisTemplateByName(name: string): Observable<AnalysisTemplate> {
+    return this.httpClient.get(`/api/components/analyses/${name}`,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <AnalysisTemplate>data));
+  }
 }

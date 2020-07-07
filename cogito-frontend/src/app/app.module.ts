@@ -20,12 +20,19 @@ import {RepositoryService} from "./shared/repository.service";
 import {ProjectModule} from "./project/project.module";
 import {SettingsModule} from "./settings/settings.module";
 import {PluginsService} from "./shared/plugins.service";
+import {PluginConfigModule} from "./plugin-config/plugin-config.module";
+import {DefaultWidgetRegistry, SchemaFormModule, WidgetRegistry} from "ngx-schema-form";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    SchemaFormModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -36,7 +43,8 @@ import {PluginsService} from "./shared/plugins.service";
     MaterialModule,
     CourseModule,
     ProjectModule,
-    SettingsModule
+    SettingsModule,
+    PluginConfigModule
   ],
   providers: [
     AuthService,
@@ -46,8 +54,11 @@ import {PluginsService} from "./shared/plugins.service";
     PluginsService,
     HasValidTokenGuard,
     IsUserRegisteredGuard,
-    IsUserUnregisteredGuard
+    IsUserUnregisteredGuard,
+    {provide: WidgetRegistry, useClass: DefaultWidgetRegistry}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

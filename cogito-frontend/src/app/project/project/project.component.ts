@@ -21,7 +21,7 @@ export class ProjectComponent {
   activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
   analyses: BehaviorSubject<Analysis[]> = new BehaviorSubject<Analysis[]>([]);
-  analysisViews: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  analysisViews: BehaviorSubject<AnalysisView[]> = new BehaviorSubject<AnalysisView[]>([]);
 
   constructor(
     private projectService: ProjectService,
@@ -54,8 +54,11 @@ export class ProjectComponent {
           this.activeProject.getValue()._id,
           analysis._id
         ).subscribe((html: string) => {
-          const list: string[] = this.analysisViews.getValue()
-          list.push(html)
+          const list: any[] = this.analysisViews.getValue()
+          list.push({
+            html: html,
+            analysis: analysis
+          })
           this.analysisViews.next(
             list
           )
@@ -79,4 +82,10 @@ export class ProjectComponent {
       }
     });
   }
+}
+
+
+interface AnalysisView {
+  html: string,
+  analysis: Analysis
 }

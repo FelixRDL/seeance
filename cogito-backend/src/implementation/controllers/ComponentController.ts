@@ -6,6 +6,7 @@ import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/Anal
 import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/DatasourceTemplateRepository";
 import {PreprocessorTemplateRepository} from "../../logic/repositories/analysis/PreprocessorTemplateRepository";
 import {InternalComponentTemplateProviderAccess} from "../providers/InternalComponentTemplateProvider";
+import {GetAnalysisTemplateByName} from "../../logic/use-cases/components/GetAnalysisTemplateByName";
 
 
 
@@ -22,6 +23,12 @@ export class ComponentController {
         const ans = await GetAnalysisTemplates({
             nameContains: ''
         }, this.analysisProvider)
+        res.json(ans)
+    }
+
+    async getAnalysisByName(req: express.Request, res: express.Response) {
+        const ans = await GetAnalysisTemplateByName(
+            req.params.q, this.analysisProvider)
         res.json(ans)
     }
 

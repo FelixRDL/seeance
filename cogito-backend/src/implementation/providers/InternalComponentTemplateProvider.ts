@@ -40,7 +40,8 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
     }
 
     getPreprocessorByName(name: string): Promise<PreprocessorTemplate> {
-        return Promise.reject(new MethodNotImplementedError());
+        const template: PreprocessorTemplate = this.repository.getPreprocessorByName(name)
+        return template !== undefined ? Promise.resolve(template) : Promise.reject(new PluginNotFoundError(name))
     }
 
     getPreprocessors(nameContains?: string): Promise<PreprocessorTemplate[]> {

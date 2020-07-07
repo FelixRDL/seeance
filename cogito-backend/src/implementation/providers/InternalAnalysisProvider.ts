@@ -1,8 +1,6 @@
 import {Analysis} from "../../logic/entities/components/Analysis";
 import {AnalysisModel} from "../../driver/models/AnalysisModel";
 import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepository";
-import {Course} from "../../logic/entities/Course";
-import {CourseModel} from "../../driver/models/CourseModel";
 
 export class InternalAnalysisProvider implements AnalysisRepository {
     createAnalysis(analysisName: string, projectId: string, courseId: string): Promise<Analysis> {

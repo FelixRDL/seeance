@@ -40,6 +40,12 @@
         <br>
         <app-analysis-list [analyses]="(analyses|async)"></app-analysis-list>
         <button mat-button color="primary" (click)="addAnalysis()">Add Analysis</button>
+
+        <mat-divider></mat-divider>
+        <br>
+        <app-preprocessor-list [preprocessors]="(preprocessors|async)"></app-preprocessor-list>
+        <button mat-button color="primary" (click)="addPreprocessor()">Add Preprocessor</button>
+
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

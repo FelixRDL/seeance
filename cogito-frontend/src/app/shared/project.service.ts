@@ -6,6 +6,7 @@ import {Project} from "./core/Project";
 import {map} from "rxjs/operators";
 import {Course} from "./core/Course";
 import {Analysis} from "./core/Analysis";
+import {Preprocessor} from "./core/Preprocessor";
 
 @Injectable()
 export class ProjectService {
@@ -25,9 +26,24 @@ export class ProjectService {
     )
   }
 
+  addPreprocessor(courseId: string, projectId: string, templateName: string) {
+    return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/preprocessors`,
+      {
+        template: templateName
+      },
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
+    )
+  }
+
   getAnalyses(courseId: string, projectId: string) {
     return this.httpClient.get(`/api/course/${courseId}/projects/${projectId}/analyses`,
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <Analysis[]>data)
+    )
+  }
+
+  getPreprocessors(courseId: string, projectId: string) {
+    return this.httpClient.get(`/api/course/${courseId}/projects/${projectId}/preprocessors`,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <Preprocessor[]>data)
     )
   }
 

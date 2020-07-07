@@ -13,6 +13,10 @@ const ProjectSchema = new mongoose.Schema({
     analysisIds: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'AnalysisModel'
+    }],
+    preprocessorIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PreprocessorModel'
     }]
 }, {timestamps: true});
 const ProjectModel = mongoose.model("ProjectModel", ProjectSchema);

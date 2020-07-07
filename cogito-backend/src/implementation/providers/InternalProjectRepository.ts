@@ -75,4 +75,18 @@ export class InternalProjectRepository implements ProjectRepository {
             return Promise.resolve(project.analysisIds);
         });
     }
+
+    addPreprocessorToProject(projectId: string, courseId: string, preprocessorId: string): Promise<string[]> {
+        return ProjectModel.updateOne(
+            {
+                _id: projectId,
+                courseId: courseId
+            },
+            {
+                $push: {'preprocessorIds': preprocessorId}
+            }).then(async () => {
+            let project = await ProjectModel.findOne({_id: projectId});
+            return Promise.resolve(project.analysisIds);
+        });
+    }
 }

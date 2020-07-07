@@ -10,7 +10,7 @@ export async function GetAnalysisView (
     req: GetAnalysisViewRequest,
     gen: AnalysisViewGenerator,
     datasourceRepo: DatasourceTemplateRepository,
-    preprocessorRepo: PreprocessorTemplateRepository,
+    preprocessorTemplateRepo: PreprocessorTemplateRepository,
     analysisRepository: AnalysisTemplateRepository
 ) {
     const analysisTemplate: AnalysisTemplate = await analysisRepository.getAnalysisTemplateByName(req.analysis.analysis)
@@ -20,7 +20,7 @@ export async function GetAnalysisView (
         config: req.analysis.config,
     }
     const preprocessorConfigs = await Promise.all(req.preprocessors.map(async (preprocessor: Preprocessor) => {
-        const ppTemplate = await preprocessorRepo.getPreprocessorByName(preprocessor.template)
+        const ppTemplate = await preprocessorTemplateRepo.getPreprocessorByName(preprocessor.template)
         return Promise.resolve({
             module: ppTemplate.module,
             package: ppTemplate.package,
@@ -28,11 +28,13 @@ export async function GetAnalysisView (
         })
     }))
     // @ts-ignore
-    const dependencies: string[] = analysisConfig.package['seeance']['depends_on']
-        .concat(preprocessorConfigs.map((pp) => pp.package['seeance']['depends_on']))
-    const datasources = await Promise.all(dependencies.map((ds: string) => datasourceRepo.getDatasourceByName(ds)))
-
-
+    let analysisDeps = analysisConfig.package['seeance']['depends_on']
+    let prepDeps = (preprocessorConfigs.map((pp) => pp.package['seeance']['depends_on']))
+    let flattenedPrepDeps: string[] = prepDeps.reduce((acc, currentValue) => {
+        return acc.concat(currentValue)
+    }, [])
+    let deps = analysisDeps.concat(flattenedPrepDeps)
+    const datasources = await Promise.all(deps.map((ds: string) => datasourceRepo.getDatasourceByName(ds)))
     return Promise.resolve(
         await gen.getAnalysisView(
             req.repoOwner,

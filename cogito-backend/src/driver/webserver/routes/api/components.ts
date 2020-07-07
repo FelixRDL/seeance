@@ -19,6 +19,10 @@ router.use('/preprocessors/',
     (req, res) => {
         controller.getPreprocessors(req, res)
     });
+router.use('/preprocessors/:q',
+    (req, res) => {
+        controller.getPreprocessorByName(req, res)
+    });
 
 router.use('/datasources/',
     (req, res) => {

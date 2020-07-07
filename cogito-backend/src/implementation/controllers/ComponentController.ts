@@ -7,6 +7,7 @@ import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/Da
 import {PreprocessorTemplateRepository} from "../../logic/repositories/analysis/PreprocessorTemplateRepository";
 import {InternalComponentTemplateProviderAccess} from "../providers/InternalComponentTemplateProvider";
 import {GetAnalysisTemplateByName} from "../../logic/use-cases/components/GetAnalysisTemplateByName";
+import {GetPreprocessorTemplateByName} from "../../logic/use-cases/components/GetPreprocessorTemplateByName";
 
 
 
@@ -35,6 +36,13 @@ export class ComponentController {
     async getPreprocessors(req: express.Request, res: express.Response) {
         const ans = await GetPreprocessorTemplates({
             nameContains: ''
+        }, this.preprocessorRepository)
+        res.json(ans)
+    }
+
+    async getPreprocessorByName(req: express.Request, res: express.Response) {
+        const ans = await GetPreprocessorTemplateByName({
+            nameContains: req.params.q
         }, this.preprocessorRepository)
         res.json(ans)
     }

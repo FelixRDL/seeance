@@ -10,6 +10,8 @@ import {AddAnalysisModalComponent} from "../plugins/add-analysis-modal/add-analy
 import {AnalysisTemplate} from "../../shared/core/AnalysisTemplate";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Analysis} from "../../shared/core/Analysis";
+import {AddPreprocessorModalComponent} from "../plugins/add-preprocessor-modal/add-preprocessor-modal.component";
+import {PreprocessorTemplate} from "../../shared/core/PreprocessorTemplate";
 
 @Component({
   selector: 'app-project',
@@ -86,6 +88,22 @@ export class ProjectComponent {
           result.name
         ).subscribe((response) => {
           this.snackbar.open( "Analysis added successfully!", "OK");
+          this.updateAnalyses()
+        })
+      }
+    });
+  }
+
+  addPreprocessor(): void {
+    let dialogRef = this.dialog.open(AddPreprocessorModalComponent, {});
+    dialogRef.afterClosed().subscribe((result: PreprocessorTemplate) => {
+      if(result) {
+        this.projectService.addPreprocessor(
+          this.activeCourse.getValue()._id,
+          this.activeProject.getValue()._id,
+          result.name
+        ).subscribe((response) => {
+          this.snackbar.open( "Preprocessor added successfully!", "OK");
           this.updateAnalyses()
         })
       }

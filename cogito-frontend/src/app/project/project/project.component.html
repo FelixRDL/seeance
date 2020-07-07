@@ -20,12 +20,12 @@
             'configure']">
                 <mat-icon>settings</mat-icon>
               </a>
-              <br>
-              <br>
-              <iframe *ngIf="v.html" [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
-              <span *ngIf="!v.html">
-              <mat-spinner></mat-spinner>
-              <p>Loading Analysis, please be patient...</p>
+              <span class="center">
+                <iframe *ngIf="v.html" [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
+                <span *ngIf="!v.html">
+                  <mat-spinner style="align-self: center"></mat-spinner>
+                  <p>Loading Analysis, please be patient...</p>
+                </span>
             </span>
             </div>
           </mat-grid-tile>

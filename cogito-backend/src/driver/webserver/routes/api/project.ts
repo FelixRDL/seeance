@@ -37,6 +37,10 @@ router.get('/:id/preprocessors', async (req: express.Request, res: express.Respo
     await controller.getPreprocessorsForCourse(req, res);
 });
 
+router.post('/:id/preprocessors/:preprocessorId/configure', async (req: express.Request, res: express.Response) => {
+    await controller.setConfigurationForPreprocessor(req, res);
+});
+
 
 //
 // ANALYSIS MANAGEMENT

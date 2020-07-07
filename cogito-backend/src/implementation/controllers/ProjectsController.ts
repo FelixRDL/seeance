@@ -38,6 +38,9 @@ import {InternalPreprocessorRepository} from "../providers/InternalPreprocessorR
 import {AddPreprocessorToProject} from "../../logic/use-cases/projects/AddPreprocessorToProject";
 import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
 import {GetRegisteredPreprocessorsForProject} from "../../logic/use-cases/projects/GetRegisteredPreprocessorsForProject";
+import {SetPreprocessorConfig} from "../../logic/use-cases/preprocessors/SetPreprocessorConfig";
+import {Preprocessor} from "../../logic/entities/components/Preprocessor";
+import {GetPreprocessorById} from "../../logic/use-cases/preprocessors/GetPreprocessorById";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -263,6 +266,21 @@ export class ProjectsController {
             }, this.analysisRepository)
             let newAnalysis: Analysis = await  GetAnalysisById(req.params.analysisId, this.analysisRepository)
             res.json(newAnalysis.config)
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async setConfigurationForPreprocessor(req: express.Request, res:express.Response) {
+        try {
+            // TODO: check, whether config fits schema?
+            let result = await SetPreprocessorConfig({
+                config: req.body,
+                preprocessorId: req.params.preprocessorId
+            }, this.preprocessorRepository)
+            let newPreprocessor: Preprocessor = await  GetPreprocessorById(req.params.analysisId, this.preprocessorRepository)
+            res.json(newPreprocessor.config)
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error")

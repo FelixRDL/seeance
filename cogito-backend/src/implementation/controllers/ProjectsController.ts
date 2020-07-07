@@ -171,6 +171,16 @@ export class ProjectsController {
         }
     }
 
+    async getPreprocessorById(req: express.Request, res: express.Response) {
+        try {
+            const preprocessors = await GetPreprocessorById(req.params.preprocessorId, this.preprocessorRepository)
+            res.json(preprocessors)
+        } catch(e) {
+            console.error(e)
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
     //
     // ANALYSES
     //

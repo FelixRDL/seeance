@@ -156,7 +156,6 @@ export class ProjectsController {
     }
 
     async getPreprocessorsForCourse(req: express.Request, res: express.Response) {
-        console.log("Get PPs", res.locals.courseId, req.params.id)
         try {
             const preprocessors = await GetRegisteredPreprocessorsForProject({
                 courseId: res.locals.courseId,
@@ -229,7 +228,6 @@ export class ProjectsController {
                 req.params.analysisId,
                 this.analysisRepository
             )
-            console.log(analysis)
             let result = await GetAnalysisView({
                 repoOwner: project.repository.owner.login,
                 repoName: project.repository.name,

@@ -16,8 +16,8 @@ export class AppComponent {
 
   constructor(
     userService: UserService,
-    courseService: CourseService,
-    projectService: ProjectService
+    courseService: CourseService
+
   ) {
 
     userService.authenticatedUser.subscribe((user: User) => {

@@ -228,10 +228,18 @@ export class ProjectsController {
                 req.params.analysisId,
                 this.analysisRepository
             )
+            const preprocessors = await GetRegisteredPreprocessorsForProject({
+                projectId: req.params.id,
+                courseId: res.locals.courseId
+                },
+                this.preprocessorRepository
+            )
+            console.log(preprocessors)
+
             let result = await GetAnalysisView({
                 repoOwner: project.repository.owner.login,
                 repoName: project.repository.name,
-                preprocessors: [],
+                preprocessors: preprocessors,
                 analysis: analysis,
                 token: token
             },

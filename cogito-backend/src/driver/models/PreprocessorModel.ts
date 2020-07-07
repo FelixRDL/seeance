@@ -5,7 +5,7 @@ const PreprocessorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    analysis: {
+    template: {
         type: String,
         required: false
     },

@@ -35,6 +35,7 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
     }
 
     getAnalysisTemplateByName(name: string): Promise<AnalysisTemplate> {
+        console.log(`get template ${name}`)
         const template: AnalysisTemplate = this.repository.getAnalysisByName(name)
         return template !== undefined ? Promise.resolve(template) : Promise.reject(new PluginNotFoundError(name))
     }

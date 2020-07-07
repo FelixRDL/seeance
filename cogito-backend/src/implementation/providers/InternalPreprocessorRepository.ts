@@ -6,7 +6,7 @@ export class InternalPreprocessorRepository implements PreprocessorRepository {
     createPreprocessor(preprocessorName: string, projectId: string, courseId: string): Promise<Preprocessor> {
         return PreprocessorModel.create({
             name: preprocessorName,
-            analysis: preprocessorName,
+            template: preprocessorName,
             assignedProject: projectId,
             assignedCourse: courseId,
             config: {}

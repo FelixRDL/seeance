@@ -136,7 +136,6 @@ export class ProjectsController {
 
     async addPreprocessorToCourse(req: express.Request, res: express.Response) {
         try {
-            // TODO: check, whether analysis exists by name
             const preprocessor = await CreatePreprocessor({
                     courseId: res.locals.courseId,
                     projectId: req.params.id,
@@ -157,6 +156,7 @@ export class ProjectsController {
     }
 
     async getPreprocessorsForCourse(req: express.Request, res: express.Response) {
+        console.log("Get PPs", res.locals.courseId, req.params.id)
         try {
             const preprocessors = await GetRegisteredPreprocessorsForProject({
                 courseId: res.locals.courseId,

@@ -40,6 +40,7 @@ export class ProjectComponent {
         this.activeCourse.next(course);
         this.projectService.getProjectById(course._id, params.projectId).subscribe((project: Project) => {
           this.activeProject.next(project);
+          console.log(project)
           this.updateAnalyses()
         });
       })

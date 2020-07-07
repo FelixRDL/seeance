@@ -7,8 +7,8 @@ export async function GetRegisteredPreprocessorsForProject (
     repo: PreprocessorRepository
 ): Promise<Preprocessor[]> {
     const preprocs: Preprocessor[] = await repo.getPreprocessorsForProject(
-        req.courseId,
-        req.projectId
+        req.projectId,
+        req.courseId
     )
     return Promise.resolve(preprocs)
 }

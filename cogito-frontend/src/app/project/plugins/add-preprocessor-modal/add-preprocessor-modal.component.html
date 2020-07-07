@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Add new Preprocessor</h2>
+<mat-dialog-content class="mat-typography">
+  Select one of the preprocessors below:
+  <br>
+  <app-analysis-dropdown (onSelectTemplate)="setTemplate($event)"></app-analysis-dropdown>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="reject()">Cancel</button>
+  <button mat-button cdkFocusInitial color="primary" (click)="confirm()">Add</button>
+</mat-dialog-actions>

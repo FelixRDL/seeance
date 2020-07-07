@@ -11,17 +11,23 @@
         <h4 class="mat-h4">On this page, you can inspect the analyses for this project.</h4>
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="2" rowHeight="1:1">
-          <mat-grid-tile *ngFor="let v of (analysisViews|async)">
-            <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
+          <mat-grid-tile *ngFor="let v of (tiles|async)">
+            <div style="width:100%; height: 100%;">
+              <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
             '/courses', v.analysis.assignedCourse,
             'projects', v.analysis.assignedProject,
             'analyses', v.analysis._id,
             'configure']">
-              <mat-icon>settings</mat-icon>
-            </a>
-            <br>
-            <br>
-            <iframe [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
+                <mat-icon>settings</mat-icon>
+              </a>
+              <br>
+              <br>
+              <iframe *ngIf="v.html" [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
+              <span *ngIf="!v.html">
+              <mat-spinner></mat-spinner>
+              <p>Loading Analysis, please be patient...</p>
+            </span>
+            </div>
           </mat-grid-tile>
         </mat-grid-list>
 

@@ -12,11 +12,13 @@ import {ProjectService} from "../shared/project.service";
 import {PluginsService} from "../shared/plugins.service";
 import {JsonFormsAngularService, JsonFormsModule} from "@jsonforms/angular";
 import {SchemaFormModule} from "ngx-schema-form";
+import { PreprocessorConfigComponent } from './preprocessor-config/preprocessor-config.component';
 
 @NgModule({
   declarations: [
     ConfigComponent,
-    AnalysisConfigComponent
+    AnalysisConfigComponent,
+    PreprocessorConfigComponent
   ],
     imports: [
         MaterialModule,

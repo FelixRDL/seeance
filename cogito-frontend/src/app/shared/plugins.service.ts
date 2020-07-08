@@ -21,12 +21,17 @@ export class PluginsService {
 
   getAnalysisTemplateByName(name: string): Observable<AnalysisTemplate> {
     return this.httpClient.get(`/api/components/analyses/${name}`,
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <AnalysisTemplate>data));
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <AnalysisTemplate>data['manifest']));
   }
 
   getPreprocessorTemplates(): Observable<PreprocessorTemplate[]> {
     return this.httpClient.get(`/api/components/preprocessors`,
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <PreprocessorTemplate[]>data)
+      )
+  }
+  getPreprocessorByName(name: string): Observable<PreprocessorTemplate> {
+    return this.httpClient.get(`/api/components/preprocessors/${name}`,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <PreprocessorTemplate>data['manifest'])
       )
   }
 

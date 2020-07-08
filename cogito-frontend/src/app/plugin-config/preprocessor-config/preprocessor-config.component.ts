@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {Project} from "../../shared/core/Project";
 import {Course} from "../../shared/core/Course";
 import {Analysis} from "../../shared/core/Analysis";
+import {AnalysisTemplate} from "../../shared/core/AnalysisTemplate";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../shared/course.service";
 import {ProjectService} from "../../shared/project.service";
-import {AnalysisTemplate} from "../../shared/core/AnalysisTemplate";
 import {PluginsService} from "../../shared/plugins.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Preprocessor} from "../../shared/core/Preprocessor";
+import {PreprocessorTemplate} from "../../shared/core/PreprocessorTemplate";
 
 @Component({
-  selector: 'app-analysis-config',
-  templateUrl: './analysis-config.component.html',
-  styleUrls: ['./analysis-config.component.scss']
+  selector: 'app-preprocessor-config',
+  templateUrl: './preprocessor-config.component.html',
+  styleUrls: ['./preprocessor-config.component.scss']
 })
-export class AnalysisConfigComponent implements OnInit {
+export class PreprocessorConfigComponent implements OnInit {
   activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
   activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
-  activeAnalysis: BehaviorSubject<Analysis> = new BehaviorSubject<Analysis>(undefined);
-  activeAnalysisTemplate: BehaviorSubject<AnalysisTemplate> = new BehaviorSubject<AnalysisTemplate>(undefined);
+  activePreprocessor: BehaviorSubject<Preprocessor> = new BehaviorSubject<Preprocessor>(undefined);
+  activePreprocessorTemplate: BehaviorSubject<PreprocessorTemplate> = new BehaviorSubject<PreprocessorTemplate>(undefined);
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +29,6 @@ export class AnalysisConfigComponent implements OnInit {
     private courseService: CourseService,
     private projectService: ProjectService,
     private pluginService: PluginsService,
-
     private snackbar: MatSnackBar
   ) { }
 
@@ -39,26 +40,28 @@ export class AnalysisConfigComponent implements OnInit {
       this.projectService.getProjectById(params.courseId, params.projectId).subscribe((project: Project) => {
         this.activeProject.next(project);
       });
-      this.projectService.getAnalysisById(params.courseId, params.projectId, params.analysisId).subscribe((analysis: Analysis) => {
-        this.activeAnalysis.next(analysis);
-        this.pluginService.getAnalysisTemplateByName(analysis.analysis).subscribe((template: AnalysisTemplate) => {
-          this.activeAnalysisTemplate.next(template);
-          console.log(template)
+
+      this.projectService.getPreprocessorById(params.courseId, params.projectId, params.preprocessorId).subscribe((pre: Preprocessor) => {
+        this.activePreprocessor.next(pre)
+        console.log("pre", pre)
+        this.pluginService.getPreprocessorByName(pre.template).subscribe((prep) => {
+          console.log(prep)
+          this.activePreprocessorTemplate.next(prep)
         })
       })
     });
   }
 
   save(config: any) {
-    this.projectService.setAnalysisConfig(
+    this.projectService.setPreprocessorConfig(
       this.activeCourse.getValue()._id,
       this.activeProject.getValue()._id,
-      this.activeAnalysis.getValue()._id,
+      this.activePreprocessor.getValue()._id,
       config
     ).subscribe((result) => {
-      const analysis: Analysis = this.activeAnalysis.getValue()
-      analysis.config = result
-      this.activeAnalysis.next(analysis)
+      const pre: Preprocessor = this.activePreprocessor.getValue()
+      pre.config = result
+      this.activePreprocessor.next(pre)
       this.snackbar.open("Configuration saved successfully!", "OK")
     })
   }
@@ -66,4 +69,5 @@ export class AnalysisConfigComponent implements OnInit {
   cancel() {
     this.router.navigate(['courses', this.activeCourse.getValue()._id, 'projects', this.activeProject.getValue()._id])
   }
+
 }

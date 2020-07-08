@@ -1,7 +1,7 @@
 export interface Preprocessor {
   _id: string,
   name: string,
-  preprocessor: string,
+  template: string,
   assignedProject: string,
   assignedCourse: string,
   createdAt: string,

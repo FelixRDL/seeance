@@ -120,6 +120,19 @@ export class ProjectComponent {
       }
     });
   }
+
+  removeAnalysis(analysisId: string) {
+    const courseId: string = this.activeCourse.getValue()._id
+    const projectId: string = this.activeProject.getValue()._id
+    this.projectService.removeAnalysis(
+      courseId,
+      projectId,
+      analysisId
+    ).subscribe(() => {
+      this.updateAnalyses()
+      this.snackbar.open( "Analysis removed successfully!", "OK");
+    })
+  }
 }
 
 

@@ -41,7 +41,9 @@
         <app-analysis-list
           [analyses]="(analyses|async)"
           [courseId]="(activeCourse|async)._id"
-          [projectId]="(activeProject|async)._id"></app-analysis-list>
+          [projectId]="(activeProject|async)._id"
+          (onDelete)="removeAnalysis($event)"
+        ></app-analysis-list>
         <button mat-button color="primary" (click)="addAnalysis()">Add Analysis</button>
 
         <mat-divider></mat-divider>

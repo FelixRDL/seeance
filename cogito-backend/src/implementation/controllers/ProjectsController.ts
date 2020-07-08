@@ -308,6 +308,7 @@ export class ProjectsController {
                 courseId: res.locals.courseId,
                 projectId: req.params.id
             }, this.repository)
+            res.json({})
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
@@ -322,6 +323,7 @@ export class ProjectsController {
                 courseId: res.locals.courseId,
                 projectId: req.params.id
             }, this.repository)
+            res.json({})
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error")

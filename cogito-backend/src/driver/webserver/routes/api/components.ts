@@ -24,7 +24,7 @@ router.get('/preprocessors/:q',
         controller.getPreprocessorByName(req, res)
     });
 
-router.use('/datasources/',
+router.get('/datasources/',
     (req, res) => {
         controller.getDatasources(req, res)
     });

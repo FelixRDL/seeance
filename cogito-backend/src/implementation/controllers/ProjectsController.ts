@@ -289,7 +289,7 @@ export class ProjectsController {
                 config: req.body,
                 preprocessorId: req.params.preprocessorId
             }, this.preprocessorRepository)
-            let newPreprocessor: Preprocessor = await  GetPreprocessorById(req.params.analysisId, this.preprocessorRepository)
+            let newPreprocessor: Preprocessor = await  GetPreprocessorById(req.params.preprocessorId, this.preprocessorRepository)
             res.json(newPreprocessor.config)
         } catch(e) {
             console.error(e);

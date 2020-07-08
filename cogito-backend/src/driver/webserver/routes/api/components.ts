@@ -15,11 +15,11 @@ router.get('/analyses/',
         controller.getAnalyses(req, res)
     });
 
-router.use('/preprocessors/',
+router.get('/preprocessors/',
     (req, res) => {
         controller.getPreprocessors(req, res)
     });
-router.use('/preprocessors/:q',
+router.get('/preprocessors/:q',
     (req, res) => {
         controller.getPreprocessorByName(req, res)
     });

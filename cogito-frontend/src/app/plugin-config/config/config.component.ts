@@ -42,7 +42,7 @@ export class ConfigComponent implements OnInit, OnChanges {
       console.log(changes.schema)
       let currentSchema: any = {
         "type": "object",
-        "properties": this.transformSchemaForDisplay(changes.schema.currentValue.manifest.config_schema)
+        "properties": this.transformSchemaForDisplay(changes.schema.currentValue.config_schema)
       }
       this.displaySchema.next(currentSchema);
     }

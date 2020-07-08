@@ -43,8 +43,9 @@ export class PreprocessorConfigComponent implements OnInit {
 
       this.projectService.getPreprocessorById(params.courseId, params.projectId, params.preprocessorId).subscribe((pre: Preprocessor) => {
         this.activePreprocessor.next(pre)
-        console.log(pre)
+        console.log("pre", pre)
         this.pluginService.getPreprocessorByName(pre.template).subscribe((prep) => {
+          console.log(prep)
           this.activePreprocessorTemplate.next(prep)
         })
       })

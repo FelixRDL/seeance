@@ -43,6 +43,7 @@ export class AnalysisConfigComponent implements OnInit {
         this.activeAnalysis.next(analysis);
         this.pluginService.getAnalysisTemplateByName(analysis.analysis).subscribe((template: AnalysisTemplate) => {
           this.activeAnalysisTemplate.next(template);
+          console.log(template)
         })
       })
     });

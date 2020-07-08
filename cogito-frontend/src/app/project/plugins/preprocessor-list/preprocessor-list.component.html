@@ -1,5 +1,14 @@
 <mat-label>Preprocessors</mat-label>
 <mat-list>
-  <mat-list-item *ngFor="let item of preprocessors">{{item.name}} </mat-list-item>
+  <mat-list-item *ngFor="let item of preprocessors">
+    {{item.name}}
+    <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
+            '/courses', courseId,
+            'projects', projectId,
+            'preprocessors', item._id,
+            'configure']">
+      <mat-icon>settings</mat-icon>
+    </a>
+  </mat-list-item>
 </mat-list>
 

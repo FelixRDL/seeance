@@ -9,6 +9,8 @@ import {Preprocessor} from "../../../shared/core/Preprocessor";
 export class PreprocessorListComponent implements OnInit {
 
   @Input() preprocessors: Preprocessor[] = [];
+  @Input() courseId: string;
+  @Input() projectId: string;
 
   constructor() { }
 

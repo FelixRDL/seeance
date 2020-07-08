@@ -36,11 +36,14 @@ import {CreatePreprocessor} from "../../logic/use-cases/preprocessors/CreatePrep
 import {PreprocessorRepository} from "../../logic/repositories/analysis/PreprocessorRepository";
 import {InternalPreprocessorRepository} from "../providers/InternalPreprocessorRepository";
 import {AddPreprocessorToProject} from "../../logic/use-cases/projects/AddPreprocessorToProject";
-import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
 import {GetRegisteredPreprocessorsForProject} from "../../logic/use-cases/projects/GetRegisteredPreprocessorsForProject";
 import {SetPreprocessorConfig} from "../../logic/use-cases/preprocessors/SetPreprocessorConfig";
 import {Preprocessor} from "../../logic/entities/components/Preprocessor";
 import {GetPreprocessorById} from "../../logic/use-cases/preprocessors/GetPreprocessorById";
+import {DeleteAnalysis} from "../../logic/use-cases/analyses/DeleteAnalysis";
+import {RemoveAnalysisFromProject} from "../../logic/use-cases/projects/RemoveAnalysisFromProject";
+import {DeletePreprocessor} from "../../logic/use-cases/preprocessors/DeletePreprocessor";
+import {RemovePreprocessorFromProject} from "../../logic/use-cases/projects/RemovePreprocessorFromProject";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -291,6 +294,34 @@ export class ProjectsController {
             }, this.preprocessorRepository)
             let newPreprocessor: Preprocessor = await  GetPreprocessorById(req.params.preprocessorId, this.preprocessorRepository)
             res.json(newPreprocessor.config)
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async removeAnalysis(req: express.Request, res: express.Response) {
+        try {
+            await DeleteAnalysis(req.params.analysisId, this.analysisRepository)
+            await RemoveAnalysisFromProject({
+                analysisId: req.params.analysisId,
+                courseId: res.locals.courseId,
+                projectId: req.params.id
+            }, this.repository)
+        } catch(e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async removePreprocessor(req: express.Request, res: express.Response) {
+        try {
+            await DeletePreprocessor(req.params.preprocessorId, this.preprocessorRepository)
+            await RemovePreprocessorFromProject({
+                preprocessorId: req.params.preprocessorId,
+                courseId: res.locals.courseId,
+                projectId: req.params.id
+            }, this.repository)
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error")

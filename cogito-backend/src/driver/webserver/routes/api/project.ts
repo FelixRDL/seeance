@@ -41,6 +41,10 @@ router.get('/:id/preprocessors/:preprocessorId', async (req: express.Request, re
     await controller.getPreprocessorById(req, res);
 });
 
+router.delete('/:id/preprocessors/:preprocessorId', async (req: express.Request, res: express.Response) => {
+    await controller.removePreprocessor(req, res);
+});
+
 router.post('/:id/preprocessors/:preprocessorId/configure', async (req: express.Request, res: express.Response) => {
     await controller.setConfigurationForPreprocessor(req, res);
 });
@@ -60,6 +64,11 @@ router.get('/:id/analyses', async (req: express.Request, res: express.Response) 
 
 router.get('/:id/analyses/:analysisId', async (req: express.Request, res: express.Response) => {
     await controller.getAnalysisById(req, res);
+});
+
+
+router.delete('/:id/analyses/:analysisId', async (req: express.Request, res: express.Response) => {
+    await controller.removeAnalysis(req, res);
 });
 
 router.post('/:id/analyses/:analysisId/configure', async (req: express.Request, res: express.Response) => {

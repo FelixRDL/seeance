@@ -26,6 +26,12 @@ export class ProjectService {
     )
   }
 
+  removeAnalysis(courseId: string, projectId: string, analysisId: string) {
+    return this.httpClient.delete(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}`,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
+    )
+  }
+
   addPreprocessor(courseId: string, projectId: string, templateName: string) {
     return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/preprocessors`,
       {
@@ -33,6 +39,13 @@ export class ProjectService {
       },
       {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
     )
+  }
+
+  removePreprocessor(courseId: string, projectId: string, preprocessorId: string) {
+    return this.httpClient.delete(`/api/course/${courseId}/projects/${projectId}/preprocessors/${preprocessorId}`,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
+    )
+
   }
 
   getAnalyses(courseId: string, projectId: string) {

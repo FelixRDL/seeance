@@ -9,6 +9,8 @@ import {Analysis} from "../../../shared/core/Analysis";
 export class AnalysisListComponent implements OnInit {
 
   @Input() analyses: Analysis[] = [];
+  @Input() courseId: string;
+  @Input() projectId: string;
 
   constructor() { }
 

@@ -133,6 +133,19 @@ export class ProjectComponent {
       this.snackbar.open( "Analysis removed successfully!", "OK");
     })
   }
+
+  removePreprocessor(preprocessorId: string) {
+    const courseId: string = this.activeCourse.getValue()._id
+    const projectId: string = this.activeProject.getValue()._id
+    this.projectService.removePreprocessor(
+      courseId,
+      projectId,
+      preprocessorId
+    ).subscribe(() => {
+      this.updateAnalyses()
+      this.snackbar.open( "Preprocessor removed successfully!", "OK");
+    })
+  }
 }
 
 

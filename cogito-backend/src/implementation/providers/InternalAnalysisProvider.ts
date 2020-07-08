@@ -34,4 +34,10 @@ export class InternalAnalysisProvider implements AnalysisRepository {
                 }
             );
         }
+
+    deleteAnalysis(id: string): Promise<void> {
+        return AnalysisModel.deleteOne({
+            _id: id
+        });
+    }
 }

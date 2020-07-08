@@ -5,4 +5,5 @@ export interface PreprocessorRepository {
     getPreprocessorsForProject(projectId: string, courseId: string): Promise<Preprocessor[]>;
     setPreprocessorConfig(preprocessorId: string, config: any): Promise<void>;
     getPreprocessorById(preprocessorId: string): Promise<Preprocessor>;
+    deleteAnalysis(preprocessorId: string): Promise<void>;
 }

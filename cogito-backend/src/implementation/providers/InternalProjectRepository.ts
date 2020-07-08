@@ -3,7 +3,7 @@ import {Project, ProtoProject} from "../../logic/entities/Project";
 import * as request from "request";
 import {AuthController} from "../controllers/AuthController";
 import {ProjectModel} from "../../driver/models/ProjectModel";
-import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
+import {Course} from "../../logic/entities/Course";
 import {CourseModel} from "../../driver/models/CourseModel";
 
 export class InternalProjectRepository implements ProjectRepository {
@@ -88,5 +88,24 @@ export class InternalProjectRepository implements ProjectRepository {
             let project = await ProjectModel.findOne({_id: projectId});
             return Promise.resolve(project.analysisIds);
         });
+    }
+
+    removeAnalysisFromProject(projectId: string, courseId: string, analysisId: string): Promise<void> {
+        return ProjectModel.update(
+            {
+                _id: projectId,
+                courseId: courseId
+            },
+            {$pull: {analysisIds: analysisId}}
+        );
+    }
+    removePreprocessorFromProject(projectId: string, courseId: string, preprocessorId: string): Promise<void> {
+        return ProjectModel.update(
+            {
+                _id: projectId,
+                courseId: courseId
+            },
+            {$pull: {preprocessorIds: preprocessorId}}
+        );
     }
 }

@@ -13,6 +13,7 @@ import {Analysis} from "../../shared/core/Analysis";
 import {AddPreprocessorModalComponent} from "../plugins/add-preprocessor-modal/add-preprocessor-modal.component";
 import {PreprocessorTemplate} from "../../shared/core/PreprocessorTemplate";
 import {Preprocessor} from "../../shared/core/Preprocessor";
+import {ConfirmModalComponent} from "../../shared/modals/confirm.modal/confirm.modal.component";
 
 @Component({
   selector: 'app-project',
@@ -119,6 +120,57 @@ export class ProjectComponent {
         })
       }
     });
+  }
+
+  removeAnalysis(analysisId: string) {
+    const courseId: string = this.activeCourse.getValue()._id
+    const projectId: string = this.activeProject.getValue()._id
+
+    let dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: {
+        decline: 'cancel',
+        accept: 'delete',
+        title: 'Confirm Analysis Deletion',
+        message: 'Do you really want to delete this analysis? You cannot undo this.'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.projectService.removeAnalysis(
+          courseId,
+          projectId,
+          analysisId
+        ).subscribe(() => {
+          this.updateAnalyses()
+          this.snackbar.open( "Analysis removed successfully!", "OK");
+        })
+      }
+    })
+  }
+
+  removePreprocessor(preprocessorId: string) {
+    const courseId: string = this.activeCourse.getValue()._id
+    const projectId: string = this.activeProject.getValue()._id
+    let dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: {
+        decline: 'cancel',
+        accept: 'delete',
+        title: 'Confirm Preprocessor Deletion',
+        message: 'Do you really want to delete this preprocessor? You cannot undo this.'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.projectService.removePreprocessor(
+          courseId,
+          projectId,
+          preprocessorId
+        ).subscribe(() => {
+          this.updateAnalyses()
+          this.snackbar.open( "Preprocessor removed successfully!", "OK");
+        })
+      }
+    })
   }
 }
 

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/driver/webserver/server.ts",
+    "dev": "ts-node-dev ./src/driver/webserver/server.ts --respawn --transpileOnly ",
     "prod": "tsc && node ./src/driver/webserver/server.ts"
   },
   "author": "",

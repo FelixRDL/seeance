@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-content>
     <span class="mat-h2">
-      <a [routerLink]="['/courses', (activeCourse|async)?._id]">
-        {{(activeCourse|async)?.title}}</a>/
-      <a [attr.href]="(activeProject|async)?.repository.html_url">{{(activeProject|async)?.repository.name}}</a>
+      <a [routerLink]="['/courses', activeCourse?._id]">
+        {{activeCourse?.title}}</a>/
+      <a [attr.href]="activeProject?.repository.html_url">{{activeProject?.repository.name}}</a>
       </span>
     <mat-tab-group>
       <mat-tab label="General">
@@ -39,9 +39,9 @@
         <mat-divider></mat-divider>
         <br>
         <app-analysis-list
-          [analyses]="(analyses|async)"
-          [courseId]="(activeCourse|async)._id"
-          [projectId]="(activeProject|async)._id"
+          [analyses]="analyses"
+          [courseId]="activeCourse?._id"
+          [projectId]="activeProject?._id"
           (onDelete)="removeAnalysis($event)"
         ></app-analysis-list>
         <button mat-button color="primary" (click)="addAnalysis()">Add Analysis</button>
@@ -49,9 +49,9 @@
         <mat-divider></mat-divider>
         <br>
         <app-preprocessor-list
-          [preprocessors]="(preprocessors|async)"
-          [courseId]="(activeCourse|async)._id"
-          [projectId]="(activeProject|async)._id"
+          [preprocessors]="preprocessors"
+          [courseId]="activeCourse?._id"
+          [projectId]="activeProject?._id"
           (onDelete)="removePreprocessor($event)"
         ></app-preprocessor-list>
         <button mat-button color="primary" (click)="addPreprocessor()">Add Preprocessor</button>

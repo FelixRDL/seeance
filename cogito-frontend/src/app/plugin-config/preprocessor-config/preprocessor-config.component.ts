@@ -18,10 +18,10 @@ import {PreprocessorTemplate} from "../../shared/core/PreprocessorTemplate";
   styleUrls: ['./preprocessor-config.component.scss']
 })
 export class PreprocessorConfigComponent implements OnInit {
-  activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
-  activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
-  activePreprocessor: BehaviorSubject<Preprocessor> = new BehaviorSubject<Preprocessor>(undefined);
-  activePreprocessorTemplate: BehaviorSubject<PreprocessorTemplate> = new BehaviorSubject<PreprocessorTemplate>(undefined);
+  activeProject: Project;
+  activeCourse: Course;
+  activePreprocessor: Preprocessor;
+  activePreprocessorTemplate: PreprocessorTemplate;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,18 +35,17 @@ export class PreprocessorConfigComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
-        this.activeCourse.next(course);
+        this.activeCourse = course;
       })
       this.projectService.getProjectById(params.courseId, params.projectId).subscribe((project: Project) => {
-        this.activeProject.next(project);
+        this.activeProject = project;
       });
 
       this.projectService.getPreprocessorById(params.courseId, params.projectId, params.preprocessorId).subscribe((pre: Preprocessor) => {
-        this.activePreprocessor.next(pre)
-        console.log("pre", pre)
+        this.activePreprocessor = pre
         this.pluginService.getPreprocessorByName(pre.template).subscribe((prep) => {
           console.log(prep)
-          this.activePreprocessorTemplate.next(prep)
+          this.activePreprocessorTemplate = prep
         })
       })
     });
@@ -54,20 +53,20 @@ export class PreprocessorConfigComponent implements OnInit {
 
   save(config: any) {
     this.projectService.setPreprocessorConfig(
-      this.activeCourse.getValue()._id,
-      this.activeProject.getValue()._id,
-      this.activePreprocessor.getValue()._id,
+      this.activeCourse._id,
+      this.activeProject._id,
+      this.activePreprocessor._id,
       config
     ).subscribe((result) => {
-      const pre: Preprocessor = this.activePreprocessor.getValue()
+      const pre: Preprocessor = this.activePreprocessor
       pre.config = result
-      this.activePreprocessor.next(pre)
+      this.activePreprocessor = pre
       this.snackbar.open("Configuration saved successfully!", "OK")
     })
   }
 
   cancel() {
-    this.router.navigate(['courses', this.activeCourse.getValue()._id, 'projects', this.activeProject.getValue()._id])
+    this.router.navigate(['courses', this.activeCourse._id, 'projects', this.activeProject._id])
   }
 
 }

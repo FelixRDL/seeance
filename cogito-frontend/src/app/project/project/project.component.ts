@@ -22,9 +22,9 @@ import {ConfirmModalComponent} from "../../shared/modals/confirm.modal/confirm.m
 })
 export class ProjectComponent {
 
-  activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
-  activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
-  analyses: BehaviorSubject<Analysis[]> = new BehaviorSubject<Analysis[]>([]);
+  activeProject: Project;
+  activeCourse: Course;
+  analyses: Analysis[];
   preprocessors: BehaviorSubject<Preprocessor[]> = new BehaviorSubject<Preprocessor[]>([]);
   tiles: BehaviorSubject<AnalysisTile[]> = new BehaviorSubject<AnalysisTile[]>([]);
 
@@ -38,9 +38,9 @@ export class ProjectComponent {
     this.route.params.subscribe((params) => {
 
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
-        this.activeCourse.next(course);
+        this.activeCourse = course;
         this.projectService.getProjectById(course._id, params.projectId).subscribe((project: Project) => {
-          this.activeProject.next(project);
+          this.activeProject = project;
           this.updateAnalyses()
         });
       })
@@ -49,21 +49,21 @@ export class ProjectComponent {
 
   updateAnalyses(): void {
     this.preprocessors.next([])
-    this.analyses.next([])
+    this.analyses = []
     this.tiles.next([])
 
     this.projectService.getPreprocessors(
-      this.activeCourse.getValue()._id,
-      this.activeProject.getValue()._id
+      this.activeCourse._id,
+      this.activeProject._id
     ).subscribe((preprocessors: Preprocessor[]) => {
       this.preprocessors.next(preprocessors)
     })
 
     this.projectService.getAnalyses(
-      this.activeCourse.getValue()._id,
-      this.activeProject.getValue()._id
+      this.activeCourse._id,
+      this.activeProject._id
     ).subscribe((analyses: Analysis[]) => {
-      this.analyses.next(analyses)
+      this.analyses = analyses
       this.tiles.next(analyses.map((analysis) => {
         return {
           analysis: analysis,
@@ -72,8 +72,8 @@ export class ProjectComponent {
       }))
       analyses.forEach((analysis: Analysis) => {
         this.projectService.getAnalysisView(
-          this.activeCourse.getValue()._id,
-          this.activeProject.getValue()._id,
+          this.activeCourse._id,
+          this.activeProject._id,
           analysis._id
         ).subscribe((html: string) => {
           let list: any[] = this.tiles.getValue()
@@ -95,8 +95,8 @@ export class ProjectComponent {
     dialogRef.afterClosed().subscribe((result: AnalysisTemplate) => {
       if(result) {
         this.projectService.addAnalysis(
-          this.activeCourse.getValue()._id,
-          this.activeProject.getValue()._id,
+          this.activeCourse._id,
+          this.activeProject._id,
           result.name
         ).subscribe((response) => {
           this.snackbar.open( "Analysis added successfully!", "OK");
@@ -111,8 +111,8 @@ export class ProjectComponent {
     dialogRef.afterClosed().subscribe((result: PreprocessorTemplate) => {
       if(result) {
         this.projectService.addPreprocessor(
-          this.activeCourse.getValue()._id,
-          this.activeProject.getValue()._id,
+          this.activeCourse._id,
+          this.activeProject._id,
           result.name
         ).subscribe((response) => {
           this.snackbar.open( "Preprocessor added successfully!", "OK");
@@ -123,8 +123,8 @@ export class ProjectComponent {
   }
 
   removeAnalysis(analysisId: string) {
-    const courseId: string = this.activeCourse.getValue()._id
-    const projectId: string = this.activeProject.getValue()._id
+    const courseId: string = this.activeCourse._id
+    const projectId: string = this.activeProject._id
 
     let dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
@@ -149,8 +149,8 @@ export class ProjectComponent {
   }
 
   removePreprocessor(preprocessorId: string) {
-    const courseId: string = this.activeCourse.getValue()._id
-    const projectId: string = this.activeProject.getValue()._id
+    const courseId: string = this.activeCourse._id
+    const projectId: string = this.activeProject._id
     let dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
         decline: 'cancel',

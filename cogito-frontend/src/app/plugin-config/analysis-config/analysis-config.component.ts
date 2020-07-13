@@ -16,10 +16,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./analysis-config.component.scss']
 })
 export class AnalysisConfigComponent implements OnInit {
-  activeProject: BehaviorSubject<Project> = new BehaviorSubject<Project>(undefined);
-  activeCourse: BehaviorSubject<Course> = new BehaviorSubject<Course>(undefined);
-  activeAnalysis: BehaviorSubject<Analysis> = new BehaviorSubject<Analysis>(undefined);
-  activeAnalysisTemplate: BehaviorSubject<AnalysisTemplate> = new BehaviorSubject<AnalysisTemplate>(undefined);
+  activeProject: Project;
+  activeCourse: Course;
+  activeAnalysis: Analysis;
+  activeAnalysisTemplate: AnalysisTemplate;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,16 +34,15 @@ export class AnalysisConfigComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
-        this.activeCourse.next(course);
+        this.activeCourse = course;
       })
       this.projectService.getProjectById(params.courseId, params.projectId).subscribe((project: Project) => {
-        this.activeProject.next(project);
+        this.activeProject = project;
       });
       this.projectService.getAnalysisById(params.courseId, params.projectId, params.analysisId).subscribe((analysis: Analysis) => {
-        this.activeAnalysis.next(analysis);
+        this.activeAnalysis = analysis;
         this.pluginService.getAnalysisTemplateByName(analysis.analysis).subscribe((template: AnalysisTemplate) => {
-          this.activeAnalysisTemplate.next(template);
-          console.log(template)
+          this.activeAnalysisTemplate = template;
         })
       })
     });
@@ -51,19 +50,19 @@ export class AnalysisConfigComponent implements OnInit {
 
   save(config: any) {
     this.projectService.setAnalysisConfig(
-      this.activeCourse.getValue()._id,
-      this.activeProject.getValue()._id,
-      this.activeAnalysis.getValue()._id,
+      this.activeCourse._id,
+      this.activeProject._id,
+      this.activeAnalysis._id,
       config
     ).subscribe((result) => {
-      const analysis: Analysis = this.activeAnalysis.getValue()
+      const analysis: Analysis = this.activeAnalysis
       analysis.config = result
-      this.activeAnalysis.next(analysis)
+      this.activeAnalysis = analysis
       this.snackbar.open("Configuration saved successfully!", "OK")
     })
   }
 
   cancel() {
-    this.router.navigate(['courses', this.activeCourse.getValue()._id, 'projects', this.activeProject.getValue()._id])
+    this.router.navigate(['courses', this.activeCourse._id, 'projects', this.activeProject._id])
   }
 }

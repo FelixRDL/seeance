@@ -9,6 +9,8 @@ import cors = require('cors');
 import * as routes from './routes';
 import * as github_keys from './../../../secret/github_api';
 
+process.env.SEEANCE_LOG = 'true'
+
 mongoose.connect('mongodb://database:27017/', {
     useNewUrlParser: true
 }).then(function() {

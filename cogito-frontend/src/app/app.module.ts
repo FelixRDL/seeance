@@ -23,6 +23,9 @@ import {PluginsService} from "./shared/plugins.service";
 import {PluginConfigModule} from "./plugin-config/plugin-config.module";
 import {DefaultWidgetRegistry, SchemaFormModule, WidgetRegistry} from "ngx-schema-form";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {DEFAULT_TIMEOUT, TimeoutInterceptor} from "./shared/TimeoutInterceptor";
+
 
 @NgModule({
   declarations: [
@@ -55,7 +58,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     HasValidTokenGuard,
     IsUserRegisteredGuard,
     IsUserUnregisteredGuard,
-    {provide: WidgetRegistry, useClass: DefaultWidgetRegistry}
+    {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
+    [{ provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true }],
+    [{ provide: DEFAULT_TIMEOUT, useValue: 60000 }]
   ],
   bootstrap: [
     AppComponent

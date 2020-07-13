@@ -26,7 +26,7 @@ export class ProjectComponent {
   activeCourse: Course;
   analyses: Analysis[];
   preprocessors: BehaviorSubject<Preprocessor[]> = new BehaviorSubject<Preprocessor[]>([]);
-  tiles: BehaviorSubject<AnalysisTile[]> = new BehaviorSubject<AnalysisTile[]>([]);
+  tiles: AnalysisTile[];
 
   constructor(
     private projectService: ProjectService,
@@ -36,7 +36,6 @@ export class ProjectComponent {
     private snackbar: MatSnackBar,
   ) {
     this.route.params.subscribe((params) => {
-
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
         this.activeCourse = course;
         this.projectService.getProjectById(course._id, params.projectId).subscribe((project: Project) => {
@@ -50,7 +49,7 @@ export class ProjectComponent {
   updateAnalyses(): void {
     this.preprocessors.next([])
     this.analyses = []
-    this.tiles.next([])
+    this.tiles = []
 
     this.projectService.getPreprocessors(
       this.activeCourse._id,
@@ -58,33 +57,30 @@ export class ProjectComponent {
     ).subscribe((preprocessors: Preprocessor[]) => {
       this.preprocessors.next(preprocessors)
     })
-
     this.projectService.getAnalyses(
       this.activeCourse._id,
       this.activeProject._id
     ).subscribe((analyses: Analysis[]) => {
       this.analyses = analyses
-      this.tiles.next(analyses.map((analysis) => {
+      this.tiles = analyses.map((analysis) => {
         return {
           analysis: analysis,
           html: ''
         } as AnalysisTile
-      }))
+      })
       analyses.forEach((analysis: Analysis) => {
         this.projectService.getAnalysisView(
           this.activeCourse._id,
           this.activeProject._id,
           analysis._id
         ).subscribe((html: string) => {
-          let list: any[] = this.tiles.getValue()
+          let list: any[] = this.tiles
           const index: number = list.findIndex((item) => item.analysis._id == analysis._id)
           list[index] = {
             analysis: list[index].analysis,
             html: html
           }
-          this.tiles.next(
-            list
-          )
+          this.tiles = list
         })
       })
     })

@@ -27,7 +27,7 @@
     "mongoose": "^5.9.20",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
-    "seeance-analysis-core": "^0.1.1",
+    "seeance-analysis-core": "^0.2.0",
     "simple-git": "^2.11.0",
     "ts-node-dev": "^1.0.0-pre.49",
     "ts-sync-request": "^1.4.1",

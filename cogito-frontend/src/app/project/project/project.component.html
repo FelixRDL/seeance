@@ -11,7 +11,7 @@
         <h4 class="mat-h4">On this page, you can inspect the analyses for this project.</h4>
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="2" rowHeight="1:1">
-          <mat-grid-tile *ngFor="let v of (tiles|async)">
+          <mat-grid-tile *ngFor="let v of tiles">
             <div style="width:100%; height: 100%;">
               <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
             '/courses', v.analysis.assignedCourse,

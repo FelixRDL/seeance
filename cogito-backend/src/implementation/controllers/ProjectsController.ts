@@ -44,6 +44,9 @@ import {DeleteAnalysis} from "../../logic/use-cases/analyses/DeleteAnalysis";
 import {RemoveAnalysisFromProject} from "../../logic/use-cases/projects/RemoveAnalysisFromProject";
 import {DeletePreprocessor} from "../../logic/use-cases/preprocessors/DeletePreprocessor";
 import {RemovePreprocessorFromProject} from "../../logic/use-cases/projects/RemovePreprocessorFromProject";
+import {InternalUserRepository} from "../providers/InternalUserRepository";
+import {User} from "../../logic/entities/User";
+import {RegisterProjectVisit} from "../../logic/use-cases/user/RegisterProjectVisit";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -327,6 +330,25 @@ export class ProjectsController {
         } catch(e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
+        }
+    }
+
+    async registerProjectVisit(req: express.Request, res: express.Response) {
+        try {
+            console.log("REGISTER PROJECT VISIT")
+            const token: string = <string>req.headers.authorization;
+            const uProvider: InternalUserRepository = new InternalUserRepository(token);
+            await RegisterProjectVisit({
+                    projectName: req.body.projectName,
+                    courseName: req.body.projectName,
+                    userId: res.locals.authenticatedUser.id,
+                    url: req.body.url
+                }
+                , uProvider);
+            res.send()
+        } catch (e) {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
         }
     }
 }

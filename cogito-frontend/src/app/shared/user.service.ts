@@ -55,6 +55,14 @@ export class UserService {
     return this.httpClient.delete('/api/course/' + courseId + '/users/authorizees/' + user.id, {headers: AuthService.getBearerHeader(this.authService.getToken())});
   }
 
+  registerProjectVisit(courseId: string, projectId: string, courseName: string, projectName: string, url: string) {
+    return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/visit`,{
+      projectName: projectName,
+      courseName: courseName,
+      url: url
+    }, {headers: AuthService.getBearerHeader(this.authService.getToken())});
+  }
+
   logout() {
     this.authenticatedUser.next(undefined);
     this.authService.clearToken();

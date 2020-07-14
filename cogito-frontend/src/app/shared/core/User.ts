@@ -6,4 +6,11 @@ export interface User {
   description: string;
   createdAt: Date;
   updatedAt: Date;
+  visits: VisitStat[];
+}
+
+export interface VisitStat {
+  url: string;
+  courseName: string;
+  projectName: string;
 }

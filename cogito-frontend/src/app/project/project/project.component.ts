@@ -14,6 +14,7 @@ import {AddPreprocessorModalComponent} from "../plugins/add-preprocessor-modal/a
 import {PreprocessorTemplate} from "../../shared/core/PreprocessorTemplate";
 import {Preprocessor} from "../../shared/core/Preprocessor";
 import {ConfirmModalComponent} from "../../shared/modals/confirm.modal/confirm.modal.component";
+import {UserService} from "../../shared/user.service";
 
 @Component({
   selector: 'app-project',
@@ -31,6 +32,7 @@ export class ProjectComponent {
   constructor(
     private projectService: ProjectService,
     private courseService: CourseService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackbar: MatSnackBar,
@@ -41,6 +43,15 @@ export class ProjectComponent {
         this.projectService.getProjectById(course._id, params.projectId).subscribe((project: Project) => {
           this.activeProject = project;
           this.updateAnalyses()
+
+          this.userService.registerProjectVisit(
+            this.activeCourse._id,
+            this.activeProject._id,
+            this.activeCourse.title,
+            this.activeProject.repository.name,
+            document.location.href
+          ).subscribe(() => {})
+
         });
       })
     });

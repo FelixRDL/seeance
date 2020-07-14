@@ -3,6 +3,7 @@ import {CourseService} from "../../shared/course.service";
 import {Course} from "../../shared/core/Course";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../../shared/user.service";
+import {User, VisitStat} from "../../shared/core/User";
 
 @Component({
   selector: 'app-recent-contents',
@@ -10,6 +11,8 @@ import {UserService} from "../../shared/user.service";
   styleUrls: ['./recent-contents.component.scss']
 })
 export class RecentContentsComponent implements OnInit {
+
+  visits: VisitStat[];
 
   constructor(
     private courseService: CourseService,
@@ -20,7 +23,7 @@ export class RecentContentsComponent implements OnInit {
   ngOnInit(): void {
     this.courseService.updateCourses();
     this.userService.getAuthenticatedUser().subscribe((user) => {
-      console.log(user);
+      this.visits = user.visits.reverse();
     });
   }
 

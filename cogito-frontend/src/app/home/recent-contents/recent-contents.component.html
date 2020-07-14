@@ -1,1 +1,12 @@
-<p>recent-contents works!</p>
+<mat-card>
+  <mat-card-content>
+    <h2>Your Recently Visited Projects</h2>
+    <mat-grid-list [cols]="4" rowHeight="4:1">
+      <mat-grid-tile *ngFor="let v of visits">
+        <div style="width:100%; height: 100%;">
+          <a [href]="v.url"><h2>{{v.courseName}}/{{v.projectName}}</h2></a>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

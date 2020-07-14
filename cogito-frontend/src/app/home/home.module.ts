@@ -2,15 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StartComponent } from './start/start.component';
 import { RecentContentsComponent } from './recent-contents/recent-contents.component';
-import {MatButtonModule} from "@angular/material/button";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconModule} from "@angular/material/icon";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {MatListModule} from "@angular/material/list";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatExpansionModule} from "@angular/material/expansion";
-import {MatCommonModule} from "@angular/material/core";
 import {MaterialModule} from "../material/material.module";
+import {AppRoutingModule} from "../app-routing.module";
 
 
 
@@ -18,7 +11,8 @@ import {MaterialModule} from "../material/material.module";
   declarations: [StartComponent, RecentContentsComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    AppRoutingModule
   ],
   exports: [
     StartComponent,

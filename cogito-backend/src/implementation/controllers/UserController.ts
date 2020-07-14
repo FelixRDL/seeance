@@ -84,7 +84,6 @@ export class UserController {
             const provider: InternalUserRepository = new InternalUserRepository(token);
             const user: User = await provider.getGithubUserFromToken(token);
             const result: User = await GetUserById(user.id, provider);
-            res.set('Cache-Control', 'public, max-age=180000');
             res.json(result);
         } catch (e) {
             console.error(e);

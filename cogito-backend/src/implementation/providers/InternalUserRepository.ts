@@ -37,11 +37,15 @@ export class InternalUserRepository implements UserRepository {
     }
 
     async getUserWithId(id: string): Promise<User> {
-        return UserModel.findOne({'githubId': id}).then((protoUser: any) => {
+        return UserModel.findOne({'githubId': id}).then(async (protoUser: any) => {
+            console.log(protoUser)
             if (!protoUser)
                 return Promise.resolve(undefined);
-            else
-                return this.getGithubUserById(protoUser.githubId, this.token);
+            else {
+                let user: User = await this.getGithubUserById(protoUser.githubId, this.token)
+                user.visits = protoUser.visits
+                return user;
+            }
         });
     }
 
@@ -96,8 +100,17 @@ export class InternalUserRepository implements UserRepository {
     }
 
     async registerProjectVisit(userId: string, url: string, courseName: string, projectName: string): Promise<void> {
+        const user = await UserModel.findOne({githubId: userId})
+        let visitIndex = user.visits.map((v: any) => v.url).indexOf(url)
+        if (user.visits.length >= 10) {
+            await UserModel.updateOne({githubId: userId}, {$pop: {'visits': 1}})
+        } else if (visitIndex >= 0) {
+            // if there is already an entry of this visited url, slice it away
+            user.visits.splice(visitIndex, 1);
+            await UserModel.updateOne({githubId: userId}, {$set: {'visits': user.visits}})
+        }
         return UserModel.updateOne(
-            {_id: userId},
+            {githubId: userId},
             {
                 $push: {
                     'visits': {

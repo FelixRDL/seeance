@@ -335,12 +335,13 @@ export class ProjectsController {
 
     async registerProjectVisit(req: express.Request, res: express.Response) {
         try {
+            console.log("REGISTER PROJECT VISIT")
             const token: string = <string>req.headers.authorization;
             const uProvider: InternalUserRepository = new InternalUserRepository(token);
             await RegisterProjectVisit({
                     projectName: req.body.projectName,
                     courseName: req.body.projectName,
-                    userId: res.locals.authenticatedUser._id,
+                    userId: res.locals.authenticatedUser.id,
                     url: req.body.url
                 }
                 , uProvider);

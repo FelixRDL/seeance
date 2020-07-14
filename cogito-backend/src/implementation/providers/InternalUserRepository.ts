@@ -13,6 +13,8 @@ cachedRequest.setCacheDirectory(cacheDirectory);
 // @ts-ignore
 import {UserModel} from './../../driver/models/UserModel';
 import {MethodNotImplementedError} from "../../logic/core/errors/MethodNotImplementedError";
+import {Course} from "../../logic/entities/Course";
+import {CourseModel} from "../../driver/models/CourseModel";
 
 export class InternalUserRepository implements UserRepository {
     private githubApiPath: string = "https://api.github.com/"
@@ -45,7 +47,7 @@ export class InternalUserRepository implements UserRepository {
 
     private async getGithubUserById(id: string, token: string): Promise<User> {
         return new Promise<User>(async (resolve, reject) => {
-            const uri: string = this.githubApiPath + 'user/' +id;
+            const uri: string = this.githubApiPath + 'user/' + id;
             let options = AuthController.getBearerAuthHeader(uri, token);
             cachedRequest.get(options, (er: any, res: any, body: any) => {
                 const user: User = new GithubUserToAppUserMapper().map(JSON.parse(body));
@@ -77,7 +79,7 @@ export class InternalUserRepository implements UserRepository {
             options.ttl = 10000;
             const userIds: string[] = (await UserModel.find({})).map((result: any) => result.githubId);
             cachedRequest.get(options, (err: any, res: any, body: any) => {
-                if(err) {
+                if (err) {
                     reject(err);
                 } else {
                     let foundUsers = JSON.parse(body).items;
@@ -91,6 +93,20 @@ export class InternalUserRepository implements UserRepository {
 
     async deleteByUserId(userId: string): Promise<void> {
         return UserModel.findOne({githubId: userId}).remove().exec();
+    }
+
+    async registerProjectVisit(userId: string, url: string, courseName: string, projectName: string): Promise<void> {
+        return UserModel.updateOne(
+            {_id: userId},
+            {
+                $push: {
+                    'visits': {
+                        url: url,
+                        courseName: courseName,
+                        projectName: projectName
+                    }
+                }
+            });
     }
 }
 

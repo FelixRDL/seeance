@@ -6,4 +6,5 @@ export interface UserRepository {
     getUserWithId(id: string): Promise<User>;
     getUserAutocomplete(q:string): Promise<User[]>;
     deleteByUserId(userId: string): Promise<void>;
+    registerProjectVisit(userId: string, url: string, courseName: string, projectName: string): Promise<void>;
 }

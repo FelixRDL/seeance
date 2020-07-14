@@ -9,4 +9,11 @@ export interface User {
     profileLink: string;
     avatarImageUrl: string;
     registeredSince: Date;
+    visits: ProjectVisit[];
+}
+
+interface ProjectVisit {
+    url: string,
+    courseName: string,
+    projectName: string
 }

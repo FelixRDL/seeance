@@ -25,6 +25,10 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
     await controller.getProjectById(req, res);
 });
 
+router.post('/:id/visit', async (req: express.Request, res: express.Response) => {
+    await controller.registerProjectVisit(req, res);
+});
+
 //
 // PREPROC. MANAGEMENT
 //

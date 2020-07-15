@@ -8,18 +8,18 @@
     <mat-tab-group>
       <mat-tab label="General">
         <br>
-        <h4 class="mat-h4">On this page, you can inspect the analyses for this project.</h4>
+        <span class="mat-h3">On this page, you can inspect the analyses for this project.</span>
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="2" rowHeight="1:1">
           <mat-grid-tile *ngFor="let v of tiles">
             <div style="width:100%; height: 100%;">
-              <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
+              <button mat-icon-button aria-label="Settings Icon" [routerLink]="[
             '/courses', v.analysis.assignedCourse,
             'projects', v.analysis.assignedProject,
             'analyses', v.analysis._id,
             'configure']">
                 <mat-icon>settings</mat-icon>
-              </a>
+              </button>
               <span class="center">
                 <iframe *ngIf="v.html" [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
                 <span *ngIf="!v.html">
@@ -35,7 +35,7 @@
       </mat-tab>
       <mat-tab label="Settings">
         <br>
-        <h4 class="mat-h4">Set up the analysis pipeline for this project here.</h4>
+        <span class="mat-h2">Set up the analysis pipeline for this project here.</span>
         <mat-divider></mat-divider>
         <br>
         <app-analysis-list

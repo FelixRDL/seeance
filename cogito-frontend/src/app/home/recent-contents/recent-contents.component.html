@@ -5,7 +5,7 @@
     <mat-grid-list [cols]="4" rowHeight="4:1">
       <mat-grid-tile *ngFor="let v of visits">
         <div style="width:100%; height: 100%;">
-          <a [routerLink]="v.routerUrl" class="projectlink"><h2>{{v.courseName}}/{{v.projectName}}</h2></a>
+          <a [routerLink]="v.routerUrl" class="projectlink"><span class="mat-h2">{{v.courseName}}/{{v.projectName}}</span></a>
         </div>
       </mat-grid-tile>
     </mat-grid-list>

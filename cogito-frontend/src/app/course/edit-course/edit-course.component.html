@@ -1,10 +1,10 @@
 <mat-card class="pagecard">
   <mat-card-content>
-    <h2 class="mat-h2">{{(activeCourse|async)?.title}}</h2>
+    <span class="mat-h2">{{(activeCourse|async)?.title}}</span>
     <mat-tab-group>
       <mat-tab label="General">
         <br>
-        <h4 class="mat-h4">Here, you can change the general settings of your course, or delete it.</h4>
+        <span class="mat-h3">Here, you can change the general settings of your course, or delete it.</span>
         <mat-divider></mat-divider>
         <br>
         <app-course-editor [action]="'Save'" [model]="(activeCourse|async)"
@@ -12,15 +12,18 @@
       </mat-tab>
       <mat-tab label="Repositories">
         <br>
-        <h4 class="mat-h4">Search and select a github repository to be added through the search bar below.</h4>
+        <span class="mat-h3">Search and select a github repository to be added through the search bar below.</span>
         <mat-divider></mat-divider>
-        <app-project-list [projects]="(projects|async)" (onDeleteProject)="onDeleteProject($event)"></app-project-list>
+        <app-project-list
+          [projects]="(projects|async)"
+          (onDeleteProject)="onDeleteProject($event)"
+        ></app-project-list>
         <app-repo-autocomplete style="width:100%"
                                (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
       </mat-tab>
       <mat-tab label="Collaborators">
         <br>
-        <h4 class="mat-h4">Authorize other users to access this course.</h4>
+        <span class="mat-h3">Authorize other users to access this course.</span>
         <mat-divider></mat-divider>
         <br>
         <app-user-list [users]="(authorizees|async)" (delete)="onDeleteUser($event)"></app-user-list>

@@ -4,10 +4,10 @@
     seeance</a>
   <span class="fill-remaining-space"></span>
 
-  <a mat-button href="https://localhost/login/github"  *ngIf="!authenticatedUser">
+  <button mat-button [attr.href]="'https://localhost/login/github'"  *ngIf="!authenticatedUser">
     <span>Login/Register via Github</span>
     <mat-icon>person</mat-icon>
-  </a>
+  </button>
 
   <button mat-button *ngIf="authenticatedUser" [matMenuTriggerFor]="appMenu">
     <span>Logged in as {{authenticatedUser?.login}}</span>

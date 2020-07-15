@@ -6,3 +6,13 @@
 mat-icon {
   padding-left: 10px;
 }
+
+.title-logo {
+  text-decoration: none;
+  color: white;
+}
+
+a > mat-icon {
+  position: relative;
+  top: 6px;
+}

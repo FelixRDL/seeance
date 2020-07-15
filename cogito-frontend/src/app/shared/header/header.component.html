@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
-  <span title>seeance</span>
+  <a title [routerLink]="['/']" class="title-logo">
+    <mat-icon>tonality</mat-icon>
+    seeance</a>
   <span class="fill-remaining-space"></span>
 
   <a mat-button href="https://localhost/login/github"  *ngIf="!authenticatedUser">

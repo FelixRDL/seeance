@@ -4,6 +4,7 @@
       <a [routerLink]="['/courses', course._id]" (click)="$event.stopPropagation();">{{course.title}}</a>
     </mat-panel-title>
   </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
   <mat-selection-list>
     <mat-list-item *ngFor="let project of (projects|async)">
       <!-- using truncate approach from https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2 -->

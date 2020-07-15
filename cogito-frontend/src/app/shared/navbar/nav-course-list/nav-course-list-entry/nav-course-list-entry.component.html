@@ -1,7 +1,10 @@
 <mat-expansion-panel (afterExpand)="fetchProjects()">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <a [routerLink]="['/courses', course._id]" (click)="$event.stopPropagation();">{{course.title}}</a> <i class="projectlbl">({{(projects|async)?.length}} projects)</i>
+      <a [routerLink]="['/courses', course._id]" (click)="$event.stopPropagation();">{{course.title}}</a>
+      <i class="projectlbl" *ngIf="(projects|async)?.length == 1">({{(projects|async)?.length}} project)</i>
+      <i class="projectlbl" *ngIf="(projects|async)?.length > 1">({{(projects|async)?.length}} projects)</i>
+      <i class="projectlbl" *ngIf="(projects|async)?.length == 0">(no projects)</i>
     </mat-panel-title>
   </mat-expansion-panel-header>
   <mat-divider></mat-divider>

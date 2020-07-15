@@ -39,6 +39,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 50%;
   max-height: 32px;
   max-width: 32px;
+  box-sizing: initial!important;
 }
 
 .round-profile-picture-small {

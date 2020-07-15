@@ -3,10 +3,15 @@
     <mat-card-title>Configure Analysis</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <app-config [schema]="activeAnalysisTemplate"
-                [initModel]="activeAnalysis?.config"
-                (onCancel)="cancel()"
-                (onSave)="save($event)"
-    ></app-config>
+    <span *ngIf="activeAnalysisTemplate">
+      <app-config [schema]="activeAnalysisTemplate"
+                  [initModel]="activeAnalysis?.config"
+                  (onCancel)="cancel()"
+                  (onSave)="save($event)"
+      ></app-config>
+    </span>
+    <span *ngIf="!activeAnalysisTemplate">
+      <span class="mat-h4">Building configuration form, please be patient...  <mat-spinner></mat-spinner></span>
+    </span>
   </mat-card-content>
 </mat-card>

@@ -1,23 +1,32 @@
 <mat-expansion-panel (afterExpand)="fetchProjects()">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <a [routerLink]="['/courses', course._id]" (click)="$event.stopPropagation();">{{course.title}}</a>
+      <a [routerLink]="['/courses', course._id]" (click)="$event.stopPropagation();">{{course.title}}</a> <i class="projectlbl">({{(projects|async)?.length}} projects)</i>
     </mat-panel-title>
   </mat-expansion-panel-header>
   <mat-divider></mat-divider>
   <mat-selection-list>
-    <mat-list-item *ngFor="let project of (projects|async)">
-      <!-- using truncate approach from https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2 -->
-      <a
-        *ngIf="project.repository.name"
-        [routerLink]="['courses', course._id, 'projects', project._id]">{{ (project.repository.name.length > 14) ? (project.repository.name | slice:0:14) + '..' : (project.repository.name) }}</a>
-      <a
-        disabled
-        *ngIf="!project.repository.name">
-        <i>
-          inaccessible
-        </i>
-      </a>
-    </mat-list-item>
+    <span *ngIf="(projects|async)?.length > 0">
+      <mat-list-item *ngFor="let project of (projects|async)">
+        <!-- using truncate approach from https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2 -->
+        <a
+          *ngIf="project.repository.name"
+          [routerLink]="['courses', course._id, 'projects', project._id]">{{ (project.repository.name.length > 14) ? (project.repository.name | slice:0:14) + '..' : (project.repository.name) }}</a>
+        <a
+          disabled
+          *ngIf="!project.repository.name">
+          <i>
+            inaccessible
+          </i>
+        </a>
+      </mat-list-item>
+    </span>
+
+    <span *ngIf="(projects|async)?.length == 0">
+      <div class="placeholder">
+        <i>No projects added yet.</i>
+      </div>
+    </span>
+
   </mat-selection-list>
 </mat-expansion-panel>

@@ -13,6 +13,7 @@ export class ConfigComponent implements OnInit, OnChanges {
   @Input() initModel: any;
   @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
+  isEmptySchema: boolean = false;
 
   model: BehaviorSubject<any> = new BehaviorSubject<any>({})
   formModel: any = {}
@@ -39,11 +40,12 @@ export class ConfigComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.hasOwnProperty('schema') && changes.schema.currentValue) {
-      console.log(changes.schema)
       let currentSchema: any = {
         "type": "object",
         "properties": this.transformSchemaForDisplay(changes.schema.currentValue.config_schema)
       }
+
+      this.isEmptySchema = Object.keys(changes.schema.currentValue.config_schema).length === 0;
       this.displaySchema.next(currentSchema);
     }
     if(changes.hasOwnProperty('initModel') && changes.initModel.currentValue) {

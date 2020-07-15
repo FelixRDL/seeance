@@ -59,10 +59,15 @@ export class AnalysisConfigComponent implements OnInit {
       analysis.config = result
       this.activeAnalysis = analysis
       this.snackbar.open("Configuration saved successfully!", "OK")
+      this.routeBack();
     })
   }
 
   cancel() {
-    this.router.navigate(['courses', this.activeCourse._id, 'projects', this.activeProject._id])
+    this.routeBack();
+  }
+
+  routeBack() {
+    this.router.navigate(['courses', this.activeCourse._id, 'projects', this.activeProject._id]);
   }
 }

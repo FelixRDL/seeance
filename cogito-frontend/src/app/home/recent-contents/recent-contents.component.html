@@ -1,10 +1,11 @@
-<mat-card>
+<mat-card class="pagecard">
   <mat-card-content>
-    <h2>Your Recently Visited Projects</h2>
+    <span class="mat-h2">Recently Visited Projects</span>
+    <mat-divider></mat-divider>
     <mat-grid-list [cols]="4" rowHeight="4:1">
       <mat-grid-tile *ngFor="let v of visits">
         <div style="width:100%; height: 100%;">
-          <a [href]="v.url"><h2>{{v.courseName}}/{{v.projectName}}</h2></a>
+          <a [routerLink]="v.routerUrl" class="projectlink"><span class="mat-h2">{{v.courseName}}/{{v.projectName}}</span></a>
         </div>
       </mat-grid-tile>
     </mat-grid-list>

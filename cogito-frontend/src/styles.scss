@@ -30,11 +30,16 @@ $cogito-frontend-theme: mat-light-theme($cogito-frontend-primary, $cogito-fronte
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.pagecard {
+  margin: 16px;
+}
+
 .round-profile-picture {
   padding:12px;
   border-radius: 50%;
   max-height: 32px;
   max-width: 32px;
+  box-sizing: initial!important;
 }
 
 .round-profile-picture-small {
@@ -62,12 +67,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex: 1 1 auto;
 }
 
-body {
+html {
   background-color: #eee;
 }
 
-a {
+a:link {
   text-decoration: none;
+  color: #0000EE;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #551A8B;
 }
 
 a:disabled {

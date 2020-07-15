@@ -1,30 +1,34 @@
-<mat-card>
+<mat-card class="pagecard">
   <mat-card-content>
     <span class="mat-h2">
       <a [routerLink]="['/courses', activeCourse?._id]">
         {{activeCourse?.title}}</a>/
-      <a [attr.href]="activeProject?.repository.html_url">{{activeProject?.repository.name}}</a>
+      <a [attr.href]="activeProject?.repository.html_url">{{activeProject?.repository.owner.login}}/{{activeProject?.repository.name}}</a>
       </span>
     <mat-tab-group>
       <mat-tab label="General">
         <br>
-        <h4 class="mat-h4">On this page, you can inspect the analyses for this project.</h4>
+        <span class="mat-h3">On this page, you can inspect the analyses for this project.</span>
+        <br>
+        <br>
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="2" rowHeight="1:1">
           <mat-grid-tile *ngFor="let v of tiles">
             <div style="width:100%; height: 100%;">
-              <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
+              <button class="settings-button" mat-icon-button aria-label="Settings Icon" [routerLink]="[
             '/courses', v.analysis.assignedCourse,
             'projects', v.analysis.assignedProject,
             'analyses', v.analysis._id,
-            'configure']">
+            'configure']" *ngIf="v.html">
                 <mat-icon>settings</mat-icon>
-              </a>
+              </button>
               <span class="center">
                 <iframe *ngIf="v.html" [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
                 <span *ngIf="!v.html">
-                  <mat-spinner style="align-self: center"></mat-spinner>
-                  <p>Loading Analysis, please be patient...</p>
+                  <span style="width:100%; display: flex; justify-content: center">
+                    <mat-spinner style="align-self: center" class="load-spinner"></mat-spinner>
+                  </span>
+                  <span class="mat-h2">Loading Analysis, please be patient...</span>
                 </span>
             </span>
             </div>
@@ -35,7 +39,9 @@
       </mat-tab>
       <mat-tab label="Settings">
         <br>
-        <h4 class="mat-h4">Set up the analysis pipeline for this project here.</h4>
+        <span class="mat-h3 page-description">Set up the analysis pipeline for this project here.</span>
+        <br>
+        <br>
         <mat-divider></mat-divider>
         <br>
         <app-analysis-list

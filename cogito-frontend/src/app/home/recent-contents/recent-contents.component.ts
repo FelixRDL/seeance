@@ -12,7 +12,7 @@ import {User, VisitStat} from "../../shared/core/User";
 })
 export class RecentContentsComponent implements OnInit {
 
-  visits: VisitStat[];
+  visits: ExtendedVisitStat[];
 
   constructor(
     private courseService: CourseService,
@@ -23,8 +23,17 @@ export class RecentContentsComponent implements OnInit {
   ngOnInit(): void {
     this.courseService.updateCourses();
     this.userService.getAuthenticatedUser().subscribe((user) => {
-      this.visits = user.visits.reverse();
+      const visits: VisitStat[] = user.visits.reverse();
+      this.visits = visits.map((v: VisitStat) =>  {
+        const nV: ExtendedVisitStat = v as ExtendedVisitStat;
+        nV.routerUrl = v.url.split('/').slice(3);
+        return nV;
+      });
     });
   }
 
+}
+
+export interface ExtendedVisitStat extends VisitStat {
+  routerUrl: string[];
 }

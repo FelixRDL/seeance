@@ -1,3 +1,5 @@
 <mat-accordion>
-    <app-nav-course-list-entry *ngFor="let course of courses" [course]="course"></app-nav-course-list-entry>
+    <span *ngFor="let course of courses">
+      <app-nav-course-list-entry [course]="course"></app-nav-course-list-entry>
+    </span>
 </mat-accordion>

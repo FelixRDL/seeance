@@ -1,6 +1,6 @@
 <mat-selection-list>
   <mat-list-item *ngFor="let user of users">
-    <h4>{{user.login}}</h4>
+    <span class="mat-h3">{{user.login}}</span>
     <button mat-icon-button aria-label="Delete Icon" (click)="onDelete(user)">
       <mat-icon>clear</mat-icon>
     </button>

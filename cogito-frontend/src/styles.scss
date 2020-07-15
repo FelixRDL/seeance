@@ -30,6 +30,10 @@ $cogito-frontend-theme: mat-light-theme($cogito-frontend-primary, $cogito-fronte
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.pagecard {
+  margin: 16px;
+}
+
 .round-profile-picture {
   padding:12px;
   border-radius: 50%;

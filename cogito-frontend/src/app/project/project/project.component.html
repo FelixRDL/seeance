@@ -3,12 +3,14 @@
     <span class="mat-h2">
       <a [routerLink]="['/courses', activeCourse?._id]">
         {{activeCourse?.title}}</a>/
-      <a [attr.href]="activeProject?.repository.html_url">{{activeProject?.repository.name}}</a>
+      <a [attr.href]="activeProject?.repository.html_url">{{activeProject?.repository.owner.login}}/{{activeProject?.repository.name}}</a>
       </span>
     <mat-tab-group>
       <mat-tab label="General">
         <br>
         <span class="mat-h3">On this page, you can inspect the analyses for this project.</span>
+        <br>
+        <br>
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="2" rowHeight="1:1">
           <mat-grid-tile *ngFor="let v of tiles">
@@ -37,7 +39,9 @@
       </mat-tab>
       <mat-tab label="Settings">
         <br>
-        <span class="mat-h3">Set up the analysis pipeline for this project here.</span>
+        <span class="mat-h3 page-description">Set up the analysis pipeline for this project here.</span>
+        <br>
+        <br>
         <mat-divider></mat-divider>
         <br>
         <app-analysis-list

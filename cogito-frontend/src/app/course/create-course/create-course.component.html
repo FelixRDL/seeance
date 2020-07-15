@@ -1,8 +1,9 @@
 <mat-card class="pagecard">
   <mat-card-content>
     <span class="mat-h2">Create new course</span>
-    <p>A course contains multiple projects and allows defining common evaluation rules.</p>
-    <i>Repository names have to be individual for a user.</i>
+    <mat-divider></mat-divider>
+    <div class="mat-h3">A course contains multiple projects and allows defining common evaluation rules.</div>
+    <div class="mat-h3"><i>Repository names have to be individual for a user.</i></div>
     <mat-divider></mat-divider>
     <app-course-editor [action]="'Create'" (onSubmit)="onSubmit($event)"></app-course-editor>
   </mat-card-content>

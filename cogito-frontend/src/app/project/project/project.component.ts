@@ -15,6 +15,7 @@ import {PreprocessorTemplate} from '../../shared/core/PreprocessorTemplate';
 import {Preprocessor} from '../../shared/core/Preprocessor';
 import {ConfirmModalComponent} from '../../shared/modals/confirm.modal/confirm.modal.component';
 import {UserService} from '../../shared/user.service';
+import {AnalysisTile} from "../../shared/core/AnalysisTile";
 
 @Component({
   selector: 'app-project',
@@ -181,8 +182,3 @@ export class ProjectComponent {
   }
 }
 
-
-interface AnalysisTile {
-  html: string;
-  analysis: Analysis;
-}

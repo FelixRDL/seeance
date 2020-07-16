@@ -14,6 +14,7 @@ import { AnalysisListComponent } from './plugins/analysis-list/analysis-list.com
 import { AddPreprocessorModalComponent } from './plugins/add-preprocessor-modal/add-preprocessor-modal.component';
 import { PreprocessorDropdownComponent } from './plugins/preprocessor-dropdown/preprocessor-dropdown.component';
 import { PreprocessorListComponent } from './plugins/preprocessor-list/preprocessor-list.component';
+import {AnalysisTileComponent} from "./analysis-tile/analysis-tile.component";
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { PreprocessorListComponent } from './plugins/preprocessor-list/preproces
         AnalysisListComponent,
         AddPreprocessorModalComponent,
         PreprocessorDropdownComponent,
-        PreprocessorListComponent
+        PreprocessorListComponent,
+        AnalysisTileComponent
     ],
   imports: [
     MaterialModule,

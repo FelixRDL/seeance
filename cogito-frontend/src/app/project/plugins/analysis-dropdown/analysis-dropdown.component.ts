@@ -12,6 +12,8 @@ import _ from 'lodash';
 export class AnalysisDropdownComponent implements OnInit {
   @Output() onSelectTemplate: EventEmitter<AnalysisTemplate> = new EventEmitter<AnalysisTemplate>();
   templates: BehaviorSubject<AnalysisTemplate[]> = new BehaviorSubject<AnalysisTemplate[]>([]);
+  templateGroups: TemplateGroup[];
+
 
   constructor(
     private pluginService: PluginsService
@@ -19,12 +21,25 @@ export class AnalysisDropdownComponent implements OnInit {
 
   ngOnInit(): void {
     this.pluginService.getAnalysisTemplates().subscribe((templates: AnalysisTemplate[]) => {
-      console.log(templates);
-      this.templates.next(templates);
+      const groupedTemplates = _.groupBy(templates, template => template.category);
+      this.templateGroups = Object.keys(groupedTemplates).map(k => {
+        let name = k;
+        name = k.replace( /\-/gi, ' ');
+        return {
+          templates: groupedTemplates[k],
+          groupName: name !== 'undefined' ? name : 'None'
+        };
+      });
+      this.templateGroups.sort((a, b) => a.groupName >= b.groupName ? 1 : -1);
     });
   }
 
   selectAnalysis(t: AnalysisTemplate): void {
     this.onSelectTemplate.emit(t);
   }
+}
+
+export interface TemplateGroup {
+  templates: AnalysisTemplate[];
+  groupName: string;
 }

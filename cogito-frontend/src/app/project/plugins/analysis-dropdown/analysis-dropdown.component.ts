@@ -21,6 +21,7 @@ export class AnalysisDropdownComponent implements OnInit {
 
   ngOnInit(): void {
     this.pluginService.getAnalysisTemplates().subscribe((templates: AnalysisTemplate[]) => {
+      console.log(templates)
       const groupedTemplates = _.groupBy(templates, template => template.category);
       this.templateGroups = Object.keys(groupedTemplates).map(k => {
         let name = k;

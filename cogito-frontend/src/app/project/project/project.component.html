@@ -14,24 +14,7 @@
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="2" rowHeight="1:1">
           <mat-grid-tile *ngFor="let v of tiles">
-            <div style="width:100%; height: 100%;">
-              <button class="settings-button" mat-icon-button aria-label="Settings Icon" [routerLink]="[
-            '/courses', v.analysis.assignedCourse,
-            'projects', v.analysis.assignedProject,
-            'analyses', v.analysis._id,
-            'configure']" *ngIf="v.html">
-                <mat-icon>settings</mat-icon>
-              </button>
-              <span class="center">
-                <iframe *ngIf="v.html" [srcdoc]="v.html|allowRaw" style="width: 100%; height: 100%;"></iframe>
-                <span *ngIf="!v.html">
-                  <span style="width:100%; display: flex; justify-content: center">
-                    <mat-spinner style="align-self: center" class="load-spinner"></mat-spinner>
-                  </span>
-                  <span class="mat-h2">Loading Analysis, please be patient...</span>
-                </span>
-            </span>
-            </div>
+            <app-analysis-tile [model]="v"></app-analysis-tile>
           </mat-grid-tile>
         </mat-grid-list>
 

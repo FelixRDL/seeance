@@ -9,13 +9,10 @@ class DialogOverviewExampleDialog {
   templateUrl: './confirm.modal.component.html',
   styleUrls: ['./confirm.modal.component.scss']
 })
-export class ConfirmModalComponent implements OnInit {
+export class ConfirmModalComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  ngOnInit(): void {
-  }
 
   confirm(): void {
     this.dialogRef.close(true);

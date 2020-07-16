@@ -89,8 +89,8 @@ export class EditCourseComponent {
   onDeleteCourse(course: Course) {
     let dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
-        decline: 'cancel',
-        accept: 'delete',
+        decline: 'Cancel',
+        accept: 'Delete',
         title: 'Confirm Course Deletion',
         message: 'Do you really want to delete the course ' + course.title + '? You cannot undo this.'
       }

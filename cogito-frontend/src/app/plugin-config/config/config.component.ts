@@ -1,11 +1,21 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewEncapsulation
+} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Utils} from "../../shared/core/utils";
 
 @Component({
   selector: 'app-config',
   templateUrl: './config.component.html',
-  styleUrls: ['./config.component.scss']
+  styleUrls: ['./config.component.scss'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ConfigComponent implements OnInit, OnChanges {
 

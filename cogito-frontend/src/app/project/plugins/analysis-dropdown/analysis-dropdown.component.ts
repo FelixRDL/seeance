@@ -1,7 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {PluginsService} from "../../../shared/plugins.service";
-import {AnalysisTemplate} from "../../../shared/core/AnalysisTemplate";
-import {BehaviorSubject} from "rxjs";
+import {PluginsService} from '../../../shared/plugins.service';
+import {AnalysisTemplate} from '../../../shared/core/AnalysisTemplate';
+import {BehaviorSubject} from 'rxjs';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-analysis-dropdown',
@@ -18,11 +19,12 @@ export class AnalysisDropdownComponent implements OnInit {
 
   ngOnInit(): void {
     this.pluginService.getAnalysisTemplates().subscribe((templates: AnalysisTemplate[]) => {
+      console.log(templates);
       this.templates.next(templates);
-    })
+    });
   }
 
   selectAnalysis(t: AnalysisTemplate): void {
-    this.onSelectTemplate.emit(t)
+    this.onSelectTemplate.emit(t);
   }
 }

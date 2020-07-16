@@ -160,8 +160,8 @@ export class ProjectComponent {
     const projectId: string = this.activeProject._id;
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
-        decline: 'cancel',
-        accept: 'delete',
+        decline: 'Cancel',
+        accept: 'Delete',
         title: 'Confirm Preprocessor Deletion',
         message: 'Do you really want to delete this preprocessor? You cannot undo this.'
       }

@@ -2,13 +2,13 @@
 <mat-list>
   <mat-list-item *ngFor="let item of preprocessors">
     {{item.name}}
-    <a mat-icon-button aria-label="Settings Icon" [routerLink]="[
+    <button mat-icon-button aria-label="Settings Icon" [routerLink]="[
             '/courses', courseId,
             'projects', projectId,
             'preprocessors', item._id,
             'configure']">
       <mat-icon>settings</mat-icon>
-    </a>
+    </button>
     <button mat-icon-button (click)="delete(item._id)">
       <mat-icon>delete</mat-icon>
     </button>

@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
-import {Project} from "../../shared/core/Project";
-import {Course} from "../../shared/core/Course";
-import {Analysis} from "../../shared/core/Analysis";
-import {AnalysisTemplate} from "../../shared/core/AnalysisTemplate";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CourseService} from "../../shared/course.service";
-import {ProjectService} from "../../shared/project.service";
-import {PluginsService} from "../../shared/plugins.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Preprocessor} from "../../shared/core/Preprocessor";
-import {PreprocessorTemplate} from "../../shared/core/PreprocessorTemplate";
+import {Project} from '../../shared/core/Project';
+import {Course} from '../../shared/core/Course';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CourseService} from '../../shared/course.service';
+import {ProjectService} from '../../shared/project.service';
+import {PluginsService} from '../../shared/plugins.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Preprocessor} from '../../shared/core/Preprocessor';
+import {PreprocessorTemplate} from '../../shared/core/PreprocessorTemplate';
 
 @Component({
   selector: 'app-preprocessor-config',
@@ -36,18 +33,19 @@ export class PreprocessorConfigComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
         this.activeCourse = course;
-      })
+      });
       this.projectService.getProjectById(params.courseId, params.projectId).subscribe((project: Project) => {
         this.activeProject = project;
       });
 
       this.projectService.getPreprocessorById(params.courseId, params.projectId, params.preprocessorId).subscribe((pre: Preprocessor) => {
-        this.activePreprocessor = pre
+        this.activePreprocessor = pre;
+        console.log(pre)
         this.pluginService.getPreprocessorByName(pre.template).subscribe((prep) => {
-          console.log(prep)
-          this.activePreprocessorTemplate = prep
-        })
-      })
+          console.log(prep);
+          this.activePreprocessorTemplate = prep;
+        });
+      });
     });
   }
 
@@ -58,15 +56,16 @@ export class PreprocessorConfigComponent implements OnInit {
       this.activePreprocessor._id,
       config
     ).subscribe((result) => {
-      const pre: Preprocessor = this.activePreprocessor
-      pre.config = result
-      this.activePreprocessor = pre
-      this.snackbar.open("Configuration saved successfully!", "OK")
-    })
+      const pre: Preprocessor = this.activePreprocessor;
+      pre.config = result;
+      this.activePreprocessor = pre;
+      this.snackbar.open('Configuration saved successfully!', 'OK');
+      this.router.navigate(['courses', this.activeCourse._id, 'projects', this.activeProject._id]);
+    });
   }
 
   cancel() {
-    this.router.navigate(['courses', this.activeCourse._id, 'projects', this.activeProject._id])
+    this.router.navigate(['courses', this.activeCourse._id, 'projects', this.activeProject._id]);
   }
 
 }

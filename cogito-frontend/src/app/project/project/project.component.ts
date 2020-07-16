@@ -15,7 +15,7 @@ import {PreprocessorTemplate} from '../../shared/core/PreprocessorTemplate';
 import {Preprocessor} from '../../shared/core/Preprocessor';
 import {ConfirmModalComponent} from '../../shared/modals/confirm.modal/confirm.modal.component';
 import {UserService} from '../../shared/user.service';
-import {AnalysisTile} from "../../shared/core/AnalysisTile";
+import {AnalysisTile} from '../../shared/core/AnalysisTile';
 
 @Component({
   selector: 'app-project',
@@ -27,7 +27,7 @@ export class ProjectComponent {
   activeProject: Project;
   activeCourse: Course;
   analyses: Analysis[];
-  preprocessors: BehaviorSubject<Preprocessor[]> = new BehaviorSubject<Preprocessor[]>([]);
+  preprocessors: Preprocessor[];
   tiles: AnalysisTile[];
 
   constructor(
@@ -59,7 +59,7 @@ export class ProjectComponent {
   }
 
   updateAnalyses(): void {
-    this.preprocessors.next([]);
+    this.preprocessors = [];
     this.analyses = [];
     this.tiles = [];
 
@@ -67,7 +67,7 @@ export class ProjectComponent {
       this.activeCourse._id,
       this.activeProject._id
     ).subscribe((preprocessors: Preprocessor[]) => {
-      this.preprocessors.next(preprocessors);
+      this.preprocessors = preprocessors;
     });
     this.projectService.getAnalyses(
       this.activeCourse._id,

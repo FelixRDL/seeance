@@ -1,5 +1,9 @@
 <mat-form-field>
   <mat-select matNativeControl required>
-     <mat-option *ngFor="let a of (templates|async)" [value]="a"  (onSelectionChange)="selectAnalysis(a)">{{a.name}}</mat-option>
+    <span *ngFor="let group of templateGroups">
+      <p class="categoryLbl">{{group.groupName}}</p>
+     <mat-option *ngFor="let a of group.templates" [value]="a"
+                 (onSelectionChange)="selectAnalysis(a)">{{a.name}}</mat-option>
+    </span>
   </mat-select>
 </mat-form-field>

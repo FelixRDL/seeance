@@ -3,4 +3,5 @@ export interface AnalysisTemplate {
   description: string;
   depends_on: string[];
   configSchema: any;
+  category: string;
 }

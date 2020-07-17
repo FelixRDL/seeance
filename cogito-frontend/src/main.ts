@@ -8,5 +8,10 @@ if (environment.production) {
   enableProdMode();
 }
 
+window.addEventListener('resize', (e) => {
+  e.stopPropagation();
+});
+
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+

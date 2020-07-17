@@ -7,7 +7,10 @@
       <mat-icon>settings</mat-icon>
     </button>
     <span class="center">
-                <iframe *ngIf="model.html" [srcdoc]="model.html|allowRaw" style="top:32px;position:relative;width: 100%; height: 100%;"></iframe>
+                <iframe
+                  *ngIf="model.html"
+                  #iframe
+                  style="top:32px;position:relative;width: 100%; height: 100%;" ></iframe>
                 <span *ngIf="!model.html">
                   <span style="width:100%; display: flex; justify-content: center">
                     <mat-spinner style="align-self: center" class="load-spinner"></mat-spinner>

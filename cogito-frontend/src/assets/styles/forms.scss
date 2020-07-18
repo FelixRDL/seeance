@@ -3,12 +3,32 @@ button {
 }
 
 button[color="primary"] {
-  background-color: #3f51b5;
-  color: white;
+  background-color: #3f51b5!important;
+  color: white!important;
+}
+
+.array-add-button {
+  background-color: #3f51b5!important;
+  color: white!important;
+
+}
+
+  // Following code used from materialize.css
+.btn, .btn-large, .btn-small,
+.btn-flat {
+  border: none;
+  border-radius: 2px;
+  display: inline-block;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 16px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
 }
 
 
-// Following code used from materialize.css
 fieldset.ng-star-inserted {
   min-width: 0;
   padding: 0;

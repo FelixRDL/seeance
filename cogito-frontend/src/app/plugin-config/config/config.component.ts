@@ -25,6 +25,7 @@ export class ConfigComponent implements OnInit, OnChanges {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
   isEmptySchema: boolean = false;
 
+
   model: BehaviorSubject<any> = new BehaviorSubject<any>({})
   formModel: any = {}
 

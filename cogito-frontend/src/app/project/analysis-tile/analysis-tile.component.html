@@ -6,6 +6,9 @@
             'configure']" *ngIf="model?.html">
       <mat-icon>settings</mat-icon>
     </button>
+    <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="model?.html" (click)="showInfo()">
+      <mat-icon>info</mat-icon>
+    </button>
     <span class="center">
                 <iframe
                   *ngIf="model.html"

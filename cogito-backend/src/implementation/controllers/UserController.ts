@@ -29,7 +29,6 @@ export class UserController {
             const token: string = <string>req.headers.authorization;
             const provider: InternalUserRepository = new InternalUserRepository(token);
             var user = await provider.getGithubUserFromToken(token);
-            console.log(user)
             user = await CreateUser(user, provider);
             res.json(user);
         } catch (e) {

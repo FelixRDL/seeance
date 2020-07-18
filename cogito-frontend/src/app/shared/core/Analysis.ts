@@ -1,3 +1,5 @@
+import {AnalysisTemplate} from "./AnalysisTemplate";
+
 export interface Analysis {
   _id: string,
   name: string,
@@ -6,5 +8,6 @@ export interface Analysis {
   assignedCourse: string,
   createdAt: string,
   updatedAt: string,
-  config: any
+  config: any,
+  template?: AnalysisTemplate
 }

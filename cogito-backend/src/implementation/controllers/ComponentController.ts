@@ -41,11 +41,9 @@ export class ComponentController {
     }
 
     async getPreprocessorByName(req: express.Request, res: express.Response) {
-        console.log(req)
         const ans = await GetPreprocessorTemplateByName({
             nameContains: req.params.q
         }, this.preprocessorRepository)
-        console.log(ans)
         res.json(ans)
     }
 

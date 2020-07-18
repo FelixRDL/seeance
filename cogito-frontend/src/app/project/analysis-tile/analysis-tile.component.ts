@@ -29,6 +29,10 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
     this.iframe.nativeElement.setAttribute('srcdoc', this.model.html);
   }
 
+  showInfo() {
+    alert("INFO!")
+  }
+
 
 }
 

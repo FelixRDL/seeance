@@ -38,7 +38,6 @@ export class InternalUserRepository implements UserRepository {
 
     async getUserWithId(id: string): Promise<User> {
         return UserModel.findOne({'githubId': id}).then(async (protoUser: any) => {
-            console.log(protoUser)
             if (!protoUser)
                 return Promise.resolve(undefined);
             else {

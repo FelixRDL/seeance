@@ -5,7 +5,6 @@ import {AnalysisTemplate} from "../../entities/components/AnalysisTemplate";
 
 export async function CreateAnalysis(req: CreateAnalysisRequest, repo: AnalysisRepository, templateRepo: AnalysisTemplateRepository): Promise<Analysis> {
     try {
-        const template: AnalysisTemplate = await templateRepo.getAnalysisTemplateByName(req.template)
         return repo.createAnalysis(req.template, req.projectId, req.courseId)
     } catch(e) {
         return Promise.reject(new PluginNotFoundError(req.template))

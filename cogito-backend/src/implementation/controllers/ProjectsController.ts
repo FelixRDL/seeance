@@ -242,7 +242,7 @@ export class ProjectsController {
             let analysis: ExtendedAnalysis = await GetAnalysisById(
                 req.params.analysisId, this.analysisRepository) as ExtendedAnalysis
             analysis = (<any>Object.assign({}, analysis))['_doc']
-            analysis.template = await GetAnalysisTemplateByName(analysis.analysis, this.analysisTemplateRepository)
+            analysis.template = (await GetAnalysisTemplateByName(analysis.analysis, this.analysisTemplateRepository))
             res.json(analysis)
         } catch (e) {
             console.error(e);

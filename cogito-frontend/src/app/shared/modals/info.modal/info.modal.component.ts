@@ -13,9 +13,7 @@ export class InfoModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  ngOnInit(): void {
-    console.log(data)
-  }
+  ngOnInit(): void {}
 
   close(): void {
     this.dialogRef.close(true);

@@ -14,6 +14,7 @@ export class InfoModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(data)
   }
 
   close(): void {

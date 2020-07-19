@@ -24,7 +24,7 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
     formatTemplate(object: any): AnalysisTemplate {
         const result: AnalysisTemplate = {
             name: object.package.name,
-            description: object.package.description,
+            description: object.package.seeance.description,
             depends_on: object.package.seeance.depends_on,
             configSchema: object.package.seeance.config_schema,
             category: object.package.seeance.category as string,
@@ -52,7 +52,7 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
         return Promise.resolve(this.repository.listPreprocessors().map((item: any) => {
             return {
                 name: item.package.name,
-                description: item.package.description,
+                description: item.package.seeance.description,
                 depends_on: item.package.seeance.depends_on,
                 produces: item.package.seeance.produces,
                 configSchema: item.package.seeance.config_schema,

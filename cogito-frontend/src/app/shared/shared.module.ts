@@ -10,17 +10,19 @@ import { ConfirmModalComponent } from './modals/confirm.modal/confirm.modal.comp
 import { NavCourseListEntryComponent } from './navbar/nav-course-list/nav-course-list-entry/nav-course-list-entry.component';
 import {AllowRawPipe} from './allow-raw.pipe';
 import {InfoModalComponent} from './modals/info.modal/info.modal.component';
+import {MarkdownModule} from "ngx-markdown";
 
 
 
 @NgModule({
   declarations: [HeaderComponent, NavbarComponent, NavCourseListComponent, ConfirmModalComponent, NavCourseListEntryComponent, AllowRawPipe, InfoModalComponent],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    MaterialModule,
-    RouterModule
-  ],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        MaterialModule,
+        RouterModule,
+        MarkdownModule
+    ],
   exports: [
     HeaderComponent,
     NavbarComponent,

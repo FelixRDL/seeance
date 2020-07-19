@@ -25,6 +25,7 @@ import {DefaultWidgetRegistry, SchemaFormModule, WidgetRegistry} from "ngx-schem
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DEFAULT_TIMEOUT, TimeoutInterceptor} from "./shared/TimeoutInterceptor";
+import {MarkdownModule} from "ngx-markdown";
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {DEFAULT_TIMEOUT, TimeoutInterceptor} from "./shared/TimeoutInterceptor";
   ],
   imports: [
     SchemaFormModule.forRoot(),
+    MarkdownModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
 

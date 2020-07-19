@@ -28,6 +28,7 @@
     "cached-request": "^2.0.1",
     "jexl": "^2.2.2",
     "lodash": "^4.17.19",
+    "ngx-markdown": "^10.0.0",
     "ngx-schema-form": "^2.4.7",
     "redux": "^4.0.5",
     "rxjs": "~6.5.4",

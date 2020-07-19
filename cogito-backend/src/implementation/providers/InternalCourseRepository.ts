@@ -39,7 +39,6 @@ export class InternalCourseRepository implements CourseRepository {
     }
 
     getCoursesForUser(user: User): Promise<Course[]> {
-        console.log(user);
         return CourseModel.find(
             {ownerId: user.id},
         );

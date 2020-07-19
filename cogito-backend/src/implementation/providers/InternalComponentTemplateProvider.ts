@@ -21,22 +21,25 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
         })
     }
 
+    formatTemplate(object: any): AnalysisTemplate {
+        const result: AnalysisTemplate = {
+            name: object.package.name,
+            description: object.package.seeance.description,
+            depends_on: object.package.seeance.depends_on,
+            configSchema: object.package.seeance.config_schema,
+            category: object.package.seeance.category as string,
+            module: object.module,
+            package: object.package
+        }
+        return result
+    }
+
     getAnalysisTemplates(nameContains?: string): Promise<AnalysisTemplate[]> {
-        return Promise.resolve(this.repository.listAnalyses().map((item: any) => {
-            // TODO: this lambda could be extracted for reuse in "by name" method
-            return {
-                name: item.package.name,
-                description: item.package.description,
-                depends_on: item.package.seeance.depends_on,
-                configSchema: item.package.seeance.config_schema,
-                category: item.package.seeance.category as string,
-                module: item.module
-            } as AnalysisTemplate
-        }))
+        return Promise.resolve(this.repository.listAnalyses().map(this.formatTemplate))
     }
 
     getAnalysisTemplateByName(name: string): Promise<AnalysisTemplate> {
-        const template: AnalysisTemplate = this.repository.getAnalysisByName(name)
+        const template: AnalysisTemplate = this.formatTemplate(this.repository.getAnalysisByName(name))
         return template !== undefined ? Promise.resolve(template) : Promise.reject(new PluginNotFoundError(name))
     }
 
@@ -49,7 +52,7 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
         return Promise.resolve(this.repository.listPreprocessors().map((item: any) => {
             return {
                 name: item.package.name,
-                description: item.package.description,
+                description: item.package.seeance.description,
                 depends_on: item.package.seeance.depends_on,
                 produces: item.package.seeance.produces,
                 configSchema: item.package.seeance.config_schema,

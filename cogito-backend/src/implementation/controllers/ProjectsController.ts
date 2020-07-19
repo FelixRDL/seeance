@@ -47,6 +47,8 @@ import {RemovePreprocessorFromProject} from "../../logic/use-cases/projects/Remo
 import {InternalUserRepository} from "../providers/InternalUserRepository";
 import {User} from "../../logic/entities/User";
 import {RegisterProjectVisit} from "../../logic/use-cases/user/RegisterProjectVisit";
+import {GetAnalysisTemplateByName} from "../../logic/use-cases/components/GetAnalysisTemplateByName";
+import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -171,7 +173,7 @@ export class ProjectsController {
                 projectId: req.params.id
             }, this.preprocessorRepository)
             res.json(preprocessors)
-        } catch(e) {
+        } catch (e) {
             console.error(e)
             res.status(500).send("Internal Server Error")
         }
@@ -181,7 +183,7 @@ export class ProjectsController {
         try {
             const preprocessors = await GetPreprocessorById(req.params.preprocessorId, this.preprocessorRepository)
             res.json(preprocessors)
-        } catch(e) {
+        } catch (e) {
             console.error(e)
             res.status(500).send("Internal Server Error")
         }
@@ -213,91 +215,102 @@ export class ProjectsController {
         }
     }
 
-    async getAnalysesForCourse(req: express.Request, res:express.Response) {
+    async getAnalysesForCourse(req: express.Request, res: express.Response) {
         try {
-            let analysesForCourse: Analysis[] = await GetRegisteredAnalysesForProject({
+            let analysesForCourse: ExtendedAnalysis[] = await GetRegisteredAnalysesForProject({
                 courseId: res.locals.courseId,
                 projectId: req.params.id
-            }, this.analysisRepository)
+            }, this.analysisRepository) as ExtendedAnalysis[]
+            const templates: AnalysisTemplate[] = await Promise.all(analysesForCourse.map((a: Analysis) => GetAnalysisTemplateByName(a.analysis, this.analysisTemplateRepository))            )
+            analysesForCourse = templates.map((t,i) => {
+                delete t["module"]
+                // this is necessary, since the object seemingly is a mongoose document
+                var val: ExtendedAnalysis = (<any>Object.assign({}, analysesForCourse[i]))['_doc']
+                val.template = t
+                return val
+            })
+            console.log(JSON.stringify(analysesForCourse))
             res.json(analysesForCourse)
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
         }
     }
 
-    async getAnalysisById(req: express.Request, res:express.Response) {
+    async getAnalysisById(req: express.Request, res: express.Response) {
         try {
-            let analysesForCourse: Analysis = await GetAnalysisById(
-                req.params.analysisId, this.analysisRepository)
-            res.json(analysesForCourse)
-        } catch(e) {
+            let analysis: ExtendedAnalysis = await GetAnalysisById(
+                req.params.analysisId, this.analysisRepository) as ExtendedAnalysis
+            analysis = (<any>Object.assign({}, analysis))['_doc']
+            analysis.template = (await GetAnalysisTemplateByName(analysis.analysis, this.analysisTemplateRepository))
+            res.json(analysis)
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
         }
     }
 
-    async getAnalysisViewForCourse(req: express.Request, res:express.Response) {
+    async getAnalysisViewForCourse(req: express.Request, res: express.Response) {
         try {
             const token: string = <string>req.headers.authorization;
             const project = await GetProjectById({
                 id: req.params.id
-            }, this.repository,  new InternalRepositoryProvider(token));
+            }, this.repository, new InternalRepositoryProvider(token));
             const analysis = await GetAnalysisById(
                 req.params.analysisId,
                 this.analysisRepository
             )
             const preprocessors = await GetRegisteredPreprocessorsForProject({
-                projectId: req.params.id,
-                courseId: res.locals.courseId
+                    projectId: req.params.id,
+                    courseId: res.locals.courseId
                 },
                 this.preprocessorRepository
             )
             let result = await GetAnalysisView({
-                repoOwner: project.repository.owner.login,
-                repoName: project.repository.name,
-                preprocessors: preprocessors,
-                analysis: analysis,
-                token: token
-            },
+                    repoOwner: project.repository.owner.login,
+                    repoName: project.repository.name,
+                    preprocessors: preprocessors,
+                    analysis: analysis,
+                    token: token
+                },
                 this.analysisViewGenerator,
                 this.datasourceTemplateRepository,
                 this.preprocessorTemplateRepository,
                 this.analysisTemplateRepository
-                )
+            )
             res.set('Content-Type', 'text/html')
             res.send(result)
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
         }
     }
 
-    async setConfigurationForAnalysis(req: express.Request, res:express.Response) {
+    async setConfigurationForAnalysis(req: express.Request, res: express.Response) {
         try {
             // TODO: check, whether config fits schema?
             let result = await SetAnalysisConfig({
                 config: req.body,
                 analysisId: req.params.analysisId
             }, this.analysisRepository)
-            let newAnalysis: Analysis = await  GetAnalysisById(req.params.analysisId, this.analysisRepository)
+            let newAnalysis: Analysis = await GetAnalysisById(req.params.analysisId, this.analysisRepository)
             res.json(newAnalysis.config)
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
         }
     }
 
-    async setConfigurationForPreprocessor(req: express.Request, res:express.Response) {
+    async setConfigurationForPreprocessor(req: express.Request, res: express.Response) {
         try {
             // TODO: check, whether config fits schema?
             let result = await SetPreprocessorConfig({
                 config: req.body,
                 preprocessorId: req.params.preprocessorId
             }, this.preprocessorRepository)
-            let newPreprocessor: Preprocessor = await  GetPreprocessorById(req.params.preprocessorId, this.preprocessorRepository)
+            let newPreprocessor: Preprocessor = await GetPreprocessorById(req.params.preprocessorId, this.preprocessorRepository)
             res.json(newPreprocessor.config)
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
         }
@@ -312,7 +325,7 @@ export class ProjectsController {
                 projectId: req.params.id
             }, this.repository)
             res.json({})
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
         }
@@ -327,7 +340,7 @@ export class ProjectsController {
                 projectId: req.params.id
             }, this.repository)
             res.json({})
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             res.status(500).send("Internal Server Error")
         }
@@ -351,4 +364,8 @@ export class ProjectsController {
             res.status(500).send("Internal Server Error");
         }
     }
+}
+
+interface ExtendedAnalysis extends Analysis {
+    template?: AnalysisTemplate
 }

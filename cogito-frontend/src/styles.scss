@@ -97,9 +97,17 @@ mat-sidenav-content {
   background-color: #eee;
 }
 
-.mat-card .mat-divider-horizontal {
+.mat-card-content > .mat-divider {
   width:calc(100% + 32px)!important;
   position: relative !important;
   left: -16px !important;
   margin: 16px 0px;
+}
+
+app-navbar > * > .mat-divider {
+  width:calc(100% + 32px)!important;
+  position: absolute !important;
+  left: -16px !important;
+  margin: 16px 0px;
+  margin-top: 52px;
 }

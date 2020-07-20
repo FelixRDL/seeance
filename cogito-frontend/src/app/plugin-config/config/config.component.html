@@ -1,13 +1,13 @@
 <sf-form
-  [schema]="(displaySchema|async)"
+  [schema]="displaySchema"
   [model]="formModel"
   (onChange)="onFormChanges($event)"
-  *ngIf="(displaySchema|async)"
+  *ngIf="displaySchema"
 ></sf-form>
 <span *ngIf="isEmptySchema" class="mat-h3">This plugin currently cannot be configured.</span>
 <section>
   <div>
-    <button mat-raised-button color="primary" (click)="save()" *ngIf="(displaySchema|async) && !isEmptySchema">Save</button>
+    <button mat-raised-button color="primary" (click)="save()" *ngIf="displaySchema && !isEmptySchema">Save</button>
     <button mat-button color="warn" (click)="cancel()">Cancel</button>
   </div>
 </section>

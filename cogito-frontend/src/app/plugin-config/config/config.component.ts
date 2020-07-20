@@ -8,8 +8,8 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
-import {Utils} from "../../shared/core/utils";
+import {BehaviorSubject} from 'rxjs';
+import {Utils} from '../../shared/core/utils';
 
 @Component({
   selector: 'app-config',
@@ -23,16 +23,16 @@ export class ConfigComponent implements OnInit, OnChanges {
   @Input() initModel: any;
   @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
-  isEmptySchema: boolean = false;
+  isEmptySchema = false;
 
 
-  model: BehaviorSubject<any> = new BehaviorSubject<any>({})
-  formModel: any = {}
+  model: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  formModel: any = {};
 
-  public displaySchema: BehaviorSubject<any> = new BehaviorSubject<any>({
-    "type": "object",
-    "properties": {}
-  });
+  public displaySchema: any = {
+    type: 'object',
+    properties: {}
+  };
 
 
 
@@ -41,39 +41,30 @@ export class ConfigComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  private transformSchemaForDisplay(input: any) {
-    for(let key of Object.keys(input)) {
-      if(!input[key]['title'])
-        input[key]['title'] = Utils.titleCaseWord(key.replace('_', ' '))
-    }
-    return input;
-  }
-
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.hasOwnProperty('schema') && changes.schema.currentValue) {
-      let currentSchema: any = {
-        "type": "object",
-        "properties": this.transformSchemaForDisplay(changes.schema.currentValue.config_schema)
-      }
-
-      this.isEmptySchema = Object.keys(changes.schema.currentValue.config_schema).length === 0;
-      this.displaySchema.next(currentSchema);
+    if (changes.hasOwnProperty('schema') && changes.schema.currentValue) {
+      const currentSchema: any = {
+        type: 'object',
+        properties: changes.schema.currentValue
+      };
+      this.isEmptySchema = Object.keys(changes.schema.currentValue).length === 0;
+      this.displaySchema = currentSchema;
     }
-    if(changes.hasOwnProperty('initModel') && changes.initModel.currentValue) {
-      console.log(changes.initModel.currentValue)
-      this.formModel = changes.initModel.currentValue
+    if (changes.hasOwnProperty('initModel') && changes.initModel.currentValue) {
+      console.log(changes.initModel.currentValue);
+      this.formModel = changes.initModel.currentValue;
     }
   }
 
   onFormChanges(change: any) {
-    this.model.next(change.value)
+    this.model.next(change.value);
   }
 
   save() {
-    this.onSave.emit(this.model.getValue())
+    this.onSave.emit(this.model.getValue());
   }
 
   cancel() {
-    this.onCancel.emit()
+    this.onCancel.emit();
   }
 }

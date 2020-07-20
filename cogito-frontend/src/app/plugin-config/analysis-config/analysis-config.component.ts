@@ -20,6 +20,7 @@ export class AnalysisConfigComponent implements OnInit {
   activeCourse: Course;
   activeAnalysis: Analysis;
   activeAnalysisTemplate: AnalysisTemplate;
+  schema: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,10 +42,8 @@ export class AnalysisConfigComponent implements OnInit {
       });
       this.projectService.getAnalysisById(params.courseId, params.projectId, params.analysisId).subscribe((analysis: Analysis) => {
         this.activeAnalysis = analysis;
-        this.pluginService.getAnalysisTemplateByName(analysis.analysis).subscribe((template: AnalysisTemplate) => {
-          this.activeAnalysisTemplate = template;
-        })
-      })
+        this.schema = analysis.template.configSchema
+      });
     });
   }
 

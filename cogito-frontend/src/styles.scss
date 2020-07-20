@@ -111,3 +111,12 @@ app-navbar > * > .mat-divider {
   margin: 16px 0px;
   margin-top: 52px;
 }
+
+.mat-expansion-panel-body mat-divider {
+  left: -24px!important;
+  margin-bottom: 12px;
+  width: calc(100% + 48px)!important;
+}
+mat-sidenav {
+  overflow-x: hidden;
+}

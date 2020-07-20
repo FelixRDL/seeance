@@ -7,6 +7,10 @@
   margin-left: auto;
 }
 
-app-nav-course-list {
+#navcontents {
   margin-top: 24px;
+}
+
+mat-sidenav {
+  overflow: hidden;
 }

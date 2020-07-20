@@ -8,7 +8,15 @@
 
   <mat-divider></mat-divider>
 
-  <app-nav-course-list id="navlist" [courses]="courses|async"></app-nav-course-list>
+  <span id="navcontents">
+      <app-nav-course-list id="navlist" [courses]="courses" *ngIf="courses.length > 0"></app-nav-course-list>
+  <div class="mat-h3" *ngIf="courses.length < 1">
+    No courses (yet).
+    <br>
+    <a [routerLink]="['courses']">Create one now!</a>
+  </div>
+  </span>
+
 </div>
 
 

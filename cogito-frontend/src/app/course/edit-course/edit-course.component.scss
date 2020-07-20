@@ -6,3 +6,19 @@ mat-tab {
   margin-bottom: 8px;
   margin-top: 8px;
 }
+
+mat-card-content {
+  overflow: hidden;
+}
+
+mat-divider {
+  position:relative;
+  left:-16px;
+}
+
+mat-tab-group {
+  position: relative;
+  left: -16px;
+  width: calc(100% + 32px);
+}
+

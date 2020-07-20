@@ -1,10 +1,22 @@
 <mat-card class="pagecard">
-  <mat-card-content>
+
+  <mat-card-title>
     <span class="mat-h2">
       <a [routerLink]="['/courses', activeCourse?._id]">
         {{activeCourse?.title}}</a>/
-      <a [attr.href]="activeProject?.repository.html_url">{{activeProject?.repository.owner.login}}/{{activeProject?.repository.name}}</a>
+      {{activeProject?.repository.owner.login}}/{{activeProject?.repository.name}}
       </span>
+    <span style="float:right;font-size:16px;">
+      <a [attr.href]="activeProject?.repository.html_url" >
+        <mat-icon style="position:relative;top:8px;">link</mat-icon> repository
+      </a>
+    </span>
+  </mat-card-title>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+
     <mat-tab-group>
       <mat-tab label="General">
         <br>

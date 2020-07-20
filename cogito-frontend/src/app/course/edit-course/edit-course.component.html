@@ -1,6 +1,12 @@
 <mat-card class="pagecard">
-  <mat-card-content>
+  <mat-card-title>
     <span class="mat-h2">{{(activeCourse|async)?.title}}</span>
+  </mat-card-title>
+
+  <mat-divider></mat-divider>
+
+
+
     <mat-tab-group>
       <mat-tab label="General">
         <br>
@@ -11,15 +17,17 @@
                            (onSubmit)="onSaveCourse($event)" (onDelete)="onDeleteCourse($event)"></app-course-editor>
       </mat-tab>
       <mat-tab label="Repositories">
-        <br>
-        <span class="mat-h3">Search and select a github repository to be added through the search bar below.</span>
-        <mat-divider></mat-divider>
-        <app-project-list
-          [projects]="(projects|async)"
-          (onDeleteProject)="onDeleteProject($event)"
-        ></app-project-list>
-        <app-repo-autocomplete style="width:100%"
-                               (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
+        <mat-card-content>
+          <br>
+          <span class="mat-h3">Search and select a github repository to be added through the search bar below.</span>
+          <mat-divider></mat-divider>
+          <app-project-list
+            [projects]="(projects|async)"
+            (onDeleteProject)="onDeleteProject($event)"
+          ></app-project-list>
+          <app-repo-autocomplete style="width:100%"
+                                 (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
+        </mat-card-content>
       </mat-tab>
       <mat-tab label="Collaborators">
         <br>
@@ -33,5 +41,4 @@
         ></app-user-autocomplete>
       </mat-tab>
     </mat-tab-group>
-  </mat-card-content>
 </mat-card>

@@ -92,3 +92,14 @@ mat-divider {
 iframe {
   border: none;
 }
+
+mat-sidenav-content {
+  background-color: #eee;
+}
+
+.mat-card .mat-divider-horizontal {
+  width:calc(100% + 32px)!important;
+  position: relative !important;
+  left: -16px !important;
+  margin: 16px 0px;
+}

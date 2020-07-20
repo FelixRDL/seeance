@@ -1,7 +1,7 @@
 <mat-label>Analyses</mat-label>
 <mat-list>
   <mat-list-item *ngFor="let item of analyses">
-    {{item.name}}
+    {{item.name | transformPlugin}}
     <button mat-icon-button aria-label="Settings Icon" [routerLink]="[
             '/courses', courseId,
             'projects', projectId,

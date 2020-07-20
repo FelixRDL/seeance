@@ -3,7 +3,7 @@
     <span *ngFor="let group of templateGroups">
       <p class="categoryLbl">{{group.groupName}}</p>
      <mat-option *ngFor="let a of group.templates" [value]="a"
-                 (onSelectionChange)="selectAnalysis(a)">{{a.name}}</mat-option>
+                 (onSelectionChange)="selectAnalysis(a)">{{a.name | transformPlugin}}</mat-option>
     </span>
   </mat-select>
 </mat-form-field>

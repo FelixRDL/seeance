@@ -22,4 +22,8 @@ export class AnalysisListComponent implements OnInit {
     this.onDelete.emit(id)
   }
 
+  isConfigurable(analysis: Analysis): boolean {
+    return Object.keys(analysis.template.configSchema).length > 0
+  }
+
 }

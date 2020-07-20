@@ -6,7 +6,7 @@
             '/courses', courseId,
             'projects', projectId,
             'analyses', item._id,
-            'configure']">
+            'configure']" *ngIf="isConfigurable(item)">
       <mat-icon>settings</mat-icon>
     </button>
     <button mat-icon-button (click)="delete(item._id)">

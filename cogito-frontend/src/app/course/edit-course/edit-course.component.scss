@@ -22,3 +22,6 @@ mat-tab-group {
   width: calc(100% + 32px);
 }
 
+mat-card > mat-divider {
+  margin-bottom: 0px;
+}

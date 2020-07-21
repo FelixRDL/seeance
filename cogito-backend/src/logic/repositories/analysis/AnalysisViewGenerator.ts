@@ -7,4 +7,13 @@ export interface AnalysisViewGenerator {
         analysis: any,
         token?: string
     ): Promise<string>;
+    preload(
+        repoOwner: string,
+        repoName: string,
+        token?: string
+    ): Promise<void>;
+    cleanup(
+        repoOwner: string,
+        repoName: string
+    ): Promise<void>;
 }

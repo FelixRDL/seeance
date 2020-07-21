@@ -49,6 +49,7 @@ import {User} from "../../logic/entities/User";
 import {RegisterProjectVisit} from "../../logic/use-cases/user/RegisterProjectVisit";
 import {GetAnalysisTemplateByName} from "../../logic/use-cases/components/GetAnalysisTemplateByName";
 import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate";
+import {PreloadProject} from "../../logic/use-cases/projects/PreloadProject";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -61,6 +62,7 @@ export class ProjectsController {
 
     async createProject(req: express.Request, res: express.Response) {
         try {
+            console.log(req.body)
             const token: string = <string>req.headers.authorization;
             const repoProvider: RepoRepository = new InternalRepositoryProvider(token);
             const project: Project = await CreateProject(
@@ -73,11 +75,13 @@ export class ProjectsController {
                 courseId: res.locals.courseId,
                 project: project
             }, new InternalCourseRepository());
+            await PreloadProject({
+                token: token,
+                repositoryName: req.body.repository.name,
+                ownerName: req.body.repository.owner.login
+            }, new InternalAnalysisViewGenerator())
             res.json(project);
         } catch (e) {
-            /*if (e instanceof ProjectAlreadyExistingInCourseError) {
-                res.status(400).send("The project you are trying to add already exists on the course");
-            } else*/
             if (e instanceof CourseNotExistingError) {
                 res.status(404).send("The course you are trying to access does not exist right now");
             } else {

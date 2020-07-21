@@ -1,4 +1,4 @@
-FROM node:12
+    FROM node:12
 ENV NODE_ROOT /usr/app/
 #RUN mkdir -p $NODE_ROOT
 WORKDIR $NODE_ROOT

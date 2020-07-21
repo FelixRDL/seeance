@@ -14,4 +14,12 @@ export class InternalAnalysisViewGenerator implements AnalysisViewGenerator {
             token
         ));
     }
+
+    cleanup(repoOwner: string, repoName: string): Promise<void> {
+        return core.cleanup(repoOwner, repoName);
+    }
+
+    preload(repoOwner: string, repoName: string, token?: string): Promise<void> {
+        return core.prepare(repoOwner, repoName, token);
+    }
 }

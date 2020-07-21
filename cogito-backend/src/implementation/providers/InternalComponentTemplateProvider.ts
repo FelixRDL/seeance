@@ -14,7 +14,8 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
 
     constructor() {
         this.repository = ComponentRepository({
-            customRepositories: ['felixrdl/seeance-test']
+            customRepositories: [],
+            reloadOnly: false
         })
         this.repository.init().then(() => {
             console.log("Component Provider inited")

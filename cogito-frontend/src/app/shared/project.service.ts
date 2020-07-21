@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {AuthService} from "./auth.service";
-import {HttpClient} from "@angular/common/http";
-import {Observable, pipe} from "rxjs";
-import {Project} from "./core/Project";
-import {map} from "rxjs/operators";
-import {Course} from "./core/Course";
-import {Analysis} from "./core/Analysis";
-import {Preprocessor} from "./core/Preprocessor";
+import {AuthService} from './auth.service';
+import {HttpClient} from '@angular/common/http';
+import {Observable, pipe} from 'rxjs';
+import {Project} from './core/Project';
+import {map} from 'rxjs/operators';
+import {Course} from './core/Course';
+import {Analysis} from './core/Analysis';
+import {Preprocessor} from './core/Preprocessor';
 
 @Injectable()
 export class ProjectService {
@@ -22,14 +22,14 @@ export class ProjectService {
       {
         template: templateName
       },
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
-    )
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as string[])
+    );
   }
 
   removeAnalysis(courseId: string, projectId: string, analysisId: string) {
     return this.httpClient.delete(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}`,
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
-    )
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as string[])
+    );
   }
 
   addPreprocessor(courseId: string, projectId: string, templateName: string) {
@@ -37,27 +37,27 @@ export class ProjectService {
       {
         template: templateName
       },
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
-    )
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as string[])
+    );
   }
 
   removePreprocessor(courseId: string, projectId: string, preprocessorId: string) {
     return this.httpClient.delete(`/api/course/${courseId}/projects/${projectId}/preprocessors/${preprocessorId}`,
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <string[]>data)
-    )
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as string[])
+    );
 
   }
 
   getAnalyses(courseId: string, projectId: string) {
     return this.httpClient.get(`/api/course/${courseId}/projects/${projectId}/analyses`,
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => {console.log(data); return data;})).pipe(map(data => <Analysis[]>data)
-    )
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => {console.log(data); return data; })).pipe(map(data => data as Analysis[])
+    );
   }
 
   getPreprocessors(courseId: string, projectId: string) {
     return this.httpClient.get(`/api/course/${courseId}/projects/${projectId}/preprocessors`,
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <Preprocessor[]>data)
-    )
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as Preprocessor[])
+    );
   }
 
   getAnalysisView(courseId: string, projectId: string, analysisId: string) {
@@ -67,8 +67,8 @@ export class ProjectService {
           headers: AuthService.getBearerHeader(),
           responseType: 'text'
         })
-      .pipe(map(data => <string>data)
-      )
+      .pipe(map(data => data as string)
+      );
   }
 
   //
@@ -81,8 +81,8 @@ export class ProjectService {
           headers: AuthService.getBearerHeader()
         }
       )
-      .pipe(map(data => <Preprocessor>data)
-      )
+      .pipe(map(data => data as Preprocessor)
+      );
   }
 
   setPreprocessorConfig(courseId: string, projectId: string, preprocessorId: string, config: any) {
@@ -92,8 +92,8 @@ export class ProjectService {
         {
           headers: AuthService.getBearerHeader()
         })
-      .pipe(map(data => <any>data)
-      )
+      .pipe(map(data => data as any)
+      );
   }
 
   //
@@ -107,8 +107,8 @@ export class ProjectService {
           headers: AuthService.getBearerHeader()
         }
       )
-      .pipe(map(data => <Analysis>data)
-      )
+      .pipe(map(data => data as Analysis)
+      );
   }
 
   setAnalysisConfig(courseId: string, projectId: string, analysisId: string, config: any) {
@@ -118,25 +118,29 @@ export class ProjectService {
         {
           headers: AuthService.getBearerHeader()
         })
-      .pipe(map(data => <any>data)
-      )
+      .pipe(map(data => data as any)
+      );
   }
 
   getProjectsForCourse(courseId: string): Observable<Project[]> {
-    return this.httpClient.get('/api/course/' + courseId + "/projects",
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project[]>data));
+    return this.httpClient.get('/api/course/' + courseId + '/projects',
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as Project[]));
   }
 
   getProjectById(courseId: string, projectId: string): Observable<Project> {
-    return this.httpClient.get('/api/course/' + courseId + "/projects/" + projectId,
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project>data));
+    return this.httpClient.get('/api/course/' + courseId + '/projects/' + projectId,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as Project));
   }
 
   createProject(courseId: string, project: Project): Observable<Project> {
-    return this.httpClient.post('/api/course/' + courseId + '/projects/', project, {headers: AuthService.getBearerHeader()}).pipe(map(data => <Project>data));
+    return this.httpClient.post('/api/course/' + courseId + '/projects/', project,
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as Project));
   }
 
   deleteProjectById(courseId: string, projectId: string): Observable<string> {
-    return this.httpClient.delete('/api/course/' + courseId + '/projects/' + projectId, {headers: AuthService.getBearerHeader()}).pipe(map(data => data['id']));
+
+    return this.httpClient.delete('/api/course/' + courseId + '/projects/' + projectId,
+      // @ts-ignore
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data.id));
   }
 }

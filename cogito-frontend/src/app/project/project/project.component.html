@@ -2,8 +2,7 @@
 
   <mat-card-title>
     <span class="mat-h2">
-      <a [routerLink]="['/courses', activeCourse?._id]">
-        {{activeCourse?.title}}</a>/
+      <a *ngIf="activeCourse" [routerLink]="['/courses', activeCourse?._id]">{{activeCourse?.title}}</a>/
       {{activeProject?.repository.owner.login}}/{{activeProject?.repository.name}}
       </span>
     <span style="float:right;font-size:16px;">
@@ -19,7 +18,7 @@
 
     <mat-tab-group>
       <mat-tab label="General">
-        <span class="mat-h3" *ngIf="tiles.length < 1">
+        <span class="mat-h3" *ngIf="tiles?.length < 1">
           Nothing to see here... for now. Go on and <a (click)="addAnalysis()" [routerLink]="">add an analysis</a>!
         </span>
         <mat-grid-list [cols]="2" rowHeight="1:1">

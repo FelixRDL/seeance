@@ -29,13 +29,15 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.model) {
+      this.hasSettings = Object.keys(changes.model.currentValue.analysis.template.configSchema).length > 0;
+      this.hasDescription = changes.model.currentValue.analysis.template.description !== '';
+    }
   }
 
 
   ngAfterViewInit() {
     this.iframe.nativeElement.setAttribute('srcdoc', this.model.html);
-    this.hasSettings = Object.keys(this.model.analysis.template.configSchema).length > 0;
-    this.hasDescription = this.model.analysis.template.description !== '';
   }
 
   showInfo() {

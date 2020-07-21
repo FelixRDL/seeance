@@ -1,0 +1,38 @@
+<mat-card class="pagecard">
+  <mat-card-title>
+    <a [routerLink]="['/courses', course?._id]">{{course?.title}}</a>/
+    <a [routerLink]="['/courses', course?._id, 'projects', project?._id]">{{project?.repository.owner.login}}
+      /{{project?.repository.name}}</a>/
+    {{analysis?.name}}
+  </mat-card-title>
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <div style="width:100%; height: 100%;display:flex;">
+      <button class="settings-button" mat-icon-button aria-label="Settings Icon" [routerLink]="[
+            '/courses', analysis.assignedCourse,
+            'projects', analysis.assignedProject,
+            'analyses', analysis._id,
+            'configure']" *ngIf="html && hasConfig">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="analysis.template.description"
+              (click)="showInfo()">
+        <mat-icon>info</mat-icon>
+      </button>
+      <span class="center">
+                <iframe
+                  [hidden]="!html"
+                  #vis
+                  style="top:32px;position:relative;"></iframe>
+                <span *ngIf="!html">
+                  <span style="width:100%; display: flex; justify-content: center">
+                    <mat-spinner style="align-self: center" class="load-spinner"></mat-spinner>
+                  </span>
+                  <span class="mat-h2">Loading Analysis, please be patient...</span>
+                </span>
+            </span>
+    </div>
+
+  </mat-card-content>
+</mat-card>

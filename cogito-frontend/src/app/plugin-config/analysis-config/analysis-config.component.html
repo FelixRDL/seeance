@@ -4,8 +4,8 @@
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
-    <span *ngIf="activeAnalysisTemplate">
-      <app-config [schema]="activeAnalysisTemplate"
+    <span *ngIf="activeAnalysis">
+      <app-config [schema]="schema"
                   [initModel]="activeAnalysis?.config"
                   (onCancel)="cancel()"
                   (onSave)="save($event)"

@@ -1,17 +1,26 @@
 <mat-card class="pagecard">
-  <mat-card-content>
+
+  <mat-card-title>
     <span class="mat-h2">
-      <a [routerLink]="['/courses', activeCourse?._id]">
-        {{activeCourse?.title}}</a>/
-      <a [attr.href]="activeProject?.repository.html_url">{{activeProject?.repository.owner.login}}/{{activeProject?.repository.name}}</a>
+      <a *ngIf="activeCourse" [routerLink]="['/courses', activeCourse?._id]">{{activeCourse?.title}}</a>/
+      {{activeProject?.repository.owner.login}}/{{activeProject?.repository.name}}
       </span>
+    <span style="float:right;font-size:16px;">
+      <a [attr.href]="activeProject?.repository.html_url" >
+        <mat-icon style="position:relative;top:8px;">link</mat-icon> repository
+      </a>
+    </span>
+  </mat-card-title>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+
     <mat-tab-group>
       <mat-tab label="General">
-        <br>
-        <span class="mat-h3">On this page, you can inspect the analyses for this project.</span>
-        <br>
-        <br>
-        <mat-divider></mat-divider>
+        <span class="mat-h3" *ngIf="tiles?.length < 1">
+          Nothing to see here... for now. Go on and <a (click)="addAnalysis()" [routerLink]="">add an analysis</a>!
+        </span>
         <mat-grid-list [cols]="2" rowHeight="1:1">
           <mat-grid-tile *ngFor="let v of tiles">
             <app-analysis-tile [model]="v"></app-analysis-tile>
@@ -20,9 +29,9 @@
 
         <br>
       </mat-tab>
-      <mat-tab label="Settings">
+      <mat-tab label="Analyses & Preprocessors">
         <br>
-        <span class="mat-h3 page-description">Set up the analysis pipeline for this project here.</span>
+        <span class="mat-h3 page-description">Configure the analysis pipeline for this project here.</span>
         <br>
         <br>
         <mat-divider></mat-divider>

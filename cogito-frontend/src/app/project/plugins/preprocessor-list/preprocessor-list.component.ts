@@ -19,7 +19,7 @@ export class PreprocessorListComponent implements OnInit {
   }
 
   delete(id: string): void {
-    this.onDelete.emit(id)
+    this.onDelete.emit(id);
   }
 
 }

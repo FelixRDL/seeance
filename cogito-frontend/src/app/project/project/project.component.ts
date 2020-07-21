@@ -93,6 +93,8 @@ export class ProjectComponent {
             html
           };
           this.tiles = list;
+        }, error => {
+          alert(error)
         });
       });
     });

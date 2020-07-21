@@ -2,12 +2,19 @@
   <mat-card-content>
     <span class="mat-h2">Recently Visited Projects</span>
     <mat-divider></mat-divider>
-    <mat-grid-list [cols]="4" rowHeight="4:1">
+    <mat-grid-list [cols]="4" rowHeight="4:1" *ngIf="visits.length > 0">
       <mat-grid-tile *ngFor="let v of visits">
         <div style="width:100%; height: 100%;">
-          <a [routerLink]="v.routerUrl" class="projectlink"><span class="mat-h2">{{v.courseName}}/{{v.projectName}}</span></a>
+          <a [routerLink]="v.routerUrl" class="projectlink"><span class="mat-h2">{{v.courseName}}
+            /{{v.projectName}}</span></a>
         </div>
       </mat-grid-tile>
     </mat-grid-list>
+    <div *ngIf="visits.length < 1">
+      <div class="mat-h3">
+        Quite empty here... look out for courses on the left - and if there are none,
+        <a [routerLink]="['courses']">create one now</a>!
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>

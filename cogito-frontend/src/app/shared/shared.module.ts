@@ -11,11 +11,20 @@ import { NavCourseListEntryComponent } from './navbar/nav-course-list/nav-course
 import {AllowRawPipe} from './allow-raw.pipe';
 import {InfoModalComponent} from './modals/info.modal/info.modal.component';
 import {MarkdownModule} from "ngx-markdown";
+import {TransformPluginNamePipe} from "./transform-plugin-name.pipe";
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, NavbarComponent, NavCourseListComponent, ConfirmModalComponent, NavCourseListEntryComponent, AllowRawPipe, InfoModalComponent],
+  declarations: [
+    HeaderComponent,
+    NavbarComponent,
+    NavCourseListComponent,
+    ConfirmModalComponent,
+    NavCourseListEntryComponent,
+    AllowRawPipe,
+    TransformPluginNamePipe,
+    InfoModalComponent],
     imports: [
         CommonModule,
         HttpClientModule,
@@ -26,7 +35,8 @@ import {MarkdownModule} from "ngx-markdown";
   exports: [
     HeaderComponent,
     NavbarComponent,
-    AllowRawPipe
+    AllowRawPipe,
+    TransformPluginNamePipe
   ]
 })
 export class SharedModule { }

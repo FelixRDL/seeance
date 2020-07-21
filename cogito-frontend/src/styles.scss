@@ -92,3 +92,51 @@ mat-divider {
 iframe {
   border: none;
 }
+
+mat-sidenav-content {
+  background-color: #eee;
+}
+
+.mat-card-content > .mat-divider, .mat-card > .mat-divider {
+  width:calc(100% + 32px)!important;
+  position: relative !important;
+  left: -16px !important;
+  margin: 16px 0px;
+}
+.mat-tab-body-content > .mat-divider {
+  position: relative !important;
+  width:calc(100% + 32px)!important;
+  left: -16px !important;
+  margin: 16px 0px;
+}
+
+app-navbar > * > .mat-divider {
+  width:calc(100% + 32px)!important;
+  position: absolute !important;
+  left: -16px !important;
+  margin: 16px 0px;
+  margin-top: 52px;
+}
+
+.mat-expansion-panel-body mat-divider {
+  left: -24px!important;
+  margin-bottom: 12px;
+  width: calc(100% + 48px)!important;
+}
+mat-sidenav {
+  overflow-x: hidden;
+}
+
+.mat-tab-body-wrapper {
+  margin: 16px!important;
+  overflow-x: hidden;
+}
+
+.mat-tab-body-content mat-divider {
+  margin-top:24px!important;
+}
+
+.mat-tab-body-content {
+  overflow-x: hidden!important;
+}
+

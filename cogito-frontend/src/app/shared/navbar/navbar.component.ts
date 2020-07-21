@@ -12,13 +12,15 @@ import {ProjectService} from "../project.service";
 })
 export class NavbarComponent implements OnInit {
 
-  courses: Subject<Course[]>;
+  courses: Course[];
 
   constructor(
     private courseService: CourseService,
     private projectService: ProjectService
   ) {
-    this.courses = courseService.courses;
+    courseService.courses.subscribe((courses: Course[]) => {
+      this.courses = courses;
+    });
   }
 
   ngOnInit(): void {

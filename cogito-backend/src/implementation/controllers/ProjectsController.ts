@@ -50,6 +50,8 @@ import {RegisterProjectVisit} from "../../logic/use-cases/user/RegisterProjectVi
 import {GetAnalysisTemplateByName} from "../../logic/use-cases/components/GetAnalysisTemplateByName";
 import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate";
 import {PreloadProject} from "../../logic/use-cases/projects/PreloadProject";
+import {CleanupProject} from "../../logic/use-cases/projects/CleanupProject";
+import {IsRepositoryReferencedInOtherProject} from "../../logic/use-cases/projects/IsRepositoryReferencedInOtherProject";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -121,6 +123,13 @@ export class ProjectsController {
 
     async removeProjectFromCourse(req: express.Request, res: express.Response) {
         try {
+            const token: string = <string>req.headers.authorization;
+            const project = await GetProjectById(
+                {
+                    id: req.params.id
+                }, this.repository,
+                new InternalRepositoryProvider(token)
+            )
             const success: boolean = await DeleteProjectUseCase(
                 this.repository,
                 {
@@ -135,6 +144,12 @@ export class ProjectsController {
                     projectId: req.params.id,
                     courseId: res.locals.courseId
                 }, new InternalCourseRepository())
+                if(!await IsRepositoryReferencedInOtherProject({repoId: project.repositoryId}, this.repository)) {
+                    await CleanupProject({
+                        repoName: project.repository.name,
+                        repoOwner: project.repository.owner.login
+                    }, new InternalAnalysisViewGenerator())
+                }
                 res.status(200).json({
                     id: req.params.id
                 });

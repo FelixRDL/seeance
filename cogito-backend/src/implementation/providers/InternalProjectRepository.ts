@@ -108,4 +108,10 @@ export class InternalProjectRepository implements ProjectRepository {
             {$pull: {preprocessorIds: preprocessorId}}
         );
     }
+
+    existsProjectReferencingRepository(repoId: string): Promise<boolean> {
+        return ProjectModel.exists({
+            repositoryId: repoId
+        })
+    }
 }

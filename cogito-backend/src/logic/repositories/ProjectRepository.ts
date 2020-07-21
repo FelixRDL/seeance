@@ -1,4 +1,3 @@
-import {User} from "../entities/User";
 import {Project, ProtoProject} from "../entities/Project";
 
 export interface ProjectRepository {
@@ -14,4 +13,5 @@ export interface ProjectRepository {
     removeAnalysisFromProject(projectId: string, courseId: string, analysisId: string): Promise<void>;
     addPreprocessorToProject(projectId: string, courseId: string, preprocessorId: string): Promise<string[]>;
     removePreprocessorFromProject(projectId: string, courseId: string, preprocessorId: string): Promise<void>;
+    existsProjectReferencingRepository(repoId: string): Promise<boolean>;
 }

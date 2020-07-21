@@ -13,6 +13,7 @@ import {ProjectComponent} from "./project/project/project.component";
 import {SettingsComponent} from "./settings/settings/settings.component";
 import {AnalysisConfigComponent} from "./plugin-config/analysis-config/analysis-config.component";
 import {PreprocessorConfigComponent} from "./plugin-config/preprocessor-config/preprocessor-config.component";
+import {AnalysisDetailComponent} from "./analysis-detail/analysis-detail/analysis-detail.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,8 @@ const routes: Routes = [
       IsUserRegisteredGuard]},
   {path: 'courses/:courseId/projects/:projectId/analyses/:analysisId/configure',
     component: AnalysisConfigComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
+  {path: 'courses/:courseId/projects/:projectId/analyses/:analysisId',
+    component: AnalysisDetailComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'courses/:courseId/projects/:projectId/preprocessors/:preprocessorId/configure',
     component: PreprocessorConfigComponent, canActivate: [HasValidTokenGuard, IsUserRegisteredGuard]},
   {path: 'start', component: StartComponent},

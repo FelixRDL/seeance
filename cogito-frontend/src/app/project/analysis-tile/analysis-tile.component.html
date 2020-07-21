@@ -9,6 +9,10 @@
     <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="model?.html && hasDescription" (click)="showInfo()">
       <mat-icon>info</mat-icon>
     </button>
+    <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="model?.html" [routerLink]="[
+            'analyses', model?.analysis._id]">
+      <mat-icon>visibility</mat-icon>
+    </button>
     <span class="center">
                 <iframe
                   *ngIf="model.html"

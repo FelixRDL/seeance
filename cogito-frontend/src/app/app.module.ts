@@ -26,6 +26,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DEFAULT_TIMEOUT, TimeoutInterceptor} from "./shared/TimeoutInterceptor";
 import {MarkdownModule} from "ngx-markdown";
+import {AnalysisDetailComponent} from "./analysis-detail/analysis-detail/analysis-detail.component";
+import {AnalysisDetailModule} from "./analysis-detail/analysis-detail.module";
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import {MarkdownModule} from "ngx-markdown";
     MaterialModule,
     CourseModule,
     ProjectModule,
+    AnalysisDetailModule,
     SettingsModule,
     PluginConfigModule
   ],

@@ -1,0 +1,8 @@
+<mat-card class="pagecard">
+  <mat-card-title>
+    <a [routerLink]="['/courses', course?._id]">{{course?.title}}</a>/
+    <a [routerLink]="['/courses', course?._id, 'projects', project?._id]">{{project?.repository.owner.login}}/{{project?.repository.name}}</a>/
+    {{analysis?.name}}
+  </mat-card-title>
+  <mat-divider></mat-divider>
+</mat-card>

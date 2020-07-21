@@ -7,12 +7,12 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild, ViewContainerRef
+  ViewChild
 } from '@angular/core';
 import {AnalysisTile} from "../../shared/core/AnalysisTile";
-import {ConfirmModalComponent} from "../../shared/modals/confirm.modal/confirm.modal.component";
-import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {InfoModalComponent} from "../../shared/modals/info.modal/info.modal.component";
+
 @Component({
   selector: 'app-analysis-tile',
   templateUrl: './analysis-tile.component.html',
@@ -28,7 +28,8 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
               private dialog: MatDialog) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+  }
 
 
   ngAfterViewInit() {
@@ -44,7 +45,8 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
       },
       minWidth: '500px'
     });
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 

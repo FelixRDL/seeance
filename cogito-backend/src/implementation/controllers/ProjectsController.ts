@@ -77,7 +77,7 @@ export class ProjectsController {
                 courseId: res.locals.courseId,
                 project: project
             }, new InternalCourseRepository());
-            await PreloadProject({
+            PreloadProject({
                 token: token,
                 repositoryName: req.body.repository.name,
                 ownerName: req.body.repository.owner.login

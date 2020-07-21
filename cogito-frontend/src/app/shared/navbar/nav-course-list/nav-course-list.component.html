@@ -1,5 +1,5 @@
 <mat-accordion>
     <span *ngFor="let course of courses">
-      <app-nav-course-list-entry [course]="course"></app-nav-course-list-entry>
+      <app-nav-course-list-entry [course]="course" [isSelected]="(course._id===selectedCourse)"></app-nav-course-list-entry>
     </span>
 </mat-accordion>

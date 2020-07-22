@@ -8,14 +8,6 @@
 
 
     <mat-tab-group>
-      <mat-tab label="General">
-        <br>
-        <span class="mat-h3">Here, you can change the general settings of your course, or delete it.</span>
-        <mat-divider></mat-divider>
-        <br>
-        <app-course-editor [action]="'Save'" [model]="(activeCourse|async)"
-                           (onSubmit)="onSaveCourse($event)" (onDelete)="onDeleteCourse($event)"></app-course-editor>
-      </mat-tab>
       <mat-tab label="Repositories">
         <mat-card-content>
           <br>
@@ -39,6 +31,14 @@
           style="width:100%"
           (userSelected)="onAddUser($event)"
         ></app-user-autocomplete>
+      </mat-tab>
+      <mat-tab label="Settings">
+        <br>
+        <span class="mat-h3">Here, you can change the general settings of your course, or delete it.</span>
+        <mat-divider></mat-divider>
+        <br>
+        <app-course-editor [action]="'Save'" [model]="(activeCourse|async)"
+                           (onSubmit)="onSaveCourse($event)" (onDelete)="onDeleteCourse($event)"></app-course-editor>
       </mat-tab>
     </mat-tab-group>
 </mat-card>

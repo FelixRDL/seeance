@@ -9,6 +9,7 @@
           (click)="toggle()"
           *ngIf="!isExpanded"><mat-icon>maximize</mat-icon></button>
 </span>
-<span id="study-feedback-body" *ngIf="isExpanded" @slideInOut>
-<app-study-start></app-study-start>
+<span id="study-feedback-body" *ngIf="isExpanded">
+  <app-study-start *ngIf="state==='start'"></app-study-start>
+  <app-demographics *ngIf="state==='demographics'"></app-demographics>
 </span>

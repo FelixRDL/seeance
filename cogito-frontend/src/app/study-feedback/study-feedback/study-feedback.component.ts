@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {StudyService} from "../../shared/study.service";
 
 @Component({
   selector: 'app-study-feedback',
@@ -8,9 +9,15 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class StudyFeedbackComponent implements OnInit {
   isExpanded = true;
-  constructor() { }
+  state: string;
+  constructor(
+    private study: StudyService
+  ) { }
 
   ngOnInit(): void {
+    this.study.state.subscribe((newState: string) => {
+      this.state = newState;
+    });
   }
 
   toggle() {

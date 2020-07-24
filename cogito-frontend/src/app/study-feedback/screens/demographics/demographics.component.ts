@@ -8,6 +8,10 @@ import {StudyService} from "../../../shared/study.service";
 })
 export class DemographicsComponent implements OnInit {
 
+  timeInDomain: number;
+  teamSize: number;
+  learningContent: string;
+
   constructor(
     private study: StudyService
   ) { }
@@ -17,7 +21,7 @@ export class DemographicsComponent implements OnInit {
   }
 
   proceed(): void {
-    this.study.proceedTo('tasks')
+    // this.study.proceedTo('tasks')
   }
 
 }

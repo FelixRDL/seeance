@@ -13,6 +13,7 @@ import {ProjectService} from "./shared/project.service";
 export class AppComponent {
 
   authenticatedUser: User;
+  isShowingStudy: boolean = false;
 
   constructor(
     userService: UserService,
@@ -23,6 +24,7 @@ export class AppComponent {
     userService.authenticatedUser.subscribe((user: User) => {
       this.authenticatedUser = user;
       courseService.updateCourses();
+      this.isShowingStudy = true;
     });
   }
 

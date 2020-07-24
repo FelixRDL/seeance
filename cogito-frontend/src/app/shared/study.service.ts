@@ -10,6 +10,7 @@ export class StudyService {
   allowedStates: string[] = ['start', 'demographics', 'ueq', 'tasks'];
 
   private lsKey = 'study';
+  private lsKeyTasks = 'tasks';
 
   constructor() {
     const key = localStorage.getItem(this.lsKey);
@@ -27,5 +28,21 @@ export class StudyService {
 
       }
     }
+  }
+
+  submitDemographics(demos: any) {
+    console.log('Submitting demographics', demos);
+  }
+
+  submitTask(taskId: string, results: any) {
+    console.log('Submitting Task Result', taskId, results);
+  }
+
+  submitUeq(value: any) {
+    console.log('Submitting UEQ', value);
+  }
+
+  private getNextTask(): string {
+    return '';
   }
 }

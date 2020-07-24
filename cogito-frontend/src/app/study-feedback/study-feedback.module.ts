@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudyFeedbackComponent } from './study-feedback/study-feedback.component';
-import {MaterialModule} from "../material/material.module";
+import {MaterialModule} from '../material/material.module';
 import { StudyStartComponent } from './screens/study-start/study-start.component';
 import { DemographicsComponent } from './screens/demographics/demographics.component';
 import { Task1Component } from './screens/task1/task1.component';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { Task1Component } from './screens/task1/task1.component';
     ],
     imports: [
         CommonModule,
-        MaterialModule
+        MaterialModule,
+        FormsModule
     ]
 })
 export class StudyFeedbackModule { }

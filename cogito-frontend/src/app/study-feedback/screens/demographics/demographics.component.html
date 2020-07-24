@@ -1,6 +1,22 @@
-<p>demographics works!</p>
+<h1 class="mat-h1">Demographic Information</h1>
+<mat-form-field>
+  <mat-label>How many years have you been working in the field of software engineering education?</mat-label>
+  <input matInput type="number" [(ngModel)]="timeInDomain">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>How big is the team size in courses, that you are assisting (1 if single assignments)?</mat-label>
+  <input matInput type="number" [(ngModel)]="teamSize">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Which programming languages and/or paradigms do you teach?</mat-label>
+  <textarea matInput [(ngModel)]="learningContent"></textarea>
+</mat-form-field>
+
 <span class="study-action-bar">
-  <button mat-flat-button color="primary" (click)="proceed()">
-    Begin
+  <button mat-flat-button
+          color="primary"
+          (click)="proceed()"
+  >
+    Submit
   </button>
 </span>

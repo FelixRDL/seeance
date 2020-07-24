@@ -12,5 +12,5 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-<app-study-feedback></app-study-feedback>
+<app-study-feedback *ngIf="authenticatedUser"></app-study-feedback>
 

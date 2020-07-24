@@ -28,6 +28,7 @@ import {DEFAULT_TIMEOUT, TimeoutInterceptor} from "./shared/TimeoutInterceptor";
 import {MarkdownModule} from "ngx-markdown";
 import {AnalysisDetailComponent} from "./analysis-detail/analysis-detail/analysis-detail.component";
 import {AnalysisDetailModule} from "./analysis-detail/analysis-detail.module";
+import {StudyFeedbackModule} from "./study-feedback/study-feedback.module";
 
 
 @NgModule({
@@ -39,7 +40,6 @@ import {AnalysisDetailModule} from "./analysis-detail/analysis-detail.module";
     MarkdownModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -51,6 +51,7 @@ import {AnalysisDetailModule} from "./analysis-detail/analysis-detail.module";
     CourseModule,
     ProjectModule,
     AnalysisDetailModule,
+    StudyFeedbackModule,
     SettingsModule,
     PluginConfigModule
   ],

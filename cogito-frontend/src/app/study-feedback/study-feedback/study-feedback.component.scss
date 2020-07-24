@@ -1,0 +1,43 @@
+:host {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  background-color: white;
+  border: 1px darkgray solid;
+  border-radius: 4px;
+  width: 400px;
+  z-index: 1;
+}
+
+#study-feedback-title {
+  font-size: 20px;
+  color: white;
+  top: 8px;
+  position: relative;
+}
+
+#study-feedback-header {
+  background-color: #3f51b5;
+  padding:16px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 20px;
+}
+
+#study-feedback-body {
+  font-size: 16px;
+  position: relative;
+  display: blocK;
+  padding:16px;
+}
+
+#study-feedback-close-button {
+  position: relative;
+  top: -8px;
+}
+
+#study-feedback-open-button {
+  position: relative;
+  top: 8px;
+}

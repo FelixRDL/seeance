@@ -7,7 +7,7 @@ import {BehaviorSubject} from 'rxjs';
 export class StudyService {
 
   state: BehaviorSubject<string> = new BehaviorSubject<string>('start');
-  allowedStates: string[] = ['start', 'demographics', 'ueq', 'tasks'];
+  allowedStates: string[] = ['start', 'demographics', 'ueq', 'tasks', 'notes', 'thanks'];
 
   private lsKey = 'study';
   private lsKeyTasks = 'tasks';
@@ -40,6 +40,10 @@ export class StudyService {
 
   submitUeq(value: any) {
     console.log('Submitting UEQ', value);
+  }
+
+  submitNotes(note: string) {
+    console.log('Submitting notes', note);
   }
 
   private getNextTask(): string {

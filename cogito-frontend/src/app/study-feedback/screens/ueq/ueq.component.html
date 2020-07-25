@@ -1,9 +1,9 @@
 <h1 class="mat-h1">User Experience</h1>
-<p>Please take one more minute and share your experiences with SEEance!</p>
 <p><i>The following circles reflect several gradations between the two opposing adjectives. Please tick the
 one, that most closely reflects your opinion on this system. Decide spontaneously and subjectively,
   there are no wrong or right answers!</i></p>
-  <mat-radio-group class="ueq_item">
+<p>Please tick each question, even if some attributes may not directly apply to the system.</p>
+  <mat-radio-group class="ueq_item" [(ngModel)]="item1">
     <p>obstructive</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>
@@ -12,7 +12,7 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <mat-radio-button value="5"></mat-radio-button>
     <p>supportive</p>
   </mat-radio-group>
-  <mat-radio-group class="ueq_item">
+  <mat-radio-group class="ueq_item"  [(ngModel)]="item2">
     <p>complicated</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>
@@ -21,7 +21,7 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <mat-radio-button value="5"></mat-radio-button>
     <p>easy</p>
   </mat-radio-group>
-  <mat-radio-group class="ueq_item">
+  <mat-radio-group class="ueq_item"  [(ngModel)]="item3">
     <p>inefficient</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>
@@ -30,7 +30,7 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <mat-radio-button value="5"></mat-radio-button>
     <p>efficient</p>
   </mat-radio-group>
-  <mat-radio-group class="ueq_item">
+  <mat-radio-group class="ueq_item" [(ngModel)]="item4">
     <p>confusing</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>
@@ -39,7 +39,7 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <mat-radio-button value="5"></mat-radio-button>
     <p>clear</p>
   </mat-radio-group>
-  <mat-radio-group class="ueq_item">
+  <mat-radio-group class="ueq_item" [(ngModel)]="item5">
     <p>boring</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>
@@ -48,7 +48,7 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <mat-radio-button value="5"></mat-radio-button>
     <p>exciting</p>
   </mat-radio-group>
-  <mat-radio-group class="ueq_item">
+  <mat-radio-group class="ueq_item" [(ngModel)]="item6">
     <p>not interesting</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>
@@ -57,7 +57,7 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <mat-radio-button value="5"></mat-radio-button>
     <p>interesting</p>
   </mat-radio-group>
-  <mat-radio-group class="ueq_item">
+  <mat-radio-group class="ueq_item" [(ngModel)]="item7">
     <p>conventional</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>
@@ -66,7 +66,7 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <mat-radio-button value="5"></mat-radio-button>
     <p>inventive</p>
   </mat-radio-group>
-  <mat-radio-group class="ueq_item">
+  <mat-radio-group class="ueq_item" [(ngModel)]="item8">
     <p>usual</p>
     <mat-radio-button value="1"></mat-radio-button>
     <mat-radio-button value="2"></mat-radio-button>

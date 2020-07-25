@@ -67,6 +67,7 @@ export class ProjectsController {
             console.log(req.body)
             const token: string = <string>req.headers.authorization;
             const repoProvider: RepoRepository = new InternalRepositoryProvider(token);
+            console.log(req.body)
             const project: Project = await CreateProject(
                 this.repository,
                 repoProvider, <CreateProjectRequest>{

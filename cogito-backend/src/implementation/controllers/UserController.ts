@@ -22,6 +22,7 @@ import {
 import {UserRepository} from "../../logic/repositories/UserRepository";
 import {DeleteUserById, DeleteUserByIdRequest} from "../../logic/use-cases/user/DeleteUserById";
 import {InternalProjectRepository} from "../providers/InternalProjectRepository";
+import {StudyController} from "./StudyController";
 
 export class UserController {
     async createUserFromToken(req: express.Request, res: express.Response) {
@@ -30,6 +31,7 @@ export class UserController {
             const provider: InternalUserRepository = new InternalUserRepository(token);
             var user = await provider.getGithubUserFromToken(token);
             user = await CreateUser(user, provider);
+            await (new StudyController().initializeStudySetup(user))
             res.json(user);
         } catch (e) {
             if (e instanceof UserWithIdAlreadyExistingError) {

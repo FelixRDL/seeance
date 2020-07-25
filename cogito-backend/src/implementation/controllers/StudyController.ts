@@ -1,6 +1,14 @@
 import * as express from "express";
 import {StudyProvider} from "../providers/StudyProvider";
 import {createHash} from "crypto"
+import {Course} from "../../logic/entities/Course";
+import {CreateCourse} from "../../logic/use-cases/courses/CreateCourse";
+import {InternalCourseRepository} from "../providers/InternalCourseRepository";
+import {Project} from "../../logic/entities/Project";
+import {CreateProject, CreateProjectRequest} from "../../logic/use-cases/projects/CreateProject";
+import {AddProjectToCourseById} from "../../logic/use-cases/courses/AddProjectToCourseById";
+import {InternalRepositoryProvider} from "../providers/InternalRepositoryProvider";
+import {InternalProjectRepository} from "../providers/InternalProjectRepository";
 
 
 export class StudyController {
@@ -9,6 +17,39 @@ export class StudyController {
 
     private getHashedLoginname(login: string): string {
         return createHash('md5').update(login).digest('hex')
+    }
+
+    async addProject(courseId: string, projectId: string) {
+        const repoProvider = new InternalRepositoryProvider()
+        const projectProvider = new InternalProjectRepository()
+        const project: Project = await CreateProject(
+            projectProvider,
+            repoProvider, <CreateProjectRequest>{
+                project: {
+                    repository: {
+                        id: projectId
+                    }
+                } as any,
+                courseId: courseId
+            }, );
+        await AddProjectToCourseById({
+            courseId: courseId,
+            project: project
+        }, new InternalCourseRepository());
+    }
+
+    async initializeStudySetup(authenticatedUser: any) {
+        const course = await CreateCourse({
+            title: 'MME-SS19-Projects',
+            description: 'All course project for summer semester 19 course iteration of Multimedia Engineering',
+            ownerId: authenticatedUser.githubId,
+            authorizeeIds: []
+        } as any, authenticatedUser, new InternalCourseRepository());
+        await this.addProject(course._id, '282462669');
+        await this.addProject(course._id, '282264565');
+        await this.addProject(course._id, '282464168');
+
+
     }
 
     logRegistration(req: express.Request, res: express.Response) {

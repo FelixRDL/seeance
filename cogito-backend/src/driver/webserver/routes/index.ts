@@ -35,4 +35,8 @@ router.use('/api/components',
     (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),
     (req: express.Request, res: express.Response, next: any) => userController.userRegisteredMw(req, res, next),
     components.router);
+router.use('/api/study',
+    (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),
+    (req: express.Request, res: express.Response, next: any) => userController.userRegisteredMw(req, res, next),
+    components.router);
 export {router};

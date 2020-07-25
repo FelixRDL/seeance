@@ -1,5 +1,5 @@
-<mat-expansion-panel (afterExpand)="fetchProjects()" [expanded]="isSelected">
-  <mat-expansion-panel-header>
+<mat-expansion-panel (afterExpand)="fetchProjects()" [expanded]="isSelected" [id]="'navcourselist_'+course.title">
+  <mat-expansion-panel-header >
     <mat-panel-title>
       <a [routerLink]="['/courses', course._id]" (click)="$event.stopPropagation();">{{course.title}}</a>
       <i class="projectlbl" *ngIf="projects?.length == 1">({{projects?.length}} project)</i>
@@ -10,7 +10,7 @@
   <mat-divider></mat-divider>
   <mat-selection-list>
     <span *ngIf="projects?.length > 0">
-      <mat-list-item *ngFor="let project of projects">
+      <mat-list-item *ngFor="let project of projects" [id]="'navitem_'+course.title+ '/' + project.repository.name + '_header_title'">
         <!-- using truncate approach from https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2 -->
         <a
           *ngIf="project.repository.name"

@@ -1,21 +1,21 @@
 <mat-toolbar color="primary">
-  <a title [routerLink]="['/']" class="title-logo">
+  <a title [routerLink]="['/']" class="title-logo" id="header.site-logo">
     <mat-icon>tonality</mat-icon>
     seeance</a>
   <span class="fill-remaining-space"></span>
 
-  <button mat-button [attr.href]="'https://localhost/login/github'"  *ngIf="!authenticatedUser">
+  <button mat-button [attr.href]="'https://localhost/login/github'"  *ngIf="!authenticatedUser" id="header.loginregisterbutton">
     <span>Login/Register via Github</span>
     <mat-icon>person</mat-icon>
   </button>
 
-  <button mat-button *ngIf="authenticatedUser" [matMenuTriggerFor]="appMenu">
+  <button mat-button *ngIf="authenticatedUser" [matMenuTriggerFor]="appMenu" id="header.appmenubutton">
     <span>Logged in as {{authenticatedUser?.login}}</span>
-    <img [src]="authenticatedUser?.avatarImageUrl" class="round-profile-picture">
+    <img [src]="authenticatedUser?.avatarImageUrl" class="round-profile-picture" id="header.appmenubuttonimage">
   </button>
   <mat-menu #appMenu="matMenu">
     <!--<button mat-menu-item routerLink="/user">Profile <mat-icon>person</mat-icon></button>-->
-    <button mat-menu-item [routerLink] = "['settings']" >Settings <mat-icon>settings</mat-icon></button>
-    <button mat-menu-item (click) ="logout()" >Logout <mat-icon>close</mat-icon></button>
+    <button mat-menu-item [routerLink] = "['settings']" id="header.appmenu.settings">Settings <mat-icon>settings</mat-icon></button>
+    <button mat-menu-item (click) ="logout()" id="header.appmenu.logout">Logout <mat-icon>close</mat-icon></button>
   </mat-menu>
 </mat-toolbar>

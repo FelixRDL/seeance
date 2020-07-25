@@ -5,6 +5,7 @@ import {CourseService} from './shared/course.service';
 import {PluginsService} from './shared/plugins.service';
 import {ProjectService} from './shared/project.service';
 import {StudyService} from "./shared/study.service";
+import {Router, RoutesRecognized} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
   constructor(
     userService: UserService,
     courseService: CourseService,
-    studyService: StudyService
+    studyService: StudyService,
+    router: Router
   ) {
 
     userService.authenticatedUser.subscribe((user: User) => {
@@ -31,6 +33,10 @@ export class AppComponent {
 
     document.addEventListener('click', (evnt) => {
       studyService.submitUiEvent(evnt);
+    });
+
+    router.events.subscribe((event) => {
+      console.log(event);
     });
   }
   title = 'cogito-frontend';

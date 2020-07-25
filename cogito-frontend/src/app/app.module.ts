@@ -30,6 +30,7 @@ import {AnalysisDetailComponent} from './analysis-detail/analysis-detail/analysi
 import {AnalysisDetailModule} from './analysis-detail/analysis-detail.module';
 import {StudyFeedbackModule} from './study-feedback/study-feedback.module';
 import {StudyService} from './shared/study.service';
+import {Router, RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {StudyService} from './shared/study.service';
     AnalysisDetailModule,
     StudyFeedbackModule,
     SettingsModule,
-    PluginConfigModule
+    PluginConfigModule,
+    RouterModule
   ],
   providers: [
     AuthService,

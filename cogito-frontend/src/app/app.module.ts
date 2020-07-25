@@ -23,7 +23,7 @@ import {PluginsService} from './shared/plugins.service';
 import {PluginConfigModule} from './plugin-config/plugin-config.module';
 import {DefaultWidgetRegistry, SchemaFormModule, WidgetRegistry} from 'ngx-schema-form';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {DEFAULT_TIMEOUT, TimeoutInterceptor} from './shared/TimeoutInterceptor';
 import {MarkdownModule} from 'ngx-markdown';
 import {AnalysisDetailComponent} from './analysis-detail/analysis-detail/analysis-detail.component';

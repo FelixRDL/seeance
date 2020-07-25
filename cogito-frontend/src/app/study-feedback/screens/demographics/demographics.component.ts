@@ -27,8 +27,9 @@ export class DemographicsComponent implements OnInit {
       teamSize: this.teamSize,
       learningContent: this.learningContent,
       role: this.role
+    }).subscribe(() => {
+      // TODO: remove this later on!
+      this.study.proceedTo('ueq');
     });
-    // TODO: remove this later on!
-    this.study.proceedTo('ueq');
   }
 }

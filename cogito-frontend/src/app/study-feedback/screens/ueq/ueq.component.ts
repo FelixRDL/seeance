@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {StudyService} from "../../../shared/study.service";
+import {StudyService} from '../../../shared/study.service';
 
 @Component({
   selector: 'app-ueq',
@@ -35,7 +35,8 @@ export class UeqComponent implements OnInit {
       item7: this.item7,
       item8: this.item8
     };
-    this.study.submitUeq(result);
-    this.study.proceedTo('notes')
+    this.study.submitUeq(result).subscribe(() => {
+      this.study.proceedTo('notes');
+    });
   }
 }

@@ -7,6 +7,7 @@ import * as course from './api/course';
 import * as project from './api/project';
 import * as repo from './api/repository';
 import * as components from './api/components';
+import * as study from './api/study';
 import {AuthController} from "../../../implementation/controllers/AuthController";
 import {UserController} from "../../../implementation/controllers/UserController";
 const router = express.Router();
@@ -38,5 +39,5 @@ router.use('/api/components',
 router.use('/api/study',
     (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),
     (req: express.Request, res: express.Response, next: any) => userController.userRegisteredMw(req, res, next),
-    components.router);
+    study.router);
 export {router};

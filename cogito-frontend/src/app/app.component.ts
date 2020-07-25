@@ -30,7 +30,7 @@ export class AppComponent {
 
 
     document.addEventListener('click', (evnt) => {
-      console.log(evnt.target);
+      studyService.submitUiEvent(evnt);
     });
   }
   title = 'cogito-frontend';

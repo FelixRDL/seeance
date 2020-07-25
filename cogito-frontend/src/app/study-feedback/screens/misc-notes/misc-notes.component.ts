@@ -18,7 +18,11 @@ export class MiscNotesComponent implements OnInit {
   }
 
   proceed(): void {
-    this.study.proceedTo('thanks');
+    this.study.submitNotes({
+      notes: this.notes
+    }).subscribe(() => {
+      this.study.proceedTo('thanks');
+    })
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {UserService} from "./shared/user.service";
-import {User} from "./shared/core/User";
-import {CourseService} from "./shared/course.service";
-import {PluginsService} from "./shared/plugins.service";
-import {ProjectService} from "./shared/project.service";
+import {UserService} from './shared/user.service';
+import {User} from './shared/core/User';
+import {CourseService} from './shared/course.service';
+import {PluginsService} from './shared/plugins.service';
+import {ProjectService} from './shared/project.service';
+import {StudyService} from "./shared/study.service";
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,12 @@ import {ProjectService} from "./shared/project.service";
 export class AppComponent {
 
   authenticatedUser: User;
-  isShowingStudy: boolean = false;
+  isShowingStudy = false;
 
   constructor(
     userService: UserService,
-    courseService: CourseService
-
+    courseService: CourseService,
+    studyService: StudyService
   ) {
 
     userService.authenticatedUser.subscribe((user: User) => {
@@ -26,7 +27,11 @@ export class AppComponent {
       courseService.updateCourses();
       this.isShowingStudy = true;
     });
-  }
 
+
+    document.addEventListener('click', (evnt) => {
+      console.log(evnt.target);
+    });
+  }
   title = 'cogito-frontend';
 }

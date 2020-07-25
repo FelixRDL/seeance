@@ -2,12 +2,8 @@
   <span id="study-feedback-title">
     Evaluation Study
   </span>
-  <button mat-icon-button id="study-feedback-close-button"
-          (click)="toggle()"
-          *ngIf="isExpanded"><mat-icon>minimize</mat-icon></button>
-  <button mat-icon-button id="study-feedback-open-button"
-          (click)="toggle()"
-          *ngIf="!isExpanded"><mat-icon>maximize</mat-icon></button>
+  <mat-icon *ngIf="isExpanded">minimize</mat-icon>
+  <mat-icon *ngIf="!isExpanded">maximize</mat-icon>
 </span>
 <span id="study-feedback-body" *ngIf="isExpanded">
   <app-study-start *ngIf="state==='start'"></app-study-start>

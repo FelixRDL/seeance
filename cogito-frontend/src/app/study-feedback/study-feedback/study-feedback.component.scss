@@ -12,7 +12,6 @@
 #study-feedback-title {
   font-size: 20px;
   color: white;
-  top: 8px;
   position: relative;
 }
 
@@ -33,12 +32,6 @@
   padding:16px;
 }
 
-#study-feedback-close-button {
+mat-icon {
   position: relative;
-  top: -8px;
-}
-
-#study-feedback-open-button {
-  position: relative;
-  top: 8px;
 }

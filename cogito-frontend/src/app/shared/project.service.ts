@@ -7,17 +7,24 @@ import {map} from 'rxjs/operators';
 import {Course} from './core/Course';
 import {Analysis} from './core/Analysis';
 import {Preprocessor} from './core/Preprocessor';
+import {StudyService} from './study.service';
 
 @Injectable()
 export class ProjectService {
 
   constructor(
     private auth: AuthService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private study: StudyService
   ) {
   }
 
   addAnalysis(courseId: string, projectId: string, templateName: string) {
+    this.study.submitSystemEvent('addAnalysis', {
+      courseId,
+      projectId,
+      templateName
+    });
     return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/analyses`,
       {
         template: templateName
@@ -27,12 +34,22 @@ export class ProjectService {
   }
 
   removeAnalysis(courseId: string, projectId: string, analysisId: string) {
+    this.study.submitSystemEvent('removeAnalysis', {
+      courseId,
+      projectId,
+      analysisId
+    });
     return this.httpClient.delete(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}`,
       {headers: AuthService.getBearerHeader()}).pipe(map(data => data as string[])
     );
   }
 
   addPreprocessor(courseId: string, projectId: string, templateName: string) {
+    this.study.submitSystemEvent('addPreprocessor', {
+      courseId,
+      projectId,
+      templateName
+    });
     return this.httpClient.post(`/api/course/${courseId}/projects/${projectId}/preprocessors`,
       {
         template: templateName
@@ -42,6 +59,11 @@ export class ProjectService {
   }
 
   removePreprocessor(courseId: string, projectId: string, preprocessorId: string) {
+    this.study.submitSystemEvent('addAnalysis', {
+      courseId,
+      projectId,
+      preprocessorId
+    });
     return this.httpClient.delete(`/api/course/${courseId}/projects/${projectId}/preprocessors/${preprocessorId}`,
       {headers: AuthService.getBearerHeader()}).pipe(map(data => data as string[])
     );
@@ -112,6 +134,12 @@ export class ProjectService {
   }
 
   setAnalysisConfig(courseId: string, projectId: string, analysisId: string, config: any) {
+    this.study.submitSystemEvent('configureAnalysis', {
+      courseId,
+      projectId,
+      analysisId,
+      config
+    });
     return this.httpClient
       .post(`/api/course/${courseId}/projects/${projectId}/analyses/${analysisId}/configure`,
         config,
@@ -133,12 +161,19 @@ export class ProjectService {
   }
 
   createProject(courseId: string, project: Project): Observable<Project> {
+    this.study.submitSystemEvent('createProject', {
+      courseId,
+      project
+    });
     return this.httpClient.post('/api/course/' + courseId + '/projects/', project,
       {headers: AuthService.getBearerHeader()}).pipe(map(data => data as Project));
   }
 
   deleteProjectById(courseId: string, projectId: string): Observable<string> {
-
+    this.study.submitSystemEvent('deleteProject', {
+      courseId,
+      projectId
+    });
     return this.httpClient.delete('/api/course/' + courseId + '/projects/' + projectId,
       // @ts-ignore
       {headers: AuthService.getBearerHeader()}).pipe(map(data => data.id));

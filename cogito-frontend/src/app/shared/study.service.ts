@@ -66,6 +66,12 @@ export class StudyService {
       {headers: AuthService.getBearerHeader()}).subscribe(() => {});
   }
 
+  submitSystemEvent(type: string, event: any) {
+    this.httpClient.post(`/api/study/systemevents/${type}`,
+      event,
+      {headers: AuthService.getBearerHeader()}).subscribe(() => {});
+  }
+
   private getNextTask(): string {
     return '';
   }

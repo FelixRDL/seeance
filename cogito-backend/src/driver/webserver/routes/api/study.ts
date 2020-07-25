@@ -32,5 +32,9 @@ router.post('/tasks/:taskId/stop/', async(req: express.Request, res:express.Resp
     controller.logTaskStop(req, res)
 });
 
+router.post('/systemevents/:eventType/', async(req: express.Request, res:express.Response) => {
+    controller.logSystemEvent(req, res)
+});
+
 
 export {router};

@@ -29,6 +29,14 @@ export class StudyController {
         res.send()
     }
 
+    logSystemEvent(req: express.Request, res: express.Response) {
+        const user: string = this.getHashedLoginname(res.locals.authenticatedUser.login);
+        const evt = req.body
+        evt.type = req.params.eventType
+        this.provider.storeEvent(user, 'systemEvent', evt)
+        res.send()
+    }
+
     logUeq(req: express.Request, res: express.Response) {
         const user: string = this.getHashedLoginname(res.locals.authenticatedUser.login);
         this.provider.storeEvent(user, 'ueq', req.body)

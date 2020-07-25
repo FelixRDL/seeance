@@ -1,0 +1,16 @@
+.ueq_item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ueq_item > p {
+  position: relative;
+  top: -16px;
+  width:110px;
+}
+
+.study-action-bar {
+  justify-content: end;
+  display: flex;
+}
+

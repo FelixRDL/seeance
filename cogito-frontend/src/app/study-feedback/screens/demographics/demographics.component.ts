@@ -11,6 +11,7 @@ export class DemographicsComponent implements OnInit {
   timeInDomain: number;
   teamSize: number;
   learningContent: string;
+  role: string;
 
   constructor(
     private study: StudyService
@@ -21,7 +22,13 @@ export class DemographicsComponent implements OnInit {
   }
 
   proceed(): void {
-    // this.study.proceedTo('tasks')
+    this.study.submitDemographics({
+      timeInDomain: this.timeInDomain,
+      teamSize: this.teamSize,
+      learningContent: this.learningContent,
+      role: this.role
+    });
+    // TODO: remove this later on!
+    this.study.proceedTo('ueq');
   }
-
 }

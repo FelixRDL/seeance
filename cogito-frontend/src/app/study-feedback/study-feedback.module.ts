@@ -6,11 +6,12 @@ import { StudyStartComponent } from './screens/study-start/study-start.component
 import { DemographicsComponent } from './screens/demographics/demographics.component';
 import { Task1Component } from './screens/task1/task1.component';
 import {FormsModule} from '@angular/forms';
+import { UeqComponent } from './screens/ueq/ueq.component';
 
 
 
 @NgModule({
-    declarations: [StudyFeedbackComponent, StudyStartComponent, DemographicsComponent, Task1Component],
+    declarations: [StudyFeedbackComponent, StudyStartComponent, DemographicsComponent, Task1Component, UeqComponent],
     exports: [
         StudyFeedbackComponent
     ],

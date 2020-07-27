@@ -121,7 +121,10 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="cancel()">Decline</button>
-    <button mat-flat-button color="primary" (click)="register()">Accept</button>
+    <button mat-button (click)="cancel()" *ngIf="!isSubmitting">Decline</button>
+    <button mat-flat-button color="primary" (click)="register()" [disabled]="isSubmitting">
+      <span *ngIf="!isSubmitting">Accept</span>
+      <span *ngIf="isSubmitting">Creating Account...</span>
+    </button>
   </mat-card-actions>
 </mat-card>

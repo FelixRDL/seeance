@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 })
 export class RegisterComponent implements OnInit {
 
+  isSubmitting = false;
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -21,6 +23,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.isSubmitting = true;
     this.userService.registerUser().subscribe((user) => {
       this.router.navigate(['']);
     }, (e) => {

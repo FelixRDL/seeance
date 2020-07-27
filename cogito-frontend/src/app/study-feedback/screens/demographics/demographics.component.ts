@@ -13,6 +13,8 @@ export class DemographicsComponent implements OnInit {
   learningContent: string;
   role: string;
 
+  isSubmitting = false
+
   constructor(
     private study: StudyService
   ) { }
@@ -22,6 +24,7 @@ export class DemographicsComponent implements OnInit {
   }
 
   proceed(): void {
+    this.isSubmitting = true
     this.study.submitDemographics({
       timeInDomain: this.timeInDomain,
       teamSize: this.teamSize,

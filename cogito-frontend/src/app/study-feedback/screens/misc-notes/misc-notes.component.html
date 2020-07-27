@@ -4,7 +4,16 @@
   <textarea matInput [(ngModel)]="notes"></textarea>
 </mat-form-field>
 <span class="study-action-bar">
-  <button mat-flat-button color="primary" (click)="proceed()">
-    Submit
+  <button mat-flat-button
+          color="primary"
+          (click)="proceed()"
+          [disabled]="isSubmitting"
+  >
+    <span *ngIf="!isSubmitting">
+      Submit
+    </span>
+    <span *ngIf="isSubmitting">
+      Submitting...
+    </span>
   </button>
 </span>

@@ -81,7 +81,13 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
   <button mat-flat-button
           color="primary"
           (click)="proceed()"
+          [disabled]="isSubmitting"
   >
-    Submit
+    <span *ngIf="!isSubmitting">
+      Submit
+    </span>
+    <span *ngIf="isSubmitting">
+      Submitting...
+    </span>
   </button>
 </span>

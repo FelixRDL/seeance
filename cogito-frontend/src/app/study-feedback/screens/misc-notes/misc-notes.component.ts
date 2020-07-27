@@ -10,6 +10,8 @@ export class MiscNotesComponent implements OnInit {
 
   notes: string;
 
+  isSubmitting = false
+
   constructor(
     private study: StudyService
   ) { }
@@ -18,6 +20,7 @@ export class MiscNotesComponent implements OnInit {
   }
 
   proceed(): void {
+    this.isSubmitting = true
     this.study.submitNotes({
       notes: this.notes
     }).subscribe(() => {

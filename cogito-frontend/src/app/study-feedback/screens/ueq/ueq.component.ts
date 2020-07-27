@@ -17,6 +17,8 @@ export class UeqComponent implements OnInit {
   item7: number;
   item8: number;
 
+  isSubmitting = false
+
   constructor(
     private study: StudyService
   ) { }
@@ -25,6 +27,7 @@ export class UeqComponent implements OnInit {
   }
 
   proceed(): void {
+    this.isSubmitting = true
     const result: any = {
       item1: this.item1,
       item2: this.item2,

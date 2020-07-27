@@ -1,11 +1,11 @@
 import {
   AfterViewInit,
   ChangeDetectorRef,
-  Component, ElementRef,
+  Component, ElementRef, EventEmitter,
   HostListener,
   Input,
   OnChanges,
-  OnInit,
+  OnInit, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -20,6 +20,7 @@ import {InfoModalComponent} from "../../shared/modals/info.modal/info.modal.comp
 })
 export class AnalysisTileComponent implements OnChanges, AfterViewInit {
   @Input() model: AnalysisTile;
+  @Output() onReloadRequested: EventEmitter<string> = new EventEmitter<string>();
   @ViewChild('iframe') iframe: ElementRef;
   hasDescription: boolean;
   hasSettings: boolean;
@@ -49,6 +50,10 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  requestReload() {
+    this.onReloadRequested.emit(this.model.analysis._id)
   }
 
 

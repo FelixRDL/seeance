@@ -58,6 +58,26 @@ export class ProjectComponent {
     });
   }
 
+  reloadAnalysis(id): void {
+    const index: number = this.tiles.findIndex((item) => item.analysis._id === id);
+    const tile: AnalysisTile = this.tiles[index]
+    delete tile.isTimedOut
+    this.projectService.getAnalysisView(
+      this.activeCourse._id,
+      this.activeProject._id,
+      id
+    ).subscribe((html: string) => {
+      tile.html = html
+    }, error => {
+      switch(error.name) {
+        case "TimeoutError":
+          tile.isTimedOut = true
+          break;
+      }
+    })
+  }
+
+
   updateAnalyses(): void {
     this.preprocessors = [];
     this.analyses = [];
@@ -94,7 +114,13 @@ export class ProjectComponent {
           };
           this.tiles = list;
         }, error => {
-          alert(error)
+          switch(error.name) {
+            case "TimeoutError":
+              const index: number = this.tiles.findIndex((item) => item.analysis._id === analysis._id);
+              this.tiles[index].isTimedOut = true
+              break;
+          }
+          console.error(error)
         });
       });
     });

@@ -3,5 +3,5 @@ export interface PreprocessorTemplate {
   description: string;
   depends_on: string[];
   produces: string
-  configSchema: any;
+  config_schema: any;
 }

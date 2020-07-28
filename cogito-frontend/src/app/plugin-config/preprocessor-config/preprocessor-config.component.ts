@@ -42,8 +42,8 @@ export class PreprocessorConfigComponent implements OnInit {
         this.activePreprocessor = pre;
         console.log(pre)
         this.pluginService.getPreprocessorByName(pre.template).subscribe((prep) => {
-          console.log(prep);
-          this.activePreprocessorTemplate = prep;
+          console.log(prep)
+          this.activePreprocessorTemplate = prep.config_schema;
         });
       });
     });

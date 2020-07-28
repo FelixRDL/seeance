@@ -112,10 +112,9 @@ mat-sidenav-content {
 
 app-navbar > * > .mat-divider {
   width:calc(100% + 32px)!important;
-  position: absolute !important;
   left: -16px !important;
   margin: 16px 0px;
-  margin-top: 52px;
+  margin-top: 16px;
 }
 
 .mat-expansion-panel-body mat-divider {

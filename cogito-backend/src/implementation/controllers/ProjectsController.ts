@@ -286,6 +286,7 @@ export class ProjectsController {
                 },
                 this.preprocessorRepository
             )
+
             let result = await GetAnalysisView({
                     repoOwner: project.repository.owner.login,
                     repoName: project.repository.name,

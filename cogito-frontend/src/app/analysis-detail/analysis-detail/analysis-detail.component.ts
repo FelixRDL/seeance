@@ -7,6 +7,7 @@ import {Course} from "../../shared/core/Course";
 import {CourseService} from "../../shared/course.service";
 import {InfoModalComponent} from "../../shared/modals/info.modal/info.modal.component";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {StudyService} from "../../shared/study.service";
 
 @Component({
   selector: 'app-analysis-detail',
@@ -25,7 +26,8 @@ export class AnalysisDetailComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private projects: ProjectService,
     private courses: CourseService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private study: StudyService
   ) {
     this.route.params.subscribe((params) => {
       this.projects.getAnalysisById(params.courseId, params.projectId, params.analysisId).subscribe((d) => {
@@ -38,9 +40,17 @@ export class AnalysisDetailComponent implements OnInit, AfterViewInit {
       this.courses.getCourseById(params.courseId).subscribe((d) => {
         this.course = d;
       });
+      this.study.submitSystemEvent('loadAnalysisBegin', {
+        analysisId: params.analysisId,
+        projectIds: params.projectId
+      })
       this.projects.getAnalysisView(params.courseId, params.projectId, params.analysisId).subscribe((d) => {
         this.html = d;
         this.iframe.nativeElement.setAttribute('srcdoc', d);
+        this.study.submitSystemEvent('loadAnalysisComplete', {
+          analysisId: params.analysisId,
+          projectIds: params.projectId
+        })
       });
     });
   }

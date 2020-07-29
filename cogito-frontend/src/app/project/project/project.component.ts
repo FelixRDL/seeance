@@ -16,6 +16,7 @@ import {Preprocessor} from '../../shared/core/Preprocessor';
 import {ConfirmModalComponent} from '../../shared/modals/confirm.modal/confirm.modal.component';
 import {UserService} from '../../shared/user.service';
 import {AnalysisTile} from '../../shared/core/AnalysisTile';
+import {StudyService} from "../../shared/study.service";
 
 @Component({
   selector: 'app-project',
@@ -37,6 +38,7 @@ export class ProjectComponent {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackbar: MatSnackBar,
+    private study: StudyService
   ) {
     this.route.params.subscribe((params) => {
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {
@@ -59,6 +61,7 @@ export class ProjectComponent {
   }
 
   reloadAnalysis(id): void {
+
     const index: number = this.tiles.findIndex((item) => item.analysis._id === id);
     const tile: AnalysisTile = this.tiles[index]
     delete tile.isTimedOut
@@ -101,11 +104,19 @@ export class ProjectComponent {
         } as AnalysisTile;
       });
       analyses.forEach((analysis: Analysis) => {
+        this.study.submitSystemEvent('loadAnalysisBegin', {
+          analysisId: analysis._id,
+          projectIds: this.activeProject._id
+        })
         this.projectService.getAnalysisView(
           this.activeCourse._id,
           this.activeProject._id,
           analysis._id
         ).subscribe((html: string) => {
+          this.study.submitSystemEvent('loadAnalysisComplete', {
+            analysisId: analysis._id,
+            projectIds: this.activeProject._id
+          })
           const list: any[] = this.tiles;
           const index: number = list.findIndex((item) => item.analysis._id === analysis._id);
           list[index] = {

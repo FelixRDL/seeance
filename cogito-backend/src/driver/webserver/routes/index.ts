@@ -10,6 +10,7 @@ import * as components from './api/components';
 import * as study from './api/study';
 import {AuthController} from "../../../implementation/controllers/AuthController";
 import {UserController} from "../../../implementation/controllers/UserController";
+import {StudyController} from "../../../implementation/controllers/StudyController";
 const router = express.Router();
 const authController = new AuthController();
 const userController = new UserController();
@@ -27,6 +28,7 @@ router.use('/api/course',
 router.use('/api/projects',
     (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),
     (req: express.Request, res: express.Response, next: any) => userController.userRegisteredMw(req, res, next),
+    StudyController.replaceAccessTokenMiddleware,
     project.router);
 router.use('/api/repositories',
     (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),

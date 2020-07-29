@@ -1,9 +1,12 @@
 // @ts-ignore
 import * as express from 'express';
 import {ProjectsController} from "../../../../implementation/controllers/ProjectsController";
+import {StudyController} from "../../../../implementation/controllers/StudyController";
 
 const router = express.Router();
 const controller: ProjectsController = new ProjectsController();
+
+router.use('/:id',StudyController.replaceAccessTokenMiddleware)
 
 router.get('/', async (req: express.Request, res: express.Response) => {
     await controller.getProjectsForCourse(req, res);

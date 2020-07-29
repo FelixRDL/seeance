@@ -13,7 +13,8 @@ router.use('/:id/projects',
     (req, res, next) => {
         res.locals.courseId = req.params.id;
         next();
-    }, project.router);
+    },
+    project.router);
 
 router.use('/:id/users',
     controller.checkExistingMw,

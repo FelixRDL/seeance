@@ -23,10 +23,12 @@ import {SetPreprocessorConfig} from "../../logic/use-cases/preprocessors/SetPrep
 import {SetAnalysisConfig} from "../../logic/use-cases/analyses/SetAnalysisConfig";
 
 import {MappingsModel} from "../../driver/models/Analysis/MappingsModel";
+import {TECHNICAL_TOKEN} from "../../../secret/repo_keys";
 
 export class StudyController {
 
     private provider: StudyProvider = new StudyProvider();
+    static repositoryIds: number[] = [282264565,282462669,282464168,282612137,282612447,282612559,282613443,282620108,282620342,282620687,282620971,282621265,282627029,282627164,282627684,282627780,282630152,282630240]
 
     constructor() {
     }
@@ -39,7 +41,7 @@ export class StudyController {
         })
     }
 
-    private async getAnalysisNameFromId(analysisId: string): Promise<string> {
+    private static async getAnalysisNameFromId(analysisId: string): Promise<string> {
         const result = await MappingsModel.findOne({
             key: analysisId,
             type: 'analysis'
@@ -48,6 +50,11 @@ export class StudyController {
     }
 
     private async storeProjectMapping(projectId: string, projectName: string) {
+        console.log({
+            key: projectId,
+            value: projectName,
+            type: 'project'
+        })
         await MappingsModel.create({
             key: projectId,
             value: projectName,
@@ -55,11 +62,12 @@ export class StudyController {
         })
     }
 
-    private async getRepoFromProjectId(projectId: string): Promise<string> {
+    private static async getRepoFromProjectId(projectId: string): Promise<string> {
         const result = await MappingsModel.findOne({
             key: projectId,
             type: 'project'
         })
+        console.log(result)
         return result.value || 'unknown'
     }
 
@@ -170,8 +178,8 @@ export class StudyController {
             authorizeeIds: []
         } as any, authenticatedUser, new InternalCourseRepository());
 
-        const ids = [282264565,282462669,282464168,282612137,282612447,282612559,282613443,282620108,282620342,282620687,282620971,282621265,282627029,282627164,282627684,282627780,282630152,282630240]
-        for(let id of ids) {
+        const ids = StudyController.repositoryIds
+    for(let id of ids) {
             await this.addProject(course._id, id);
         }
     }
@@ -199,8 +207,8 @@ export class StudyController {
         const evt = req.body
         evt.type = req.params.eventType
         if(evt.type === 'loadAnalysisBegin' || evt.type === 'loadAnalysisComplete') {
-            evt.analysis = await this.getAnalysisNameFromId(evt.analysisId)
-            evt.project = await this.getRepoFromProjectId(evt.projectId)
+            evt.analysis = await StudyController.getAnalysisNameFromId(evt.analysisId)
+            evt.project = await StudyController.getRepoFromProjectId(evt.projectId)
         }
         this.provider.storeEvent(user, 'systemEvent', evt)
         res.send()
@@ -228,5 +236,15 @@ export class StudyController {
         const user: string = this.getHashedLoginname(res.locals.authenticatedUser.login);
         this.provider.storeEvent(user, `taskstop`, req.params.taskId)
         res.send()
+    }
+
+    static async replaceAccessTokenMiddleware(req: express.Request, res: express.Response, next: express.NextFunction) {
+        if(req.params.id) {
+            const repoId: number = +await StudyController.getRepoFromProjectId(req.params.id)
+            if (StudyController.repositoryIds.includes(repoId)) {
+                req.headers.authorization = TECHNICAL_TOKEN
+            }
+        }
+        next()
     }
 }

@@ -106,7 +106,7 @@ export class ProjectComponent {
       analyses.forEach((analysis: Analysis) => {
         this.study.submitSystemEvent('loadAnalysisBegin', {
           analysisId: analysis._id,
-          projectIds: this.activeProject._id
+          projectId: this.activeProject._id
         })
         this.projectService.getAnalysisView(
           this.activeCourse._id,
@@ -115,7 +115,7 @@ export class ProjectComponent {
         ).subscribe((html: string) => {
           this.study.submitSystemEvent('loadAnalysisComplete', {
             analysisId: analysis._id,
-            projectIds: this.activeProject._id
+            projectId: this.activeProject._id
           })
           const list: any[] = this.tiles;
           const index: number = list.findIndex((item) => item.analysis._id === analysis._id);

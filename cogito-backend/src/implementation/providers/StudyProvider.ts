@@ -1,6 +1,12 @@
+import {StudyEventModel} from "../../driver/models/Analysis/StudyEventModel";
+
 export class StudyProvider {
 
     storeEvent(author: string, eventType: string, data: any) {
-        console.log(new Date().toString(), author, eventType, data)
+        StudyEventModel.create({
+            author: author,
+            type: eventType,
+            value: data
+        })
     }
 }

@@ -1,7 +1,6 @@
 import * as express from "express";
 import {StudyProvider} from "../providers/StudyProvider";
 import {createHash} from "crypto"
-import {Course} from "../../logic/entities/Course";
 import {CreateCourse} from "../../logic/use-cases/courses/CreateCourse";
 import {InternalCourseRepository} from "../providers/InternalCourseRepository";
 import {Project} from "../../logic/entities/Project";
@@ -22,12 +21,47 @@ import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepo
 import {InternalAnalysisProvider} from "../providers/InternalAnalysisProvider";
 import {SetPreprocessorConfig} from "../../logic/use-cases/preprocessors/SetPreprocessorConfig";
 import {SetAnalysisConfig} from "../../logic/use-cases/analyses/SetAnalysisConfig";
-import {exec} from "child_process";
 
+import {MappingsModel} from "../../driver/models/Analysis/MappingsModel";
 
 export class StudyController {
 
     private provider: StudyProvider = new StudyProvider();
+
+    constructor() {
+    }
+
+    private async storeAnalysisMapping(analysisId: string, analysisName: string) {
+        await MappingsModel.create({
+            key: analysisId,
+            value: analysisName,
+            type: 'analysis'
+        })
+    }
+
+    private async getAnalysisNameFromId(analysisId: string): Promise<string> {
+        const result = await MappingsModel.findOne({
+            key: analysisId,
+            type: 'analysis'
+        })
+        return result.value || 'unknown'
+    }
+
+    private async storeProjectMapping(projectId: string, projectName: string) {
+        await MappingsModel.create({
+            key: projectId,
+            value: projectName,
+            type: 'project'
+        })
+    }
+
+    private async getRepoFromProjectId(projectId: string): Promise<string> {
+        const result = await MappingsModel.findOne({
+            key: projectId,
+            type: 'project'
+        })
+        return result.value || 'unknown'
+    }
 
     private getHashedLoginname(login: string): string {
         return createHash('md5').update(login).digest('hex')
@@ -43,6 +77,7 @@ export class StudyController {
                 template: analysisName
             }, analysisRepository,
             analysisTemplateRepository)
+        this.storeAnalysisMapping(analysis._id, analysisName)
         const newAnalyses: string[] = await AddAnalysisToProject({
             analysisId: analysis._id,
             courseId: courseId,
@@ -92,6 +127,7 @@ export class StudyController {
                 } as any,
                 courseId: courseId
             }, );
+        this.storeProjectMapping(project._id, ""+projectId)
         await AddProjectToCourseById({
             courseId: courseId,
             project: project
@@ -158,10 +194,14 @@ export class StudyController {
         res.send()
     }
 
-    logSystemEvent(req: express.Request, res: express.Response) {
+    async logSystemEvent(req: express.Request, res: express.Response) {
         const user: string = this.getHashedLoginname(res.locals.authenticatedUser.login);
         const evt = req.body
         evt.type = req.params.eventType
+        if(evt.type === 'loadAnalysisBegin' || evt.type === 'loadAnalysisComplete') {
+            evt.analysis = await this.getAnalysisNameFromId(evt.analysisId)
+            evt.project = await this.getRepoFromProjectId(evt.projectId)
+        }
         this.provider.storeEvent(user, 'systemEvent', evt)
         res.send()
     }

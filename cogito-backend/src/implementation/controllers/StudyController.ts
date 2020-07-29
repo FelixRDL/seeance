@@ -20,6 +20,9 @@ import {AddAnalysisToProject} from "../../logic/use-cases/projects/AddAnalysisTo
 import {AnalysisTemplateRepository} from "../../logic/repositories/analysis/AnalysisTemplateRepository";
 import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepository";
 import {InternalAnalysisProvider} from "../providers/InternalAnalysisProvider";
+import {SetPreprocessorConfig} from "../../logic/use-cases/preprocessors/SetPreprocessorConfig";
+import {SetAnalysisConfig} from "../../logic/use-cases/analyses/SetAnalysisConfig";
+import {exec} from "child_process";
 
 
 export class StudyController {
@@ -30,7 +33,7 @@ export class StudyController {
         return createHash('md5').update(login).digest('hex')
     }
 
-    private async addAnalysis(courseId: string, projectId: string, analysisName: string) {
+    private async addAnalysis(courseId: string, projectId: string, analysisName: string, config?: any) {
         const analysisTemplateRepository: AnalysisTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
         const analysisRepository: AnalysisRepository = new InternalAnalysisProvider();
         const analysis = await CreateAnalysis({
@@ -45,9 +48,15 @@ export class StudyController {
             courseId: courseId,
             projectId: projectId
         }, new InternalProjectRepository())
+        if(config) {
+            await SetAnalysisConfig({
+                analysisId: analysis._id,
+                config: config
+            }, new InternalAnalysisProvider())
+        }
     }
 
-    private async addPreprocessor(courseId: string, projectId: string, templateName: string) {
+    private async addPreprocessor(courseId: string, projectId: string, templateName: string, config?: any) {
         const preprocessorTemplateRepository: PreprocessorTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
         const preprocessorRepository: PreprocessorRepository = new InternalPreprocessorRepository();
         const preprocessor = await CreatePreprocessor({
@@ -62,6 +71,12 @@ export class StudyController {
             courseId: courseId,
             projectId: projectId
         }, new InternalProjectRepository())
+        if(config) {
+            await SetPreprocessorConfig({
+                preprocessorId: preprocessor._id,
+                config: config
+            }, new InternalPreprocessorRepository())
+        }
     }
 
     async addProject(courseId: string, projectId: number) {
@@ -82,11 +97,16 @@ export class StudyController {
             project: project
         }, new InternalCourseRepository());
         await Promise.all([
-            this.addPreprocessor(courseId, project._id, 'remove-outlier-commits'),
-            this.addPreprocessor(courseId, project._id, 'remove-outlier-blame'),
-            this.addPreprocessor(courseId, project._id, 'remove-outlier-files'),
-            this.addAnalysis(courseId, project._id, 'activity-over-time'),
-            this.addAnalysis(courseId, project._id, 'code-evolution'),
+            this.addPreprocessor(courseId, project._id, 'ignore-files-by-extension', {
+                'extensions': ['jpg','png','mp4','svg','ai','wav','mp3']
+            }),
+            this.addPreprocessor(courseId, project._id, 'remove-outliers'),
+            this.addAnalysis(courseId, project._id, 'activity-over-time', {
+                'end_date': '2020-01-01'
+            }),
+            this.addAnalysis(courseId, project._id, 'code-evolution', {
+                'end_date': '2020-01-01+0000'
+            }),
             this.addAnalysis(courseId, project._id, 'estimated-active-time'),
             this.addAnalysis(courseId, project._id, 'file-ownership'),
             this.addAnalysis(courseId, project._id, 'files-by-number-of-coauthors'),
@@ -95,7 +115,6 @@ export class StudyController {
             this.addAnalysis(courseId, project._id, 'files-per-commit-number'),
             this.addAnalysis(courseId, project._id, 'issues-by-completion-time'),
             this.addAnalysis(courseId, project._id, 'issues-by-member'),
-            this.addAnalysis(courseId, project._id, 'js-code-metrics'),
             this.addAnalysis(courseId, project._id, 'total-file-ownership'),
             this.addAnalysis(courseId, project._id, 'typical-commit-size')
         ])

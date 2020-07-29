@@ -52,6 +52,7 @@ import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate
 import {PreloadProject} from "../../logic/use-cases/projects/PreloadProject";
 import {CleanupProject} from "../../logic/use-cases/projects/CleanupProject";
 import {IsRepositoryReferencedInOtherProject} from "../../logic/use-cases/projects/IsRepositoryReferencedInOtherProject";
+import {exec} from "child_process";
 
 export class ProjectsController {
     private repository: ProjectRepository = new InternalProjectRepository();
@@ -61,6 +62,12 @@ export class ProjectsController {
     private preprocessorTemplateRepository: PreprocessorTemplateRepository = InternalComponentTemplateProviderAccess.getInstance();
     private preprocessorRepository: PreprocessorRepository = new InternalPreprocessorRepository();
     private analysisViewGenerator: AnalysisViewGenerator = new InternalAnalysisViewGenerator();
+
+    constructor() {
+        exec('git config --global core.quotepath off', (err, out, serr) => {
+            console.log("Set quotepath off")
+        })
+    }
 
     async createProject(req: express.Request, res: express.Response) {
         try {

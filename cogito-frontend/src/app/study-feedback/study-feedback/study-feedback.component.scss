@@ -16,7 +16,7 @@
 }
 
 #study-feedback-header {
-  background-color: #3f51b5;
+  background-color: #36B552;
   padding:16px;
   display: flex;
   justify-content: space-between;
@@ -34,4 +34,9 @@
 
 mat-icon {
   position: relative;
+}
+
+::ng-deep .mat-flat-button {
+  background-color: #36B552;
+  color: white;
 }

@@ -146,3 +146,7 @@ mat-sidenav {
 .mat-drawer-inner-container {
   overflow-x: hidden!important;
 }
+
+div.widget.form-group>div {
+  margin-bottom: 16px;
+}

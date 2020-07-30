@@ -6,3 +6,18 @@
 mat-form-field {
   width: 100%;
 }
+
+.mul_choice_item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mul_choice_item > p {
+  position: relative;
+  top: -16px;
+  width:110px;
+}
+
+mat-radio-group {
+  margin-top: 16px;
+}

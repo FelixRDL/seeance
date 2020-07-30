@@ -9,6 +9,9 @@ import {StudyService} from "../../../shared/study.service";
 export class MiscNotesComponent implements OnInit {
 
   notes: string;
+  wouldUseInClass: string;
+  closenessToReality: string;
+  benefit: string;
 
   isSubmitting = false
 
@@ -27,5 +30,4 @@ export class MiscNotesComponent implements OnInit {
       this.study.proceedTo('thanks');
     })
   }
-
 }

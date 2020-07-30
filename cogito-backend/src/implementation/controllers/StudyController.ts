@@ -67,8 +67,7 @@ export class StudyController {
             key: projectId,
             type: 'project'
         })
-        console.log(result)
-        return result.value || 'unknown'
+        return result ? result.value : 'unknown'
     }
 
     private getHashedLoginname(login: string): string {

@@ -42,7 +42,7 @@
           [projectId]="activeProject?._id"
           (onDelete)="removeAnalysis($event)"
         ></app-analysis-list>
-        <button mat-button color="primary" (click)="addAnalysis()">Add Analysis</button>
+        <button mat-button color="primary" (click)="addAnalysis()" [disabled]="!isStudyFinished()">Add Analysis</button>
 
         <mat-divider></mat-divider>
         <br>
@@ -52,7 +52,7 @@
           [projectId]="activeProject?._id"
           (onDelete)="removePreprocessor($event)"
         ></app-preprocessor-list>
-        <button mat-button color="primary" (click)="addPreprocessor()">Add Preprocessor</button>
+        <button mat-button color="primary" (click)="addPreprocessor()" [disabled]="!isStudyFinished()">Add Preprocessor</button>
 
       </mat-tab>
     </mat-tab-group>

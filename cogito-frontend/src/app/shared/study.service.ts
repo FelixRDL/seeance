@@ -72,6 +72,10 @@ export class StudyService {
       {headers: AuthService.getBearerHeader()}).subscribe(() => {});
   }
 
+  isStudyFinished(): boolean {
+    return this.state.getValue() === 'thanks'
+  }
+
   private getNextTask(): string {
     return '';
   }

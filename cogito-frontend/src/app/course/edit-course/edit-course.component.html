@@ -8,7 +8,7 @@
 
 
     <mat-tab-group>
-      <mat-tab label="Repositories">
+      <mat-tab label="Projects">
         <mat-card-content>
           <br>
           <span class="mat-h3">Search and select a github repository to be added through the search bar below.</span>
@@ -17,7 +17,7 @@
             [projects]="(projects|async)"
             (onDeleteProject)="onDeleteProject($event)"
           ></app-project-list>
-          <app-repo-autocomplete style="width:100%"
+          <app-repo-autocomplete style="width:100%" [hidden]="!isStudyFinished()"
                                  (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
         </mat-card-content>
       </mat-tab>

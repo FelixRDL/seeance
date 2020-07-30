@@ -4,6 +4,7 @@ import {Course} from "../core/Course";
 import {Observable, Subject} from "rxjs";
 import {Project} from "../core/Project";
 import {ProjectService} from "../project.service";
+import {StudyService} from "../study.service";
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private studyService: StudyService
   ) {
     courseService.courses.subscribe((courses: Course[]) => {
       this.courses = courses;
@@ -24,6 +26,10 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  isStudyFinished(): boolean {
+    return this.studyService.isStudyFinished()
   }
 
 }

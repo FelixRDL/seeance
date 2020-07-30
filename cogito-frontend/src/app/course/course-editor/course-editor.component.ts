@@ -4,6 +4,7 @@ import {Course} from "../../shared/core/Course";
 import {ProjectService} from "../../shared/project.service";
 import {Observable} from "rxjs";
 import {Project} from "../../shared/core/Project";
+import {StudyService} from "../../shared/study.service";
 
 @Component({
   selector: 'app-course-editor',
@@ -23,7 +24,8 @@ export class CourseEditorComponent implements OnInit, OnChanges {
   });
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private studyService: StudyService
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +49,10 @@ export class CourseEditorComponent implements OnInit, OnChanges {
   delete(): void {
     console.log(this.model);
     this.onDelete.emit(this.model);
+  }
+
+  isStudyFinished(): boolean {
+    return this.studyService.isStudyFinished()
   }
 
 }

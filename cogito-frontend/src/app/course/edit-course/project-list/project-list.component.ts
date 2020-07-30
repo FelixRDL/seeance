@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Project} from "../../../shared/core/Project";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ConfirmModalComponent} from "../../../shared/modals/confirm.modal/confirm.modal.component";
+import {StudyService} from "../../../shared/study.service";
 
 @Component({
   selector: 'app-project-list',
@@ -13,7 +14,8 @@ export class ProjectListComponent implements OnInit {
   @Output() onDeleteProject: EventEmitter<Project> = new EventEmitter<Project>();
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private studyService: StudyService
   ) { }
 
   ngOnInit(): void {
@@ -33,5 +35,9 @@ export class ProjectListComponent implements OnInit {
           this.onDeleteProject.emit(project);
         }
     });
+  }
+
+  isStudyFinished(): boolean {
+    return this.studyService.isStudyFinished()
   }
 }

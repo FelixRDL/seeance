@@ -8,8 +8,8 @@
         inaccessible
       </i>
     </a>
-    <button mat-icon-button aria-label="Delete Icon" (click)="deleteProject(project)">
-    <mat-icon>delete</mat-icon>
-  </button>
+    <button mat-icon-button aria-label="Delete Icon" (click)="deleteProject(project)" [disabled]="!isStudyFinished()">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-list-item>
 </mat-selection-list>

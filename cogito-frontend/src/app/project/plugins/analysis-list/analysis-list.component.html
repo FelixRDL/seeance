@@ -9,7 +9,7 @@
             'configure']" *ngIf="isConfigurable(item)">
       <mat-icon>settings</mat-icon>
     </button>
-    <button mat-icon-button (click)="delete(item._id)">
+    <button mat-icon-button (click)="delete(item._id)" [disabled]="!isStudyFinished()">
       <mat-icon>delete</mat-icon>
     </button>
   </mat-list-item>

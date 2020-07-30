@@ -219,5 +219,9 @@ export class ProjectComponent {
       }
     });
   }
+
+  isStudyFinished(): boolean {
+    return this.study.isStudyFinished()
+  }
 }
 

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Analysis} from "../../../shared/core/Analysis";
+import {StudyService} from "../../../shared/study.service";
 
 @Component({
   selector: 'app-analysis-list',
@@ -13,7 +14,9 @@ export class AnalysisListComponent implements OnInit {
   @Input() projectId: string;
   @Output() onDelete: EventEmitter<string> = new EventEmitter<string>()
 
-  constructor() { }
+  constructor(
+    private study: StudyService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +27,10 @@ export class AnalysisListComponent implements OnInit {
 
   isConfigurable(analysis: Analysis): boolean {
     return Object.keys(analysis.template.configSchema).length > 0
+  }
+
+  isStudyFinished(): boolean {
+    return this.study.isStudyFinished()
   }
 
 }

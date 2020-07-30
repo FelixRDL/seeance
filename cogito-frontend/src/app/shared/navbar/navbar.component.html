@@ -2,7 +2,7 @@
   <!-- float right taken from https://stackoverflow.com/questions/36182635/making-a-flex-item-float-right/36182782 -->
   <div class="row">
     <span class="fill-remaining-space"></span>
-    <a mat-flat-button color="primary" [routerLink]="['/courses']" routerLinkActive="active" id="navbar_addcourse">Create
+    <a mat-flat-button color="primary" [disabled]="!isStudyFinished()" [routerLink]="['/courses']" routerLinkActive="active" id="navbar_addcourse">Create
       Course</a>
   </div>
 

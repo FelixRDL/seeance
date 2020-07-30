@@ -11,6 +11,7 @@ import {User} from "../../shared/core/User";
 import {UserService} from "../../shared/user.service";
 import {ConfirmModalComponent} from "../../shared/modals/confirm.modal/confirm.modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import {StudyService} from "../../shared/study.service";
 
 @Component({
   selector: 'app-edit-course',
@@ -30,7 +31,8 @@ export class EditCourseComponent {
     private route: ActivatedRoute,
     private router: Router,
     private snackbar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private studyService: StudyService
   ) {
     this.route.params.subscribe((params) => {
     if (params.id) {
@@ -71,7 +73,6 @@ export class EditCourseComponent {
       const projects: Project[] = this.projects.getValue();
       projects.push(project);
       this.projects.next(projects);
-      // TODO: adapt this stuff
       this.courseRepository.updateCourses();
     }, (err) => {
       this.snackbar.open(err.error, "OK");
@@ -132,5 +133,13 @@ export class EditCourseComponent {
         this.authorizees.next(users);
       });
     });
+  }
+
+  //
+  //
+  //
+
+  isStudyFinished(): boolean {
+    return this.studyService.isStudyFinished()
   }
 }

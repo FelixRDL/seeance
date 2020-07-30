@@ -142,7 +142,7 @@ export class StudyController {
         await Promise.all([
             this.addPreprocessor(courseId, project._id, 'ignore-files-by-extension', {
                 'extensions': ['jpg','png','mp4','svg','ai','wav','mp3', 'gif'],
-                'name_contains': ['package-lock']
+                'name_contains': ['package-lock', 'DS_Store']
             }),
             this.addPreprocessor(courseId, project._id, 'remove-outliers'),
             this.addAnalysis(courseId, project._id, 'activity-over-time', {
@@ -155,10 +155,7 @@ export class StudyController {
             this.addAnalysis(courseId, project._id, 'file-ownership'),
             this.addAnalysis(courseId, project._id, 'files-by-number-of-coauthors'),
             this.addAnalysis(courseId, project._id, 'files-by-size'),
-            this.addAnalysis(courseId, project._id, 'files-by-type'),
             this.addAnalysis(courseId, project._id, 'files-per-commit-number'),
-            this.addAnalysis(courseId, project._id, 'issues-by-completion-time'),
-            this.addAnalysis(courseId, project._id, 'issues-by-member'),
             this.addAnalysis(courseId, project._id, 'total-file-ownership'),
             this.addAnalysis(courseId, project._id, 'typical-commit-size')
         ])

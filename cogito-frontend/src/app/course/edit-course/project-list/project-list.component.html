@@ -1,6 +1,13 @@
 <mat-selection-list>
   <mat-list-item *ngFor="let project of projects">
     <a class="mat-h3" [routerLink]="['projects', project._id]">{{project.repository.full_name}}</a>
+    <a
+      disabled
+      *ngIf="!project.repository.name">
+      <i>
+        inaccessible
+      </i>
+    </a>
     <button mat-icon-button aria-label="Delete Icon" (click)="deleteProject(project)">
     <mat-icon>delete</mat-icon>
   </button>

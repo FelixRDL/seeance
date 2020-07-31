@@ -24,8 +24,8 @@ export class ProjectListComponent implements OnInit {
   deleteProject(project: Project)  {
     let dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
-        decline: 'cancel',
-        accept: 'delete',
+        decline: 'Cancel',
+        accept: 'Delete',
         title: 'Confirm Project Deletion',
         message: 'Do you really want to delete the project ' + project.repository.name + ' from this course?'
       }

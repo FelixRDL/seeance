@@ -39,7 +39,11 @@ export class UeqComponent implements OnInit {
       item8: this.item8
     };
     this.study.submitUeq(result).subscribe(() => {
-      this.study.proceedTo('notes');
+      if(this.study.state.getValue().split('_').length > 1) {
+        this.study.proceedTo('tasks');
+      } else {
+        this.study.proceedTo('notes')
+      }
     });
   }
 }

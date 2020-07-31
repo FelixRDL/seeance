@@ -8,9 +8,11 @@ export class StudyService {
 
   state: BehaviorSubject<string> = new BehaviorSubject<string>('start');
   allowedStates: string[] = ['start', 'demographics', 'ueq', 'tasks', 'notes', 'thanks'];
+  knownTasks: string[] = ['1x1', '2x1']
+  finishedTasks: string[]
 
-  private lsKey = 'study';
-  private lsKeyTasks = 'tasks';
+  private lsKey = 'study_state';
+  private lsKeyTasks = 'study_tasks';
 
   constructor(
     private auth: AuthService,
@@ -20,15 +22,28 @@ export class StudyService {
     if (key) {
       this.state.next(key);
     }
+    this.finishedTasks = localStorage.getItem(this.lsKeyTasks) ? JSON.parse(localStorage.getItem(this.lsKeyTasks)) : []
+  }
+
+  private setState(state: string) {
+    this.state.next(state)
+    localStorage.setItem(this.lsKey, state)
+  }
+
+  private getNextTask(): string {
+    const unsolvedTasks = this.knownTasks.filter((t) => !this.finishedTasks.includes(t))
+    const index: number = Math.floor((Math.random()*unsolvedTasks.length))
+    return unsolvedTasks.length > 0 ? unsolvedTasks[index] : undefined
   }
 
   proceedTo(state: string) {
-    if (this.allowedStates.includes(state)) {
-      if (state !== 'tasks') {
-        this.state.next(state);
-        localStorage.setItem(this.lsKey, state);
-      } else {
-
+    if(state.includes('ueq')) {
+      this.setState(state)
+    } else if(state === 'tasks') {
+      this.setState(this.getNextTask())
+    } else {
+      if(this.allowedStates.includes(state)) {
+        this.setState(state)
       }
     }
   }
@@ -46,6 +61,8 @@ export class StudyService {
   }
 
   submitTaskComplete(taskId: string, results: any) {
+    this.finishedTasks.push(taskId)
+    localStorage.setItem(this.lsKeyTasks, JSON.stringify(this.finishedTasks))
     return this.httpClient.post(`/api/study/tasks/${taskId}/stop`,
       results,
       {headers: AuthService.getBearerHeader()});
@@ -82,9 +99,5 @@ export class StudyService {
 
   isStudyFinished(): boolean {
     return this.state.getValue() === 'thanks'
-  }
-
-  private getNextTask(): string {
-    return '';
   }
 }

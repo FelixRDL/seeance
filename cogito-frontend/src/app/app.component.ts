@@ -36,7 +36,9 @@ export class AppComponent {
     });
 
     router.events.subscribe((event) => {
-      console.log(event);
+      studyService.submitSystemEvent('route', {
+        url: event['url']
+      })
     });
   }
   title = 'cogito-frontend';

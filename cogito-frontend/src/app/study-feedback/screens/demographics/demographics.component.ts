@@ -32,7 +32,7 @@ export class DemographicsComponent implements OnInit {
       role: this.role
     }).subscribe(() => {
       // TODO: remove this later on!
-      this.study.proceedTo('ueq');
+      this.study.proceedTo('tasks');
     });
   }
 }

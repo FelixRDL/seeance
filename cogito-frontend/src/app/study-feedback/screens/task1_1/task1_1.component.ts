@@ -21,19 +21,19 @@ export class Task1_1Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.study.submitTaskStart('1_1')
+    this.study.submitTaskStart('1x1')
   }
 
   proceed(): void {
     this.isSubmitting = true
-    this.study.submitTaskComplete('1_1', {
+    this.study.submitTaskComplete('1x1', {
       groupNames: this.groupNames,
       indicators: this.indicators,
       intervention: this.intervention,
       supportThroughTool: this.supportThroughTool,
       indicatorsWithoutTool: this.indicatorsWithoutTool
     }).subscribe(() => {
-      this.study.proceedTo('tasks')
+      this.study.proceedTo('ueq_1x1')
     })
   }
 

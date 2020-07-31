@@ -8,9 +8,9 @@
 <span id="study-feedback-body" *ngIf="isExpanded">
   <app-study-start *ngIf="state==='start'"></app-study-start>
   <app-demographics *ngIf="state==='demographics'"></app-demographics>
-  <app-ueq *ngIf="state==='ueq'"></app-ueq>
+  <app-ueq *ngIf="state?.includes('ueq')"></app-ueq>
   <app-misc-notes *ngIf="state==='notes'"></app-misc-notes>
   <app-thanks *ngIf="state==='thanks'"></app-thanks>
-  <app-task1-1 *ngIf="state==='task_1_1'"></app-task1-1>
-  <app-task2x1 *ngIf="state==='task_2_1'"></app-task2x1>
+  <app-task1-1 *ngIf="state==='1x1'"></app-task1-1>
+  <app-task2x1 *ngIf="state==='2x1'"></app-task2x1>
 </span>

@@ -1,7 +1,9 @@
-<h1 class="mat-h1">Git Usage (T5_1)</h1>
+<h1 class="mat-h1">Modularization (T4_1)</h1>
 <p>
   <i>
-    Multimedia Engineering aims for
+    The Multimedia Engineering Course also covers concepts of modularization, aiming for teams
+    to split their application into smaller, coherent pieces and avoiding antipatterns such as
+    god classes.
   </i>
 </p>
 
@@ -9,32 +11,32 @@
   Please verify, whether team Y has effectively modularized their application.
 </p>
 
-<p>Do you recognize indicators for team Y having effectively modularized their application?</p>
+<p>1. Do you recognize indicators for team Y having effectively modularized their application?</p>
 <mat-radio-group class="mul_choice_item" [(ngModel)]="isHavingIssues">
   <mat-radio-button value="yes">Yes</mat-radio-button>
   <mat-radio-button value="no">No</mat-radio-button>
   <mat-radio-button value="dontknow">Don't Know</mat-radio-button>
 </mat-radio-group>
 
-<p>Which indicators support this assumption?</p>
+<p>2. Which indicators support this assumption?</p>
 <mat-form-field>
   <mat-label>Indicators for groups</mat-label>
   <input matInput [(ngModel)]="indicators">
 </mat-form-field>
 
-<p>Which kind of intervention would you issue in reaction to those findings?</p>
+<p>3. Which kind of intervention would you issue in reaction to those findings?</p>
 <mat-form-field>
   <mat-label>Intervention Measures</mat-label>
   <input matInput [(ngModel)]="intervention">
 </mat-form-field>
 
-<p>How has SEEance helped you find these issues?</p>
+<p>4. How has SEEance helped you identify these issues?</p>
 <mat-form-field>
   <mat-label>Helpful Features</mat-label>
   <input matInput [(ngModel)]="supportThroughTool">
 </mat-form-field>
 
-<p>How would you have found out about these issues without this tool?</p>
+<p>5. How would you have found out about these issues without this tool?</p>
 <mat-form-field>
   <mat-label>Alternative Indicators</mat-label>
   <input matInput [(ngModel)]="indicatorsWithoutTool">

@@ -37,4 +37,8 @@ export class Task1_1Component implements OnInit {
     })
   }
 
+  cancel(): void {
+    this.study.proceedTo('notes')
+  }
+
 }

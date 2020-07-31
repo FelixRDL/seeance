@@ -31,7 +31,6 @@ export class DemographicsComponent implements OnInit {
       learningContent: this.learningContent,
       role: this.role
     }).subscribe(() => {
-      // TODO: remove this later on!
       this.study.proceedTo('tasks');
     });
   }

@@ -37,7 +37,12 @@
   <input matInput [(ngModel)]="indicatorsWithoutTool">
 </mat-form-field>
 
+<br>
+
 <span class="study-action-bar">
+  <button mat-flat-button class="terminate-btn" (click)="cancel()">
+    End Study
+  </button>
   <button mat-flat-button (click)="proceed()" [disabled]="isSubmitting">
     <span *ngIf="!isSubmitting">Submit</span>
     <span *ngIf="isSubmitting">Submitting...</span>

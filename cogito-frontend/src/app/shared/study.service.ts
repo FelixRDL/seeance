@@ -40,7 +40,7 @@ export class StudyService {
     if(state.includes('ueq')) {
       this.setState(state)
     } else if(state === 'tasks') {
-      this.setState(this.getNextTask())
+      this.setState(this.getNextTask() || 'notes')
     } else {
       if(this.allowedStates.includes(state)) {
         this.setState(state)

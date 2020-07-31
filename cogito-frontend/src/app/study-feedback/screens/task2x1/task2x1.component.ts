@@ -23,13 +23,19 @@ export class Task2x1Component implements OnInit {
   }
 
   proceed() {
-    this.study.submitTaskComplete('1_1', {
+    this.study.submitTaskComplete('2x1', {
       isHavingIssues: this.isHavingIssues,
       indicators: this.indicators,
       intervention: this.intervention,
       supportThroughTool: this.supportThroughTool,
       indicatorsWithoutTool: this.indicatorsWithoutTool
+    }).subscribe(() => {
+      this.study.proceedTo('ueq_2x1')
     })
+  }
+
+  cancel(): void {
+    this.study.proceedTo('notes')
   }
 
 }

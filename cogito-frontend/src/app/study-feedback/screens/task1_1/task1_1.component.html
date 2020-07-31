@@ -1,0 +1,44 @@
+<h1 class="mat-h1">Time Management (T1_1)</h1>
+<p>
+  <i>
+    The Multimedia Engineering course iteration of SS19 has been started on XX.XX.XXXX. After a short orientation phase,
+    the actual development phase has started on YY.YY.YYYY. Students have been asked to start development reasonably
+    early and work incrementally until the submission deadline on ZZ.ZZ.ZZZZ.
+  </i>
+</p>
+
+<p>Which of the groups of this iteration may have run into temporal issues?</p>
+<mat-form-field>
+  <mat-label>Group Names</mat-label>
+  <input matInput [(ngModel)]="groupNames">
+</mat-form-field>
+
+<p>Which indicators show those issues?</p>
+<mat-form-field>
+  <mat-label>Indicators for groups</mat-label>
+  <input matInput [(ngModel)]="indicators">
+</mat-form-field>
+
+<p>Which kind of intervention would you issue in reaction to those findings?</p>
+<mat-form-field>
+  <mat-label>Intervention Measures</mat-label>
+  <input matInput [(ngModel)]="intervention">
+</mat-form-field>
+
+<p>How has SEEance helped you find these issues?</p>
+<mat-form-field>
+  <mat-label>Helpful Features</mat-label>
+  <input matInput [(ngModel)]="supportThroughTool">
+</mat-form-field>
+
+<p>How would you have found out about these issues without this tool?</p>
+<mat-form-field>
+  <mat-label>Alternative Indicators</mat-label>
+  <input matInput [(ngModel)]="indicatorsWithoutTool">
+</mat-form-field>
+
+<span class="study-action-bar">
+  <button mat-flat-button (click)="proceed()">
+    Submit
+  </button>
+</span>

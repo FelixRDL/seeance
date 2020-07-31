@@ -1,5 +1,5 @@
 :host {
-  position: fixed;
+  position: absolute;
   bottom: 0px;
   right: 0px;
   background-color: white;
@@ -7,6 +7,8 @@
   border-radius: 4px;
   width: 500px;
   z-index: 1;
+  max-height:100%;
+  overflow-y: scroll;
 }
 
 #study-feedback-title {

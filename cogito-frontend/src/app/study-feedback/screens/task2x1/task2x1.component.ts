@@ -2,38 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import {StudyService} from "../../../shared/study.service";
 
 @Component({
-  selector: 'app-task1-1',
-  templateUrl: './task1_1.component.html',
-  styleUrls: ['./task1_1.component.scss']
+  selector: 'app-task2x1',
+  templateUrl: './task2x1.component.html',
+  styleUrls: ['./task2x1.component.scss']
 })
-export class Task1_1Component implements OnInit {
+export class Task2x1Component implements OnInit {
 
-  groupNames: string;
+  isHavingIssues: string;
   indicators: string;
   intervention: string;
   supportThroughTool: string;
   indicatorsWithoutTool: string;
 
-  isSubmitting = false
 
   constructor(
     private study: StudyService
   ) { }
 
   ngOnInit(): void {
-    this.study.submitTaskStart('1_1')
   }
 
-  proceed(): void {
-    this.isSubmitting = true
+  proceed() {
     this.study.submitTaskComplete('1_1', {
-      groupNames: this.groupNames,
+      isHavingIssues: this.isHavingIssues,
       indicators: this.indicators,
       intervention: this.intervention,
       supportThroughTool: this.supportThroughTool,
       indicatorsWithoutTool: this.indicatorsWithoutTool
-    }).subscribe(() => {
-      this.study.proceedTo('tasks')
     })
   }
 

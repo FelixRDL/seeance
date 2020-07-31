@@ -224,13 +224,13 @@ export class StudyController {
 
     logTaskStart(req: express.Request, res: express.Response) {
         const user: string = this.getHashedLoginname(res.locals.authenticatedUser.login);
-        this.provider.storeEvent(user, `taskstart`, req.params.taskId)
+        this.provider.storeEvent(user, `taskstart_${req.params.taskId}`, {})
         res.send()
     }
 
     logTaskStop(req: express.Request, res: express.Response) {
         const user: string = this.getHashedLoginname(res.locals.authenticatedUser.login);
-        this.provider.storeEvent(user, `taskstop`, req.params.taskId)
+        this.provider.storeEvent(user, `taskstop_${req.params.taskId}`, req.body)
         res.send()
     }
 

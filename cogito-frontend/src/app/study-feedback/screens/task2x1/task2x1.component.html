@@ -1,0 +1,50 @@
+<h1 class="mat-h1">Workload Distribution (T2_1)</h1>
+<p>
+  <i>
+    The course concept of Multimedia Engineering is designed for all team members to take on approximately
+    equal portions of development effort in their projects.
+  </i>
+</p>
+
+<p>
+  Please take a look at the project team "X" and assess, whether coding effort has been effectively distributed
+  between team members.
+</p>
+
+<p>Do you recognize indicators for group X concerning issues in workload distribution?</p>
+<mat-radio-group class="mul_choice_item" [(ngModel)]="isHavingIssues">
+  <mat-radio-button value="yes">Yes</mat-radio-button>
+  <mat-radio-button value="no">No</mat-radio-button>
+  <mat-radio-button value="dontknow">Don't Know</mat-radio-button>
+</mat-radio-group>
+
+<p>Which indicators support this assumption?</p>
+<mat-form-field>
+  <mat-label>Indicators for groups</mat-label>
+  <input matInput [(ngModel)]="indicators">
+</mat-form-field>
+
+<p>Which kind of intervention would you issue in reaction to those findings?</p>
+<mat-form-field>
+  <mat-label>Intervention Measures</mat-label>
+  <input matInput [(ngModel)]="intervention">
+</mat-form-field>
+
+<p>How has SEEance helped you find these issues?</p>
+<mat-form-field>
+  <mat-label>Helpful Features</mat-label>
+  <input matInput [(ngModel)]="supportThroughTool">
+</mat-form-field>
+
+<p>How would you have found out about these issues without this tool?</p>
+<mat-form-field>
+  <mat-label>Alternative Indicators</mat-label>
+  <input matInput [(ngModel)]="indicatorsWithoutTool">
+</mat-form-field>
+
+<span class="study-action-bar">
+  <button mat-flat-button (click)="proceed()">
+    Submit
+  </button>
+</span>
+

@@ -9,11 +9,12 @@ import { UeqComponent } from './screens/ueq/ueq.component';
 import { MiscNotesComponent } from './screens/misc-notes/misc-notes.component';
 import { ThanksComponent } from './screens/thanks/thanks.component';
 import {Task1_1Component} from "./screens/task1_1/task1_1.component";
+import { Task2x1Component } from './screens/task2x1/task2x1.component';
 
 
 
 @NgModule({
-    declarations: [StudyFeedbackComponent, StudyStartComponent, DemographicsComponent, Task1_1Component, UeqComponent, MiscNotesComponent, ThanksComponent],
+    declarations: [StudyFeedbackComponent, StudyStartComponent, DemographicsComponent, Task1_1Component, UeqComponent, MiscNotesComponent, ThanksComponent, Task2x1Component],
     exports: [
         StudyFeedbackComponent
     ],

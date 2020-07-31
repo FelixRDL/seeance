@@ -39,8 +39,16 @@ export class StudyService {
       {headers: AuthService.getBearerHeader()});
   }
 
-  submitTask(taskId: string, results: any) {
-    console.log('Submitting Task Result', taskId, results);
+  submitTaskStart(taskId: string) {
+    return this.httpClient.post(`/api/study/tasks/${taskId}/start`,
+      {},
+      {headers: AuthService.getBearerHeader()});
+  }
+
+  submitTaskComplete(taskId: string, results: any) {
+    return this.httpClient.post(`/api/study/tasks/${taskId}/stop`,
+      results,
+      {headers: AuthService.getBearerHeader()});
   }
 
   submitUeq(value: any): Observable<any> {

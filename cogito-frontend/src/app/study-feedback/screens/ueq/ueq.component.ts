@@ -47,6 +47,10 @@ export class UeqComponent implements OnInit {
     });
   }
 
+  cancel() {
+    this.study.proceedTo('notes')
+  }
+
   isComplete(): boolean {
     return this.item1 !== 0 &&
       this.item2 !== 0 &&

@@ -100,4 +100,12 @@ export class StudyService {
   isStudyFinished(): boolean {
     return this.state.getValue() === 'thanks'
   }
+
+  getNumberOfTotalTasks(): number {
+    return this.knownTasks.length
+  }
+
+  getNumberOfAbsolvedTasks(): number {
+    return this.finishedTasks.length || 0
+  }
 }

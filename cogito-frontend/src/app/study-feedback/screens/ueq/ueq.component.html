@@ -79,8 +79,13 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
 
 <b *ngIf="!isComplete()">Please give an answer to each of the items above</b>
 
+<br>
+<br>
 
 <span class="study-action-bar">
+  <button mat-flat-button class="terminate-btn" (click)="cancel()">
+    End Study
+  </button>
   <button mat-flat-button
           (click)="proceed()"
           [disabled]="isSubmitting || !isComplete()"

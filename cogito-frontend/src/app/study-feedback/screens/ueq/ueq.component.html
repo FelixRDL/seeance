@@ -77,11 +77,13 @@ one, that most closely reflects your opinion on this system. Decide spontaneousl
     <p>leading edge</p>
   </mat-radio-group>
 
+<b *ngIf="!isComplete()">Please give an answer to each of the items above</b>
+
 
 <span class="study-action-bar">
   <button mat-flat-button
           (click)="proceed()"
-          [disabled]="isSubmitting"
+          [disabled]="isSubmitting || !isComplete()"
   >
     <span *ngIf="!isSubmitting">
       Submit

@@ -72,7 +72,7 @@ export class ProjectService {
 
   getAnalyses(courseId: string, projectId: string) {
     return this.httpClient.get(`/api/course/${courseId}/projects/${projectId}/analyses`,
-      {headers: AuthService.getBearerHeader()}).pipe(map(data => {console.log(data); return data; })).pipe(map(data => data as Analysis[])
+      {headers: AuthService.getBearerHeader()}).pipe(map(data => data as Analysis[])
     );
   }
 

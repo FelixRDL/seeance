@@ -81,7 +81,6 @@ export class StudyService {
   }
 
   submitUiEvent(event: any) {
-    console.log(event);
     this.httpClient.post(`/api/study/uievents`,
       {
         target: event.target.id,

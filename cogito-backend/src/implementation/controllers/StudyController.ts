@@ -50,11 +50,6 @@ export class StudyController {
     }
 
     private async storeProjectMapping(projectId: string, projectName: string) {
-        console.log({
-            key: projectId,
-            value: projectName,
-            type: 'project'
-        })
         await MappingsModel.create({
             key: projectId,
             value: projectName,

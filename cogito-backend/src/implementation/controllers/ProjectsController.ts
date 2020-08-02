@@ -71,10 +71,8 @@ export class ProjectsController {
 
     async createProject(req: express.Request, res: express.Response) {
         try {
-            console.log(req.body)
             const token: string = <string>req.headers.authorization;
             const repoProvider: RepoRepository = new InternalRepositoryProvider(token);
-            console.log(req.body)
             const project: Project = await CreateProject(
                 this.repository,
                 repoProvider, <CreateProjectRequest>{
@@ -256,7 +254,6 @@ export class ProjectsController {
                 val.template = t
                 return val
             })
-            console.log(JSON.stringify(analysesForCourse))
             res.json(analysesForCourse)
         } catch (e) {
             console.error(e);

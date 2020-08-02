@@ -17,6 +17,7 @@ import {ConfirmModalComponent} from '../../shared/modals/confirm.modal/confirm.m
 import {UserService} from '../../shared/user.service';
 import {AnalysisTile} from '../../shared/core/AnalysisTile';
 import {StudyService} from "../../shared/study.service";
+import {start} from "repl";
 
 @Component({
   selector: 'app-project',
@@ -108,14 +109,18 @@ export class ProjectComponent {
           analysisId: analysis._id,
           projectId: this.activeProject._id
         })
+        const startTime: Date = new Date()
         this.projectService.getAnalysisView(
           this.activeCourse._id,
           this.activeProject._id,
           analysis._id
         ).subscribe((html: string) => {
+          let endTime: Date = new Date()
+          console.log("Started", startTime, "Loaded in", (endTime.getTime() - startTime.getTime()))
           this.study.submitSystemEvent('loadAnalysisComplete', {
             analysisId: analysis._id,
-            projectId: this.activeProject._id
+            projectId: this.activeProject._id,
+            loadTime: endTime.getTime() - startTime.getTime()
           })
           const list: any[] = this.tiles;
           const index: number = list.findIndex((item) => item.analysis._id === analysis._id);

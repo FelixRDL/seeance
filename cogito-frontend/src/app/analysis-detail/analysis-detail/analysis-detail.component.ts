@@ -44,13 +44,17 @@ export class AnalysisDetailComponent implements OnInit, AfterViewInit {
         analysisId: params.analysisId,
         projectIds: params.projectId
       })
+
+      const loadStart: Date = new Date()
       this.projects.getAnalysisView(params.courseId, params.projectId, params.analysisId).subscribe((d) => {
+        const loadEnd: Date = new Date()
         this.html = d;
         this.iframe.nativeElement.setAttribute('srcdoc', d);
         this.study.submitSystemEvent('loadAnalysisComplete', {
           analysisId: params.analysisId,
-          projectIds: params.projectId
-        })
+          projectIds: params.projectId,
+          loadTime: loadEnd.getTime() - loadStart.getTime()
+        });
       });
     });
   }

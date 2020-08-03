@@ -1,39 +1,39 @@
 version: '3'
 
 services:
-  nginx:
+  nginx-dev:
     image: nginx:latest
     ports:
       - "443:443"
-    container_name: cogito-nginx
+    container_name: nginx-dev
     volumes:
-      - ./cogito-nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./cogito-nginx/certs/server.crt:/etc/nginx/certs/server.crt
-      - ./cogito-nginx/certs/server.key:/etc/nginx/certs/server.key
+      - ./nginx-dev/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx-dev/certs/server.crt:/etc/nginx/certs/server.crt
+      - ./nginx-dev/certs/server.key:/etc/nginx/certs/server.key
       - ./static:/var/www/static
     depends_on:
-        - cogito-backend
-        - cogito-frontend
+        - backend
+        - frontend
 
-  cogito-backend:
-    build: './cogito-backend'
+  backend:
+    build: './backend'
     command: 'npm run dev'
     ports:
       - '3000:3000'
     volumes:
-      - ./cogito-backend/:/usr/app
+      - ./backend/:/usr/app
       - /usr/app/node_modules
       - /usr/app/tmp
     depends_on:
       - database
 
-  cogito-frontend:
-    build: './cogito-frontend'
+  frontend:
+    build: './frontend'
     command: 'npm start'
     ports:
       - '4200:4200'
     volumes:
-      - ./cogito-frontend/:/usr/app
+      - ./frontend/:/usr/app
       - /usr/app/node_modules
 
   database:

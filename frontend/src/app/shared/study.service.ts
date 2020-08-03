@@ -8,7 +8,7 @@ export class StudyService {
 
   state: BehaviorSubject<string> = new BehaviorSubject<string>('start');
   allowedStates: string[] = ['start', 'demographics', 'ueq', 'tasks', 'notes', 'thanks'];
-  knownTasks: string[] = ['1x1', '2x1', '3x1', '4x1']
+  knownTasks: string[] = ['1x1', '2x1', '2x2', '3x1', '4x1']
   finishedTasks: string[]
 
   private lsKey = 'study_state';

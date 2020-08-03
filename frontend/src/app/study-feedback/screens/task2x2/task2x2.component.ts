@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {StudyService} from "../../../shared/study.service";
 
 @Component({
-  selector: 'app-task2x1',
-  templateUrl: './task2x1.component.html',
-  styleUrls: ['./task2x1.component.scss']
+  selector: 'app-task2x2',
+  templateUrl: './task2x2.component.html',
+  styleUrls: ['./task2x2.component.scss']
 })
-export class Task2x1Component implements OnInit {
+export class Task2x2Component implements OnInit {
 
-  projectName: string = 'Mensitracker'
+  projectName: string = 'Postingboard'
 
   isHavingIssues: string;
   indicators: string;
@@ -25,14 +25,14 @@ export class Task2x1Component implements OnInit {
   }
 
   proceed() {
-    this.study.submitTaskComplete('2x1', {
+    this.study.submitTaskComplete('2x2', {
       isHavingIssues: this.isHavingIssues,
       indicators: this.indicators,
       intervention: this.intervention,
       supportThroughTool: this.supportThroughTool,
       indicatorsWithoutTool: this.indicatorsWithoutTool
     }).subscribe(() => {
-      this.study.proceedTo('ueq_2x1')
+      this.study.proceedTo('ueq_2x2')
     })
   }
 

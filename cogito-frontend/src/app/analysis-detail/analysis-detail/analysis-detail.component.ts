@@ -27,7 +27,7 @@ export class AnalysisDetailComponent implements OnInit, AfterViewInit {
     private projects: ProjectService,
     private courses: CourseService,
     private dialog: MatDialog,
-    private study: StudyService
+    public study: StudyService
   ) {
     this.route.params.subscribe((params) => {
       this.projects.getAnalysisById(params.courseId, params.projectId, params.analysisId).subscribe((d) => {

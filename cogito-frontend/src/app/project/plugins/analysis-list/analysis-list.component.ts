@@ -15,7 +15,7 @@ export class AnalysisListComponent implements OnInit {
   @Output() onDelete: EventEmitter<string> = new EventEmitter<string>()
 
   constructor(
-    private study: StudyService
+    public study: StudyService
   ) { }
 
   ngOnInit(): void {

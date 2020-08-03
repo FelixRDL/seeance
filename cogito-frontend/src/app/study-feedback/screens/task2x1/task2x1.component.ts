@@ -16,7 +16,7 @@ export class Task2x1Component implements OnInit {
 
 
   constructor(
-    private study: StudyService
+    public study: StudyService
   ) { }
 
   ngOnInit(): void {

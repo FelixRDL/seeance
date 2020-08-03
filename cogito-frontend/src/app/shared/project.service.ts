@@ -15,7 +15,7 @@ export class ProjectService {
   constructor(
     private auth: AuthService,
     private httpClient: HttpClient,
-    private study: StudyService
+    public study: StudyService
   ) {
   }
 

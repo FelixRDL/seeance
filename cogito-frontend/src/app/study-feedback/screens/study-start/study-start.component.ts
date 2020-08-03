@@ -9,7 +9,7 @@ import {StudyService} from "../../../shared/study.service";
 export class StudyStartComponent implements OnInit {
 
   constructor(
-    private study: StudyService
+    public study: StudyService
   ) { }
 
   ngOnInit(): void {

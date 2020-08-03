@@ -16,7 +16,7 @@ export class MiscNotesComponent implements OnInit {
   isSubmitting = false
 
   constructor(
-    private study: StudyService
+    public study: StudyService
   ) { }
 
   ngOnInit(): void {

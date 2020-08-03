@@ -11,7 +11,7 @@ export class StudyFeedbackComponent implements OnInit {
   isExpanded = true;
   state: string;
   constructor(
-    private study: StudyService
+    public study: StudyService
   ) { }
 
   ngOnInit(): void {

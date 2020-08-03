@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private projectService: ProjectService,
-    private studyService: StudyService
+    public studyService: StudyService
   ) {
     courseService.courses.subscribe((courses: Course[]) => {
       this.courses = courses;

@@ -25,7 +25,7 @@ export class CourseEditorComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private studyService: StudyService
+    public studyService: StudyService
   ) { }
 
   ngOnInit(): void {

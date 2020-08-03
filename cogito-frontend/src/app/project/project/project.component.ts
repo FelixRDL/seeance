@@ -39,7 +39,7 @@ export class ProjectComponent {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackbar: MatSnackBar,
-    private study: StudyService
+    public study: StudyService
   ) {
     this.route.params.subscribe((params) => {
       this.courseService.getCourseById(params.courseId).subscribe((course: Course) => {

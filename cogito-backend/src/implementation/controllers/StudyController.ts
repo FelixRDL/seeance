@@ -24,12 +24,12 @@ import {SetAnalysisConfig} from "../../logic/use-cases/analyses/SetAnalysisConfi
 
 import {MappingsModel} from "../../driver/models/Analysis/MappingsModel";
 import {TECHNICAL_TOKEN} from "../../../secret/repo_keys";
+import {ConfigProvider} from "../config/ConfigProvider";
 
 export class StudyController {
 
     private provider: StudyProvider = new StudyProvider();
-    static repositoryIds: number[] = [282264565,282462669,282464168,282612137,282612447,282612559,282613443,282620108,282620342,282620687,282620971,282621265,282627029,282627164,282627684,282627780,282630152,282630240]
-
+    static repositoryIds: number[] = ConfigProvider.getConfig().study.repoIds
     constructor() {
     }
 
@@ -116,7 +116,7 @@ export class StudyController {
         }
     }
 
-    async addProject(courseId: string, projectId: number) {
+    private async addProject(courseId: string, projectId: number) {
         const repoProvider = new InternalRepositoryProvider()
         const projectProvider = new InternalProjectRepository()
         const project: Project = await CreateProject(
@@ -168,7 +168,6 @@ export class StudyController {
             ownerId: authenticatedUser.githubId,
             authorizeeIds: []
         } as any, authenticatedUser, new InternalCourseRepository());
-
         const ids = StudyController.repositoryIds
     for(let id of ids) {
             await this.addProject(course._id, id);

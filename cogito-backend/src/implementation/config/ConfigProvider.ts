@@ -20,7 +20,8 @@ export interface AppConfig {
         url: string
     },
     study: {
-        active: boolean
+        active: boolean,
+        repoIds: number[]
     }
     logging: boolean
 }

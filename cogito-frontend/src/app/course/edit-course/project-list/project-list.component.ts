@@ -15,7 +15,7 @@ export class ProjectListComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private studyService: StudyService
+    public studyService: StudyService
   ) { }
 
   ngOnInit(): void {

@@ -17,7 +17,7 @@ export class Task1_1Component implements OnInit {
   isSubmitting = false
 
   constructor(
-    private study: StudyService
+    public study: StudyService
   ) { }
 
   ngOnInit(): void {

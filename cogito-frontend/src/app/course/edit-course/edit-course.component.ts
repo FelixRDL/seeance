@@ -32,7 +32,7 @@ export class EditCourseComponent {
     private router: Router,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
-    private studyService: StudyService
+    public studyService: StudyService
   ) {
     this.route.params.subscribe((params) => {
     if (params.id) {

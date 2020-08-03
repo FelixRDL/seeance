@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {StudyService} from "../../../shared/study.service";
 
 @Component({
-  selector: 'app-task3x1',
-  templateUrl: './task3x1.component.html',
-  styleUrls: ['./task3x1.component.scss']
+  selector: 'app-task3x2',
+  templateUrl: './task3x2.component.html',
+  styleUrls: ['./task3x2.component.scss']
 })
-export class Task3x1Component implements OnInit {
+export class Task3x2Component implements OnInit {
 
-  private taskId: string = '3x1'
+  private taskId: string = '3x2'
 
   isSeparationOk: string;
   indicators: string;
@@ -16,7 +16,7 @@ export class Task3x1Component implements OnInit {
   supportThroughTool: string;
   indicatorsWithoutTool: string;
 
-  projectName: string = 'URSlides'
+  projectName: string = 'Thesis Assistant'
 
 
   constructor(
@@ -41,5 +41,6 @@ export class Task3x1Component implements OnInit {
   cancel(): void {
     this.study.proceedTo('notes')
   }
+
 
 }

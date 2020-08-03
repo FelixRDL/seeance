@@ -14,11 +14,12 @@ import { Task3x1Component } from './screens/task3x1/task3x1.component';
 import { Task4x1Component } from './screens/task4x1/task4x1.component';
 import { Task5x1Component } from './screens/task5x1/task5x1.component';
 import { Task2x2Component } from './screens/task2x2/task2x2.component';
+import { Task3x2Component } from './screens/task3x2/task3x2.component';
 
 
 
 @NgModule({
-    declarations: [StudyFeedbackComponent, StudyStartComponent, DemographicsComponent, Task1_1Component, UeqComponent, MiscNotesComponent, ThanksComponent, Task2x1Component, Task3x1Component, Task4x1Component, Task5x1Component, Task2x2Component],
+    declarations: [StudyFeedbackComponent, StudyStartComponent, DemographicsComponent, Task1_1Component, UeqComponent, MiscNotesComponent, ThanksComponent, Task2x1Component, Task3x1Component, Task4x1Component, Task5x1Component, Task2x2Component, Task3x2Component],
     exports: [
         StudyFeedbackComponent
     ],

@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {StudyService} from "../../../shared/study.service";
 
 @Component({
-  selector: 'app-task4x1',
-  templateUrl: './task4x1.component.html',
-  styleUrls: ['./task4x1.component.scss']
+  selector: 'app-task4x2',
+  templateUrl: './task4x2.component.html',
+  styleUrls: ['./task4x2.component.scss']
 })
-export class Task4x1Component implements OnInit {
+export class Task4x2Component implements OnInit {
 
-  private taskId: string = '4x1'
+  private taskId: string = '4x2'
 
-  projectName: string = 'mensitracker'
+  projectName: string = 'thesis assistant'
 
   isHavingIssues: string;
   indicators: string;
@@ -41,5 +41,4 @@ export class Task4x1Component implements OnInit {
   cancel(): void {
     this.study.proceedTo('notes')
   }
-
 }

@@ -33,7 +33,8 @@ export async function GetAnalysisView (
     let flattenedPrepDeps: string[] = prepDeps.reduce((acc, currentValue) => {
         return acc.concat(currentValue)
     }, [])
-    let deps = analysisDeps.concat(flattenedPrepDeps)
+    let deps: string[] = Array.from(new Set(analysisDeps.concat(flattenedPrepDeps)))
+
     const datasources = await Promise.all(deps.map((ds: string) => datasourceRepo.getDatasourceByName(ds)))
     return Promise.resolve(
         await gen.getAnalysisView(

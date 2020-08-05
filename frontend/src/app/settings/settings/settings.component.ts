@@ -23,8 +23,8 @@ export class SettingsComponent implements OnInit {
   deleteAccount() {
     let dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
-        decline: 'cancel',
-        accept: 'delete',
+        decline: 'Cancel',
+        accept: 'Delete',
         title: 'Confirm Account Deletion',
         message: 'Do you really want to delete your account? This action cannot be redone!'
       }

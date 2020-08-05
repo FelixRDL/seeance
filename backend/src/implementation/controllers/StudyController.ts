@@ -134,12 +134,14 @@ export class StudyController {
             courseId: courseId,
             project: project
         }, new InternalCourseRepository());
+        
+        await this.addPreprocessor(courseId, project._id, 'ignore-files-by-extension', {
+            'extensions': ['jpg','png','mp4','svg','ai','wav','mp3', 'gif', 'jpeg', 'pdf'],
+            'name_contains': ['package-lock', 'DS_Store', '.min.']
+        })
+        await this.addPreprocessor(courseId, project._id, 'remove-outliers')
+
         await Promise.all([
-            this.addPreprocessor(courseId, project._id, 'ignore-files-by-extension', {
-                'extensions': ['jpg','png','mp4','svg','ai','wav','mp3', 'gif', 'jpeg', 'pdf'],
-                'name_contains': ['package-lock', 'DS_Store', '.min.']
-            }),
-            this.addPreprocessor(courseId, project._id, 'remove-outliers'),
             this.addAnalysis(courseId, project._id, 'activity-over-time', {
                 'end_date': '2020-01-01'
             }),

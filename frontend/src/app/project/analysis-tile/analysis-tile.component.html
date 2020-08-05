@@ -17,6 +17,7 @@
     </span>
     <span class="center">
                 <iframe
+                  [id]="model.analysis._id+'_'+model.analysis.template.name"
                   [hidden]="!model.html"
                   #iframe
                   style="top:32px;position:relative;width: 100%; height: 100%;" ></iframe>

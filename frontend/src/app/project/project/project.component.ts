@@ -116,7 +116,6 @@ export class ProjectComponent {
           analysis._id
         ).subscribe((html: string) => {
           let endTime: Date = new Date()
-          console.log("Started", startTime, "Loaded in", (endTime.getTime() - startTime.getTime()))
           this.study.submitSystemEvent('loadAnalysisComplete', {
             analysisId: analysis._id,
             projectId: this.activeProject._id,

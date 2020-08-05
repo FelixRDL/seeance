@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import {UserService} from './shared/user.service';
 import {User} from './shared/core/User';
 import {CourseService} from './shared/course.service';
-import {PluginsService} from './shared/plugins.service';
-import {ProjectService} from './shared/project.service';
 import {StudyService} from "./shared/study.service";
 import {Router, RoutesRecognized} from "@angular/router";
 
@@ -16,6 +14,7 @@ export class AppComponent {
 
   authenticatedUser: User;
   isShowingStudy = false;
+  hoveredItems = {}
 
   constructor(
     userService: UserService,
@@ -30,6 +29,29 @@ export class AppComponent {
       this.isShowingStudy = true;
     });
 
+
+    document.addEventListener('mouseover', (evnt) => {
+      this.hoveredItems[evnt.target['id']] = new Date().getTime()
+      if(evnt.target['tagName'] === 'IFRAME') {
+        studyService.submitSystemEvent('mouseover', {
+          tagname: evnt.target['id']
+        })
+      }
+    });
+
+    document.addEventListener('mouseout', (evnt) => {
+      let dwellTime = 0
+      if(this.hoveredItems[evnt.target['id']] ) {
+        dwellTime = (new Date()).getTime() - this.hoveredItems[evnt.target['id']]
+        delete this.hoveredItems[evnt.target['id']]
+      }
+      if(evnt.target['tagName'] === 'IFRAME') {
+        studyService.submitSystemEvent('mouseout', {
+          tagname: evnt.target['id'],
+          dwelltime: dwellTime
+        })
+      }
+    });
 
     document.addEventListener('click', (evnt) => {
       studyService.submitUiEvent(evnt);

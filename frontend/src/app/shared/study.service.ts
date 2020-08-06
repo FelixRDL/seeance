@@ -76,6 +76,10 @@ export class StudyService {
   }
 
   submitUiEvent(event: any) {
+    if(!this.isStudyActive()) {
+      return
+    }
+    console.log("UI EVT")
     event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/uievents`,
       {
@@ -87,6 +91,10 @@ export class StudyService {
   }
 
   submitSystemEvent(type: string, event: any) {
+    if(!this.isStudyActive()) {
+      return
+    }
+    console.log("SYS EVT")
     event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/systemevents/${type}`,
       event,
@@ -94,7 +102,14 @@ export class StudyService {
   }
 
   isStudyFinished(): boolean {
-    return this.state.getValue() === 'thanks'
+    const value: string = this.state.getValue()
+    return value === 'thanks'
+  }
+
+  isStudyActive(): boolean {
+    const value: string = this.state.getValue()
+    return !(value === 'thanks' || value === 'notes' || value === 'start')
+
   }
 
   getNumberOfTotalTasks(): number {

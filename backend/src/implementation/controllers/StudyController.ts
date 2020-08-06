@@ -140,22 +140,19 @@ export class StudyController {
             'name_contains': ['package-lock', 'DS_Store', '.min.']
         })
         await this.addPreprocessor(courseId, project._id, 'remove-outliers')
-
-        await Promise.all([
-            this.addAnalysis(courseId, project._id, 'activity-over-time', {
-                'end_date': '2020-01-01'
-            }),
-            this.addAnalysis(courseId, project._id, 'code-evolution', {
-                'end_date': '2020-01-01+0000'
-            }),
-            this.addAnalysis(courseId, project._id, 'estimated-active-time'),
-            this.addAnalysis(courseId, project._id, 'file-ownership'),
-            this.addAnalysis(courseId, project._id, 'files-by-number-of-coauthors'),
-            this.addAnalysis(courseId, project._id, 'files-by-size'),
-            this.addAnalysis(courseId, project._id, 'files-per-commit-number'),
-            this.addAnalysis(courseId, project._id, 'total-file-ownership'),
-            this.addAnalysis(courseId, project._id, 'typical-commit-size')
-        ])
+        await this.addAnalysis(courseId, project._id, 'activity-over-time', {
+            'end_date': '2020-01-01'
+        })
+        await this.addAnalysis(courseId, project._id, 'code-evolution', {
+            'end_date': '2020-01-01+0000'
+        })
+        await this.addAnalysis(courseId, project._id, 'estimated-active-time')
+        await this.addAnalysis(courseId, project._id, 'file-ownership')
+        await this.addAnalysis(courseId, project._id, 'files-by-number-of-coauthors')
+        await this.addAnalysis(courseId, project._id, 'files-by-size')
+        await this.addAnalysis(courseId, project._id, 'files-per-commit-number')
+        await this.addAnalysis(courseId, project._id, 'total-file-ownership')
+        await this.addAnalysis(courseId, project._id, 'typical-commit-size')
 
 
         //

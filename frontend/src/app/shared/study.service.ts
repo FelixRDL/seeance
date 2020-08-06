@@ -25,17 +25,6 @@ export class StudyService {
     this.finishedTasks = localStorage.getItem(this.lsKeyTasks) ? JSON.parse(localStorage.getItem(this.lsKeyTasks)) : []
   }
 
-  private setState(state: string) {
-    this.state.next(state)
-    localStorage.setItem(this.lsKey, state)
-  }
-
-  private getNextTask(): string {
-    const unsolvedTasks = this.knownTasks.filter((t) => !this.finishedTasks.includes(t))
-    const index: number = Math.floor((Math.random()*unsolvedTasks.length))
-    return unsolvedTasks.length > 0 ? unsolvedTasks[index] : undefined
-  }
-
   proceedTo(state: string) {
     if(state.includes('ueq')) {
       this.setState(state)
@@ -49,6 +38,7 @@ export class StudyService {
   }
 
   submitDemographics(demos: any): Observable<any> {
+    demos.timestamp = new Date().toISOString()
     return this.httpClient.post(`/api/study/demographies`,
       demos,
       {headers: AuthService.getBearerHeader()});
@@ -56,11 +46,14 @@ export class StudyService {
 
   submitTaskStart(taskId: string) {
     return this.httpClient.post(`/api/study/tasks/${taskId}/start`,
-      {},
+      {
+        timestamp: new Date().toISOString()
+      },
       {headers: AuthService.getBearerHeader()});
   }
 
   submitTaskComplete(taskId: string, results: any) {
+    results.timestamp = new Date().toISOString()
     this.finishedTasks.push(taskId)
     localStorage.setItem(this.lsKeyTasks, JSON.stringify(this.finishedTasks))
     return this.httpClient.post(`/api/study/tasks/${taskId}/stop`,
@@ -69,18 +62,21 @@ export class StudyService {
   }
 
   submitUeq(value: any): Observable<any> {
+    value.timestamp = new Date().toISOString()
     return this.httpClient.post(`/api/study/ueq`,
       value,
       {headers: AuthService.getBearerHeader()});
   }
 
   submitNotes(note: any) {
+    note.timestamp = new Date().toISOString()
     return this.httpClient.post(`/api/study/notes`,
       note,
       {headers: AuthService.getBearerHeader()});
   }
 
   submitUiEvent(event: any) {
+    event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/uievents`,
       {
         target: event.target.id,
@@ -91,6 +87,7 @@ export class StudyService {
   }
 
   submitSystemEvent(type: string, event: any) {
+    event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/systemevents/${type}`,
       event,
       {headers: AuthService.getBearerHeader()}).subscribe(() => {});
@@ -107,4 +104,16 @@ export class StudyService {
   getNumberOfAbsolvedTasks(): number {
     return this.finishedTasks.length || 0
   }
+
+  private setState(state: string) {
+    this.state.next(state)
+    localStorage.setItem(this.lsKey, state)
+  }
+
+  private getNextTask(): string {
+    const unsolvedTasks = this.knownTasks.filter((t) => !this.finishedTasks.includes(t))
+    const index: number = Math.floor((Math.random()*unsolvedTasks.length))
+    return unsolvedTasks.length > 0 ? unsolvedTasks[index] : undefined
+  }
+
 }

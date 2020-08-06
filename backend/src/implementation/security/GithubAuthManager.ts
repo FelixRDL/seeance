@@ -52,6 +52,33 @@ export class GithubAuthManager implements AuthManager {
         });
         return promise;
     }
+
+    revokeToken(token: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const uri: string = "api.github.com/applications/" + process.env.CLIENT_ID + "/tokens/" + token;
+            const authedUri = "https://" + process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET + "@"+ uri;
+            const options = {
+                uri: authedUri,
+                method: 'DELETE',
+                headers: {
+                    'User-Agent': 'Client',
+                }
+            };
+            request.delete(options, function (error: any, response: any, body: any){
+                console.log(response)
+                if(error) {
+                    reject(error)
+                } else if(response.statusCode == 204) {
+                    resolve();
+                } else if(response.statusCode == 401) {
+                    reject();
+                } else {
+                    console.log(error);
+                    reject(new InternalServerError());
+                }
+            });
+        })
+    }
 }
 
 export class BadVerificationCodeError extends Error {

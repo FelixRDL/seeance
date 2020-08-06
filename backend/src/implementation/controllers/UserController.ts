@@ -24,6 +24,8 @@ import {DeleteUserById, DeleteUserByIdRequest} from "../../logic/use-cases/user/
 import {InternalProjectRepository} from "../providers/InternalProjectRepository";
 import {StudyController} from "./StudyController";
 import {ConfigProvider} from "../config/ConfigProvider";
+import {RevokeToken} from "../../logic/use-cases/auth/RevokeToken";
+import {GithubAuthManager} from "../security/GithubAuthManager";
 
 export class UserController {
     async createUserFromToken(req: express.Request, res: express.Response) {
@@ -56,6 +58,7 @@ export class UserController {
                 provider,
                 new InternalCourseRepository(),
                 new InternalProjectRepository());
+            await RevokeToken(token, new GithubAuthManager())
             res.json({
                 'message': 'user successfully deleted from platform'
             });

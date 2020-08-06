@@ -21,9 +21,19 @@ mat-card-actions {
 
 :host {
   display:flex;
+  justify-content: center;
   padding:16px;
+}
+
+mat-card {
+  max-width: 800px;
 }
 
 p {
   font-size: 16px;
+}
+
+mat-icon {
+  margin-right: 16px;
+  color: rgba(0, 0, 0, 0.5)
 }

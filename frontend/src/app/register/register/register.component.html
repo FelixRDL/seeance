@@ -3,15 +3,19 @@
     <mat-card-title>SEEance - Terms of Service</mat-card-title>
   </mat-card-header>
 
+  <mat-divider></mat-divider>
+
   <mat-card-content>
     <div class="mat-h2">
       Purpose
     </div>
-    <p class="mat-body">SEEance is a prototypical software repository analysis platform and framework developed by Felix Riedl at the University of
-      Regensburg (2020).</p>
-    <p><b>It is currently hosted for public evaluation reasons at the University of Regensburg, Germany.</b></p>
-    <p class="mat-body">The purpose of SEEance is to provide educators in the field of Software Engineering with an uncomplicated,
-      extensible toolkit for inspecting their student groups' development processes.</p>
+    <p class="mat-body">SEEance is a prototypical software repository analysis platform and framework developed by
+      Felix Riedl at the University of Regensburg (2020). Its main goal is providing teachers of software engineering
+      courses with valuable insights on their students' work by analysing and visualizing VCS-Repository data. These
+      insights can be used for giving continuous feedback to students or as an early warning system indicating typical
+      problems or bad practices.
+    </p>
+    <p><b>It is currently hosted for the sake of public evaluation at the University of Regensburg, Germany.</b></p>
     <p class="mat-body">The project's current stage is a functioning prototype, hence delivered <b>as is</b>. Use it at your own peril.</p>
 
     <br>
@@ -20,9 +24,17 @@
       What SEEance can do
     </div>
     <mat-list>
-      <mat-list-item>provide easy access to typical VCS analysis metrics as described in related work</mat-list-item>
-      <mat-list-item>give you hints on how to identify typical anomalies in your projects' analyses</mat-list-item>
-      <mat-list-item><b>give an impulse to inspect supposed anomalies together with your students</b></mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>bar_chart</mat-icon>
+        provide easy access to typical VCS analysis metrics as described in related work</mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>scatter_plot</mat-icon>
+        give you hints on how to identify typical anomalies in your projects' analyses
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>supervisor_account</mat-icon>
+        <b>give an impulse to inspect supposed anomalies together with your students</b>
+      </mat-list-item>
     </mat-list>
 
     <br>
@@ -31,84 +43,98 @@
       What SEEance cannot do
     </div>
     <mat-list>
-      <mat-list-item>interpret the analysis results for you</mat-list-item>
-      <mat-list-item>lie a sufficient and reliable foundation for grading</mat-list-item>
-      <mat-list-item>replace direct communication with your students</mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>not_interested</mat-icon>
+        interpret the analysis results for you
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>not_interested</mat-icon>
+        lie a sufficient and reliable foundation for grading
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>not_interested</mat-icon>
+        replace direct communication with your students
+      </mat-list-item>
     </mat-list>
 
     <br>
 
     <div class="mat-h2">
-      Which data we use (and why)
+      Participation in public user test
     </div>
+    <p>
+      SEEance is being hosted for public evaluation within an automated user test. While the test is active (signalled
+      by the green chat box below) we are gathering interaction logs with SEEance. After finishing the study, the
+      logging can be deactivated for free exploration of the tool.
+    </p>
 
     <div class="mat-h3">
-      Used Data from Github
+      Logged Interaction Events
     </div>
-
     <p>
-      You authenticate for SEEance via Github, which may authorize SEEance to access private information tied to your
-      account. This includes:
-    </p>
-
-    <mat-list>
-      <mat-list-item>public account information (username, profile picture etc.)</mat-list-item>
-      <mat-list-item>names for public and private repositories</mat-list-item>
-      <mat-list-item>cloning/pulling public and private repositories via your account to our server</mat-list-item>
-      <mat-list-item>accessing metadata tied to public and private repositories via your account (issues, pull requests etc.)</mat-list-item>
-    </mat-list>
-
-    <div class="mat-h3">
-      Security Measures and Caveats
-    </div>
-
-    <p>
-      We use this access carefully, so we
-    </p>
-
-    <mat-list>
-      <mat-list-item>will never cache access tokens, passwords etc.</mat-list-item>
-      <mat-list-item>pull data beyond your input (e.g. will only access repositories, that you have actually selected for analysis)</mat-list-item>
-      <mat-list-item>only authorize for read access</mat-list-item>
-    </mat-list>
-
-    <p>
-      <b>
-        Albeit we are striving for an adequate degree of application security, we cannot take responsibility for any damage caused by our application.
-        We strongly recommend following a few security guidelines:
-      </b>
+      We will store this interaction events together with an anonymized ID. We will not be able to track back this
+      ID to you.
     </p>
     <mat-list>
-      <mat-list-item><b>never add sensible repositories to analyses (e.g. repositories containing sensible data such as personal information or keys, passwords)</b></mat-list-item>
-      <mat-list-item><b>only grant access to organizations, that are absolutely necessary</b></mat-list-item>
-      <mat-list-item><b>if in doubt, we propose using a burner account for testing</b></mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>timeline</mat-icon>
+        navigation paths and dwell times within app
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>list_alt</mat-icon>
+        evaluation system interaction
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>dns</mat-icon>
+        system events
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>mouse</mat-icon>
+        click and hover events within app
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>schedule</mat-icon>
+        event timestamps
+      </mat-list-item>
     </mat-list>
 
     <div class="mat-h3">
-      Collection of interaction data
+      Authentication via Github
     </div>
 
-    <p>Also, we are collecting interaction data while on the page for evaluation reasons</p>
+    <p>
+      Since this application uses OAuth via Github, participation at the study will also access some data of your
+      github profile. <b>This data will only be used system-internal and NOT BE SAVED WITHIN THE STUDY!</b>. Deleting
+      your profile will purge all data related to your account.
+    </p>
+
     <mat-list>
-      <mat-list-item>dwell time on application pages</mat-list-item>
-      <mat-list-item>page-internal keyboard events (number per page)</mat-list-item>
-      <mat-list-item>page-internal click events (target)</mat-list-item>
-      <mat-list-item>page-internal navigation events</mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>perm_identity</mat-icon>
+        public profile information
+      </mat-list-item>
     </mat-list>
+
 
     <div class="mat-h3">
       Purpose of data collection
     </div>
 
     <p>
-      We are caching data and repository clones for analysis reasons on a server at the University of Regensburg.
+      All generated data within our study and its system will be stored on a server at the University of Regensburg.
     </p>
     <mat-list>
-      <mat-list-item>data collected via this analysis will be exclusively used for scientific purposes
+      <mat-list-item>
+        <mat-icon mat-list-icon>science</mat-icon>
+        data collected via this analysis will be exclusively used for scientific purposes
         (masters thesis of Felix Riedl as well as follow-up publications)</mat-list-item>
-      <mat-list-item>we will never publish repository analysis caches produced by SEEance and wipe all those caches
+      <mat-list-item>
+        <mat-icon mat-list-icon>unpublished</mat-icon>
+        we will never publish repository analysis caches produced by SEEance and wipe all those caches
         after concluding our evaluation phase</mat-list-item>
-      <mat-list-item>we will never publish personal information or information, that may be retraced to individual
+      <mat-list-item>
+        <mat-icon mat-list-icon>person</mat-icon>
+        we will never publish personal information or information, that may be retraced to individual
         platform users</mat-list-item>
     </mat-list>
     <br>

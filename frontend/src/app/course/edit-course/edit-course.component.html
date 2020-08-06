@@ -21,7 +21,7 @@
                                  (repositorySelected)="onRepositorySelected($event)"></app-repo-autocomplete>
         </mat-card-content>
       </mat-tab>
-      <mat-tab label="Collaborators">
+      <mat-tab label="Collaborators" [disabled]="!isStudyFinished()">
         <br>
         <span class="mat-h3">Authorize other users to access this course.</span>
         <mat-divider></mat-divider>
@@ -32,7 +32,7 @@
           (userSelected)="onAddUser($event)"
         ></app-user-autocomplete>
       </mat-tab>
-      <mat-tab label="Settings">
+      <mat-tab label="Settings" [disabled]="!isStudyFinished()">
         <br>
         <span class="mat-h3">Here, you can change the general settings of your course, or delete it.</span>
         <mat-divider></mat-divider>

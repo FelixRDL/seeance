@@ -101,7 +101,7 @@ export class StudyService {
 
   isStudyFinished(): boolean {
     const value: string = this.state.getValue()
-    return value === 'thanks'
+    return value === 'inactive'
   }
 
   isStudyActive(): boolean {

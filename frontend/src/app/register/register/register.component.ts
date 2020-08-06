@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
   }
 
   cancel() {
+    this.authService.revokeToken();
     this.authService.clearToken();
     this.router.navigate(['']);
   }

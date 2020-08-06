@@ -65,6 +65,7 @@ export class UserService {
 
   logout() {
     this.authenticatedUser.next(undefined);
+    this.authService.revokeToken();
     this.authService.clearToken();
     this.router.navigate(['start']);
   }

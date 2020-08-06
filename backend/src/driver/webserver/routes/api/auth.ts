@@ -1,8 +1,9 @@
 // @ts-ignore
 import * as express from 'express';
 import {AuthController} from "../../../../implementation/controllers/AuthController";
-import {BadVerificationCodeError} from "../../../../implementation/security/GithubAuthManager";
+import {BadVerificationCodeError, GithubAuthManager} from "../../../../implementation/security/GithubAuthManager";
 import {NoTokenProvidedError} from "../../../../logic/use-cases/auth/VerifyToken";
+import {RevokeToken} from "../../../../logic/use-cases/auth/RevokeToken";
 
 const router = express.Router();
 const controller: AuthController = new AuthController();
@@ -36,4 +37,20 @@ router.get('/token/validate', async (req: express.Request, res: express.Response
         }
     }
 });
+
+router.delete('/token', async (req: express.Request, res: express.Response) => {
+    try {
+        const token: string = <string>req.headers.authorization;
+        RevokeToken(token, new GithubAuthManager())
+        res.status(200).send()
+    } catch (e) {
+        if (e instanceof NoTokenProvidedError) {
+            res.status(400).send("No token was provided!");
+        } else {
+            console.error(e);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+})
+
 export {router}

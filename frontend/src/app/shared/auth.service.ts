@@ -28,6 +28,10 @@ export class AuthService {
     }
   }
 
+  revokeToken(): Observable<any> {
+    return this.http.delete<any>('/api/auth/token', {headers: AuthService.getBearerHeader(this.getToken())});
+  }
+
   isTokenValid(): Observable<boolean> {
     // @ts-ignore
     return this.http.get<string>('/api/auth/token/validate', {headers: AuthService.getBearerHeader(this.getToken()), responseType: 'boolean'});

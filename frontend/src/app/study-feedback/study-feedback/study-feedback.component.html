@@ -2,10 +2,10 @@
   <span id="study-feedback-title">
     SEEance Evaluation Study
   </span>
-  <mat-icon *ngIf="isExpanded">minimize</mat-icon>
-  <mat-icon *ngIf="!isExpanded">maximize</mat-icon>
+  <mat-icon *ngIf="isExpanded && !isStudyFinished">minimize</mat-icon>
+  <mat-icon *ngIf="!isExpanded && !isStudyFinished">maximize</mat-icon>
 </span>
-<span id="study-feedback-body" *ngIf="isExpanded">
+<span id="study-feedback-body" *ngIf="isExpanded  || isStudyFinished">
   <app-study-start *ngIf="state==='start'"></app-study-start>
   <app-demographics *ngIf="state==='demographics'"></app-demographics>
   <app-ueq *ngIf="state?.includes('ueq')"></app-ueq>

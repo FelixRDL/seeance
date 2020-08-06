@@ -9,6 +9,7 @@ import {StudyService} from "../../shared/study.service";
 })
 export class StudyFeedbackComponent implements OnInit {
   isExpanded = true;
+  isStudyFinished = false;
   state: string;
   constructor(
     public study: StudyService
@@ -17,6 +18,9 @@ export class StudyFeedbackComponent implements OnInit {
   ngOnInit(): void {
     this.study.state.subscribe((newState: string) => {
       this.state = newState;
+      if(newState === 'thanks') {
+        this.isStudyFinished = true
+      }
     });
   }
 

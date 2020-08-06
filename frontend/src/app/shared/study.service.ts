@@ -79,7 +79,6 @@ export class StudyService {
     if(!this.isStudyActive()) {
       return
     }
-    console.log("UI EVT")
     event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/uievents`,
       {
@@ -94,7 +93,6 @@ export class StudyService {
     if(!this.isStudyActive()) {
       return
     }
-    console.log("SYS EVT")
     event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/systemevents/${type}`,
       event,

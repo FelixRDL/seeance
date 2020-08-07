@@ -42,6 +42,17 @@
   <input matInput [(ngModel)]="indicatorsWithoutTool">
 </mat-form-field>
 
+<mat-label>6. Is tracking time management a relevant issue within your own courses?</mat-label>
+<mat-radio-group class="mul_choice_item" [(ngModel)]="relevance">
+  <p>not at all</p>
+  <mat-radio-button value="1"></mat-radio-button>
+  <mat-radio-button value="2"></mat-radio-button>
+  <mat-radio-button value="3"></mat-radio-button>
+  <mat-radio-button value="4"></mat-radio-button>
+  <mat-radio-button value="5"></mat-radio-button>
+  <p>highly relevant</p>
+</mat-radio-group>
+
 <br>
 
 <span class="study-action-bar">

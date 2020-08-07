@@ -15,6 +15,7 @@ export class Task3x2Component implements OnInit {
   intervention: string;
   supportThroughTool: string;
   indicatorsWithoutTool: string;
+  relevance: string;
 
   projectName: string = 'seminario'
 
@@ -32,7 +33,8 @@ export class Task3x2Component implements OnInit {
       indicators: this.indicators,
       intervention: this.intervention,
       supportThroughTool: this.supportThroughTool,
-      indicatorsWithoutTool: this.indicatorsWithoutTool
+      indicatorsWithoutTool: this.indicatorsWithoutTool,
+      relevance: this.relevance
     }).subscribe(() => {
       this.study.proceedTo(`ueq_${this.taskId}`)
     })

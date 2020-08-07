@@ -1,9 +1,9 @@
-<h1 class="mat-h1">3.1 Task Sharing
+<h1 class="mat-h1">Task Sharing
   ({{study.getNumberOfAbsolvedTasks()+1}}/{{study.getNumberOfTotalTasks()}})</h1>
 <p>
   <i>
-    The course concept of Multimedia Engineering should encourage student groups to distribute their effort and
-    determine members responsible of certain aspects or modules of the project.
+    The course concept of Software Engineering II encourages student groups to distribute their development effort and
+    determine members responsible for certain aspects or modules of the project.
   </i>
 </p>
 
@@ -11,7 +11,7 @@
   Please verify, whether team <b>{{projectName}}</b> has effectively separated their project portions efforts among their members.
 </p>
 
-<p>1. Do you recognize indicators for team Y having effectively distributed responsibilities among their members?</p>
+<p>1. Do you recognize indicators for the team having effectively distributed responsibilities among their members?</p>
 <mat-radio-group class="mul_choice_item" [(ngModel)]="isSeparationOk">
   <mat-radio-button value="yes">Yes</mat-radio-button>
   <mat-radio-button value="no">No</mat-radio-button>
@@ -49,7 +49,7 @@
     End Study
   </button>
   <button mat-flat-button (click)="proceed()">
-    Submit
+    Next
   </button>
 </span>
 

@@ -1,18 +1,18 @@
-<h1 class="mat-h1">2.1 Workload Distribution
+<h1 class="mat-h1">Workload Distribution
   ({{study.getNumberOfAbsolvedTasks()+1}}/{{study.getNumberOfTotalTasks()}})</h1>
 <p>
   <i>
-    The course concept of Multimedia Engineering is designed for all team members to take on approximately
+    The course concept of Software Engineering II is designed for all team members to take on approximately
     equal portions of development effort in their projects.
   </i>
 </p>
 
 <p>
-  Please take a look at the project team <b>{{projectName}}</b> and assess, whether coding effort has been effectively distributed
-  between team members.
+  Please take a look at the project team <b>{{projectName}}</b> and assess, whether coding effort has been effectively
+  distributed among their team members.
 </p>
 
-<p>1. Do you recognize indicators for group X concerning issues in workload distribution?</p>
+<p>1. Do you recognize indicators for the group concerning issues in workload distribution?</p>
 <mat-radio-group class="mul_choice_item" [(ngModel)]="isHavingIssues">
   <mat-radio-button value="yes">Yes</mat-radio-button>
   <mat-radio-button value="no">No</mat-radio-button>
@@ -50,7 +50,7 @@
     End Study
   </button>
   <button mat-flat-button (click)="proceed()">
-    Submit
+    Next
   </button>
 </span>
 

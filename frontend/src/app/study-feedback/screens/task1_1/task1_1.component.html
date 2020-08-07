@@ -1,11 +1,15 @@
-<h1 class="mat-h1">1.1 Time Management
+<h1 class="mat-h1">Time Management
   ({{study.getNumberOfAbsolvedTasks()+1}}/{{study.getNumberOfTotalTasks()}})</h1>
 <p>
   <i>
-    The Multimedia Engineering course iteration of SS19 has been started on XX.XX.XXXX. After a short orientation phase,
-    the actual development phase has started on YY.YY.YYYY. Students have been asked to start development reasonably
-    early and work incrementally until the submission deadline on ZZ.ZZ.ZZZZ.
+    The development phase of Software Engineering II has started on <b>01.08.19</b>. Students have been asked to start
+    development reasonably early and work incrementally. It was recommended to submit an application prototype on
+    <b>01.09.19</b>. Project submission deadline was the <b>30.09.19</b>.
   </i>
+</p>
+
+<p>
+  Please assess the timing of the course project teams.
 </p>
 
 <p>1. Which of the groups of this iteration may have run into temporal issues?</p>
@@ -45,7 +49,7 @@
     End Study
   </button>
   <button mat-flat-button (click)="proceed()" [disabled]="isSubmitting">
-    <span *ngIf="!isSubmitting">Submit</span>
+    <span *ngIf="!isSubmitting">Next</span>
     <span *ngIf="isSubmitting">Submitting...</span>
   </button>
 </span>

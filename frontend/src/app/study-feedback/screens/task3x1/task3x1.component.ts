@@ -16,7 +16,7 @@ export class Task3x1Component implements OnInit {
   supportThroughTool: string;
   indicatorsWithoutTool: string;
 
-  projectName: string = 'URSlides'
+  projectName: string = 'presentMe'
 
 
   constructor(

@@ -16,7 +16,7 @@ export class Task3x2Component implements OnInit {
   supportThroughTool: string;
   indicatorsWithoutTool: string;
 
-  projectName: string = 'Thesis Assistant'
+  projectName: string = 'seminario'
 
 
   constructor(

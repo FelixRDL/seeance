@@ -162,8 +162,8 @@ export class StudyController {
 
     async initializeStudySetup(authenticatedUser: any) {
         const course = await CreateCourse({
-            title: 'MME-SS19-Projects',
-            description: 'All course project for summer semester 19 course iteration of Multimedia Engineering',
+            title: 'SE-II-SS2019',
+            description: 'All course projects for summer semester 19 course iteration of Software Engineering II',
             ownerId: authenticatedUser.githubId,
             authorizeeIds: []
         } as any, authenticatedUser, new InternalCourseRepository());

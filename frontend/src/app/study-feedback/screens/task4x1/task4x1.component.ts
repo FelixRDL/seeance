@@ -10,7 +10,7 @@ export class Task4x1Component implements OnInit {
 
   private taskId: string = '4x1'
 
-  projectName: string = 'mensitracker'
+  projectName: string = 'cantina-time'
 
   isHavingIssues: string;
   indicators: string;

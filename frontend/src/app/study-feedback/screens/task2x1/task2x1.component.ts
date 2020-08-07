@@ -8,7 +8,7 @@ import {StudyService} from "../../../shared/study.service";
 })
 export class Task2x1Component implements OnInit {
 
-  projectName: string = 'Mensitracker'
+  projectName: string = 'cantina-time'
 
   isHavingIssues: string;
   indicators: string;

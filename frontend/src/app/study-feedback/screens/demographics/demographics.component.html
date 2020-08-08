@@ -1,18 +1,26 @@
 <h1 class="mat-h1">Demographic Information</h1>
+
+<mat-label>How many years have you been working in the field of software engineering education?</mat-label>
 <mat-form-field>
-  <mat-label>How many years have you been working in the field of software engineering education?</mat-label>
-  <input matInput type="number" [(ngModel)]="timeInDomain">
+  <mat-label>Number of Years in the Domain</mat-label>
+  <input matInput type="string" [(ngModel)]="timeInDomain">
 </mat-form-field>
+
+<mat-label>What is your role in software engineering education?</mat-label>
 <mat-form-field>
-  <mat-label>What is your role in software engineering education?</mat-label>
+  <mat-label>Occupation</mat-label>
   <input matInput type="string" [(ngModel)]="role">
 </mat-form-field>
+
+<mat-label>How big is the team size in courses, that you are assisting (1 if single assignments)?</mat-label>
 <mat-form-field>
-  <mat-label>How big is the team size in courses, that you are assisting (1 if single assignments)?</mat-label>
-  <input matInput type="number" [(ngModel)]="teamSize">
+  <mat-label>Members per Group</mat-label>
+  <input matInput type="string" [(ngModel)]="teamSize">
 </mat-form-field>
+
+<mat-label>Which programming languages and/or paradigms do you teach?</mat-label>
 <mat-form-field>
-  <mat-label>Which programming languages and/or paradigms do you teach?</mat-label>
+  <mat-label>Concepts & Languages</mat-label>
   <textarea matInput [(ngModel)]="learningContent"></textarea>
 </mat-form-field>
 

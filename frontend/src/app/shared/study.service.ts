@@ -29,7 +29,11 @@ export class StudyService {
     if(state.includes('ueq')) {
       this.setState(state)
     } else if(state === 'tasks') {
-      this.setState(this.getNextTask() || 'notes')
+      const taskId: string = this.getNextTask()
+      if(taskId) {
+        this.submitTaskStart(taskId)
+      }
+      this.setState(taskId || 'notes')
     } else {
       if(this.allowedStates.includes(state)) {
         this.setState(state)

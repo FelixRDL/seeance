@@ -5,14 +5,14 @@
               'projects', model?.analysis.assignedProject,
               'analyses', model?.analysis._id,
               'configure']" *ngIf="model?.html && hasSettings">
-        <mat-icon>settings</mat-icon>
+        <mat-icon [id]="'settings.'+model?.analysis.assignedProject">settings</mat-icon>
       </button>
       <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="model?.html && hasDescription" (click)="showInfo()">
-        <mat-icon>info</mat-icon>
+        <mat-icon [id]="'info.'+model?.analysis.assignedProject">info</mat-icon>
       </button>
       <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="model?.html" [routerLink]="[
               'analyses', model?.analysis._id]">
-        <mat-icon>visibility</mat-icon>
+        <mat-icon [id]="'detail.'+model?.analysis.assignedProject">visibility</mat-icon>
       </button>
     </span>
     <span class="center">

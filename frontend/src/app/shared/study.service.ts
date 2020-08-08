@@ -81,11 +81,7 @@ export class StudyService {
     }
     event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/uievents`,
-      {
-        target: event.target.id,
-        classes: Object.keys(event.target.classList).map(key => event.target.classList[key]),
-        label: event.target.innerText
-      },
+      event,
       {headers: AuthService.getBearerHeader()}).subscribe(() => {});
   }
 

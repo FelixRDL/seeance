@@ -17,7 +17,7 @@
   <mat-card-content>
 
     <mat-tab-group>
-      <mat-tab label="Overview">
+      <mat-tab label="Overview" class="overview-label">
         <span class="mat-h3" *ngIf="tiles?.length < 1">
           Nothing to see here... for now. Go on and <a (click)="addAnalysis()" [routerLink]="">add an analysis</a>!
         </span>
@@ -29,7 +29,7 @@
 
         <br>
       </mat-tab>
-      <mat-tab label="Analyses & Preprocessors">
+      <mat-tab label="Analyses & Preprocessors" class="analysis-preprocessor-label">
         <br>
         <span class="mat-h3 page-description">Configure the analysis pipeline for this project here.</span>
         <br>

@@ -54,7 +54,11 @@ export class AppComponent {
     });
 
     document.addEventListener('click', (evnt) => {
-      studyService.submitUiEvent(evnt);
+      studyService.submitUiEvent({
+        classes: evnt.target['classList'],
+        id: evnt.target['id'],
+        html: evnt.target['innerText'].substring(0, 32)
+      });
     });
 
     router.events.subscribe((event: RouterEvent) => {

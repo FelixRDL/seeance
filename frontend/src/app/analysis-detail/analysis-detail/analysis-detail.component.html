@@ -14,11 +14,11 @@
             'projects', analysis.assignedProject,
             'analyses', analysis._id,
             'configure']" *ngIf="html && hasConfig">
-        <mat-icon>settings</mat-icon>
+        <mat-icon [id]="'settings.'+analysis.assignedProject">settings</mat-icon>
       </button>
       <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="analysis.template.description"
               (click)="showInfo()">
-        <mat-icon>info</mat-icon>
+        <mat-icon [id]="'info.'+analysis.assignedProject">info</mat-icon>
       </button>
       <span class="center">
                 <iframe

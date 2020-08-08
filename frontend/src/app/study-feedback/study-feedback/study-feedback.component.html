@@ -5,17 +5,19 @@
   <mat-icon *ngIf="isExpanded && !isStudyFinished">minimize</mat-icon>
   <mat-icon *ngIf="!isExpanded && !isStudyFinished">maximize</mat-icon>
 </span>
-<span id="study-feedback-body" *ngIf="isExpanded  || isStudyFinished">
-  <app-study-start *ngIf="state==='start'"></app-study-start>
-  <app-demographics *ngIf="state==='demographics'"></app-demographics>
-  <app-ueq *ngIf="state?.includes('ueq')"></app-ueq>
-  <app-misc-notes *ngIf="state==='notes'"></app-misc-notes>
-  <app-thanks *ngIf="state==='thanks'"></app-thanks>
-  <app-task1-1 *ngIf="state==='1x1'"></app-task1-1>
-  <app-task2x1 *ngIf="state==='2x1'"></app-task2x1>
-  <app-task2x2 *ngIf="state==='2x2'"></app-task2x2>
-  <app-task3x1 *ngIf="state==='3x1'"></app-task3x1>
-  <app-task3x2 *ngIf="state==='3x2'"></app-task3x2>
-  <app-task4x1 *ngIf="state==='4x1'"></app-task4x1>
-  <app-task4x2 *ngIf="state==='4x2'"></app-task4x2>
+<span id="study-feedback-body" [hidden]="!isExpanded">
+  <span id="study-feedback-body-content">
+    <app-study-start [hidden]="state!=='start'"></app-study-start>
+    <app-demographics [hidden]="state!=='demographics'"></app-demographics>
+    <app-ueq [hidden]="!state?.includes('ueq')"></app-ueq>
+    <app-misc-notes [hidden]="state!=='notes'"></app-misc-notes>
+    <app-thanks [hidden]="state!=='thanks'"></app-thanks>
+    <app-task1-1 [hidden]="state!=='1x1'"></app-task1-1>
+    <app-task2x1 [hidden]="state!=='2x1'"></app-task2x1>
+    <app-task2x2 [hidden]="state!=='2x2'"></app-task2x2>
+    <app-task3x1 [hidden]="state!=='3x1'"></app-task3x1>
+    <app-task3x2 [hidden]="state!=='3x2'"></app-task3x2>
+    <app-task4x1 [hidden]="state!=='4x1'"></app-task4x1>
+    <app-task4x2 [hidden]="state!=='4x2'"></app-task4x2>
+  </span>
 </span>

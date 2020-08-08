@@ -32,8 +32,6 @@
 #study-feedback-body {
   font-size: 16px;
   position: relative;
-  display: block;
-  padding:16px;
 }
 
 mat-icon {
@@ -43,4 +41,9 @@ mat-icon {
 ::ng-deep .mat-flat-button {
   background-color: #36B552;
   color: white;
+}
+
+#study-feedback-body-content {
+  display:block;
+  padding:16px;
 }

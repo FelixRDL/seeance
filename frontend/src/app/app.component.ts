@@ -59,9 +59,8 @@ export class AppComponent {
 
     router.events.subscribe((event: RouterEvent) => {
       if(event instanceof ActivationEnd) {
-        console.log(event.snapshot.url.reduce((a, x) => a + '/' + x, ''))
         studyService.submitSystemEvent('route', {
-          url: event.snapshot.url
+          url: event.snapshot.url.reduce((a, x) => a + '/' + x, '')
         })
       }
     });

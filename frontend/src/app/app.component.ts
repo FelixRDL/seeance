@@ -3,7 +3,7 @@ import {UserService} from './shared/user.service';
 import {User} from './shared/core/User';
 import {CourseService} from './shared/course.service';
 import {StudyService} from "./shared/study.service";
-import {Router, RoutesRecognized} from "@angular/router";
+import {Router, RoutesRecognized, ActivationEnd, ActivationStart, RouterEvent} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -57,10 +57,13 @@ export class AppComponent {
       studyService.submitUiEvent(evnt);
     });
 
-    router.events.subscribe((event) => {
-      studyService.submitSystemEvent('route', {
-        url: event['url']
-      })
+    router.events.subscribe((event: RouterEvent) => {
+      if(event instanceof ActivationEnd) {
+        console.log(event.snapshot.url.reduce((a, x) => a + '/' + x, ''))
+        studyService.submitSystemEvent('route', {
+          url: event.snapshot.url
+        })
+      }
     });
   }
   title = 'cogito-frontend';

@@ -44,11 +44,23 @@ export class UeqComponent implements OnInit {
       } else {
         this.study.proceedTo('notes')
       }
+      this.wipe()
     });
   }
 
   cancel() {
     this.study.proceedTo('notes')
+  }
+
+  wipe() {
+    this.item1 = 0
+    this.item2 = 0
+    this.item3 = 0
+    this.item4 = 0
+    this.item5 = 0
+    this.item6 = 0
+    this.item7 = 0
+    this.item8 = 0
   }
 
   isComplete(): boolean {

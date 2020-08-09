@@ -16,31 +16,31 @@
 <mat-radio-group class="mul_choice_item" [(ngModel)]="isHavingIssues">
   <mat-radio-button value="yes">Yes</mat-radio-button>
   <mat-radio-button value="no">No</mat-radio-button>
-  <mat-radio-button value="dontknow">Don't Know</mat-radio-button>
+  <mat-radio-button value="dontknow">Do not know</mat-radio-button>
 </mat-radio-group>
 
 <p>2. Which indicators support this assumption?</p>
 <mat-form-field>
   <mat-label>Indicators</mat-label>
-  <input matInput [(ngModel)]="indicators">
+  <textarea matInput [(ngModel)]="indicators"></textarea>
 </mat-form-field>
 
 <p>3. Which kind of intervention would you issue in reaction to those findings?</p>
 <mat-form-field>
   <mat-label>Intervention Measures</mat-label>
-  <input matInput [(ngModel)]="intervention">
+  <textarea matInput [(ngModel)]="intervention"></textarea>
 </mat-form-field>
 
 <p>4. How has SEEance helped you identify these issues?</p>
 <mat-form-field>
   <mat-label>Helpful Features</mat-label>
-  <input matInput [(ngModel)]="supportThroughTool">
+  <textarea matInput [(ngModel)]="supportThroughTool"></textarea>
 </mat-form-field>
 
 <p>5. How would you have found out about these issues without this tool?</p>
 <mat-form-field>
   <mat-label>Alternative Indicators</mat-label>
-  <input matInput [(ngModel)]="indicatorsWithoutTool">
+  <textarea matInput [(ngModel)]="indicatorsWithoutTool"></textarea>
 </mat-form-field>
 
 <mat-label>6. Is tracking workload distribution a relevant issue within your own courses?</mat-label>

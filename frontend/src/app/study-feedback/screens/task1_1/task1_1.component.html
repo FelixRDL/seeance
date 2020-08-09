@@ -15,31 +15,31 @@
 <p>1. Which of the groups of this iteration may have run into temporal issues?</p>
 <mat-form-field>
   <mat-label>Group Names</mat-label>
-  <input matInput [(ngModel)]="groupNames">
+  <textarea matInput [(ngModel)]="groupNames"></textarea>
 </mat-form-field>
 
 <p>2. Which indicators show those issues?</p>
 <mat-form-field>
   <mat-label>Indicators for groups</mat-label>
-  <input matInput [(ngModel)]="indicators">
+  <textarea matInput [(ngModel)]="indicators"></textarea>
 </mat-form-field>
 
 <p>3. Which kind of intervention would you issue in reaction to those findings?</p>
 <mat-form-field>
   <mat-label>Intervention Measures</mat-label>
-  <input matInput [(ngModel)]="intervention">
+  <textarea matInput [(ngModel)]="intervention"></textarea>
 </mat-form-field>
 
 <p>4. How has SEEance helped you identify these issues?</p>
 <mat-form-field>
   <mat-label>Helpful Features</mat-label>
-  <input matInput [(ngModel)]="supportThroughTool">
+  <textarea matInput [(ngModel)]="supportThroughTool"></textarea>
 </mat-form-field>
 
 <p>5. How would you have found out about these issues without this tool?</p>
 <mat-form-field>
   <mat-label>Alternative Indicators</mat-label>
-  <input matInput [(ngModel)]="indicatorsWithoutTool">
+  <textarea matInput [(ngModel)]="indicatorsWithoutTool"></textarea>
 </mat-form-field>
 
 <mat-label>6. Is tracking time management a relevant issue within your own courses?</mat-label>

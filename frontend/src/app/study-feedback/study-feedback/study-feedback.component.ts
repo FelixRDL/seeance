@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {StudyService} from "../../shared/study.service";
 
@@ -12,7 +12,8 @@ export class StudyFeedbackComponent implements OnInit {
   isStudyFinished = false;
   state: string;
   constructor(
-    public study: StudyService
+    public study: StudyService,
+    private elRef:ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -21,6 +22,15 @@ export class StudyFeedbackComponent implements OnInit {
       if(newState === 'thanks') {
         this.isStudyFinished = true
       }
+      if(!newState.includes('_reading')) {
+        this.elRef.nativeElement.classList.add('normal-size')
+        this.elRef.nativeElement.classList.remove('maxi-size')
+      } else {
+        this.elRef.nativeElement.classList.add('maxi-size')
+        this.elRef.nativeElement.classList.remove('normal-size')
+      }
+
+
     });
   }
 

@@ -25,10 +25,9 @@
     <textarea matInput [(ngModel)]="groupNames" [disabled]="!study.state.getValue().includes('_working')"></textarea>
   </mat-form-field>
 
-  <br>
-  <br>
-
   <span class="study-action-bar" *ngIf="study.state.getValue().includes('_working')">
+      <br>
+      <br>
       <button mat-flat-button class="terminate-btn" (click)="cancel()">End Study</button>
       <button mat-button (click)="skipTask()" color="warn"><span>Skip Task</span></button>
       <button mat-flat-button (click)="finishTask()"><span>Submit</span></button>

@@ -30,7 +30,7 @@ export class StudyService {
       this.setState(state)
     } else if(state === 'tasks') {
       const taskId: string = this.getNextTask()
-      this.setState(taskId + '_reading' || 'notes')
+      this.setState(taskId ? taskId + '_reading' : 'notes')
     } else {
       this.setState(state)
     }

@@ -19,7 +19,9 @@
 
 <span *ngIf="!study.state.getValue().includes('_reading')">
   <p>1. Do you recognize indicators for the team having effectively modularized their application?</p>
-  <mat-radio-group class="mul_choice_item" [(ngModel)]="isHavingIssues">
+  <mat-radio-group class="mul_choice_item"
+                   [(ngModel)]="isHavingIssues"
+                   [disabled]="!study.state.getValue().includes('_working')">
     <mat-radio-button value="yes">Yes</mat-radio-button>
     <mat-radio-button value="no">No</mat-radio-button>
     <mat-radio-button value="dontknow">Do not know</mat-radio-button>

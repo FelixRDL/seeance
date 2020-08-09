@@ -13,7 +13,10 @@
     <div *ngIf="visits?.length < 1">
       <div class="mat-h3">
         Quite empty here... look out for courses on the left - and if there are none,
-        <a [routerLink]="['courses']">create one now</a>!
+        <a
+          [attr.href]="isStudyFinished() ? ['/courses'] : null">
+          create one now
+        </a>!
       </div>
     </div>
   </mat-card-content>

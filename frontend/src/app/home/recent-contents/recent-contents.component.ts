@@ -4,6 +4,7 @@ import {Course} from "../../shared/core/Course";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../../shared/user.service";
 import {User, VisitStat} from "../../shared/core/User";
+import {StudyService} from "../../shared/study.service";
 
 @Component({
   selector: 'app-recent-contents',
@@ -17,7 +18,7 @@ export class RecentContentsComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private studyService: StudyService
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +31,10 @@ export class RecentContentsComponent implements OnInit {
         return nV;
       });
     });
+  }
+
+  isStudyFinished(): boolean {
+    return this.studyService.isStudyFinished()
   }
 
 }

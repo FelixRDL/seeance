@@ -1,5 +1,5 @@
 <mat-card class="pagecard">
-  <mat-card-content>
+  <mat-card-content *ngIf="!studyService.isStudyActive()">
     <span class="mat-h2">Recently Visited Projects</span>
     <mat-divider></mat-divider>
     <mat-grid-list [cols]="4" rowHeight="4:1" *ngIf="visits?.length > 0">
@@ -19,5 +19,11 @@
         </a>!
       </div>
     </div>
+  </mat-card-content>
+
+  <mat-card-content *ngIf="studyService.isStudyActive()">
+    <span class="mat-h2">Welcome To The SEEance Evaluation Study!</span>
+    <mat-divider></mat-divider>
+    <p class="mat-h3">Have a look to the right, you can find study instructions within the green chat window!</p>
   </mat-card-content>
 </mat-card>

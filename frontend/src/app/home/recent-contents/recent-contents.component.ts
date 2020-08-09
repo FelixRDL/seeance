@@ -18,7 +18,7 @@ export class RecentContentsComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private userService: UserService,
-    private studyService: StudyService
+    public studyService: StudyService
   ) { }
 
   ngOnInit(): void {

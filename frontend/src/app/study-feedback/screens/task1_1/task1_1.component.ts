@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {StudyService} from "../../../shared/study.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-task1-1',
@@ -20,7 +21,9 @@ export class Task1_1Component implements OnInit {
   isSubmitting = false
 
   constructor(
-    public study: StudyService
+    public study: StudyService,
+    private router: Router
+
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class Task1_1Component implements OnInit {
   }
 
   startTask(): void {
+    this.router.navigate([''])
     this.study.submitSystemEvent('taskStarted', {
       task: this.taskId,
       timestamp: Date.now()

@@ -12,12 +12,13 @@
     <app-ueq [hidden]="!state?.includes('ueq')"></app-ueq>
     <app-misc-notes [hidden]="state!=='notes'"></app-misc-notes>
     <app-thanks [hidden]="state!=='thanks'"></app-thanks>
-    <app-task1-1 [hidden]="state!=='1x1'"></app-task1-1>
-    <app-task2x1 [hidden]="state!=='2x1'"></app-task2x1>
-    <app-task2x2 [hidden]="state!=='2x2'"></app-task2x2>
-    <app-task3x1 [hidden]="state!=='3x1'"></app-task3x1>
-    <app-task3x2 [hidden]="state!=='3x2'"></app-task3x2>
-    <app-task4x1 [hidden]="state!=='4x1'"></app-task4x1>
-    <app-task4x2 [hidden]="state!=='4x2'"></app-task4x2>
+
+    <app-task1-1 [hidden]="!state.includes('1x1') || state.includes('ueq')"></app-task1-1>
+    <app-task2x1 [hidden]="!state.includes('2x1') || state.includes('ueq')"></app-task2x1>
+    <app-task2x2 [hidden]="!state.includes('2x2') || state.includes('ueq')"></app-task2x2>
+    <app-task3x1 [hidden]="!state.includes('3x1') || state.includes('ueq')"></app-task3x1>
+    <app-task3x2 [hidden]="!state.includes('3x2') || state.includes('ueq')"></app-task3x2>
+    <app-task4x1 [hidden]="!state.includes('4x1') || state.includes('ueq')"></app-task4x1>
+    <app-task4x2 [hidden]="!state.includes('4x2') || state.includes('ueq')"></app-task4x2>
   </span>
 </span>

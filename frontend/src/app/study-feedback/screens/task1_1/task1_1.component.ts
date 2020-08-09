@@ -8,6 +8,8 @@ import {StudyService} from "../../../shared/study.service";
 })
 export class Task1_1Component implements OnInit {
 
+  private taskId: string = '1x1'
+
   groupNames: string;
   indicators: string;
   intervention: string;
@@ -22,12 +24,12 @@ export class Task1_1Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.study.submitTaskStart('1x1')
+    this.study.submitTaskStart(this.taskId, 'reading')
   }
 
-  proceed(): void {
+  submit(): void {
     this.isSubmitting = true
-    this.study.submitTaskComplete('1x1', {
+    this.study.submitTaskComplete(this.taskId, {
       groupNames: this.groupNames,
       indicators: this.indicators,
       intervention: this.intervention,
@@ -35,12 +37,36 @@ export class Task1_1Component implements OnInit {
       indicatorsWithoutTool: this.indicatorsWithoutTool,
       relevance: this.relevance
     }).subscribe(() => {
-      this.study.proceedTo('ueq_1x1')
+      this.study.proceedTo(`ueq_${this.taskId}`)
     })
   }
 
   cancel(): void {
     this.study.proceedTo('notes')
+  }
+
+  startTask(): void {
+    this.study.submitSystemEvent('taskStarted', {
+      task: this.taskId,
+      timestamp: Date.now()
+    })
+    this.study.proceedTo(`${this.taskId}_working`)
+  }
+
+  finishTask(): void {
+    this.study.submitSystemEvent('taskFinished', {
+      task: this.taskId,
+      timestamp: Date.now()
+    })
+    this.study.proceedTo(`${this.taskId}_questionnaire`)
+  }
+
+  skipTask(): void {
+    this.study.submitSystemEvent('taskSkipped', {
+      task: this.taskId,
+      timestamp: Date.now()
+    })
+    this.study.proceedTo(`ueq_${this.taskId}`)
   }
 
 }

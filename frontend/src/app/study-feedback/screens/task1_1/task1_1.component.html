@@ -1,5 +1,5 @@
 <h1 class="mat-h1">Time Management
-  ({{study.getNumberOfAbsolvedTasks()+1}}/{{study.getNumberOfTotalTasks()}})</h1>
+  ({{study.getNumberOfAbsolvedTasks() + 1}}/{{study.getNumberOfTotalTasks()}})</h1>
 <p>
   <i>
     The development phase of Software Engineering II has started on <b>01.08.19</b>. Students have been asked to start
@@ -12,55 +12,75 @@
   Please assess the timing of the course project teams.
 </p>
 
-<p>1. Which of the groups of this iteration may have run into temporal issues?</p>
-<mat-form-field>
-  <mat-label>Group Names</mat-label>
-  <textarea matInput [(ngModel)]="groupNames"></textarea>
-</mat-form-field>
-
-<p>2. Which indicators show those issues?</p>
-<mat-form-field>
-  <mat-label>Indicators for groups</mat-label>
-  <textarea matInput [(ngModel)]="indicators"></textarea>
-</mat-form-field>
-
-<p>3. Which kind of intervention would you issue in reaction to those findings?</p>
-<mat-form-field>
-  <mat-label>Intervention Measures</mat-label>
-  <textarea matInput [(ngModel)]="intervention"></textarea>
-</mat-form-field>
-
-<p>4. How has SEEance helped you identify these issues?</p>
-<mat-form-field>
-  <mat-label>Helpful Features</mat-label>
-  <textarea matInput [(ngModel)]="supportThroughTool"></textarea>
-</mat-form-field>
-
-<p>5. How would you have found out about these issues without this tool?</p>
-<mat-form-field>
-  <mat-label>Alternative Indicators</mat-label>
-  <textarea matInput [(ngModel)]="indicatorsWithoutTool"></textarea>
-</mat-form-field>
-
-<mat-label>6. Is tracking time management a relevant issue within your own courses?</mat-label>
-<mat-radio-group class="mul_choice_item" [(ngModel)]="relevance">
-  <p>not at all</p>
-  <mat-radio-button value="1"></mat-radio-button>
-  <mat-radio-button value="2"></mat-radio-button>
-  <mat-radio-button value="3"></mat-radio-button>
-  <mat-radio-button value="4"></mat-radio-button>
-  <mat-radio-button value="5"></mat-radio-button>
-  <p>highly relevant</p>
-</mat-radio-group>
-
-<br>
-
-<span class="study-action-bar">
-  <button mat-flat-button class="terminate-btn" (click)="cancel()">
-    End Study
-  </button>
-  <button mat-flat-button (click)="proceed()" [disabled]="isSubmitting">
-    <span *ngIf="!isSubmitting">Next</span>
-    <span *ngIf="isSubmitting">Submitting...</span>
-  </button>
+<span class="study-action-bar" *ngIf="study.state.getValue().includes('_reading')">
+  <button mat-flat-button class="terminate-btn" (click)="cancel()">End Study</button>
+  <button mat-flat-button (click)="startTask()"><span>Start Task</span></button>
 </span>
+
+
+<span *ngIf="!study.state.getValue().includes('_reading')">
+
+  <p>1. Which of the groups of this iteration may have run into temporal issues?</p>
+  <mat-form-field><mat-label>Group Names</mat-label>
+    <textarea matInput [(ngModel)]="groupNames" [disabled]="!study.state.getValue().includes('_working')"></textarea>
+  </mat-form-field>
+
+  <br>
+  <br>
+
+  <span class="study-action-bar" *ngIf="study.state.getValue().includes('_working')">
+      <button mat-flat-button class="terminate-btn" (click)="cancel()">End Study</button>
+      <button mat-button (click)="skipTask()" color="warn"><span>Skip Task</span></button>
+      <button mat-flat-button (click)="finishTask()"><span>Submit</span></button>
+  </span>
+
+  <span *ngIf="study.state.getValue().includes('_questionnaire')">
+    <p>2. Which indicators show those issues?</p>
+    <mat-form-field>
+      <mat-label>Indicators for groups</mat-label>
+      <textarea matInput [(ngModel)]="indicators"></textarea>
+    </mat-form-field>
+
+    <p>3. Which kind of intervention would you issue in reaction to those findings?</p>
+    <mat-form-field>
+      <mat-label>Intervention Measures</mat-label>
+      <textarea matInput [(ngModel)]="intervention"></textarea>
+    </mat-form-field>
+
+    <p>4. How has SEEance helped you identify these issues?</p>
+    <mat-form-field>
+      <mat-label>Helpful Features</mat-label>
+      <textarea matInput [(ngModel)]="supportThroughTool"></textarea>
+    </mat-form-field>
+
+    <p>5. How would you have found out about these issues without this tool?</p>
+    <mat-form-field>
+      <mat-label>Alternative Indicators</mat-label>
+      <textarea matInput [(ngModel)]="indicatorsWithoutTool"></textarea>
+    </mat-form-field>
+
+    <mat-label>6. Is tracking time management a relevant issue within your own courses?</mat-label>
+    <mat-radio-group class="mul_choice_item" [(ngModel)]="relevance">
+      <p>not at all</p>
+      <mat-radio-button value="1"></mat-radio-button>
+      <mat-radio-button value="2"></mat-radio-button>
+      <mat-radio-button value="3"></mat-radio-button>
+      <mat-radio-button value="4"></mat-radio-button>
+      <mat-radio-button value="5"></mat-radio-button>
+      <p>highly relevant</p>
+    </mat-radio-group>
+
+    <br>
+
+    <span class="study-action-bar">
+      <button mat-flat-button class="terminate-btn" (click)="cancel()">
+        End Study
+      </button>
+      <button mat-flat-button (click)="submit()" [disabled]="isSubmitting">
+        <span *ngIf="!isSubmitting">Next</span>
+        <span *ngIf="isSubmitting">Submitting...</span>
+      </button>
+    </span>
+  </span>
+</span>
+

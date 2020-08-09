@@ -30,15 +30,14 @@ export class StudyService {
       this.setState(state)
     } else if(state === 'tasks') {
       const taskId: string = this.getNextTask()
-      if(taskId) {
-        this.submitTaskStart(taskId)
-      }
-      this.setState(taskId || 'notes')
+      this.setState(taskId + '_reading' || 'notes')
     } else {
-      if(this.allowedStates.includes(state)) {
-        this.setState(state)
-      }
+      this.setState(state)
     }
+
+    this.submitSystemEvent('study_nav', {
+      type: state
+    })
   }
 
   submitDemographics(demos: any): Observable<any> {
@@ -48,10 +47,11 @@ export class StudyService {
       {headers: AuthService.getBearerHeader()});
   }
 
-  submitTaskStart(taskId: string) {
+  submitTaskStart(taskId: string, type: string) {
     return this.httpClient.post(`/api/study/tasks/${taskId}/start`,
       {
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        type: type
       },
       {headers: AuthService.getBearerHeader()});
   }

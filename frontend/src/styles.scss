@@ -166,10 +166,15 @@ span[hidden] {
 
 
 .normal-size {
+  position: absolute;
+  bottom: 0px;
   width: 500px;
+  right: 0px;
 }
 
 .maxi-size {
+  position: absolute;
+  bottom: 0px;
   height:100%;
-  width: 1440px;
+  width: 100%;
 }

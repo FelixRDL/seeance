@@ -1,9 +1,11 @@
-<span id="study-feedback-header"  (click)="toggle()">
+<span id="study-feedback-header"  (click)="state.includes('reading') ? null : toggle()">
   <span id="study-feedback-title">
     SEEance Evaluation Study
   </span>
-  <mat-icon *ngIf="isExpanded && !isStudyFinished">minimize</mat-icon>
-  <mat-icon *ngIf="!isExpanded && !isStudyFinished">maximize</mat-icon>
+  <span *ngIf="!state.includes('reading')">
+    <mat-icon *ngIf="isExpanded && !isStudyFinished">minimize</mat-icon>
+    <mat-icon *ngIf="!isExpanded && !isStudyFinished">maximize</mat-icon>
+  </span>
 </span>
 <span id="study-feedback-body" [hidden]="!isExpanded">
   <span id="study-feedback-body-content">

@@ -148,7 +148,6 @@ export class StudyController {
         })
         await this.addAnalysis(courseId, project._id, 'estimated-active-time')
         await this.addAnalysis(courseId, project._id, 'file-ownership')
-        await this.addAnalysis(courseId, project._id, 'files-by-number-of-coauthors')
         await this.addAnalysis(courseId, project._id, 'files-by-size')
         await this.addAnalysis(courseId, project._id, 'files-per-commit-number')
         await this.addAnalysis(courseId, project._id, 'total-file-ownership')

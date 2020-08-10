@@ -166,6 +166,7 @@ span[hidden] {
 
 
 .normal-size {
+  display: block;
   position: absolute;
   bottom: 0px;
   width: 500px;
@@ -177,4 +178,13 @@ span[hidden] {
   bottom: 0px;
   height:100%;
   width: 100%;
+}
+
+.maxi-size #study-feedback-body {
+  display: flex;
+  padding-top: 16px;
+}
+
+.study-action-bar {
+  padding-top: 64px;
 }

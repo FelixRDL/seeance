@@ -7,6 +7,7 @@ import {StudyService} from "../../shared/study.service";
   templateUrl: './study-feedback.component.html',
   styleUrls: ['./study-feedback.component.scss']
 })
+
 export class StudyFeedbackComponent implements OnInit {
   isExpanded = true;
   isStudyFinished = false;
@@ -29,13 +30,10 @@ export class StudyFeedbackComponent implements OnInit {
         this.elRef.nativeElement.classList.add('maxi-size')
         this.elRef.nativeElement.classList.remove('normal-size')
       }
-
-
-    });
+    })
   }
 
   toggle() {
-    this.isExpanded = !this.isExpanded;
+    this.isExpanded = !this.isExpanded
   }
-
 }

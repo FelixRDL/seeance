@@ -39,20 +39,22 @@ export class UeqComponent implements OnInit {
       item8: this.item8
     };
     this.study.submitUeq(result).subscribe(() => {
+      this.wipe()
       if(this.study.state.getValue().split('_').length > 1) {
         this.study.proceedTo('tasks');
       } else {
         this.study.proceedTo('notes')
       }
-      this.wipe()
     });
   }
 
   cancel() {
+    this.wipe()
     this.study.proceedTo('notes')
   }
 
   wipe() {
+    this.isSubmitting = false
     this.item1 = 0
     this.item2 = 0
     this.item3 = 0

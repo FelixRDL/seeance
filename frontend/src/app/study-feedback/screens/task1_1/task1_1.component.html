@@ -22,7 +22,7 @@
 
   <p>1. Which of the groups of this iteration may have run into temporal issues?</p>
   <mat-form-field><mat-label>Group Names</mat-label>
-    <textarea matInput [(ngModel)]="groupNames" [disabled]="!study.state.getValue().includes('_working')"></textarea>
+    <textarea matInput [(ngModel)]="groupNames" ></textarea>
   </mat-form-field>
 
   <span class="study-action-bar" *ngIf="study.state.getValue().includes('_working')">

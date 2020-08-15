@@ -137,7 +137,8 @@ export class StudyController {
         
         await this.addPreprocessor(courseId, project._id, 'ignore-files-by-extension', {
             'extensions': ['jpg','png','mp4','svg','ai','wav','mp3', 'gif', 'jpeg', 'pdf'],
-            'name_contains': ['package-lock', 'DS_Store', '.min.']
+            'name_contains': ['package-lock', 'DS_Store', '.min.'],
+            'within_path': ['node_modules']
         })
         await this.addPreprocessor(courseId, project._id, 'remove-outliers')
         await this.addAnalysis(courseId, project._id, 'activity-over-time', {
@@ -149,7 +150,8 @@ export class StudyController {
         await this.addAnalysis(courseId, project._id, 'estimated-active-time')
         await this.addAnalysis(courseId, project._id, 'file-ownership')
         await this.addAnalysis(courseId, project._id, 'files-by-size')
-        await this.addAnalysis(courseId, project._id, 'files-per-commit-number')
+        // await this.addAnalysis(courseId, project._id, 'files-per-commit-number')
+        await this.addAnalysis(courseId, project._id, 'files-per-operation-number')
         await this.addAnalysis(courseId, project._id, 'total-file-ownership')
         await this.addAnalysis(courseId, project._id, 'typical-commit-size')
 

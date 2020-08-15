@@ -30,7 +30,7 @@
       <br>
       <button mat-flat-button class="terminate-btn" (click)="cancel()">End Study</button>
       <button mat-button (click)="skipTask()" color="warn"><span>Skip Task</span></button>
-      <button mat-flat-button (click)="finishTask()"><span>Submit</span></button>
+      <button mat-flat-button (click)="finishTask()" [disabled]="groupNames === '' || groupNames === undefined"><span>Submit</span></button>
   </span>
 
   <span *ngIf="study.state.getValue().includes('_questionnaire')">

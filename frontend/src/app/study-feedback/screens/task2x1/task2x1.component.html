@@ -35,7 +35,7 @@
     <span class="study-action-bar" >
       <button mat-flat-button class="terminate-btn" (click)="cancel()">End Study</button>
       <button mat-button (click)="skipTask()" color="warn"><span>Skip Task</span></button>
-      <button mat-flat-button (click)="finishTask()"><span>Submit</span></button>
+      <button mat-flat-button (click)="finishTask()" [disabled]="isHavingIssues === undefined"><span>Submit</span></button>
     </span>
   </span>
 

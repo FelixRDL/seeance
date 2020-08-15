@@ -18,7 +18,7 @@
 </span>
 
 <span *ngIf="!study.state.getValue().includes('_reading')">
-  <p>1. Do you recognize indicators for the team having effectively modularized their application?</p>
+  <p>1. Do you recognize indicators for issues regarding the code modularization for this project?</p>
   <mat-radio-group class="mul_choice_item"
                    [(ngModel)]="isHavingIssues"
                    [disabled]="!study.state.getValue().includes('_working')">
@@ -33,7 +33,7 @@
     <span class="study-action-bar" >
       <button mat-flat-button class="terminate-btn" (click)="cancel()">End Study</button>
       <button mat-button (click)="skipTask()" color="warn"><span>Skip Task</span></button>
-      <button mat-flat-button (click)="finishTask()"><span>Submit</span></button>
+      <button mat-flat-button (click)="finishTask()" [disabled]="isHavingIssues === undefined"><span>Submit</span></button>
     </span>
   </span>
 

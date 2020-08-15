@@ -11,7 +11,7 @@ export class Task3x1Component implements OnInit {
 
   private taskId: string = '3x1'
 
-  isSeparationOk: string;
+  isHavingIssues: string;
   indicators: string;
   intervention: string;
   supportThroughTool: string;
@@ -31,7 +31,7 @@ export class Task3x1Component implements OnInit {
 
   proceed() {
     this.study.submitTaskComplete(this.taskId, {
-      isSeparationOk: this.isSeparationOk,
+      isHavingIssues: this.isHavingIssues,
       indicators: this.indicators,
       intervention: this.intervention,
       supportThroughTool: this.supportThroughTool,

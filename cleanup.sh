@@ -1,2 +1,2 @@
 #!/bin/bash
-docker system prune -a -y; docker volume prune -y; docker image prune -y;
+docker system prune -a; docker volume prune; docker image prune;

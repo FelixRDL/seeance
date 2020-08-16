@@ -68,7 +68,7 @@ export class Task3x2Component implements OnInit {
       task: this.taskId,
       timestamp: Date.now()
     })
-    this.study.proceedTo(`ueq_${this.taskId}`)
+    this.study.proceedTo('tasks')
   }
 
 

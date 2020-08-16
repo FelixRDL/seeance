@@ -93,6 +93,11 @@ export class StudyService {
     if(!this.isStudyActive()) {
       return
     }
+    if(type === 'taskSkipped') {
+      this.finishedTasks.push(event.task)
+      localStorage.setItem(this.lsKeyTasks, JSON.stringify(this.finishedTasks))
+    }
+
     event.timestamp = new Date().toISOString()
     this.httpClient.post(`/api/study/systemevents/${type}`,
       event,

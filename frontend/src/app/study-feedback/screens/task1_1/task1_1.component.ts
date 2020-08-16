@@ -68,9 +68,9 @@ export class Task1_1Component implements OnInit {
   skipTask(): void {
     this.study.submitSystemEvent('taskSkipped', {
       task: this.taskId,
-      timestamp: Date.now()
+      timestapTaskmp: Date.now()
     })
-    this.study.proceedTo(`ueq_${this.taskId}`)
+    this.study.proceedTo('tasks')
   }
 
 }

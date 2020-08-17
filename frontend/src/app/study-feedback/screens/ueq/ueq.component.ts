@@ -29,6 +29,7 @@ export class UeqComponent implements OnInit {
   proceed(): void {
     this.isSubmitting = true
     const result: any = {
+      task: this.study.state.getValue().split('_')[1],
       item1: this.item1,
       item2: this.item2,
       item3: this.item3,

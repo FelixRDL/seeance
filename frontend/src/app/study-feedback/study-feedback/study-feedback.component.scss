@@ -1,5 +1,4 @@
 :host {
-  background-color: rgba(255, 255, 255, 0.8);
   border: solid 1px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   z-index: 1;
@@ -7,6 +6,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 1);
 }
 
 

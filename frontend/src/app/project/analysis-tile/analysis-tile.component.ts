@@ -24,6 +24,7 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
   @ViewChild('iframe') iframe: ElementRef;
   hasDescription: boolean;
   hasSettings: boolean;
+  isLoaded: boolean;
 
   constructor(private ref: ChangeDetectorRef,
               private dialog: MatDialog) {
@@ -54,6 +55,14 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
 
   requestReload() {
     this.onReloadRequested.emit(this.model.analysis._id)
+    this.isLoaded = false
+    this.model = undefined
+  }
+
+  onLoad(event: any) {
+    if(this.model.html) {
+      this.isLoaded = true
+    }
   }
 
 

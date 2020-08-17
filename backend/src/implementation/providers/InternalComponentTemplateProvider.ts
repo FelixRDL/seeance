@@ -28,6 +28,7 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
             description: object.package.seeance.description,
             depends_on: object.package.seeance.depends_on,
             configSchema: object.package.seeance.config_schema,
+            layout: object.package.seeance.layout || {},
             category: object.package.seeance.category as string,
             module: object.module,
             package: object.package

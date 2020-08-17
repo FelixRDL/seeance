@@ -148,11 +148,11 @@ export class StudyController {
             'end_date': '2020-01-01+0000'
         })
         await this.addAnalysis(courseId, project._id, 'estimated-active-time')
+        await this.addAnalysis(courseId, project._id, 'total-file-ownership')
         await this.addAnalysis(courseId, project._id, 'file-ownership')
         await this.addAnalysis(courseId, project._id, 'files-by-size')
         await this.addAnalysis(courseId, project._id, 'files-per-commit-number')
         await this.addAnalysis(courseId, project._id, 'files-per-operation-number')
-        await this.addAnalysis(courseId, project._id, 'total-file-ownership')
         await this.addAnalysis(courseId, project._id, 'typical-commit-size')
 
 

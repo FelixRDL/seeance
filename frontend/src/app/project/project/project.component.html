@@ -22,7 +22,7 @@
           Nothing to see here... for now. Go on and <a (click)="addAnalysis()" [routerLink]="">add an analysis</a>!
         </span>
         <mat-grid-list [cols]="2" rowHeight="1:1">
-          <mat-grid-tile *ngFor="let v of tiles">
+          <mat-grid-tile *ngFor="let v of tiles" [colspan]="v.analysis.template.layout.colspan">
             <app-analysis-tile [model]="v" (onReloadRequested)="reloadAnalysis(v.analysis._id)"></app-analysis-tile>
           </mat-grid-tile>
         </mat-grid-list>

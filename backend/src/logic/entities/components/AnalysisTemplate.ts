@@ -1,6 +1,3 @@
-/**
- * Blueprint for
- */
 export interface AnalysisTemplate {
     name: string,
     description: string,
@@ -11,5 +8,6 @@ export interface AnalysisTemplate {
      */
     configSchema: any,
     module: any,
-    package: Object
+    package: Object,
+    layout?: any
 }

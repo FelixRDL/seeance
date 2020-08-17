@@ -29,7 +29,7 @@
 
         <br>
       </mat-tab>
-      <mat-tab label="Analyses & Preprocessors" class="analysis-preprocessor-label">
+      <mat-tab label="Analyses & Preprocessors" class="analysis-preprocessor-label" [disabled]="!isStudyFinished()">
         <br>
         <span class="mat-h3 page-description">Configure the analysis pipeline for this project here.</span>
         <br>

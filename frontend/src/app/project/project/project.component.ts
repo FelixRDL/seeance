@@ -17,7 +17,6 @@ import {ConfirmModalComponent} from '../../shared/modals/confirm.modal/confirm.m
 import {UserService} from '../../shared/user.service';
 import {AnalysisTile} from '../../shared/core/AnalysisTile';
 import {StudyService} from "../../shared/study.service";
-import {start} from "repl";
 
 @Component({
   selector: 'app-project',

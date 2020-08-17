@@ -1,5 +1,11 @@
 <mat-card class="pagecard">
   <mat-card-title>
+    <button mat-icon-button>
+      <mat-icon
+        id="back-button"
+        [routerLink]="['/courses', course?._id, 'projects', project?._id]"
+      >arrow_back_ios</mat-icon>
+    </button>
     <a [routerLink]="['/courses', course?._id]">{{course?.title}}</a>/
     <a [routerLink]="['/courses', course?._id, 'projects', project?._id]">{{project?.repository.owner.login}}
       /{{project?.repository.name}}</a>/

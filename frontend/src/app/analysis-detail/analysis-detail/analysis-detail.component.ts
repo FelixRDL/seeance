@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Analysis} from "../../shared/core/Analysis";
 import {ProjectService} from "../../shared/project.service";
 import {Project} from "../../shared/core/Project";
@@ -16,6 +16,11 @@ import {StudyService} from "../../shared/study.service";
 })
 export class AnalysisDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('vis') iframe: ElementRef;
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+    this.router.navigate(['/courses', this.course?._id, 'projects', this.project?._id])
+    event.stopPropagation()
+  }
   analysis: Analysis;
   hasConfig: boolean = false;
   project: Project;
@@ -24,6 +29,7 @@ export class AnalysisDetailComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private projects: ProjectService,
     private courses: CourseService,
     private dialog: MatDialog,

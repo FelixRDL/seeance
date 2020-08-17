@@ -2,13 +2,14 @@
   ({{study.getNumberOfAbsolvedTasks()+1}}/{{study.getNumberOfTotalTasks()}})</h1>
 <p>
   <i>
-    The course concept of Software Engineering II encourages student groups to distribute their development effort and
-    determine members responsible for certain aspects or modules of the project.
+    The course concept of Software Engineering II encourages student groups to distribute their development effort among
+    the team members. Each team member should be responsible for a certain module or portion of the final application.
   </i>
 </p>
 
 <p>
-  Please verify, whether team <b>{{projectName}}</b> has effectively separated their project portions efforts among their members.
+  Please verify, whether team <b>{{projectName}}</b> has effectively distributed development responsibilities among
+  their members.
 </p>
 
 <span class="study-action-bar" *ngIf="study.state.getValue().includes('_reading')">

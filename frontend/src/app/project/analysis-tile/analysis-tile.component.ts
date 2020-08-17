@@ -12,6 +12,7 @@ import {
 import {AnalysisTile} from "../../shared/core/AnalysisTile";
 import {MatDialog} from "@angular/material/dialog";
 import {InfoModalComponent} from "../../shared/modals/info.modal/info.modal.component";
+import {StudyService} from "../../shared/study.service";
 
 @Component({
   selector: 'app-analysis-tile',
@@ -27,7 +28,8 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
   isLoaded: boolean;
 
   constructor(private ref: ChangeDetectorRef,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private studyService: StudyService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,6 +66,10 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
     if(this.model.html) {
       this.isLoaded = true
     }
+  }
+
+  isStudyFinished(): boolean {
+    return this.studyService.isStudyFinished()
   }
 
 

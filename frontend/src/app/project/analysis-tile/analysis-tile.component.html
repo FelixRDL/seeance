@@ -4,7 +4,8 @@
               '/courses', model?.analysis.assignedCourse,
               'projects', model?.analysis.assignedProject,
               'analyses', model?.analysis._id,
-              'configure']" *ngIf="model?.html && hasSettings">
+              'configure']" *ngIf="model?.html && hasSettings"
+              [disabled]="!isStudyFinished()">
         <mat-icon [id]="'settings.'+model?.analysis.assignedProject">settings</mat-icon>
       </button>
       <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="model?.html && hasDescription" (click)="showInfo()">
@@ -12,7 +13,7 @@
       </button>
       <button class="settings-button" mat-icon-button aria-label="Settings Icon" *ngIf="model?.html" [routerLink]="[
               'analyses', model?.analysis._id]">
-        <mat-icon [id]="'detail.'+model?.analysis.assignedProject">visibility</mat-icon>
+        <mat-icon [id]="'detail.'+model?.analysis.assignedProject">fullscreen</mat-icon>
       </button>
     </span>
     <span class="center">

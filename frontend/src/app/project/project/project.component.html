@@ -18,9 +18,17 @@
 
     <mat-tab-group>
       <mat-tab label="Overview" class="overview-label">
-        <span class="mat-h3" *ngIf="tiles?.length < 1">
+        <span class="mat-h3" *ngIf="tiles?.length < 1" && tiles>
           Nothing to see here... for now. Go on and <a (click)="addAnalysis()" [routerLink]="">add an analysis</a>!
         </span>
+
+        <span id="infotext"  *ngIf="tiles?.length >= 1" >
+          <mat-icon id="infoicon">info</mat-icon>
+          <span class="mat-h1"style="padding-top:18px;">
+            Hover on the analyses to reveal further information
+          </span>
+        </span>
+
         <mat-grid-list [cols]="2" rowHeight="1:1">
           <mat-grid-tile *ngFor="let v of tiles" [colspan]="v.analysis.template.layout.colspan">
             <app-analysis-tile [model]="v" (onReloadRequested)="reloadAnalysis(v.analysis._id)"></app-analysis-tile>

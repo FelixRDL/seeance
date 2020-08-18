@@ -6,3 +6,19 @@ mat-tab-group {
 mat-card > mat-divider {
   margin-bottom: 0px;
 }
+
+#infoicon {
+  font-size: 48px;
+  padding-right: 48px;
+  position: relative;
+  top: 10px;
+  padding-left: 12px;
+}
+
+#infotext {
+  color: rgba(0, 0, 0, 0.55);
+  border: rgba(0, 0, 0, 0.25) solid 1px;
+  background-color: rgba(0, 0, 0, 0.025);
+  height: 70px;
+  display: flex;
+}

@@ -5,10 +5,6 @@ import * as fs from "fs";
 export class StudyProvider {
 
     constructor() {
-        StudyEventModel.find({}).then((data: any[]) => {
-            fs.writeFileSync('/usr/log.json', JSON.stringify(data, undefined, 2))
-            console.log(`Wrote ${data.length} items`)
-        })
     }
 
     storeEvent(author: string, eventType: string, data: any) {
@@ -16,6 +12,13 @@ export class StudyProvider {
             author: author,
             type: eventType,
             value: data
+        })
+    }
+
+    dumpLog() {
+        StudyEventModel.find({}).then((data: any[]) => {
+            fs.writeFileSync('/usr/log.json', JSON.stringify(data, undefined, 2))
+            console.log(`Wrote ${data.length} items to log`)
         })
     }
 }

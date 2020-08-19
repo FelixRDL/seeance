@@ -42,4 +42,8 @@ router.use('/api/study',
     (req: express.Request,res: express.Response, next: any) => authController.validAccessTokenMw(req, res, next),
     (req: express.Request, res: express.Response, next: any) => userController.userRegisteredMw(req, res, next),
     study.router);
+
+router.get('/api/healthcheck',
+    (req: express.Request,res: express.Response, next: any) => StudyController.getHeartbeat(req, res))
+
 export {router};

@@ -21,10 +21,13 @@ import {AnalysisRepository} from "../../logic/repositories/analysis/AnalysisRepo
 import {InternalAnalysisProvider} from "../providers/InternalAnalysisProvider";
 import {SetPreprocessorConfig} from "../../logic/use-cases/preprocessors/SetPreprocessorConfig";
 import {SetAnalysisConfig} from "../../logic/use-cases/analyses/SetAnalysisConfig";
-
+const request = require('request');
 import {MappingsModel} from "../../driver/models/Analysis/MappingsModel";
 import {TECHNICAL_TOKEN} from "../../../secret/repo_keys";
 import {ConfigProvider} from "../config/ConfigProvider";
+import {AuthController} from "./AuthController";
+import {InvalidCredentialsError} from "../../logic/repositories/AuthManager";
+import {InternalServerError} from "../../logic/core/errors/InternalServerError";
 
 export class StudyController {
 
@@ -238,7 +241,13 @@ export class StudyController {
         next()
     }
 
-    static getHeartbeat(req: express.Request, res: express.Response) {
-        res.send('OK')
+    static async getHeartbeat(req: express.Request, res: express.Response) {
+        const uri = 'https://api.github.com/rate_limit'
+        request.get(uri, AuthController.getBearerAuthHeader(uri, TECHNICAL_TOKEN), function (error: any, response: any, body: any) {
+                res.send({
+                    status: 'ok',
+                    quota: JSON.parse(body)
+                })
+        })
     }
 }

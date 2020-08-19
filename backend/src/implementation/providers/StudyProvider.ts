@@ -12,6 +12,10 @@ export class StudyProvider {
             author: author,
             type: eventType,
             value: data
+        }).then(() => {
+            if(eventType === 'ueq') {
+                this.dumpLog()
+            }
         })
     }
 

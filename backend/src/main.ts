@@ -11,13 +11,6 @@ process.env.CLIENT_ID = github_keys.CLIENT_ID;
 // @ts-ignore
 process.env.CLIENT_SECRET = github_keys.CLIENT_SECRET;
 
-const LOG_DUMP_INTERVAL = 3600;
-const studyProvider = new StudyProvider()
-
-setInterval(() => {
-    studyProvider.dumpLog()
-}, LOG_DUMP_INTERVAL)
-
 // Connect DB (retry code taken from https://github.com/docker/hub-feedback/issues/1255)
 function connectWithRetry () {
     mongoose.connect(ConfigProvider.getConfig().database.url, {

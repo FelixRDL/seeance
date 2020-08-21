@@ -4,11 +4,6 @@
     seeance</a>
   <span class="fill-remaining-space"></span>
 
-  <button mat-button [attr.href]="'https://seeance.de/login/github'"  *ngIf="!authenticatedUser" id="header.loginregisterbutton">
-    <span>Login/Register via Github</span>
-    <mat-icon>person</mat-icon>
-  </button>
-
   <button mat-button *ngIf="authenticatedUser" [matMenuTriggerFor]="appMenu" id="header.appmenubutton">
     <span>Logged in as {{authenticatedUser?.login}}</span>
     <img [src]="authenticatedUser?.avatarImageUrl" class="round-profile-picture" id="header.appmenubuttonimage">

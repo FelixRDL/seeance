@@ -13,7 +13,7 @@ export class StudyProvider {
             type: eventType,
             value: data
         }).then(() => {
-            if(eventType === 'ueq') {
+            if(eventType === 'ueq' || eventType === 'notes') {
                 this.dumpLog()
             }
         })

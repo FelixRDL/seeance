@@ -12,11 +12,28 @@
   <input matInput type="string" [(ngModel)]="role">
 </mat-form-field>
 
-<mat-label>How big is the team size in courses, that you are assisting (1 if single assignments)?</mat-label>
+<mat-label>How big is the team size in courses, that you are assisting?</mat-label>
 <mat-form-field>
   <mat-label>Members per Group</mat-label>
   <input matInput type="string" [(ngModel)]="teamSize">
 </mat-form-field>
+
+<mat-label>Do you currently use tools to facilitate assisting your students within your courses?</mat-label>
+<mat-radio-group class="mul_choice_item" [(ngModel)]="isUsingTools">
+  <mat-radio-button value="yes">yes</mat-radio-button>
+  <mat-radio-button value="no">no</mat-radio-button>
+</mat-radio-group>
+
+<mat-label>How familiar are you with the analysis of data from version control systems?</mat-label>
+<mat-radio-group class="mul_choice_item" [(ngModel)]="isExperiencedWithGitAnalysis">
+  <p>Not familiar at all</p>
+  <mat-radio-button value="1"></mat-radio-button>
+  <mat-radio-button value="2"></mat-radio-button>
+  <mat-radio-button value="3"></mat-radio-button>
+  <mat-radio-button value="4"></mat-radio-button>
+  <mat-radio-button value="5"></mat-radio-button>
+  <p>Highly familiar</p>
+</mat-radio-group>
 
 <mat-label>Which programming languages and/or paradigms do you teach?</mat-label>
 <mat-form-field>

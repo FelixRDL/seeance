@@ -12,6 +12,8 @@ export class DemographicsComponent implements OnInit {
   teamSize: number;
   learningContent: string;
   role: string;
+  isUsingTools: boolean;
+  isExperiencedWithGitAnalysis: boolean;
 
   isSubmitting = false
 
@@ -29,7 +31,9 @@ export class DemographicsComponent implements OnInit {
       timeInDomain: this.timeInDomain,
       teamSize: this.teamSize,
       learningContent: this.learningContent,
-      role: this.role
+      role: this.role,
+      isUsingTools: this.isUsingTools,
+      isExperiencedWithGitAnalysis: this.isExperiencedWithGitAnalysis
     }).subscribe(() => {
       this.study.proceedTo('tasks');
     });

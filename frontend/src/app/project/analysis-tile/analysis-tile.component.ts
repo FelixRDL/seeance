@@ -27,6 +27,8 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
   hasSettings: boolean;
   isLoaded: boolean;
 
+  private tsAnalysisBegin: number;
+
   constructor(private ref: ChangeDetectorRef,
               private dialog: MatDialog,
               private studyService: StudyService) {
@@ -34,6 +36,11 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.model) {
+      this.studyService.submitSystemEvent('buildAnalysisBegin', {
+        analysisId: this.model.analysis.template.name,
+        projectId: this.model.analysis.assignedProject
+    })
+      this.tsAnalysisBegin = new Date().getTime()
       this.hasSettings = Object.keys(changes.model.currentValue.analysis.template.configSchema).length > 0;
       this.hasDescription = changes.model.currentValue.analysis.template.description !== '';
     }
@@ -65,6 +72,11 @@ export class AnalysisTileComponent implements OnChanges, AfterViewInit {
   onLoad(event: any) {
     if(this.model.html) {
       this.isLoaded = true
+      this.studyService.submitSystemEvent('buildAnalysisComplete', {
+        analysisId: this.model.analysis.template.name,
+        projectId: this.model.analysis.assignedProject,
+        time: new Date().getTime() - this.tsAnalysisBegin
+      })
     }
   }
 

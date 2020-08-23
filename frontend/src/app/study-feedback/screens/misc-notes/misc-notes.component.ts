@@ -25,7 +25,10 @@ export class MiscNotesComponent implements OnInit {
   proceed(): void {
     this.isSubmitting = true
     this.study.submitNotes({
-      notes: this.notes
+      notes: this.notes,
+      wouldUseInClass: this.wouldUseInClass,
+      closenessToReality: this.closenessToReality,
+      benefit: this.benefit
     }).subscribe(() => {
       this.study.proceedTo('thanks');
     })

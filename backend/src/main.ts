@@ -14,7 +14,9 @@ process.env.CLIENT_SECRET = github_keys.CLIENT_SECRET;
 // Connect DB (retry code taken from https://github.com/docker/hub-feedback/issues/1255)
 function connectWithRetry () {
     mongoose.connect(ConfigProvider.getConfig().database.url, {
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        user: ConfigProvider.getConfig().database.username,
+        pass: ConfigProvider.getConfig().database.password
     }).then(function() {
         console.log("Connected DB")
     });

@@ -3,7 +3,9 @@
     "port": 3000
   },
   "database": {
-    "url": "mongodb://database:27017/"
+    "url": "mongodb://database:27429/",
+    "username": "application",
+    "password": "changeme42"
   },
   "study": {
     "active": true,

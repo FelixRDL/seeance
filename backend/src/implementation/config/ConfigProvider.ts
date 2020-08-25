@@ -17,7 +17,9 @@ export interface AppConfig {
         port: number
     },
     database: {
-        url: string
+        url: string,
+        username: string,
+        password: string
     },
     study: {
         active: boolean,

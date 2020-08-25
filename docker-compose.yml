@@ -37,6 +37,8 @@ services:
       - /usr/app/node_modules
 
   database:
-    image: mongo
-    ports:
-      - "27017:27017"
+    image: mongo:latest
+    command: mongod --port 27429
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=application
+      - MONGO_INITB_ROOT_PASSWORD=changeme42

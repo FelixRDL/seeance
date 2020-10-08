@@ -1,19 +1,18 @@
 version: '3'
 
 services:
-  nginx-dev:
+  nginx-static:
     image: nginx:latest
     ports:
       - "443:443"
-    container_name: nginx-dev
+    container_name: nginx-static
     volumes:
-      - ./nginx-dev/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx-static/default.conf:/etc/nginx/conf.d/default.conf
+      - ./static:/var/www/static
       - /etc/letsencrypt/live:/etc/letsencrypt/live # current certificate
       - /etc/letsencrypt/archive:/etc/letsencrypt/archive # all certificates (symlinks from /live points here)
-      - ./static:/var/www/static
     depends_on:
-      - backend
-      - frontend
+        - backend
 
   backend:
     build: './backend'
@@ -26,15 +25,6 @@ services:
       - /usr/app/tmp
     depends_on:
       - database
-
-  frontend:
-    build: './frontend'
-    command: 'npm start'
-    ports:
-      - '4200:4200'
-    volumes:
-      - ./frontend/:/usr/app
-      - /usr/app/node_modules
 
   database:
     image: mongo:latest

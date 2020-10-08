@@ -1,1 +1,53 @@
-# cogitation - an extensible repository analysis platform for software engineering education
+# SEEance - an extensible repository analysis tool for facilitating feedback processes in software engineering education
+SEEance offers a chance for inspecting student github repositories via a set of analyses taken from related research 
+work. The analyses help you understand better, what is going on within the projects and visualize potential problems of 
+your students for better and timely intervention. 
+
+## Rollout 
+At its current stage, you need to rollout and host the Webapplication at your organization. The following information
+give you a hint on how to achieve this. 
+
+## Requirements
+- Installation of Docker (get it at https://www.docker.com/products/docker-desktop)
+- A registered Github Application (read more on this topic here https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
+- A linux based server
+- An installation of NodeJS, NPM and Angular
+
+## Installation
+
+### Setting up the Github App
+- Set your Client Secret and Client ID in the `backend/secret/github_api.ts` file
+- Update the Redirect URL within your Github Application
+
+### Setting up Certificates
+- Generate SSL Certificates for the Domain of your future application via Lets Encrypt (https://letsencrypt.org/de/)
+- The certificates should be stored at `/etc/letsencrypt`
+- Copy the certificates to `nginx-dev`
+- Copy the certificates to `nginx-static`
+
+- `docker-compose up`
+
+### Database Security
+- You should change the passwords for docker in the `dcss.yml` and the `docker-compose.yml` 
+- Adapt the password in `backend/config.json` accordingly
+
+### Add Custom Repositories
+- Add the URLs to your custom repository `conf.json`
+
+## Starting Up (Dev Version)
+The dev version allows you to make changes on SEEance and instantly get your changes display. It is a bit slower, than the 
+static version.
+
+- Use `docker-compose up` to start all services
+
+## Starting Up (Static/Productive Version)
+The productive version allows you to serve a compiled and optimized version of the application. It requires some preparation 
+first:
+
+### Compile the frontend 
+- Navigate into the frontend folder
+- Install dependencies (`npm i`)
+- Build the project (`ng build --prod`)
+- Move the contents of `frontend/dist/seeance-frontend` into the `static` folder
+
+- User `docker-compose -f dcss.yml up` to start all services

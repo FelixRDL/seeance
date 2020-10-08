@@ -1,0 +1,3 @@
+const CLIENT_ID: string = "YOUR_CLIENT_ID";
+const CLIENT_SECRET: string = "CLIENT_SECRET";
+export {CLIENT_ID, CLIENT_SECRET};

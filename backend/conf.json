@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": 3000
+  },
+  "database": {
+    "url": "mongodb://database:27429/",
+    "username": "application",
+    "password": "changeme42"
+  },
+  "customRepos": [],
+  "logging": true
+}

@@ -6,6 +6,7 @@ import {AnalysisTemplate} from "../../logic/entities/components/AnalysisTemplate
 import {DatasourceTemplateRepository} from "../../logic/repositories/analysis/DatasourceTemplateRepository";
 import {DatasourceTemplate} from "../../logic/entities/components/DatasourceTemplate";
 import {PluginNotFoundError} from "../../logic/use-cases/analyses/CreateAnalysis";
+import {ConfigProvider} from "../config/ConfigProvider";
 const ComponentRepository = require('seeance-analysis-core').ComponentProvider
 
 class InternalComponentTemplateProvider implements AnalysisTemplateRepository, PreprocessorTemplateRepository, DatasourceTemplateRepository {
@@ -14,7 +15,7 @@ class InternalComponentTemplateProvider implements AnalysisTemplateRepository, P
 
     constructor() {
         this.repository = ComponentRepository({
-            customRepositories: [],
+            customRepositories: ConfigProvider.getConfig().customRepos,
             reloadOnly: false
         })
         this.repository.init().then(() => {

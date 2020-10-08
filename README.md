@@ -12,6 +12,9 @@ give you a hint on how to achieve this.
 - A registered Github Application (read more on this topic here https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
 - A linux based server
 - An installation of NodeJS, NPM and Angular
+- An installation of Docker and Docker-Compose
+- An installation of Letsencrypt NGINX Certbot für Linux (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html) 
+- A domain for your application
 
 ## Installation
 
@@ -20,7 +23,7 @@ give you a hint on how to achieve this.
 - Update the Redirect URL within your Github Application
 
 ### Setting up Certificates
-- Generate SSL Certificates for the Domain of your future application via Lets Encrypt (https://letsencrypt.org/de/)
+- Use the certbot nginx-workflow to generate certificates `sudo certbot --nginx` (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html)
 - The certificates should be stored at `/etc/letsencrypt`
 - Copy the certificates to `nginx-dev`
 - Copy the certificates to `nginx-static`
@@ -32,13 +35,13 @@ give you a hint on how to achieve this.
 - Adapt the password in `backend/config.json` accordingly
 
 ### Add Custom Repositories
-- Add the URLs to your custom repository `conf.json`
+- Add the URLs to your custom repositories to `conf.json`
 
 ## Starting Up (Dev Version)
 The dev version allows you to make changes on SEEance and instantly get your changes display. It is a bit slower, than the 
 static version.
 
-- Use `docker-compose up` to start all services
+- Use `sudo docker-compose up` to start all services
 
 ## Starting Up (Static/Productive Version)
 The productive version allows you to serve a compiled and optimized version of the application. It requires some preparation 
@@ -50,4 +53,4 @@ first:
 - Build the project (`ng build --prod`)
 - Move the contents of `frontend/dist/seeance-frontend` into the `static` folder
 
-- User `docker-compose -f dcss.yml up` to start all services
+- User `sudo docker-compose -f dcss.yml up` to start all services

@@ -13,7 +13,7 @@ give you a hint on how to achieve this.
 - A linux based server
 - An installation of NodeJS, NPM and Angular
 - An installation of Docker and Docker-Compose
-- An installation of Letsencrypt NGINX Certbot für Linux (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html) 
+- An installation of Letsencrypt Certbot für Linux (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html) 
 - A domain for your application
 
 ## Installation
@@ -23,12 +23,13 @@ give you a hint on how to achieve this.
 - Update the Redirect URL within your Github Application
 
 ### Setting up Certificates
-- Use the certbot nginx-workflow to generate certificates `sudo certbot --nginx` (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html)
+- Use the certbot nginx-workflow to generate certificates ` sudo certbot certonly --standalone --preferred-challenges http -d <DOMAINNAME> -d <DOMAINNAME>` (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html)
 - The certificates should be stored at `/etc/letsencrypt`
 - Copy the certificates to `nginx-dev`
 - Copy the certificates to `nginx-static`
 
-- `docker-compose up`
+(Read a more detailed description here: https://phip1611.de/2020/02/programmierung-und-skripte/running-nginx-with-lets-encrypt-certificates-outside-of-the-container/)
+
 
 ### Database Security
 - You should change the passwords for docker in the `dcss.yml` and the `docker-compose.yml` 

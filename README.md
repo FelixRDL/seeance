@@ -10,6 +10,8 @@ give you a hint on how to achieve this.
 ## Requirements
 - Installation of Docker (get it at https://www.docker.com/products/docker-desktop)
 - A registered Github Application (read more on this topic here https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
+    - Permission to READ all user profile data
+    - FULL CONTROL of private repositories
 - A linux based server
 - An installation of NodeJS, NPM and Angular
 - An installation of Docker and Docker-Compose
@@ -20,9 +22,10 @@ give you a hint on how to achieve this.
 
 ### Setting up the Github App
 - Set your Client Secret and Client ID in the `backend/secret/github_api.ts` file
-- Update the Redirect URL within your Github Application
+- Update the Redirect URL for github to `<DOMAINNAME>/auth/callback`
 
 ### Setting up Certificates
+- Make sure, that port 80 of your system is not in usage for the duration of the certification
 - Use the certbot nginx-workflow to generate certificates ` sudo certbot certonly --standalone --preferred-challenges http -d <DOMAINNAME> -d <DOMAINNAME>` (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html)
 - The certificates should be stored at `/etc/letsencrypt`
 - Copy the certificates to `nginx-dev`

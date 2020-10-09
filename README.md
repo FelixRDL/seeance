@@ -9,7 +9,7 @@ give you a hint on how to achieve this.
 
 ## Requirements
 - Installation of Docker (get it at https://www.docker.com/products/docker-desktop)
-- A registered Github Application (read more on this topic here https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
+- A registered Github OAuth-Application (read more on this topic here https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
     - Permission to READ all user profile data
     - FULL CONTROL of private repositories
 - A linux based server

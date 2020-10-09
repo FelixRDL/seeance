@@ -28,9 +28,9 @@ give you a hint on how to achieve this.
 - Make sure, that port 80 of your system is not in usage for the duration of the certification
 - Use the certbot nginx-workflow to generate certificates ` sudo certbot certonly --standalone --preferred-challenges http -d <DOMAINNAME> -d <DOMAINNAME>` (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html)
 - The certificates should be stored at `/etc/letsencrypt`
-- Copy the certificates to `nginx-dev`
-- Copy the certificates to `nginx-static`
-
+- Now adapt the paths to the certs in `nginx-dev/default.conf` and `nginx-static/default.conf`
+    - Fill in your domainname at the signed place for the keys ssl_certificate and ssl_certificate_key 
+    
 (Read a more detailed description here: https://phip1611.de/2020/02/programmierung-und-skripte/running-nginx-with-lets-encrypt-certificates-outside-of-the-container/)
 
 

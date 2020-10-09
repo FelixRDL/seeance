@@ -30,7 +30,7 @@ give you a hint on how to achieve this.
 - The certificates should be stored at `/etc/letsencrypt`
 - Now adapt the paths to the certs in `nginx-dev/default.conf` and `nginx-static/default.conf`
     - Fill in your domainname at the signed place for the keys ssl_certificate and ssl_certificate_key 
-    
+    - Fill in your domainname in the server_name fields
 (Read a more detailed description here: https://phip1611.de/2020/02/programmierung-und-skripte/running-nginx-with-lets-encrypt-certificates-outside-of-the-container/)
 
 

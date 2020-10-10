@@ -37,7 +37,10 @@ export class GithubAuthManager implements AuthManager {
                 headers: {
                     'User-Agent': 'Client',
                     'Authorization': 'Basic ' +Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64')
-                }
+                },
+                body: JSON.stringify({
+                    access_token: token
+                })
             };
             request(req, function (error: any, response: any, body: any){
                 if(error) {
@@ -67,7 +70,9 @@ export class GithubAuthManager implements AuthManager {
                     'User-Agent': 'Client',
                     'Authorization': 'Basic ' +Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64')
                 },
-                access_token: token
+                body: JSON.stringify({
+                    access_token: token
+                })
             };
             request(req, function (error: any, response: any, body: any){
                 console.log(response)

@@ -8,14 +8,14 @@ At its current stage, you need to rollout and host the Webapplication at your or
 give you a hint on how to achieve this. 
 
 ## Requirements
-- Installation of Docker (get it at https://www.docker.com/products/docker-desktop)
+- An Installation of Docker (get it at https://www.docker.com/products/docker-desktop)
 - A registered Github OAuth-Application (read more on this topic here https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
     - Permission to READ all user profile data
     - FULL CONTROL of private repositories
 - A linux based server
 - An installation of NodeJS, NPM and Angular
 - An installation of Docker and Docker-Compose
-- An installation of Letsencrypt Certbot für Linux (https://certbot.eff.org/lets-encrypt/debianstretch-nginx.html) 
+- An installation of Letsencrypt Certbot für Linux (https://certbot.eff.org/) 
 - A domain for your application
 
 ## Installation

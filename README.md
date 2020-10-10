@@ -21,6 +21,7 @@ give you a hint on how to achieve this.
 ## Installation
 
 ### Setting up the Github App
+- Clone this repository to your server
 - Set your Client Secret and Client ID in the `backend/secret/github_api.ts` file
 - Update the Redirect URL for the github OAuth-App to `<DOMAINNAME>/auth/callback`
 

@@ -22,7 +22,7 @@ give you a hint on how to achieve this.
 
 ### Setting up the Github App
 - Set your Client Secret and Client ID in the `backend/secret/github_api.ts` file
-- Update the Redirect URL for github to `<DOMAINNAME>/auth/callback`
+- Update the Redirect URL for the github OAuth-App to `<DOMAINNAME>/auth/callback`
 
 ### Setting up Certificates
 - Make sure, that port 80 of your system is not in usage for the duration of the certification
